@@ -1,41 +1,141 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SheetPage } from "@/components/practice-sheet/SheetPage";
 import { getDictionary } from "@/lib/i18n";
 import {
-  MAX_CHARACTERS,
-  MAX_TRACE,
-  paginate,
+  BOX_SIZES,
+  GRID_COLORS,
+  TRACE_COLORS,
+  buildPages,
+  getLayout,
   parseCharacters,
+  type BoxSizeName,
+  type GridColorName,
   type GridType,
+  type SheetOptions,
+  type TraceShadeName,
 } from "@/lib/practiceSheet";
 
 const dict = getDictionary("vi");
 
 const SAMPLE = "永和九年岁在癸丑暮春之初";
 
+const STORAGE_KEY = "practice-sheet-options";
+
+type StoredOptions = {
+  gridType: GridType;
+  traceCount: number;
+  showPinyin: boolean;
+  dedupe: boolean;
+  gridColor: GridColorName;
+  traceShade: TraceShadeName;
+  boxSize: BoxSizeName;
+  linesPerChar: number;
+};
+
+const DEFAULTS: StoredOptions = {
+  gridType: "mizi",
+  traceCount: 8,
+  showPinyin: true,
+  dedupe: false,
+  gridColor: "red",
+  traceShade: "medium",
+  boxSize: "medium",
+  linesPerChar: 1,
+};
+
 export default function PracticeSheetPage() {
   const [text, setText] = useState(SAMPLE);
-  const [gridType, setGridType] = useState<GridType>("mizi");
-  const [traceCount, setTraceCount] = useState(8);
-  const [showPinyin, setShowPinyin] = useState(true);
-  const [dedupe, setDedupe] = useState(false);
+  const [gridType, setGridType] = useState<GridType>(DEFAULTS.gridType);
+  const [traceCount, setTraceCount] = useState(DEFAULTS.traceCount);
+  const [showPinyin, setShowPinyin] = useState(DEFAULTS.showPinyin);
+  const [dedupe, setDedupe] = useState(DEFAULTS.dedupe);
+  const [gridColor, setGridColor] = useState<GridColorName>(DEFAULTS.gridColor);
+  const [traceShade, setTraceShade] =
+    useState<TraceShadeName>(DEFAULTS.traceShade);
+  const [boxSize, setBoxSize] = useState<BoxSizeName>(DEFAULTS.boxSize);
+  const [linesPerChar, setLinesPerChar] = useState(DEFAULTS.linesPerChar);
   const [error, setError] = useState("");
+
+  // Hydrate persisted options on mount (SSR-safe).
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = { ...DEFAULTS, ...JSON.parse(raw) } as StoredOptions;
+      setGridType(saved.gridType);
+      setTraceCount(saved.traceCount);
+      setShowPinyin(saved.showPinyin);
+      setDedupe(saved.dedupe);
+      setGridColor(saved.gridColor);
+      setTraceShade(saved.traceShade);
+      setBoxSize(saved.boxSize);
+      setLinesPerChar(saved.linesPerChar);
+    } catch {
+      /* ignore corrupt storage */
+    }
+  }, []);
+
+  const layout = useMemo(() => getLayout(boxSize), [boxSize]);
+
+  // Keep the trace slider within the valid range for the current box size.
+  useEffect(() => {
+    setTraceCount((c) => Math.min(c, layout.maxTrace));
+  }, [layout.maxTrace]);
+
+  // Persist options whenever they change.
+  useEffect(() => {
+    try {
+      const data: StoredOptions = {
+        gridType,
+        traceCount,
+        showPinyin,
+        dedupe,
+        gridColor,
+        traceShade,
+        boxSize,
+        linesPerChar,
+      };
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch {
+      /* ignore */
+    }
+  }, [
+    gridType,
+    traceCount,
+    showPinyin,
+    dedupe,
+    gridColor,
+    traceShade,
+    boxSize,
+    linesPerChar,
+  ]);
 
   const characters = useMemo(
     () => parseCharacters(text, dedupe),
     [text, dedupe],
   );
-  const tooMany = characters.length > MAX_CHARACTERS;
+  const tooMany = characters.length > 300;
   const pages = useMemo(
-    () => paginate(tooMany ? [] : characters),
-    [characters, tooMany],
+    () =>
+      tooMany
+        ? []
+        : buildPages(characters, linesPerChar, layout.rowsPerPage),
+    [characters, linesPerChar, layout.rowsPerPage, tooMany],
   );
-  const options = { gridType, traceCount, showPinyin };
+  const options: SheetOptions = {
+    gridType,
+    traceCount,
+    showPinyin,
+    gridColor,
+    traceShade,
+    boxSize,
+    linesPerChar,
+  };
 
   async function handleFile(file: File | undefined) {
     setError("");
@@ -84,8 +184,7 @@ export default function PracticeSheetPage() {
                 />
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-sm text-ink-500">
                   <span>
-                    {dict.practiceSheet.count}: {characters.length} /{" "}
-                    {MAX_CHARACTERS}
+                    {dict.practiceSheet.count}: {characters.length} / 300
                   </span>
                   {tooMany && (
                     <span className="text-red-600">
@@ -125,16 +224,107 @@ export default function PracticeSheetPage() {
 
                   <label className="flex flex-col gap-1">
                     <span className="font-medium">
+                      {dict.practiceSheet.boxSize}
+                    </span>
+                    <select
+                      value={boxSize}
+                      onChange={(e) =>
+                        setBoxSize(e.target.value as BoxSizeName)
+                      }
+                      className="rounded-lg border border-ink-900/10 px-3 py-2"
+                    >
+                      {(Object.keys(BOX_SIZES) as BoxSizeName[]).map((k) => (
+                        <option key={k} value={k}>
+                          {dict.practiceSheet.sizes[k]}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <label className="flex flex-col gap-1">
+                    <span className="font-medium">
+                      {dict.practiceSheet.traceShade}
+                    </span>
+                    <select
+                      value={traceShade}
+                      onChange={(e) =>
+                        setTraceShade(e.target.value as TraceShadeName)
+                      }
+                      className="rounded-lg border border-ink-900/10 px-3 py-2"
+                    >
+                      {(Object.keys(TRACE_COLORS) as TraceShadeName[]).map(
+                        (k) => (
+                          <option key={k} value={k}>
+                            {dict.practiceSheet.shades[k]}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                  </label>
+
+                  <label className="flex flex-col gap-1">
+                    <span className="font-medium">
                       {dict.practiceSheet.traceCount}: {traceCount}
                     </span>
                     <input
                       type="range"
                       min={0}
-                      max={MAX_TRACE}
+                      max={layout.maxTrace}
                       value={traceCount}
                       onChange={(e) => setTraceCount(Number(e.target.value))}
                     />
                   </label>
+
+                  <label className="flex flex-col gap-1">
+                    <span className="font-medium">
+                      {dict.practiceSheet.linesPerChar}: {linesPerChar}
+                    </span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={6}
+                      value={linesPerChar}
+                      onChange={(e) =>
+                        setLinesPerChar(
+                          Math.max(1, Math.min(6, Number(e.target.value) || 1)),
+                        )
+                      }
+                      className="rounded-lg border border-ink-900/10 px-3 py-2"
+                    />
+                  </label>
+
+                  <div className="flex flex-col gap-1 sm:col-span-2">
+                    <span className="font-medium">
+                      {dict.practiceSheet.gridColor}
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {(Object.keys(GRID_COLORS) as GridColorName[]).map(
+                        (name) => {
+                          const c = GRID_COLORS[name];
+                          const active = gridColor === name;
+                          return (
+                            <button
+                              key={name}
+                              type="button"
+                              onClick={() => setGridColor(name)}
+                              className={
+                                "flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition " +
+                                (active
+                                  ? "border-brand-500 ring-2 ring-brand-400"
+                                  : "border-ink-900/10 hover:border-ink-900/30")
+                              }
+                            >
+                              <span
+                                className="inline-block h-4 w-4 rounded-sm"
+                                style={{ backgroundColor: c.border }}
+                              />
+                              {dict.practiceSheet.colors[name]}
+                            </button>
+                          );
+                        },
+                      )}
+                    </div>
+                  </div>
 
                   <div className="flex flex-col justify-end gap-2">
                     <label className="flex items-center gap-2">
@@ -186,10 +376,10 @@ export default function PracticeSheetPage() {
             </div>
 
             <div className="sheet-print-area mt-4 flex flex-col items-center gap-6 print:mt-0 print:gap-0">
-              {pages.map((pageChars, i) => (
+              {pages.map((rows, i) => (
                 <SheetPage
                   key={i}
-                  characters={pageChars}
+                  rows={rows}
                   options={options}
                   pageNumber={i + 1}
                   pageCount={pages.length}
