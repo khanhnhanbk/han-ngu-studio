@@ -9,16 +9,17 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { href: "#features", label: dict.nav.features },
-    { href: "#how-it-works", label: dict.nav.howItWorks },
-    { href: "#for-teachers", label: dict.nav.forTeachers },
-    { href: "#pricing", label: dict.nav.tools },
+    { href: "/#features", label: dict.nav.features },
+    { href: "/#how-it-works", label: dict.nav.howItWorks },
+    { href: "/#for-teachers", label: dict.nav.forTeachers },
+    { href: "/#pricing", label: dict.nav.tools },
+    { href: "/tools/segment", label: dict.nav.segment },
   ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-white/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
-        <a href="#" className="flex items-center gap-2 font-bold text-ink-900">
+        <a href="/" className="flex items-center gap-2 font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
             汉
           </span>
@@ -38,7 +39,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a href="#cta" className="btn-primary">
+          <a href="/#cta" className="btn-primary">
             {dict.nav.cta}
           </a>
         </div>
@@ -67,7 +68,7 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#cta"
+              href="/#cta"
               onClick={() => setOpen(false)}
               className="btn-primary mt-2"
             >

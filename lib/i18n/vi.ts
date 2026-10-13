@@ -9,6 +9,7 @@ export const vi = {
     howItWorks: "Cách hoạt động",
     forTeachers: "Cho giáo viên",
     tools: "Công cụ",
+    segment: "Tách từ",
     cta: "Dùng thử miễn phí",
   },
   hero: {
@@ -166,6 +167,19 @@ export const vi = {
           "Không. Quá trình xử lý diễn ra ngay trên máy của bạn, chúng tôi không lưu văn bản bạn nhập.",
       },
     ],
+  },
+  segment: {
+    title: "Tách từ tiếng Trung",
+    subtitle:
+      "Dán câu hoặc đoạn văn tiếng Trung, công cụ sẽ tách thành các từ riêng biệt, có khoảng trắng giữa các từ.",
+    placeholder: "Dán văn bản tiếng Trung vào đây…",
+    button: "Tách từ",
+    loading: "Đang xử lý…",
+    copy: "Sao chép",
+    copied: "Đã sao chép",
+    download: "Tải .txt",
+    error: "Vui lòng nhập văn bản tiếng Trung.",
+    tooLong: "Văn bản quá dài (tối đa 5000 ký tự).",
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",

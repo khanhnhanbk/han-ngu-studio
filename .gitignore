@@ -30,4 +30,6 @@ next-env.d.ts
 # vercel
 .vercel
 
-.vercel
+# python
+__pycache__/
+.pytest_cache/

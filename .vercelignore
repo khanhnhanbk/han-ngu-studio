@@ -1,0 +1,5 @@
+api/tests
+**/__pycache__
+.next
+node_modules
+.pytest_cache
