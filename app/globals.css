@@ -61,3 +61,38 @@ h4 {
     @apply rounded-2xl border border-ink-900/10 bg-white p-6 shadow-sm transition hover:shadow-md;
   }
 }
+
+/* Practice sheets: A4 pages, scaled to fit on screen, one sheet per printed page */
+.sheet-page {
+  width: 100%;
+  max-width: 210mm;
+  aspect-ratio: 210 / 297;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  header,
+  footer {
+    display: none !important;
+  }
+
+  .sheet-page {
+    width: 210mm;
+    height: 297mm;
+    max-width: none;
+    box-shadow: none;
+    break-after: page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet-page:last-child {
+    break-after: auto;
+  }
+}

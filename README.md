@@ -6,7 +6,8 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 ## Status
 
 - ✅ Phase 1 — Landing page (this pass)
-- ⏳ Phase 2 — Practice-sheet generator (`/tools/practice-sheet`)
+- ✅ Phase 2 — Practice-sheet generator (`/tools/practice-sheet`, rendered in the browser, print to PDF)
+- ✅ Word segmentation (`/tools/segment`, Python API in `api/`)
 - ⏳ Phase 3 — Anki export, Cloze, N+1
 - ⏳ Phase 4 — i18n (EN), SEO, analytics, monetization
 
@@ -41,11 +42,15 @@ web/
 ├─ app/
 │  ├─ layout.tsx            # root layout, fonts, metadata
 │  ├─ page.tsx              # landing page composition
+│  ├─ tools/practice-sheet/ # 米字格/田字格 practice-sheet generator
+│  ├─ tools/segment/        # word segmentation tool
 │  └─ globals.css
 ├─ components/              # landing sections
 │  ├─ Navbar.tsx  Hero.tsx  Problem.tsx  Features.tsx
 │  ├─ HowItWorks.tsx  ForTeachers.tsx  Testimonials.tsx
 │  ├─ Pricing.tsx  FAQ.tsx  CTASection.tsx  Footer.tsx
+│  └─ practice-sheet/SheetPage.tsx  # one A4 sheet as SVG
+├─ lib/practiceSheet.ts     # character parsing, pagination, pinyin
 ├─ lib/i18n/               # Vietnamese copy (English-ready)
 │  ├─ vi.ts
 │  └─ index.ts
@@ -65,3 +70,4 @@ All copy lives in `lib/i18n/vi.ts`. To add English:
 
 - **Be Vietnam Pro** — UI text (full Vietnamese diacritics).
 - **Noto Sans SC** — Chinese glyphs (`.hanzi` class).
+- **LXGW WenKai TC** — Kai-style glyphs on practice sheets (`--font-kai`).

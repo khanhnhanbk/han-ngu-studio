@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Noto_Sans_SC } from "next/font/google";
+import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { getDictionary } from "@/lib/i18n";
 
@@ -15,6 +15,16 @@ const notoSansSC = Noto_Sans_SC({
   weight: ["400", "500", "700"],
   variable: "--font-hanzi",
   display: "swap",
+});
+
+// Kai-style font for practice sheets. Google serves CJK glyphs in unicode-range
+// slices, so there is nothing useful to preload.
+const kai = LXGW_WenKai_TC({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-kai",
+  display: "swap",
+  preload: false,
 });
 
 const dict = getDictionary("vi");
@@ -39,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${beVietnam.variable} ${notoSansSC.variable}`}
+      className={`${beVietnam.variable} ${notoSansSC.variable} ${kai.variable}`}
     >
       <body>{children}</body>
     </html>

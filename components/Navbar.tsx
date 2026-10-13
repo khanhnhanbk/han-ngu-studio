@@ -13,6 +13,7 @@ export function Navbar() {
     { href: "/#how-it-works", label: dict.nav.howItWorks },
     { href: "/#for-teachers", label: dict.nav.forTeachers },
     { href: "/#pricing", label: dict.nav.tools },
+    { href: "/tools/practice-sheet", label: dict.nav.practiceSheet },
     { href: "/tools/segment", label: dict.nav.segment },
   ];
 

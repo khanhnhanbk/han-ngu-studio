@@ -9,7 +9,7 @@ export function Footer() {
     {
       title: dict.footer.columns.product,
       links: [
-        { label: dict.footer.links.practiceSheet, href: "#features" },
+        { label: dict.footer.links.practiceSheet, href: "/tools/practice-sheet" },
         { label: dict.footer.links.anki, href: "#features" },
         { label: dict.footer.links.cloze, href: "#features" },
         { label: dict.footer.links.nPlusOne, href: "#features" },

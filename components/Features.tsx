@@ -4,6 +4,9 @@ const dict = getDictionary("vi");
 
 const icons = ["筆", "札", "空", "序"];
 
+// Only tools that are live get a real link; the rest stay as labels for now.
+const hrefs: (string | undefined)[] = ["/tools/practice-sheet"];
+
 export function Features() {
   return (
     <section id="features" className="section">
@@ -28,10 +31,20 @@ export function Features() {
               <p className="mt-2 flex-1 text-sm text-ink-700">
                 {item.description}
               </p>
-              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
-                {item.cta}
-                <span aria-hidden>→</span>
-              </span>
+              {hrefs[i] ? (
+                <a
+                  href={hrefs[i]}
+                  className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700"
+                >
+                  {item.cta}
+                  <span aria-hidden>→</span>
+                </a>
+              ) : (
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600">
+                  {item.cta}
+                  <span aria-hidden>→</span>
+                </span>
+              )}
             </div>
           ))}
         </div>
