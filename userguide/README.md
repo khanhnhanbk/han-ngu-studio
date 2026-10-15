@@ -30,7 +30,16 @@ Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 1. Trên thanh menu, bấm **Giao diện** (biểu tượng bảng màu, bên trái nút **Dùng thử miễn phí**).
    - Trên điện thoại: bấm **☰**, mục **Giao diện** nằm cuối danh sách.
 2. **Chế độ**: **Sáng**, **Tối**, hoặc **Theo hệ thống** (tự đổi theo cài đặt sáng/tối của máy).
-3. **Màu chủ đạo**: bấm một trong 4 chấm màu: **Cam**, **Đỏ son**, **Xanh ngọc**, **Xanh dương**.
+3. **Màu theo Ngũ hành**: bấm một trong 6 chấm màu:
+
+   | Lựa chọn | Màu |
+   |---|---|
+   | **Mặc định** | Cam (màu gốc của trang) |
+   | **Kim** | Trắng, xám bạc |
+   | **Mộc** | Xanh lá |
+   | **Thủy** | Xanh dương, xanh đen |
+   | **Hỏa** | Đỏ |
+   | **Thổ** | Vàng, nâu đất |
 
 Lựa chọn được lưu trên trình duyệt của bạn và giữ nguyên cho lần sau. Phiếu tập viết luôn in ra nền trắng, kể cả khi dùng chế độ Tối.
 

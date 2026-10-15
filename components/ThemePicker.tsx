@@ -89,21 +89,32 @@ export function ThemePicker({ inline = false }: { inline?: boolean }) {
       </div>
       <div>
         <p className="mb-2 font-medium text-ink-700">{dict.theme.accent}</p>
-        <div role="radiogroup" aria-label={dict.theme.accent} className="flex gap-3">
+        <div role="radiogroup" aria-label={dict.theme.accent} className="grid grid-cols-6 gap-1">
           {ACCENTS.map((a) => (
             <button
               key={a}
               type="button"
               role="radio"
               aria-checked={theme.accent === a}
-              aria-label={dict.theme.accents[a]}
-              title={dict.theme.accents[a]}
+              aria-label={dict.theme.accentHints[a]}
+              title={dict.theme.accentHints[a]}
               onClick={() => update({ accent: a })}
-              className={`h-8 w-8 rounded-full ring-offset-2 ring-offset-surface transition ${
-                theme.accent === a ? "ring-2 ring-ink-900" : "hover:scale-110"
-              }`}
-              style={{ backgroundColor: ACCENT_SWATCH[a] }}
-            />
+              className="group flex flex-col items-center gap-1"
+            >
+              <span
+                className={`h-8 w-8 rounded-full ring-offset-2 ring-offset-surface transition ${
+                  theme.accent === a ? "ring-2 ring-ink-900" : "group-hover:scale-110"
+                }`}
+                style={{ backgroundColor: ACCENT_SWATCH[a] }}
+              />
+              <span
+                className={`whitespace-nowrap text-[11px] leading-tight ${
+                  theme.accent === a ? "font-semibold text-ink-900" : "text-ink-700"
+                }`}
+              >
+                {dict.theme.accents[a]}
+              </span>
+            </button>
           ))}
         </div>
       </div>
@@ -128,7 +139,7 @@ export function ThemePicker({ inline = false }: { inline?: boolean }) {
         <div
           role="dialog"
           aria-label={dict.theme.button}
-          className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-ink-900/10 bg-surface p-4 shadow-lg"
+          className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-ink-900/10 bg-surface p-4 shadow-lg"
         >
           {panel}
         </div>

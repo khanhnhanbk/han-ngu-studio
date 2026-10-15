@@ -47,8 +47,53 @@
   color-scheme: light;
 }
 
-/* Accent: red (Đỏ son) — Tailwind red */
-:root[data-accent="red"] {
+/* Kim (Metal): white, silver grey — Tailwind zinc */
+:root[data-accent="kim"] {
+  --b-50: 250 250 250;
+  --b-100: 244 244 245;
+  --b-200: 228 228 231;
+  --b-300: 212 212 216;
+  --b-400: 161 161 170;
+  --b-500: 113 113 122;
+  --b-600: 82 82 91;
+  --b-700: 63 63 70;
+  --b-800: 39 39 42;
+  --b-900: 24 24 27;
+  --b-950: 9 9 11;
+}
+
+/* Mộc (Wood): green — Tailwind green */
+:root[data-accent="moc"] {
+  --b-50: 240 253 244;
+  --b-100: 220 252 231;
+  --b-200: 187 247 208;
+  --b-300: 134 239 172;
+  --b-400: 74 222 128;
+  --b-500: 34 197 94;
+  --b-600: 22 163 74;
+  --b-700: 21 128 61;
+  --b-800: 22 101 52;
+  --b-900: 20 83 45;
+  --b-950: 5 46 22;
+}
+
+/* Thủy (Water): blue, navy — Tailwind blue */
+:root[data-accent="thuy"] {
+  --b-50: 239 246 255;
+  --b-100: 219 234 254;
+  --b-200: 191 219 254;
+  --b-300: 147 197 253;
+  --b-400: 96 165 250;
+  --b-500: 59 130 246;
+  --b-600: 37 99 235;
+  --b-700: 29 78 216;
+  --b-800: 30 64 175;
+  --b-900: 30 58 138;
+  --b-950: 23 37 84;
+}
+
+/* Hỏa (Fire): red — Tailwind red (orange is the default accent) */
+:root[data-accent="hoa"] {
   --b-50: 254 242 242;
   --b-100: 254 226 226;
   --b-200: 254 202 202;
@@ -62,34 +107,20 @@
   --b-950: 69 10 10;
 }
 
-/* Accent: teal (Xanh ngọc) — Tailwind teal */
-:root[data-accent="teal"] {
-  --b-50: 240 253 250;
-  --b-100: 204 251 241;
-  --b-200: 153 246 228;
-  --b-300: 94 234 212;
-  --b-400: 45 212 191;
-  --b-500: 20 184 166;
-  --b-600: 13 148 136;
-  --b-700: 15 118 110;
-  --b-800: 17 94 89;
-  --b-900: 19 78 74;
-  --b-950: 4 47 46;
-}
-
-/* Accent: blue (Xanh dương) — Tailwind blue */
-:root[data-accent="blue"] {
-  --b-50: 239 246 255;
-  --b-100: 219 234 254;
-  --b-200: 191 219 254;
-  --b-300: 147 197 253;
-  --b-400: 96 165 250;
-  --b-500: 59 130 246;
-  --b-600: 37 99 235;
-  --b-700: 29 78 216;
-  --b-800: 30 64 175;
-  --b-900: 30 58 138;
-  --b-950: 23 37 84;
+/* Thổ (Earth): yellow, earth brown — Tailwind amber one step darker from 400 up,
+   so 600 is #b45309 and white button text stays readable */
+:root[data-accent="tho"] {
+  --b-50: 255 251 235;
+  --b-100: 254 243 199;
+  --b-200: 253 230 138;
+  --b-300: 252 211 77;
+  --b-400: 245 158 11;
+  --b-500: 217 119 6;
+  --b-600: 180 83 9;
+  --b-700: 146 64 14;
+  --b-800: 120 53 15;
+  --b-900: 69 26 3;
+  --b-950: 45 18 4;
 }
 
 /*
@@ -113,6 +144,12 @@
   --brand-800: var(--b-200);
   --brand-900: var(--b-100);
   color-scheme: dark;
+}
+
+/* Kim on dark surfaces: zinc-600 would vanish, so the accent moves one step lighter. */
+:root.dark[data-accent="kim"] {
+  --brand-500: var(--b-400);
+  --brand-600: var(--b-500);
 }
 
 html {
