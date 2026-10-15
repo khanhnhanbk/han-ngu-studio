@@ -133,6 +133,11 @@ function buildMeanings() {
   return meanings;
 }
 
+// Rows idx 10001–12008 of sentences.tsv hold Hán Việt output in the
+// Vietnamese column ("thông_quá lệ cú …"), not a translation. Such a cell is
+// treated as empty so the deck falls back to the English translation.
+const HANVIET_NOT_TRANSLATION = /\S_\S|\s。$/;
+
 // normalize_new_word_tokens in anki_desk.py.
 const NEW_WORD_SPLIT = /[\s,，。！？、;；:：]+/;
 
@@ -152,7 +157,8 @@ function buildSentences() {
       .filter((t) => t && !Object.hasOwn(index, t));
     if (fresh.length === 0) continue;
     const id = rows.length;
-    rows.push([r.Hanzi ?? "", r.Vietnamese ?? "", r.English ?? ""]);
+    const vi = r.Vietnamese ?? "";
+    rows.push([r.Hanzi ?? "", HANVIET_NOT_TRANSLATION.test(vi) ? "" : vi, r.English ?? ""]);
     for (const t of fresh) index[t] = id;
   }
   return { rows, index };

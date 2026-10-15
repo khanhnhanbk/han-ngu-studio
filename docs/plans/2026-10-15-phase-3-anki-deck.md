@@ -44,8 +44,9 @@ A port of `anki_desk.py`: from a word list, produce a TSV with these columns, in
 
 There are also curated checks for the Pinyin and Hán Việt formats, the TSV escaping, the header, the column order, `parseWords` and the "not found" lists.
 
-## Known data issue (owner to fix in the sheet)
+## Data fixes in `sentences.tsv` (2026-10-15)
 
-About 6 rows in `sentences.tsv` are AI refusals, not real example sentences. For example, `用于` gets `上帝这个词这里不适合用于正式工作表达已替换。` ("the word God isn't suitable here…").
-
-Affected words include 用于, 同义, 替换, 改为, 混合, 用来 and 例. Fix the rows in `sentences.tsv`, then run `pnpm build:data`.
+- **6 AI-refusal rows rewritten** as real example sentences, keeping their `NewWord`. These were idx 1393 表达, 2267 同义, 2323 替换, 2324 用于, 2572 改为/职 and 2611 例/混合/用来. For example, `用于` had `上帝这个词这里不适合用于正式工作表达已替换。` and now has `这笔钱用于买书。`.
+- **Rows idx 10001–12008 (2,008 rows)** have Hán Việt output in the Vietnamese column (`thông_quá lệ cú …`), not a translation. `build-data.mjs` treats such cells as empty (regex `\S_\S|\s。$`), so `sentence_meaning` falls back to English. 1,328 of 3,793 words with an example are affected.
+- **Still open:** translating those 2,008 rows into Vietnamese. Once real translations are in the column, the build uses them automatically.
+- **The Google Sheet is the original source.** Copy these fixes back to it, or treat `assets/dictionary/sentences.tsv` as the source of truth from now on.

@@ -76,7 +76,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Mã Ngũ bút (bản 86): **pywubi** (giấy phép MIT).
-- Câu ví dụ và bản dịch tiếng Việt: Hán Ngữ Studio.
+- Câu ví dụ và bản dịch tiếng Việt: Hán Ngữ Studio. Một số câu hiện mới có bản dịch tiếng Anh; khi đó cột **Nghĩa của câu** hiện tiếng Anh. Bạn có thể sửa sang tiếng Việt ngay trong bảng trước khi tải.
 - Pinyin và Hán Việt được tạo tự động; xem lưu ý độ chính xác trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác) và [hanviet.md](hanviet.md#cách-đọc-kết-quả).
 
 ## Lỗi thường gặp

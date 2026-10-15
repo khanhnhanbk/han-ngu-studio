@@ -48,6 +48,19 @@ describe("buildRow formats", () => {
     expect(buildRow(data, "呢").sentence_pinyin).toBe("nǐ ne?");
   });
 
+  it("uses the rewritten sentence, not the AI refusal row", () => {
+    const row = buildRow(data, "用于");
+    expect(row.sentence).toBe("这笔钱用于买书。");
+    expect(row.sentence_meaning).toBe("Khoản tiền này được dùng để mua sách.");
+  });
+
+  it("falls back to English when the Vietnamese cell holds Hán Việt", () => {
+    // sentences.tsv has "thủ_cơ khả_dĩ phách_chiếu 。"-style text there.
+    const row = buildRow(data, "拍照");
+    expect(row.sentence).toBe("手机可以拍照。");
+    expect(row.sentence_meaning).toBe("Mobile phones can take pictures.");
+  });
+
   it("joins several Hán Việt readings with /", () => {
     expect(buildRow(data, "当").hanviet).toBe("đương/đang");
   });
