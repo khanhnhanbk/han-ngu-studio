@@ -1,63 +1,51 @@
-# Phase 3: Anki deck generator, `/tools/anki` (~900 LOC)
+# Phase 3: Anki deck generator, `/tools/anki` (done)
 
-**Depends on:** Phase 0 (tokenizer) and Phase 2 (Hán Việt lookup, `build-data.mjs`).
+**Depends on:** Phase 0 (tokenizer), Phase 1 (Pinyin) and Phase 2 (Hán Việt).
 
 ## Context
 
-Teachers and learners make Anki cards from word lists. `anki_desk.py` produced, for each word:
-- Pinyin
-- meaning
-- an example sentence, with its Pinyin and translation
-- Wubi
-- Hán Việt
+A port of `anki_desk.py`: from a word list, produce a TSV with these columns, in this order:
 
-The output was a TSV. This phase brings that tool to the browser.
+`word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet`
 
-Source data:
-- `assets/dictionary/chinese_dict.csv` (10k rows: `Simplified,Traditional,W/million,Definitions,Pinyin`)
-- `assets/dictionary/sentences.tsv` (4.6k rows: `idx,Hanzi,NewWord,Pinyin,Vietnamese,English,Lenth`, where `NewWord` is a comma-separated list)
+## What was built
 
-## Scope
-
-- **Extend `build-data.mjs`** to write two files:
-  - `public/data/dict.json`, shaped as `{word: {pinyin, meaning}}`. Simplified keys go in first, then Traditional, so later keys overwrite earlier ones, matching the `meaning_map.update` order.
-  - `public/data/sentences.json`, mapping each `NewWord` token to the **first** row that contains it, as `{hanzi, pinyin, vi, en}`. Tokens are split with the `normalize_new_word_tokens` regex. Building this index at build time replaces Python's rows × words scan, with the same result.
-  - If either file is over about 1.5 MB raw, shard it by first character.
-- **`lib/anki/buildDeck.ts`**:
-  - Input is one word per line; deduplicate while keeping order.
-  - Columns:
-    - `word`
-    - `pinyin` (tone marks)
-    - `meaning`
-    - `sentence`
-    - `sentence_pinyin`
-    - `sentence_meaning`
-    - `hanviet`
-  - **Deliberate change**: the sentence meaning prefers **Vietnamese**, then English. Python preferred English; flag this in the PR.
-  - There is no Wubi column, because there is no data for it.
-  - Words with no meaning or sentence are collected in a "Không tìm thấy" list.
+- **`scripts/build-data.mjs`**:
+  - The CSV parser now follows Python csv quoting: a quote only opens a quoted field at the start of the field.
+  - **`meanings.json`** (818 KB, 15,357 keys).
+  - **`sentences.json`** (547 KB): 3,327 rows, with a token → first-row index.
+  - **`wubi.json`** (265 KB, 21,004 characters), from pywubi's table, copied to `assets/dictionary/wubi_86.json` with its MIT licence.
+- **`lib/anki/`**:
+  - `buildDeck.ts`: `parseWords`, `buildRow`, `missing`, `toTsv`.
+  - `wubi.ts`: a port of pywubi's `wubi()`.
+  - `load.ts`: memoised JSON loaders.
 - **`app/tools/anki/page.tsx`**:
-  - Textarea or `.txt` upload.
-  - Preview table where cells can be edited.
-  - Column picker.
-  - TSV export with no header. An option adds the `#separator:tab` / `#html:true` header used by Anki 2.1.55+.
-  - A short guide in Vietnamese on importing into Anki.
-  - i18n strings and a Navbar entry.
+  - Input: word list or `.txt` (at most 1000 words, duplicates removed).
+  - Column picker and optional Anki header lines (`#separator`, `#html`, `#columns`).
+  - Editable preview table, with `.tsv` download and copy.
+  - "Không tìm thấy" (not found) box, short import steps, and data credits.
+- **`userguide/anki.md`**: the steps, plus Anki desktop and AnkiDroid import.
+
+## Owner decisions (deliberate differences from anki_desk.py)
+
+1. **Sentence Pinyin is generated** from the whole sentence (Phase 1). The sheet's Pinyin column had errors (`你呢？ → nǐ ní`).
+2. **`sentence_meaning` prefers Vietnamese**, falling back to English.
+3. **Wubi uses pywubi 0.3.0's own table** as static JSON. The npm `wubi-code` disagreed on 476 of 21,004 characters, including 窗 and 迎.
+4. **Bug fixes**:
+   - a traditional key never overwrites another word's simplified meaning (著 / 着, 夥 / 伙)
+   - empty definitions are "not found" (pandas wrote `nan`)
+   - duplicate input words are removed
 
 ## Tests
 
-- Golden test against Python `batch_search_and_export` on about 30 words. The `meaning` and `sentence*` columns must match exactly. The `pinyin` and `hanviet` columns are excluded because they come from pinyin-pro.
-- Unit tests:
-  - deduplication
-  - the not-found list
-  - TSV escaping: a tab or newline inside a field must become a space or `<br>`
+`lib/anki/__golden__/deck.json` has 311 words from the Python logic and pywubi:
+- `meaning`, `sentence` and `sentence_meaning` must match exactly
+- `wubi` must match exactly
 
-## Verification
+There are also curated checks for the Pinyin and Hán Việt formats, the TSV escaping, the header, the column order, `parseWords` and the "not found" lists.
 
-- `npm test` and `npm run build` pass.
-- Import the exported TSV into Anki desktop and check the fields map correctly.
-- The data files load only on `/tools/anki`.
+## Known data issue (owner to fix in the sheet)
 
-## Open questions
+About 6 rows in `sentences.tsv` are AI refusals, not real example sentences. For example, `用于` gets `上帝这个词这里不适合用于正式工作表达已替换。` ("the word God isn't suitable here…").
 
-- Do you want Wubi? If so, a Wubi code table needs to be added to `assets/`.
+Affected words include 用于, 同义, 替换, 改为, 混合, 用来 and 例. Fix the rows in `sentences.tsv`, then run `pnpm build:data`.

@@ -1,0 +1,2182 @@
+{
+"source": "anki_desk.py (meaning/sentence, owner fixes applied) + pywubi 0.3.0 wubi()",
+"cases": [
+{
+"word": "的",
+"meaning": "of; ~'s (possessive particle)/(used after an attribute when it modifies a noun)/(used at the end of a declarative sentence for emphasis)/(used after a noun, verb or adjective to form a nominal expression, as in 皮革的[pi2 ge2 de5] \"one made of leather\" or 跑堂兒的|跑堂儿的[pao3 tang2 r5 de5] \"a waiter (literally, one who runs back and forth in a restaurant)\" or 新的[xin1 de5] \"new one\")/also pr. [di4] or [di5] in poetry and songs",
+"sentence": "是的，我知道了。",
+"sentence_meaning": "Vâng, tôi hiểu rồi.",
+"wubi": "rqyy"
+},
+{
+"word": "我",
+"meaning": "I; me; my",
+"sentence": "我发誓。",
+"sentence_meaning": "Tôi thề đấy.",
+"wubi": "trnt"
+},
+{
+"word": "你",
+"meaning": "you (informal, as opposed to courteous 您[nin2]); you (Note: In Taiwan, 妳 is used to address females, but in mainland China, it is not commonly used. Instead, 你 is used to address both males and females.)",
+"sentence": "我相信你。",
+"sentence_meaning": "Tôi tin tưởng bạn.",
+"wubi": "wqiy"
+},
+{
+"word": "是",
+"meaning": "to be (followed by substantives only)/correct; right; true/(respectful acknowledgement of a command) very well/(adverb for emphatic assertion)",
+"sentence": "我是学生。",
+"sentence_meaning": "Tôi là sinh viên.",
+"wubi": "jghu"
+},
+{
+"word": "了",
+"meaning": "(completed action marker)/(modal particle indicating change of state, situation now)/(modal particle intensifying preceding clause)",
+"sentence": "我知道了。",
+"sentence_meaning": "Tôi hiểu rồi.",
+"wubi": "bnh"
+},
+{
+"word": "不",
+"meaning": "no; not so/(bound form) not; un-",
+"sentence": "我可不知道。",
+"sentence_meaning": "Tôi không biết.",
+"wubi": "gii"
+},
+{
+"word": "在",
+"meaning": "to exist; to be alive/(of sb or sth) to be (located) at/(used before a verb to indicate an action in progress)",
+"sentence": "我在你后面。",
+"sentence_meaning": "Tôi đang ở phía sau bạn.",
+"wubi": "dhfd"
+},
+{
+"word": "他",
+"meaning": "(third-person singular) (since the early 20th century, usu. male) he; him; his/(bound form) other; another; some other (as in 他日[ta1 ri4] and 他人[ta1 ren2])",
+"sentence": "不是他，而是我。",
+"sentence_meaning": "Không phải anh ta, mà là tôi.",
+"wubi": "wbn"
+},
+{
+"word": "我们",
+"meaning": "we; us; ourselves; our",
+"sentence": "我们都来了。",
+"sentence_meaning": "Chúng ta đều ở đây.",
+"wubi": "trnt wun"
+},
+{
+"word": "好",
+"meaning": "to be fond of; to have a tendency to; to be prone to",
+"sentence": "你好吗？",
+"sentence_meaning": "Bạn ổn chứ?",
+"wubi": "vbg"
+},
+{
+"word": "有",
+"meaning": "to have; there is/(bound form) having; with; -ful; -ed; -al (as in 有意[you3 yi4] intentional)",
+"sentence": "我家有猫。",
+"sentence_meaning": "Tôi có một con mèo.",
+"wubi": "def"
+},
+{
+"word": "这",
+"meaning": "this",
+"sentence": "这是我的书。",
+"sentence_meaning": "Đây là cuốn sách của tôi.",
+"wubi": "ypi"
+},
+{
+"word": "就",
+"meaning": "(after a suppositional clause) in that case; then/(after a clause of action) as soon as; immediately after/(same as 就是[jiu4 shi4]) merely; nothing else but; simply; just; precisely; exactly/only; as little as/as much as; as many as/to approach; to move towards/to undertake; to engage in/(often followed by 著|着[zhe5]) taking advantage of/(of food) to go with/with regard to; concerning/(bound form) to reach; to attain (as in 一蹴而就[yi1 cu4 er2 jiu4])/(pattern: 就[jiu4] ... 也[ye3] ...) even if ... still .../(pattern: 不[bu4] ... 就[jiu4] ...) if not ... then must be ...",
+"sentence": "要是你来，我就很高兴。",
+"sentence_meaning": "Tôi sẽ rất vui nếu bạn đến.",
+"wubi": "yidn"
+},
+{
+"word": "会",
+"meaning": "can; to have the skill; to know how to/to be likely to; to be sure to/to meet; to get together/meeting; gathering/(suffix) union; group; association/(bound form) a moment (Taiwan pr. [hui3])",
+"sentence": "真没想到你也会喜欢这个。",
+"sentence_meaning": "Tôi không ngờ bạn lại thích điều này.",
+"wubi": "wfcu"
+},
+{
+"word": "吗",
+"meaning": "(question particle for \"yes-no\" questions)",
+"sentence": "你好吗？",
+"sentence_meaning": "Bạn ổn chứ?",
+"wubi": "kcg"
+},
+{
+"word": "要",
+"meaning": "to want; to need; to ask for/will; shall; about to/need to; should/if (same as 要是[yao4 shi5])/(bound form) important",
+"sentence": "你现在在哪儿，我们要不要一起出来坐坐。",
+"sentence_meaning": "Bạn đang ở đâu? Chúng ta ra ngoài ngồi một lát nhé?",
+"wubi": "svf"
+},
+{
+"word": "什么",
+"meaning": "what?/something; anything",
+"sentence": "你可以告诉我刚才发生了什么吗。",
+"sentence_meaning": "Bạn có thể cho tôi biết chuyện gì vừa xảy ra không?",
+"wubi": "wfh tcu"
+},
+{
+"word": "说",
+"meaning": "to speak; to talk; to say/to explain; to comment/to scold; to tell off/(bound form) theory; doctrine",
+"sentence": "对我来说，很简单。",
+"sentence_meaning": "Với tôi thì rất đơn giản.",
+"wubi": "yukq"
+},
+{
+"word": "她",
+"meaning": "she",
+"sentence": "她很高兴。",
+"sentence_meaning": "Cô ấy rất hạnh phúc.",
+"wubi": "vbn"
+},
+{
+"word": "想",
+"meaning": "to think (about)/to think of; to devise/to think (that); to believe (that)/to desire; to want (to)/to miss (feel wistful about the absence of)",
+"sentence": "我想回家。",
+"sentence_meaning": "Tôi muốn về nhà.",
+"wubi": "shnu"
+},
+{
+"word": "一",
+"meaning": "one/single/a (article)/as soon as/entire; whole; all; throughout",
+"sentence": "这是一只猫。",
+"sentence_meaning": "Đây là một con mèo.",
+"wubi": "ggll"
+},
+{
+"word": "很",
+"meaning": "very; quite/(also, often used before an adjective without intensifying its meaning, i.e. as a meaningless syntactic element)",
+"sentence": "我很有感情。",
+"sentence_meaning": "Tôi rất dễ xúc động.",
+"wubi": "tvey"
+},
+{
+"word": "知道",
+"meaning": "to know; to become aware of/also pr. [zhi1dao5]",
+"sentence": "我知道了。",
+"sentence_meaning": "Tôi hiểu rồi.",
+"wubi": "tdkg uthp"
+},
+{
+"word": "人",
+"meaning": "person; people",
+"sentence": "有的人很忙所以不能来。",
+"sentence_meaning": "Một số người quá bận rộn nên không thể đến.",
+"wubi": "wwww"
+},
+{
+"word": "吧",
+"meaning": "(modal particle indicating suggestion or surmise)/...right?/...OK?/...I presume.",
+"sentence": "你来这里吧。",
+"sentence_meaning": "Lại đây.",
+"wubi": "kcn"
+},
+{
+"word": "那",
+"meaning": "(specifier) that; the; those (colloquial pr. [nei4])/(pronoun) that (referring to persons, things or situations)/then (in that case)",
+"sentence": "那我们等一下再决定去哪里。",
+"sentence_meaning": "Chúng ta sẽ quyết định xem sẽ đi đâu sau.",
+"wubi": "vfbh"
+},
+{
+"word": "来",
+"meaning": "to come/(used as a substitute for a more specific verb)/hither (directional complement for motion toward the speaker, as in 回來|回来[hui2 lai5])/ever since (as in 自古以來|自古以来[zi4 gu3 yi3 lai2])/for the past (amount of time)/(prefix) the coming ...; the next ... (as in 來世|来世[lai2 shi4])/(between two verbs) in order to/(after a round number) approximately/(used after 得[de2] to indicate possibility, as in 談得來|谈得来[tan2 de5 lai2], or after 不[bu4] to indicate impossibility, as in 吃不來|吃不来[chi1 bu5 lai2])",
+"sentence": "他来了。",
+"sentence_meaning": "Anh ấy đang ở đây.",
+"wubi": "goi"
+},
+{
+"word": "都",
+"meaning": "surname Du; capital city/metropolis",
+"sentence": "我们都来了。",
+"sentence_meaning": "Chúng ta đều ở đây.",
+"wubi": "ftjb"
+},
+{
+"word": "个",
+"meaning": "used in 自個兒|自个儿[zi4 ge3 r5]",
+"sentence": "我有一个朋友。",
+"sentence_meaning": "Tôi có một người bạn.",
+"wubi": "whj"
+},
+{
+"word": "能",
+"meaning": "surname Neng; can/to be able to/might possibly/ability/(physics) energy",
+"sentence": "我能帮你。",
+"sentence_meaning": "Tôi có thể giúp bạn.",
+"wubi": "cexx"
+},
+{
+"word": "去",
+"meaning": "to go/to go to (a place)/(of a time etc) last/just passed/to send/to remove/to get rid of/to reduce/to be apart from in space or time/to die (euphemism)/to play (a part)/(when used either before or after a verb) to go in order to do sth//(used after certain verbs to indicate detachment or separation)",
+"sentence": "我去睡觉。",
+"sentence_meaning": "Tôi đi ngủ đây.",
+"wubi": "fcu"
+},
+{
+"word": "没",
+"meaning": "drowned/to end/to die/to inundate",
+"sentence": "他撒谎了所以没人相信他。",
+"sentence_meaning": "Anh ta nói dối, nên không ai tin anh ta cả.",
+"wubi": "imcy"
+},
+{
+"word": "和",
+"meaning": "to mix (ingredients) together/to blend/classifier for rinses of clothes/classifier for boilings of medicinal herbs",
+"sentence": "我和妈妈一起去。",
+"sentence_meaning": "Tôi và mẹ đã đi cùng nhau.",
+"wubi": "tkg"
+},
+{
+"word": "他们",
+"meaning": "they; them",
+"sentence": "他们刚刚在那边笑得很开心。",
+"sentence_meaning": "Họ đang cười vui vẻ ở đằng kia.",
+"wubi": "wbn wun"
+},
+{
+"word": "到",
+"meaning": "to reach; to arrive/to leave for; to go to/to (a place); until (a time); up to (a point)/(verb complement indicating arriving at a place or reaching a point)/considerate; thoughtful; thorough",
+"sentence": "我到家了。",
+"sentence_meaning": "Tôi đã về nhà rồi.",
+"wubi": "gcfj"
+},
+{
+"word": "对",
+"meaning": "right; correct/towards; at; for/concerning; regarding/to treat (sb a certain way)/to face/(bound form) opposite; facing; matching/to match together; to adjust/to fit; to suit/to answer; to reply/to add; to pour in (a fluid)/to check; to compare/classifier: couple; pair",
+"sentence": "对啊我也这么觉得。",
+"sentence_meaning": "Vâng, tôi cũng nghĩ vậy.",
+"wubi": "cfy"
+},
+{
+"word": "也",
+"meaning": "surname Ye; also; too; as well; (not ...) either/(used after a verbal or nominal expression X to indicate that X is an extreme or unexpected case) even (X)/ particle having functions similar to 啊[a5]",
+"sentence": "我也喜欢。",
+"sentence_meaning": "Tôi cũng thích nó.",
+"wubi": "bnhn"
+},
+{
+"word": "啊",
+"meaning": "interjection of surprise or doubt/Eh?/My!/what's up?",
+"sentence": "啊，我明白了。",
+"sentence_meaning": "À, tôi hiểu rồi.",
+"wubi": "kbsk"
+},
+{
+"word": "还",
+"meaning": "still/still in progress/still more/yet/even more/in addition/fairly/passably (good)/as early as/even/also/else",
+"sentence": "是这样啊，我还以为你已经回家休息了呢。",
+"sentence_meaning": "Ồ, tôi tưởng bạn đã về nhà nghỉ ngơi rồi.",
+"wubi": "gipi"
+},
+{
+"word": "把",
+"meaning": "to hold; to grasp/to hold a baby in position to help it urinate or defecate/handlebar/classifier: handful, bundle, bunch/classifier for things with handles/(used to put the object before the verb: 把[ba3] + {noun} + {verb})",
+"sentence": "我想先把这个问题解决，再去处理其他事情。",
+"sentence_meaning": "Tôi muốn giải quyết vấn đề này trước khi xử lý những việc khác.",
+"wubi": "rcn"
+},
+{
+"word": "让",
+"meaning": "to yield/to permit/to let sb do sth/to have sb do sth/to make sb (feel sad etc)/by (indicates the agent in a passive clause, like 被[bei4])",
+"sentence": "让我看看。",
+"sentence_meaning": "Để tôi xem nào.",
+"wubi": "yhg"
+},
+{
+"word": "做",
+"meaning": "to make; to produce/to write; to compose/to do; to engage in; to hold (a party etc)/(of a person) to be (an intermediary, a good student etc); to become (husband and wife, friends etc)/(of a thing) to serve as; to be used for/to assume (an air or manner)",
+"sentence": "他和朋友合作做这个项目，所以进展很快。",
+"sentence_meaning": "Anh ấy thực hiện dự án này cùng với bạn bè, vì vậy tiến độ rất nhanh.",
+"wubi": "wdty"
+},
+{
+"word": "给",
+"meaning": "to/for/for the benefit of/to give/to allow/to do sth (for sb)/(grammatical equivalent of 被)/(grammatical equivalent of 把)/(sentence intensifier)",
+"sentence": "他给我一本书。",
+"sentence_meaning": "Anh ấy tặng tôi một cuốn sách.",
+"wubi": "xwgk"
+},
+{
+"word": "上",
+"meaning": "(bound form) up; upper; above; previous/first (of multiple parts)/to climb; to get onto; to go up/to attend (class or university)/(directional complement) up/(noun suffix) on; above",
+"sentence": "我的手机放在桌子上。",
+"sentence_meaning": "Điện thoại của tôi đang ở trên bàn.",
+"wubi": "hhgg"
+},
+{
+"word": "你们",
+"meaning": "you (plural)",
+"sentence": "你们好。",
+"sentence_meaning": "Xin chào.",
+"wubi": "wqiy wun"
+},
+{
+"word": "过",
+"meaning": "(experienced action marker)",
+"sentence": "你笑起来像很久没这么开心过。",
+"sentence_meaning": "Khi bạn cười, trông bạn như thể đã lâu lắm rồi bạn mới thấy mình hạnh phúc đến thế.",
+"wubi": "fpi"
+},
+{
+"word": "没有",
+"meaning": "haven't/hasn't/doesn't exist/to not have/to not be",
+"sentence": "我没有时间。",
+"sentence_meaning": "Tôi không có thời gian.",
+"wubi": "imcy def"
+},
+{
+"word": "得",
+"meaning": "to obtain/to get/to gain/to catch (a disease)/proper/suitable/proud/contented/to allow/to permit/ready/finished",
+"sentence": "我觉得今天过得还不错。",
+"sentence_meaning": "Tôi nghĩ hôm nay mình đã có một ngày khá tốt.",
+"wubi": "tjgf"
+},
+{
+"word": "看",
+"meaning": "to look after/to take care of/to watch/to guard",
+"sentence": "我喜欢看书。",
+"sentence_meaning": "Tôi thích đọc sách.",
+"wubi": "rhf"
+},
+{
+"word": "真",
+"meaning": "really/truly/indeed/real/true/genuine",
+"sentence": "我觉得今天真的挺不错的。",
+"sentence_meaning": "Tôi nghĩ hôm nay thật tuyệt vời.",
+"wubi": "fhwu"
+},
+{
+"word": "着",
+"meaning": "aspect particle indicating action in progress or ongoing state",
+"sentence": "她看着手机。",
+"sentence_meaning": "Cô ấy nhìn vào điện thoại.",
+"wubi": "udhf"
+},
+{
+"word": "事",
+"meaning": "matter/thing/item/work/affair",
+"sentence": "这是很重要的事。",
+"sentence_meaning": "Đây là một vấn đề rất quan trọng.",
+"wubi": "gkvh"
+},
+{
+"word": "这个",
+"meaning": "(pronoun) this/(adjective) this",
+"sentence": "这个人好像大家都认识。",
+"sentence_meaning": "Dường như ai cũng biết người này.",
+"wubi": "ypi whj"
+},
+{
+"word": "怎么",
+"meaning": "how?/what?/why?",
+"sentence": "你怎么来了？",
+"sentence_meaning": "Bạn đến đây vì lý do gì?",
+"wubi": "thfn tcu"
+},
+{
+"word": "现在",
+"meaning": "now; at present; currently",
+"sentence": "我现在很忙。",
+"sentence_meaning": "Hiện tại tôi rất bận.",
+"wubi": "gmqn dhfd"
+},
+{
+"word": "可以",
+"meaning": "can/may/possible/able to/not bad/pretty good",
+"sentence": "我可以进去吗？",
+"sentence_meaning": "Tôi có thể vào được không?",
+"wubi": "skd nywy"
+},
+{
+"word": "点",
+"meaning": "to touch briefly; to tap/to mark with a dot; to check off (on a list)/to order (food etc); to select/to mention; to bring up (a topic or person)/to hint at; to imply/to administer (eye medicine etc) in drops/to light (a fire, a lamp etc); to ignite/to nod (one's head) in agreement; to beckon by moving (one's hand) up and down/point; dot; spot; speck/dot stroke in Chinese characters/(math.) decimal point/point in time or space/(after a number) o'clock/a small amount; a bit; a bit more/classifier for small amounts",
+"sentence": "我们决定先不聊工作只聊点轻松的话题。",
+"sentence_meaning": "Chúng tôi quyết định nghỉ làm và nói chuyện phiếm.",
+"wubi": "hkou"
+},
+{
+"word": "呢",
+"meaning": "(sentence-final particle) used in questions to link back to prior discourse or context (\"what about...?\", \"and...?\")/(sentence-final particle) indicating that a state or situation still holds/(discourse particle) used to mark a slight pause or emphasis in speech",
+"sentence": "你呢？",
+"sentence_meaning": "Và bạn?",
+"wubi": "knxn"
+},
+{
+"word": "如果",
+"meaning": "if; in case; in the event that",
+"sentence": "如果你有问题可以直接问我我会帮你。",
+"sentence_meaning": "Nếu bạn có bất kỳ thắc mắc nào, đừng ngần ngại hỏi tôi, tôi sẽ giúp bạn.",
+"wubi": "vkg jsi"
+},
+{
+"word": "只",
+"meaning": "grain that has begun to ripen; classifier for birds and certain animals, one of a pair, some utensils, vessels etc",
+"sentence": "这只猫很小。",
+"sentence_meaning": "Con mèo này rất nhỏ.",
+"wubi": "kwu"
+},
+{
+"word": "别",
+"meaning": "surname Bie; to leave; to part (from)/ to differentiate; to distinguish/(dialect) to turn away; to turn aside; to avert (one's face, gaze etc)/(bound form) other; another; different/don't ...!/to fasten with a pin or clip/to stick in; to insert (in order to hinder movement)/(noun suffix) category (as in 性別|性别[xing4 bie2], 派別|派别[pai4 bie2])",
+"sentence": "别动。",
+"sentence_meaning": "Đừng di chuyển.",
+"wubi": "kljh"
+},
+{
+"word": "哦",
+"meaning": "oh (interjection indicating that one has just learned sth)",
+"sentence": "哦，我知道了。",
+"sentence_meaning": "À, tôi hiểu rồi.",
+"wubi": "ktrt"
+},
+{
+"word": "但",
+"meaning": "but; yet; however; still/merely; only; just",
+"sentence": "我想去，但没时间。",
+"sentence_meaning": "Tôi muốn đi, nhưng tôi không có thời gian.",
+"wubi": "wjgg"
+},
+{
+"word": "被",
+"meaning": "quilt/to cover (with)/ to suffer (a misfortune)/used to indicate passive voice (placed before the doer of the action like \"by\" in English passive-voice sentences, or, if the doer is not mentioned, before the verb)/(since c. 2009) (sarcastic or jocular) used to indicate that the following word should be regarded as being in air quotes (as in 被旅遊|被旅游[bei4 lu : 3 you2] to \"go on a trip\")",
+"sentence": "他被大家笑得有点不好意思。",
+"sentence_meaning": "Anh ấy hơi ngượng ngùng vì tiếng cười của mọi người.",
+"wubi": "puhc"
+},
+{
+"word": "走",
+"meaning": "to walk/to go/to run/to move (of vehicle)/to visit/to leave/to go away/to die (euph.)/from/through/away (in compound verbs, such as 撤走[che4 zou3])/to change (shape, form, meaning)",
+"sentence": "你先走吧。",
+"sentence_meaning": "Bạn đi trước.",
+"wubi": "fhu"
+},
+{
+"word": "太",
+"meaning": "highest/greatest/too (much)/very/extremely",
+"sentence": "今天太热了。",
+"sentence_meaning": "Hôm nay trời nóng quá.",
+"wubi": "dyi"
+},
+{
+"word": "这样",
+"meaning": "this way; like this; so/ this kind of; such",
+"sentence": "这样很好。",
+"sentence_meaning": "Tốt đấy.",
+"wubi": "ypi sudh"
+},
+{
+"word": "里",
+"meaning": "lining/interior/inside/internal/also written 裏|里[li3]; surname Li; li, ancient measure of length, approx. 500 m/neighborhood/ancient administrative unit of 25 families/(Tw) borough, administrative unit between the township 鎮|镇[zhen4] and neighborhood 鄰|邻[lin2] levels",
+"sentence": "书在包里。",
+"sentence_meaning": "Cuốn sách ở trong túi của tôi.",
+"wubi": "jfd"
+},
+{
+"word": "跟",
+"meaning": "heel/to follow closely/to go with/(of a woman) to marry sb/with/compared with/to/towards/and (joining two nouns)",
+"sentence": "我跟他刚刚聊了一会儿。",
+"sentence_meaning": "Tôi chỉ trò chuyện với anh ấy một lúc.",
+"wubi": "khve"
+},
+{
+"word": "告诉",
+"meaning": "to press charges; to file a complaint",
+"sentence": "请告诉我。",
+"sentence_meaning": "Hãy cho tôi biết.",
+"wubi": "tfkf yryy"
+},
+{
+"word": "因为",
+"meaning": "because; owing to; on account of",
+"sentence": "我们正在讨论这个问题，因为很重要。",
+"sentence_meaning": "Chúng ta đang thảo luận vấn đề này vì nó rất quan trọng.",
+"wubi": "ldi ylyi"
+},
+{
+"word": "自己",
+"meaning": "oneself; (attributive) one's own",
+"sentence": "我自己做。",
+"sentence_meaning": "Tôi sẽ tự làm.",
+"wubi": "thd nngn"
+},
+{
+"word": "再",
+"meaning": "again; once more; re-/further; beyond this point of time/(before an adjective) more/then (after sth, and not until then)/no matter how ... (followed by an adjective or verb, and then (usually) 也[ye3] or 都[dou1] for emphasis)/(used to introduce additional information, as in 再則|再则[zai4 ze2], 再就是[zai4 jiu4 shi4] etc)/ to reappear; to reoccur",
+"sentence": "我们再坐一会儿再走吧。",
+"sentence_meaning": "Chúng ta hãy ngồi lại thêm một chút trước khi rời đi.",
+"wubi": "gmfd"
+},
+{
+"word": "听",
+"meaning": "smile (archaic)",
+"sentence": "我喜欢听音乐。",
+"sentence_meaning": "Tôi thích nghe nhạc.",
+"wubi": "krh"
+},
+{
+"word": "这里",
+"meaning": "here",
+"sentence": "我没想到会在这里遇到你。",
+"sentence_meaning": "Tôi không ngờ lại gặp bạn ở đây.",
+"wubi": "ypi jfd"
+},
+{
+"word": "快",
+"meaning": "rapid/quick/speed/rate/soon/almost/to make haste/clever/sharp (of knives or wits)/forthright/plainspoken/gratified/pleased/pleasant",
+"sentence": "你会不会也觉得今天时间过得特别快。",
+"sentence_meaning": "Bạn cũng cảm thấy hôm nay trôi qua nhanh một cách bất thường phải không?",
+"wubi": "nnwy"
+},
+{
+"word": "谁",
+"meaning": "who/also pr. [shui2]",
+"sentence": "他是谁？",
+"sentence_meaning": "Anh ta là ai?",
+"wubi": "ywyg"
+},
+{
+"word": "但是",
+"meaning": "but; however",
+"sentence": "我很累，但是很开心。",
+"sentence_meaning": "Tôi mệt nhưng tôi hạnh phúc.",
+"wubi": "wjgg jghu"
+},
+{
+"word": "多",
+"meaning": "many; much; more; a lot of/too many; in excess/(after a numeral) ... odd/how (to what extent) (Taiwan pr. [duo2])/(bound form) multi-; poly-",
+"sentence": "今天人很多。",
+"sentence_meaning": "Ngày nay có rất nhiều người.",
+"wubi": "qqu"
+},
+{
+"word": "用",
+"meaning": "to use; to make use of; to employ/(coverb) with; using/to need; to have to (usu. used in the negative or in questions)/usefulness; utility/(bound form) expense; outlay/(courteous) to eat; to drink/ hence; therefore",
+"sentence": "剩下的钱，所以可以继续用。",
+"sentence_meaning": "Số tiền còn lại có thể được sử dụng.",
+"wubi": "etnh"
+},
+{
+"word": "时候",
+"meaning": "time/length of time/moment/period",
+"sentence": "他说这个故事的时候大家都笑了。",
+"sentence_meaning": "Mọi người đều bật cười khi anh ấy kể câu chuyện này.",
+"wubi": "jfy whnd"
+},
+{
+"word": "下",
+"meaning": "down/downwards/below/lower/later/next (week etc)/second (of two parts)/to decline/to go down/to arrive at (a decision, conclusion etc)/measure word to show the frequency of an action",
+"sentence": "下个月见。",
+"sentence_meaning": "Hẹn gặp lại tháng sau.",
+"wubi": "ghi"
+},
+{
+"word": "已经",
+"meaning": "already",
+"sentence": "我们随便谈谈生活就已经很开心了。",
+"sentence_meaning": "Chỉ cần trò chuyện về cuộc sống thôi cũng đã thấy hạnh phúc rồi.",
+"wubi": "nnnn xcag"
+},
+{
+"word": "谢谢",
+"meaning": "to thank/thanks/thank you",
+"sentence": "谢谢你帮我。",
+"sentence_meaning": "Cảm ơn bạn đã giúp đỡ.",
+"wubi": "ytmf ytmf"
+},
+{
+"word": "为什么",
+"meaning": "why?/for what reason?",
+"sentence": "你为什么笑？",
+"sentence_meaning": "Sao bạn lại cười?",
+"wubi": "ylyi wfh tcu"
+},
+{
+"word": "觉得",
+"meaning": "to think that ...; to feel that .../to feel (uncomfortable etc)",
+"sentence": "我觉得很好。",
+"sentence_meaning": "Tôi nghĩ nó tuyệt vời.",
+"wubi": "ipmq tjgf"
+},
+{
+"word": "天",
+"meaning": "day/sky/heaven",
+"sentence": "这几天都很忙所以没怎么休息。",
+"sentence_meaning": "Mấy ngày qua tôi rất bận rộn và hầu như không được nghỉ ngơi.",
+"wubi": "gdi"
+},
+{
+"word": "像",
+"meaning": "to resemble/to be like/to look as if/such as/appearance/image/portrait/image under a mapping (math.)",
+"sentence": "他像爸爸。",
+"sentence_meaning": "Anh ấy giống như một người cha.",
+"wubi": "wqje"
+},
+{
+"word": "这么",
+"meaning": "so much/this much/how much?/this way/like this",
+"sentence": "这么简单。",
+"sentence_meaning": "Đơn giản vậy thôi.",
+"wubi": "ypi tcu"
+},
+{
+"word": "它",
+"meaning": "it; it (pronoun for an animal)",
+"sentence": "它其实没那么复杂，想太多了。",
+"sentence_meaning": "Thực ra nó không phức tạp đến thế; bạn đang suy nghĩ quá nhiều rồi.",
+"wubi": "pxb"
+},
+{
+"word": "从",
+"meaning": "surname Cong; from; through; via/(bound form) to follow/(bound form) to obey/(bound form) to engage in (an activity)/(used before a negative) ever/(bound form) (Taiwan pr. [zong4]) retainer; attendant/(bound form) (Taiwan pr. [zong4]) assistant; auxiliary; subordinate/(bound form) (Taiwan pr. [zong4]) related by common paternal grandfather or earlier ancestor",
+"sentence": "从早到晚一直工作所以很累。",
+"sentence_meaning": "Tôi rất mệt vì phải làm việc từ sáng đến tối.",
+"wubi": "wwy"
+},
+{
+"word": "先生",
+"meaning": "teacher/gentleman; sir; mister (Mr.)/husband/(dialect) doctor",
+"sentence": "那位先生刚刚也加入聊天了。",
+"sentence_meaning": "Vị quý ông đó cũng vừa tham gia cuộc trò chuyện.",
+"wubi": "tfqb tgd"
+},
+{
+"word": "找",
+"meaning": "to try to find/to look for/to call on sb/to find/to seek/to return/to give change",
+"sentence": "我在找手机。",
+"sentence_meaning": "Tôi đang tìm điện thoại của mình.",
+"wubi": "rat"
+},
+{
+"word": "最",
+"meaning": "(before an adjective or verb) to the highest degree; (the) most ...; -est/(after 之[zhi1]) best or most extreme example (e.g. 世界之最[shi4 jie4 zhi1 zui4] \"the greatest in the world\")",
+"sentence": "嘴上说不聊结果聊得最久。",
+"sentence_meaning": "Họ nói sẽ không nói chuyện, nhưng cuối cùng lại nói chuyện lâu nhất.",
+"wubi": "jbcu"
+},
+{
+"word": "喜欢",
+"meaning": "to like; to be fond of",
+"sentence": "我喜欢这个。",
+"sentence_meaning": "Tôi thích điều này.",
+"wubi": "fkuk cqwy"
+},
+{
+"word": "可",
+"meaning": "(prefix) can; may; able to; -able/to approve; to permit/to suit/(particle used for emphasis) certainly; very/but; however",
+"sentence": "我可不知道。",
+"sentence_meaning": "Tôi không biết.",
+"wubi": "skd"
+},
+{
+"word": "为",
+"meaning": "as (in the capacity of)/to take sth as/to act as/to serve as/to behave as/to become/to be/to do/by (in the passive voice)",
+"sentence": "我为你高兴。",
+"sentence_meaning": "Tôi mừng cho bạn.",
+"wubi": "ylyi"
+},
+{
+"word": "大",
+"meaning": "big; large; great/older (than another person)/eldest (as in 大姐[da4 jie3])/greatly; freely; fully/(dialect) father/(dialect) uncle (father's brother)",
+"sentence": "她的眼睛很大。",
+"sentence_meaning": "Cô ấy có đôi mắt to.",
+"wubi": "dddd"
+},
+{
+"word": "可能",
+"meaning": "might (happen)/possible/probable/possibility/probability/maybe/perhaps",
+"sentence": "他可能迟到了。",
+"sentence_meaning": "Anh ấy có thể đến muộn.",
+"wubi": "skd cexx"
+},
+{
+"word": "需要",
+"meaning": "to need; to want; to demand; to require/needs",
+"sentence": "我需要帮助。",
+"sentence_meaning": "Tôi cần giúp đỡ.",
+"wubi": "fdmj svf"
+},
+{
+"word": "死",
+"meaning": "to die/impassable/uncrossable/inflexible/rigid/extremely/damned",
+"sentence": "那条鱼死了。",
+"sentence_meaning": "Con cá đã chết.",
+"wubi": "gqxb"
+},
+{
+"word": "次",
+"meaning": "next in sequence/second/the second (day, time etc)/secondary/vice-/sub-/infra-/inferior quality/substandard/order/sequence/hypo- (chemistry)/classifier for enumerated events: time",
+"sentence": "我去过两次。",
+"sentence_meaning": "Tôi đã đến đó hai lần.",
+"wubi": "uqwy"
+},
+{
+"word": "出",
+"meaning": "to go out; to come out/to arise; to occur/to produce; to yield/to go beyond; to exceed/(used after a verb to indicate an outward direction or a positive result)/classifier for dramas, plays, operas etc",
+"sentence": "到底问题出在哪里我们还在调查。",
+"sentence_meaning": "Chúng tôi vẫn đang điều tra xem vấn đề nằm ở đâu.",
+"wubi": "bmk"
+},
+{
+"word": "那么",
+"meaning": "like that; in that way; to that extent/(before a number) ... or so; about .../then; in that case",
+"sentence": "那么，我们开始吧。",
+"sentence_meaning": "Được rồi, chúng ta bắt đầu thôi.",
+"wubi": "vfbh tcu"
+},
+{
+"word": "干",
+"meaning": "surname Gan; dry/dried food/empty; hollow/taken in to nominal kinship; adoptive; foster/futile; in vain/(dialect) rude; blunt/(dialect) to cold-shoulder; (bound form) to have to do with; to concern oneself with/one of the ten heavenly stems 天干[tian1 gan1]/(archaic) shield",
+"sentence": "你干吗？",
+"sentence_meaning": "Bạn đang làm gì thế?",
+"wubi": "fggh"
+},
+{
+"word": "那个",
+"meaning": "that one/that thing/that (as opposed to this)/(used before a verb or adjective for emphasis)/(used to humorously or indirectly refer to sth embarrassing, funny etc, or when one can't think of the right word)/(used in speech as a filler, similar to \"umm\", \"you know\" etc)/(euph.) menstruation/sex/also pr. [nei4 ge5]",
+"sentence": "那个人是老师。",
+"sentence_meaning": "Người đó là một giáo viên.",
+"wubi": "vfbh whj"
+},
+{
+"word": "嘿",
+"meaning": "hey",
+"sentence": "嘿，你来了。",
+"sentence_meaning": "Chào bạn, bạn đến rồi.",
+"wubi": "klfo"
+},
+{
+"word": "们",
+"meaning": "plural marker for pronouns, and nouns referring to individuals",
+"sentence": "孩子们在玩。",
+"sentence_meaning": "Các em nhỏ đang chơi đùa.",
+"wubi": "wun"
+},
+{
+"word": "话",
+"meaning": "dialect/language/spoken words/speech/talk/words/conversation/what sb said",
+"sentence": "我有话要说。",
+"sentence_meaning": "Tôi có điều muốn nói.",
+"wubi": "ytdg"
+},
+{
+"word": "而",
+"meaning": "and/as well as/and so/but (not)/yet (not)/(indicates causal relation)/(indicates change of state)/(indicates contrast)",
+"sentence": "这个问题重要而紧急，所以必须马上处理。",
+"sentence_meaning": "Vấn đề này rất quan trọng và cấp bách, vì vậy cần phải giải quyết ngay lập tức.",
+"wubi": "dmjj"
+},
+{
+"word": "么",
+"meaning": "suffix, used to form interrogative 什麼|什么[shen2 me5], what?, indefinite 這麼|这么[zhe4 me5] thus, etc",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "tcu"
+},
+{
+"word": "东西",
+"meaning": "thing/stuff/person",
+"sentence": "好啊那就这样决定，晚上一起吃点东西。",
+"sentence_meaning": "Được rồi, vậy là quyết định xong. Tối nay chúng ta cùng đi ăn gì đó nhé.",
+"wubi": "aii sghg"
+},
+{
+"word": "应该",
+"meaning": "ought to; should; must",
+"sentence": "这个问题应该不大，但还是要做一次检查确认。",
+"sentence_meaning": "Việc này có lẽ không phải là vấn đề lớn, nhưng chúng ta vẫn nên kiểm tra lại để xác nhận.",
+"wubi": "yid yynw"
+},
+{
+"word": "孩子",
+"meaning": "child",
+"sentence": "他有孩子。",
+"sentence_meaning": "Anh ấy có con.",
+"wubi": "bynw bbbb"
+},
+{
+"word": "起来",
+"meaning": "indicating the beginning and continuation of an action or a state/indicating an upward movement (e.g. after 站[zhan4])/indicating completion/(after a perception verb, e.g. 看[kan4]) expressing preliminary judgment/also pr. [qi3lai5]",
+"sentence": "他的名字一提大家都笑了起来。",
+"sentence_meaning": "Mọi người đều bật cười khi tên anh ta được nhắc đến.",
+"wubi": "fhnv goi"
+},
+{
+"word": "所以",
+"meaning": "therefore/as a result/so/the reason why",
+"sentence": "他很快乐所以一直在笑。",
+"sentence_meaning": "Anh ấy vui vẻ nên cứ mỉm cười.",
+"wubi": "rnrh nywy"
+},
+{
+"word": "这些",
+"meaning": "these",
+"sentence": "我喜欢这些书。",
+"sentence_meaning": "Tôi thích những cuốn sách này.",
+"wubi": "ypi hxff"
+},
+{
+"word": "才",
+"meaning": "ability; talent/sb of a certain type/a capable individual/then and only then/just now/(before an expression of quantity) only/(emphatic, esp. in contrast or correction) really; actually",
+"sentence": "我才到家。",
+"sentence_meaning": "Tôi vừa về đến nhà.",
+"wubi": "fte"
+},
+{
+"word": "两",
+"meaning": "two/both/some/a few/tael, unit of weight equal to 50 grams (modern) or 1⁄16 of a catty 斤[jin1] (old)",
+"sentence": "这两天工作特别多，所以大家都很忙。",
+"sentence_meaning": "Hai ngày qua khối lượng công việc rất nhiều, nên mọi người đều rất bận rộn.",
+"wubi": "gmww"
+},
+{
+"word": "错",
+"meaning": "surname Cuo; mistake/wrong/bad/interlocking/complex/to grind/to polish/to alternate/to stagger/to miss/to let slip/to evade/to inlay with gold or silver",
+"sentence": "你说错了。",
+"sentence_meaning": "Bạn sai rồi.",
+"wubi": "qajg"
+},
+{
+"word": "还有",
+"meaning": "there still remain(s); there is (or are) still/in addition",
+"sentence": "我还有一点时间。",
+"sentence_meaning": "Tôi vẫn còn thời gian.",
+"wubi": "gipi def"
+},
+{
+"word": "又",
+"meaning": "(once) again/also/both... and.../and yet/(used for emphasis) anyway",
+"sentence": "我以为已经处理好了结果又发现新的问题。",
+"sentence_meaning": "Tôi tưởng mình đã giải quyết được vấn đề, nhưng rồi lại phát hiện ra những vấn đề mới.",
+"wubi": "cccc"
+},
+{
+"word": "小",
+"meaning": "small/tiny/few/young",
+"sentence": "小猫很可爱。",
+"sentence_meaning": "Chú mèo con dễ thương quá.",
+"wubi": "ihty"
+},
+{
+"word": "中",
+"meaning": "to hit (a target)/to be struck by (a bullet, illness etc)/to win (a prize or lottery)",
+"sentence": "他们在战斗中受伤了，但还是坚持，所以最后赢了。",
+"sentence_meaning": "Họ bị thương trong trận chiến, nhưng họ đã kiên trì và cuối cùng giành chiến thắng.",
+"wubi": "khk"
+},
+{
+"word": "叫",
+"meaning": "to shout/to call/to order/to ask/to be called/by (indicates agent in the passive mood)",
+"sentence": "我听到有人叫我。",
+"sentence_meaning": "Tôi nghe thấy ai đó gọi tôi.",
+"wubi": "knhh"
+},
+{
+"word": "嗯",
+"meaning": "(nonverbal grunt as interjection)/OK, yeah/what?",
+"sentence": "嗯，我同意。",
+"sentence_meaning": "Vâng, tôi đồng ý.",
+"wubi": "kldn"
+},
+{
+"word": "该",
+"meaning": "should/ought to/probably/must be/to deserve/to owe/to be sb's turn to do sth/that/the above-mentioned",
+"sentence": "现在该走了。",
+"sentence_meaning": "Đã đến lúc phải đi rồi.",
+"wubi": "yynw"
+},
+{
+"word": "等",
+"meaning": "to wait for; to await/by the time; when; till/and so on; etc.; et al./(bound form) class; rank; grade/(bound form) equal to; same as/(used to end an enumeration)/ (plural suffix attached to a personal pronoun or noun)",
+"sentence": "请等一下。",
+"sentence_meaning": "Vui lòng chờ một chút.",
+"wubi": "tffu"
+},
+{
+"word": "问题",
+"meaning": "question/problem/issue/topic",
+"sentence": "我没有任何问题。",
+"sentence_meaning": "Tôi không có vấn đề gì.",
+"wubi": "ukd jghm"
+},
+{
+"word": "一起",
+"meaning": "(in) the same place/together; in company (with)/altogether; in total/an instance of; a case of (murder, accident, dispute etc)",
+"sentence": "我们一起走。",
+"sentence_meaning": "Chúng ta cùng đi nhé.",
+"wubi": "ggll fhnv"
+},
+{
+"word": "拿",
+"meaning": "to hold/to seize/to catch/to apprehend/to take/(used in the same way as 把[ba3]: to mark the following noun as a direct object)",
+"sentence": "请拿这本书。",
+"sentence_meaning": "Hãy nhận cuốn sách này.",
+"wubi": "wgkr"
+},
+{
+"word": "更",
+"meaning": "to change or replace/to experience/one of the five two-hour periods into which the night was formerly divided/watch (e.g. of a sentry or guard)",
+"sentence": "这个问题有点难所以需要更多时间处理。",
+"sentence_meaning": "Bài toán này hơi khó, nên sẽ cần thêm thời gian để xử lý.",
+"wubi": "gjqi"
+},
+{
+"word": "开始",
+"meaning": "to begin/beginning/to start/initial",
+"sentence": "照片一出来大家就开始讨论了。",
+"sentence_meaning": "Ngay sau khi những bức ảnh được công bố, mọi người bắt đầu bàn tán về chúng.",
+"wubi": "gak vckg"
+},
+{
+"word": "帮",
+"meaning": "to help/to assist/to support/for sb (i.e. as a help)/hired (as worker)/side (of pail, boat etc)/outer layer/upper (of a shoe)/group/gang/clique/party/secret society",
+"sentence": "你哪里不明白可以直接问我我帮你解释。",
+"sentence_meaning": "Nếu có điều gì bạn không hiểu, đừng ngần ngại hỏi tôi, tôi sẽ giải thích cho bạn.",
+"wubi": "dtbh"
+},
+{
+"word": "打",
+"meaning": "a semantically light, transitive verb that is combined with various grammatical objects to form compound verbs and verb-object phrases with a diverse range of meanings (e.g. 打傘|打伞[da3 san3] \"to hold an umbrella\", 打電話|打电话[da3 dian4 hua4] \"to make a phone call\", 打針|打针[da3 zhen1] \"to get an injection\", 打手套[da3 shou3 tao4] \"to knit gloves\", 打氣|打气[da3 qi4] \"to inflate\")/to hit; to strike/to fight/ from; since (as in 打那以後|打那以后[da3 na4 yi3 hou4] \"since then\")",
+"sentence": "本来只是打个招呼结果聊了一个小时。",
+"sentence_meaning": "Lời chào hỏi đơn giản ban đầu đã biến thành cuộc trò chuyện kéo dài cả tiếng đồng hồ.",
+"wubi": "rsh"
+},
+{
+"word": "爱",
+"meaning": "to love; to be fond of; to like/affection/to be inclined (to do sth); to tend to (happen)",
+"sentence": "客户很爱这个设计风格，所以我们继续优化它。",
+"sentence_meaning": "Khách hàng rất thích phong cách thiết kế, vì vậy chúng tôi tiếp tục tối ưu hóa nó.",
+"wubi": "epdc"
+},
+{
+"word": "带",
+"meaning": "band/belt/girdle/ribbon/tire/area/zone/region",
+"sentence": "我忘了带钥匙。",
+"sentence_meaning": "Tôi quên chìa khóa rồi.",
+"wubi": "gkph"
+},
+{
+"word": "时间",
+"meaning": "(concept of) time/(duration of) time/(point in) time",
+"sentence": "我没时间。",
+"sentence_meaning": "Tôi không có thời gian.",
+"wubi": "jfy ujd"
+},
+{
+"word": "年",
+"meaning": "surname Nian; year",
+"sentence": "我学中文一年了。",
+"sentence_meaning": "Tôi đã học tiếng Trung được một năm.",
+"wubi": "rhfk"
+},
+{
+"word": "请",
+"meaning": "to ask/to invite/please (do sth)/to treat (to a meal etc)/to request",
+"sentence": "请来这里。",
+"sentence_meaning": "Mời bạn đến đây.",
+"wubi": "ygeg"
+},
+{
+"word": "回",
+"meaning": "Hui ethnic group (Chinese Muslims); to go back; to return; to turn back; to turn around/to reply; to answer/classifier for literary divisions (acts of a play, sections or chapters of a classic book)/classifier for occurrences or times; to curve/to return/to revolve",
+"sentence": "他喝醉了，所以回不了家。",
+"sentence_meaning": "Anh ta say rượu nên không thể về nhà.",
+"wubi": "lkd"
+},
+{
+"word": "工作",
+"meaning": "to work/(of a machine) to operate/job/work/task",
+"sentence": "我的工作很忙。",
+"sentence_meaning": "Công việc của tôi rất bận rộn.",
+"wubi": "aaaa wthf"
+},
+{
+"word": "然后",
+"meaning": "then; after that; afterwards",
+"sentence": "吃饭，然后学习。",
+"sentence_meaning": "Ăn xong rồi học bài.",
+"wubi": "qdou rgkd"
+},
+{
+"word": "当",
+"meaning": "at or in the very same.../suitable/adequate/fitting/proper/to replace/to regard as/to think/to pawn/ to fail (a student)",
+"sentence": "我想当老师。",
+"sentence_meaning": "Tôi muốn trở thành giáo viên.",
+"wubi": "ivf"
+},
+{
+"word": "见",
+"meaning": "to appear/also written 現|现[xian4]",
+"sentence": "我们明天见。",
+"sentence_meaning": "Hẹn gặp lại ngày mai.",
+"wubi": "mqb"
+},
+{
+"word": "钱",
+"meaning": "surname Qian; coin/money",
+"sentence": "我没有很多钱。",
+"sentence_meaning": "Tôi không có nhiều tiền.",
+"wubi": "qgt"
+},
+{
+"word": "噢",
+"meaning": "oh; ah (used to indicate realization)/also pr. [ou4]",
+"sentence": "噢，原来是这样。",
+"sentence_meaning": "À, tôi hiểu rồi.",
+"wubi": "ktmd"
+},
+{
+"word": "一样",
+"meaning": "same/like/equal to/the same as/just like",
+"sentence": "我们想法一样。",
+"sentence_meaning": "Chúng ta có cùng suy nghĩ.",
+"wubi": "ggll sudh"
+},
+{
+"word": "事情",
+"meaning": "affair; matter; thing; business",
+"sentence": "我们随便谈谈最近发生的事情放松一下吧。",
+"sentence_meaning": "Hãy cùng thư giãn và trò chuyện về những chuyện đã xảy ra gần đây nhé.",
+"wubi": "gkvh ngeg"
+},
+{
+"word": "就是",
+"meaning": "exactly; precisely/only; simply; just/(used correlatively with 也[ye3]) even; even if",
+"sentence": "他就是我的朋友。",
+"sentence_meaning": "Anh ấy là bạn tôi.",
+"wubi": "yidn jghu"
+},
+{
+"word": "吃",
+"meaning": "to eat; to consume/to eat at (a cafeteria etc)/to eradicate; to destroy/to absorb/to suffer (shock, injury, defeat etc)",
+"sentence": "你吃什么？",
+"sentence_meaning": "Bạn muốn ăn gì?",
+"wubi": "ktnn"
+},
+{
+"word": "所有",
+"meaning": "all/to have; to possess; to own",
+"sentence": "所有人都来了。",
+"sentence_meaning": "Mọi người đã đến đầy đủ.",
+"wubi": "rnrh def"
+},
+{
+"word": "开",
+"meaning": "to open (transitive or intransitive)/(of ships, vehicles, troops etc) to start/to turn on; to put in operation; to operate; to run/to boil/to write out (a prescription, check, invoice etc)/(directional complement) away; off/carat (gold)/abbr. for Kelvin, 開爾文|开尔文[Kai1 er3 wen2]/abbr. for 開本|开本[kai1 ben3], book format",
+"sentence": "他敢开这种玩笑大家都笑了。",
+"sentence_meaning": "Mọi người đều cười khi anh ấy nói câu đùa kiểu đó.",
+"wubi": "gak"
+},
+{
+"word": "一下",
+"meaning": "a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try)/all at once; suddenly",
+"sentence": "我想休息一下。",
+"sentence_meaning": "Tôi muốn nghỉ ngơi một chút.",
+"wubi": "ggll ghi"
+},
+{
+"word": "家",
+"meaning": "used in 傢伙|家伙[jia1 huo5] and 傢俱|家俱[jia1 ju4]; home/family/(polite) my (sister, uncle etc)/classifier for families or businesses/refers to the philosophical schools of pre-Han China/noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian",
+"sentence": "我在家。",
+"sentence_meaning": "Tôi ở nhà.",
+"wubi": "peu"
+},
+{
+"word": "非常",
+"meaning": "very; really/unusual; extraordinary",
+"sentence": "我非常开心。",
+"sentence_meaning": "Tôi rất hạnh phúc.",
+"wubi": "djdd ipkh"
+},
+{
+"word": "希望",
+"meaning": "to hope/a hope; a wish",
+"sentence": "我希望你成功。",
+"sentence_meaning": "Chúc bạn thành công.",
+"wubi": "qdmh yneg"
+},
+{
+"word": "那些",
+"meaning": "those",
+"sentence": "那些花很好看。",
+"sentence_meaning": "Những bông hoa đó thật đẹp.",
+"wubi": "vfbh hxff"
+},
+{
+"word": "哪",
+"meaning": "which? (interrogative, followed by classifier or numeral-classifier)",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "kvfb"
+},
+{
+"word": "当然",
+"meaning": "only natural/as it should be/certainly/of course/without doubt",
+"sentence": "当然可以。",
+"sentence_meaning": "Chắc chắn.",
+"wubi": "ivf qdou"
+},
+{
+"word": "也许",
+"meaning": "perhaps; maybe",
+"sentence": "他也许会来。",
+"sentence_meaning": "Có thể anh ấy sẽ đến.",
+"wubi": "bnhn ytfh"
+},
+{
+"word": "行",
+"meaning": "used in 道行[dao4 heng2]",
+"sentence": "这样就行。",
+"sentence_meaning": "Như vậy là được rồi.",
+"wubi": "tfhh"
+},
+{
+"word": "朋友",
+"meaning": "friend",
+"sentence": "他是我的朋友。",
+"sentence_meaning": "Anh ấy là bạn tôi.",
+"wubi": "eeg dcu"
+},
+{
+"word": "妈妈",
+"meaning": "mama/mommy/mother",
+"sentence": "我给妈妈打电话。",
+"sentence_meaning": "Tôi đã gọi điện cho mẹ.",
+"wubi": "vcg vcg"
+},
+{
+"word": "相信",
+"meaning": "to believe; to be convinced; to accept as true",
+"sentence": "我相信你。",
+"sentence_meaning": "Tôi tin tưởng bạn.",
+"wubi": "shg wyg"
+},
+{
+"word": "前",
+"meaning": "front/forward/ahead/first/top (followed by a number)/future/ago/before/BC (e.g. 前293年)/former/formerly",
+"sentence": "他往前走。",
+"sentence_meaning": "Anh ta bước tới.",
+"wubi": "uejj"
+},
+{
+"word": "嗨",
+"meaning": "oh alas/hey!/hi! (loanword)/a high (natural or drug-induced) (loanword)",
+"sentence": "嗨，我们这边已经开始会议了你到了吗。",
+"sentence_meaning": "Chào, cuộc họp của chúng ta đã bắt đầu rồi. Bạn đã đến chưa?",
+"wubi": "kitu"
+},
+{
+"word": "认为",
+"meaning": "to believe; to think; to consider; to feel",
+"sentence": "我认为他说得对。",
+"sentence_meaning": "Tôi nghĩ anh ấy nói đúng.",
+"wubi": "ywy ylyi"
+},
+{
+"word": "将",
+"meaning": "will/shall/to use/to take/to checkmate/just a short while ago/(introduces object of main verb, used in the same way as 把[ba3])",
+"sentence": "我们将重新评估这个项目的风险。",
+"sentence_meaning": "Chúng tôi sẽ đánh giá lại các rủi ro của dự án này.",
+"wubi": "uqfy"
+},
+{
+"word": "这儿",
+"meaning": "here",
+"sentence": "请来这儿。",
+"sentence_meaning": "Mời bạn đến đây.",
+"wubi": "ypi qtn"
+},
+{
+"word": "今天",
+"meaning": "today/the present time; now",
+"sentence": "我今天很忙。",
+"sentence_meaning": "Hôm nay tôi rất bận.",
+"wubi": "wynb gdi"
+},
+{
+"word": "明白",
+"meaning": "clear; obvious; unequivocal/sensible; reasonable/to understand; to realize",
+"sentence": "我完全明白了。",
+"sentence_meaning": "Tôi hoàn toàn hiểu.",
+"wubi": "jeg rrrr"
+},
+{
+"word": "一直",
+"meaning": "straight (in a straight line)/continuously; always; all the way through",
+"sentence": "他一直在笑。",
+"sentence_meaning": "Anh ấy vẫn mỉm cười.",
+"wubi": "ggll fhf"
+},
+{
+"word": "看看",
+"meaning": "to take a look at/to examine/to survey/ pretty soon",
+"sentence": "给我看看。",
+"sentence_meaning": "Cho tôi xem.",
+"wubi": "rhf rhf"
+},
+{
+"word": "车",
+"meaning": "war chariot (archaic)/rook (in Chinese chess)/rook (in chess)",
+"sentence": "那是我的车。",
+"sentence_meaning": "Đó là xe của tôi.",
+"wubi": "lgnh"
+},
+{
+"word": "时",
+"meaning": "surname Shi; o'clock/time/when/hour/season/period",
+"sentence": "他接电话时表情很认真但挂掉就开始笑了。",
+"sentence_meaning": "Anh ấy trông rất nghiêm túc khi nghe điện thoại, nhưng lại bật cười ngay sau khi cúp máy.",
+"wubi": "jfy"
+},
+{
+"word": "杀",
+"meaning": "to kill; to slay; to murder; to attack/to weaken; to reduce/(dialect) to smart/(used after a verb) extremely",
+"sentence": "不要杀小动物。",
+"sentence_meaning": "Không được giết hại các loài động vật nhỏ.",
+"wubi": "qsu"
+},
+{
+"word": "地方",
+"meaning": "place; location; area; space; territory/aspect; part",
+"sentence": "这是一个好地方。",
+"sentence_meaning": "Đây là một nơi tốt.",
+"wubi": "fbn yygn"
+},
+{
+"word": "不过",
+"meaning": "only/merely/no more than/but/however/anyway (to get back to a previous topic)/cannot be more (after adjectival)",
+"sentence": "我想去，不过没时间。",
+"sentence_meaning": "Tôi muốn đi, nhưng tôi không có thời gian.",
+"wubi": "gii fpi"
+},
+{
+"word": "呃",
+"meaning": "(exclamation)/to hiccup",
+"sentence": "呃，我忘了。",
+"sentence_meaning": "Ờ, tôi quên mất.",
+"wubi": "kdbn"
+},
+{
+"word": "发生",
+"meaning": "to happen; to occur; to take place; to break out",
+"sentence": "最近发生的事还挺多的。",
+"sentence_meaning": "Rất nhiều chuyện đã xảy ra gần đây.",
+"wubi": "ntyc tgd"
+},
+{
+"word": "几",
+"meaning": "how many; how much/several; a few",
+"sentence": "你有几个孩子？",
+"sentence_meaning": "Bạn có bao nhiêu đứa con?",
+"wubi": "mtn"
+},
+{
+"word": "回来",
+"meaning": "to return; to come back",
+"sentence": "他已经回来了。",
+"sentence_meaning": "Anh ấy đã trở lại.",
+"wubi": "lkd goi"
+},
+{
+"word": "准备",
+"meaning": "preparation/to prepare/to intend/to be about to/reserve (fund)",
+"sentence": "我准备好了，所以可以开始。",
+"sentence_meaning": "Tôi đã sẵn sàng, vậy chúng ta bắt đầu thôi.",
+"wubi": "uwyg tlf"
+},
+{
+"word": "找到",
+"meaning": "to find",
+"sentence": "我终于找到钥匙了。",
+"sentence_meaning": "Cuối cùng tôi cũng tìm thấy chìa khóa.",
+"wubi": "rat gcfj"
+},
+{
+"word": "后",
+"meaning": "surname Hou; empress/queen/(archaic) monarch/ruler; back/behind/rear/afterwards/after/later/post-",
+"sentence": "他回到办公室后立刻处理了紧急问题。",
+"sentence_meaning": "Ông trở về văn phòng và lập tức giải quyết những vấn đề cấp bách.",
+"wubi": "rgkd"
+},
+{
+"word": "爸爸",
+"meaning": "father; dad",
+"sentence": "那个人是我爸爸。",
+"sentence_meaning": "Người đó là bố tôi.",
+"wubi": "wqcb wqcb"
+},
+{
+"word": "一切",
+"meaning": "everything/every/all",
+"sentence": "一切都会好的。",
+"sentence_meaning": "Mọi chuyện rồi sẽ ổn thôi.",
+"wubi": "ggll avn"
+},
+{
+"word": "抱歉",
+"meaning": "to be sorry/to feel apologetic/sorry!",
+"sentence": "我迟到了，所以很抱歉。",
+"sentence_meaning": "Tôi đến muộn, xin lỗi nhé.",
+"wubi": "rqnn uvow"
+},
+{
+"word": "比",
+"meaning": "Belgium/Belgian/abbr. for 比利時|比利时[Bi3 li4 shi2]; to compare/(followed by a noun and adjective) more {adj.} than {noun}/ratio/to gesture/(Taiwan pr. [bi4] in some compounds derived from Classical Chinese)",
+"sentence": "他比我高。",
+"sentence_meaning": "Anh ấy cao hơn tôi.",
+"wubi": "xxn"
+},
+{
+"word": "感觉",
+"meaning": "feeling; impression; sensation/to feel; to perceive",
+"sentence": "我感觉这个项目进展还不错。",
+"sentence_meaning": "Tôi cảm thấy dự án này đang tiến triển khá tốt.",
+"wubi": "dgkn ipmq"
+},
+{
+"word": "些",
+"meaning": "classifier indicating a small amount or small number greater than 1: some, a few, several",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "hxff"
+},
+{
+"word": "只是",
+"meaning": "merely; only; just; nothing but/simply/but; however",
+"sentence": "我只是看看。",
+"sentence_meaning": "Tôi chỉ đang nhìn xung quanh thôi.",
+"wubi": "kwu jghu"
+},
+{
+"word": "怎么样",
+"meaning": "how?/how about?/how was it?/how are things?",
+"sentence": "你今天怎么样？",
+"sentence_meaning": "Bạn hôm nay thế nào?",
+"wubi": "thfn tcu sudh"
+},
+{
+"word": "出来",
+"meaning": "to come out/to appear/to arise",
+"sentence": "他走出来了。",
+"sentence_meaning": "Anh ấy đã bước ra.",
+"wubi": "bmk goi"
+},
+{
+"word": "不要",
+"meaning": "don't!; must not",
+"sentence": "不要担心。",
+"sentence_meaning": "Đừng lo lắng.",
+"wubi": "gii svf"
+},
+{
+"word": "对不起",
+"meaning": "I'm sorry; excuse me; I beg your pardon/to let (sb) down; to disappoint",
+"sentence": "对不起，我来晚了。",
+"sentence_meaning": "Tôi xin lỗi vì đến muộn.",
+"wubi": "cfy gii fhnv"
+},
+{
+"word": "问",
+"meaning": "to ask; to inquire",
+"sentence": "我想问一个问题。",
+"sentence_meaning": "Tôi có một câu hỏi.",
+"wubi": "ukd"
+},
+{
+"word": "离开",
+"meaning": "to depart; to leave",
+"sentence": "他已经离开了。",
+"sentence_meaning": "Anh ấy đã rời đi rồi.",
+"wubi": "ybmc gak"
+},
+{
+"word": "一点",
+"meaning": "a bit; a little bit/(used in negative expressions) (not) the least bit/(after an adjective, used to form the comparative) a bit more, -er/a point (in a discussion etc)/(calligraphy) dot stroke (、)/one o'clock (abbr. for 一點鍾|一点钟[yi1 dian3 zhong1])",
+"sentence": "快一点。",
+"sentence_meaning": "Nhanh lên.",
+"wubi": "ggll hkou"
+},
+{
+"word": "一定",
+"meaning": "surely; certainly; definitely/fixed; settled/a certain ...; a given ...",
+"sentence": "我一定会来。",
+"sentence_meaning": "Tôi nhất định sẽ đến.",
+"wubi": "ggll pghu"
+},
+{
+"word": "起",
+"meaning": "to rise/to raise/to get up/to set out/to start/to appear/to launch/to initiate (action)/to draft/to establish/to get (from a depot or counter)/verb suffix, to start/starting from (a time, place, price etc)/classifier for occurrences or unpredictable events: case, instance/classifier for groups: batch, group",
+"sentence": "他拿起手机看消息。",
+"sentence_meaning": "Anh ta cầm điện thoại lên để kiểm tra tin nhắn.",
+"wubi": "fhnv"
+},
+{
+"word": "还是",
+"meaning": "still (as before)/had better/unexpectedly/or",
+"sentence": "他马上就要走但还是停下来聊了几句。",
+"sentence_meaning": "Anh ấy định rời đi, nhưng đã dừng lại trò chuyện thêm vài phút.",
+"wubi": "gipi jghu"
+},
+{
+"word": "发现",
+"meaning": "to notice; to become aware of/to discover; to find; to detect/a discovery",
+"sentence": "我发现了一只猫。",
+"sentence_meaning": "Tôi tìm thấy một con mèo.",
+"wubi": "ntyc gmqn"
+},
+{
+"word": "所",
+"meaning": "actually/place/classifier for houses, small buildings, institutions etc/that which/particle introducing a relative clause or passive",
+"sentence": "这个问题涉及的范围比我们所预期的要大很多。",
+"sentence_meaning": "Vấn đề này có phạm vi rộng hơn nhiều so với dự kiến.",
+"wubi": "rnrh"
+},
+{
+"word": "住",
+"meaning": "to live; to reside; to stay/to stop; to cease/(result complement indicating firmness or a stable achieved state)",
+"sentence": "他住在这个地方。",
+"sentence_meaning": "Anh ấy sống ở nơi này.",
+"wubi": "wygg"
+},
+{
+"word": "件",
+"meaning": "item/component/classifier for events, things, clothes etc",
+"sentence": "这件事很简单。",
+"sentence_meaning": "Đây là một vấn đề rất đơn giản.",
+"wubi": "wrhh"
+},
+{
+"word": "正",
+"meaning": "straight/upright/proper/main/principal/to correct/to rectify/exactly/just (at that time)/right (in that place)/(math.) positive",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "ghd"
+},
+{
+"word": "而且",
+"meaning": "(not only ...) but also/moreover; in addition; furthermore",
+"sentence": "他会中文，而且会英语。",
+"sentence_meaning": "Anh ấy nói được tiếng Trung và tiếng Anh.",
+"wubi": "dmjj egd"
+},
+{
+"word": "并",
+"meaning": "short name for Taiyuan 太原[Tai4 yuan2]",
+"sentence": "他向经理汇报了当前进度并提出了一些问题。",
+"sentence_meaning": "Anh ấy đã báo cáo tiến độ hiện tại cho người quản lý và nêu ra một số câu hỏi.",
+"wubi": "uaj"
+},
+{
+"word": "必须",
+"meaning": "to have to/must/compulsory/necessarily",
+"sentence": "我必须回家。",
+"sentence_meaning": "Tôi phải về nhà.",
+"wubi": "nte edmy"
+},
+{
+"word": "意思",
+"meaning": "idea/opinion/meaning/wish/desire/interest/fun/token of appreciation, affection etc",
+"sentence": "我明白你的意思。",
+"sentence_meaning": "Tôi hiểu ý bạn.",
+"wubi": "ujnu lnu"
+},
+{
+"word": "放",
+"meaning": "to put/to place/to release/to free/to let go/to let out/to set off (fireworks)",
+"sentence": "别想太多，放轻松一点。",
+"sentence_meaning": "Đừng suy nghĩ quá nhiều, cứ thư giãn thôi.",
+"wubi": "yty"
+},
+{
+"word": "不错",
+"meaning": "correct/right/not bad/pretty good",
+"sentence": "这个很好，不错。",
+"sentence_meaning": "Điều này tốt, không tệ.",
+"wubi": "gii qajg"
+},
+{
+"word": "肯定",
+"meaning": "to be certain; to be positive/assuredly; definitely/to give recognition; to affirm/affirmative (answer)",
+"sentence": "我肯定他会来。",
+"sentence_meaning": "Tôi chắc chắn anh ấy sẽ đến.",
+"wubi": "hef pghu"
+},
+{
+"word": "电话",
+"meaning": "telephone",
+"sentence": "他接完电话后立刻回来继续处理工作。",
+"sentence_meaning": "Ông ấy lập tức quay lại sau khi nhận được cuộc gọi để tiếp tục công việc.",
+"wubi": "jnv ytdg"
+},
+{
+"word": "为了",
+"meaning": "for; for the purpose of; in order to",
+"sentence": "为了放松一下我们出来走走吧。",
+"sentence_meaning": "Chúng ta cùng đi dạo để thư giãn nhé.",
+"wubi": "ylyi bnh"
+},
+{
+"word": "搞",
+"meaning": "to do/to make/to go in for/to set up/to get hold of/to take care of",
+"sentence": "确定不是上次那个搞笑事件吗。",
+"sentence_meaning": "Bạn có chắc đó không phải là vụ việc hài hước lần trước không?",
+"wubi": "rymk"
+},
+{
+"word": "棒",
+"meaning": "stick/club/cudgel/smart/capable/strong/wonderful/classifier for legs of a relay race",
+"sentence": "你做得很棒。",
+"sentence_meaning": "Bạn đã làm rất tốt.",
+"wubi": "sdwh"
+},
+{
+"word": "第一",
+"meaning": "first/most important; primary; foremost",
+"sentence": "他到公司之后第一件事就是处理紧急邮件。",
+"sentence_meaning": "Việc đầu tiên anh ấy làm sau khi đến công ty là xử lý những email khẩn cấp.",
+"wubi": "txht ggll"
+},
+{
+"word": "妈",
+"meaning": "ma/mom/mother",
+"sentence": "妈，我回来了。",
+"sentence_meaning": "Mẹ ơi, con về rồi.",
+"wubi": "vcg"
+},
+{
+"word": "地",
+"meaning": "-ly/structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct",
+"sentence": "孩子高兴地跳起来。",
+"sentence_meaning": "Đứa trẻ nhảy cẫng lên vì vui sướng.",
+"wubi": "fbn"
+},
+{
+"word": "进",
+"meaning": "to go forward/to advance/to go in/to enter/to put in/to submit/to take in/to admit/(math.) base of a number system/classifier for sections in a building or residential compound",
+"sentence": "请进。",
+"sentence_meaning": "Mời vào.",
+"wubi": "fjpk"
+},
+{
+"word": "那样",
+"meaning": "that kind/that sort",
+"sentence": "不要那样做。",
+"sentence_meaning": "Đừng làm thế.",
+"wubi": "vfbh sudh"
+},
+{
+"word": "大家",
+"meaning": "everyone/influential family/great expert",
+"sentence": "大家好。",
+"sentence_meaning": "Xin chào tất cả mọi người.",
+"wubi": "dddd peu"
+},
+{
+"word": "新",
+"meaning": "abbr. for Xinjiang 新疆[Xin1 jiang1]/abbr. for Singapore 新加坡[Xin1 jia1 po1]/surname Xin; new/newly/meso- (chemistry)",
+"sentence": "你的手机很新。",
+"sentence_meaning": "Điện thoại của bạn còn rất mới.",
+"wubi": "usrh"
+},
+{
+"word": "您",
+"meaning": "you (courteous, as opposed to informal 你[ni3])",
+"sentence": "您请坐。",
+"sentence_meaning": "Mời ngồi.",
+"wubi": "wqin"
+},
+{
+"word": "向",
+"meaning": "surname Xiang; towards/to face/to turn towards/direction/to support/to side with/shortly before/formerly/always/all along/(suffix) suitable for .../oriented to ...",
+"sentence": "他向经理汇报了当前进度并提出了一些问题。",
+"sentence_meaning": "Anh ấy đã báo cáo tiến độ hiện tại cho người quản lý và nêu ra một số câu hỏi.",
+"wubi": "tmkd"
+},
+{
+"word": "一些",
+"meaning": "some; a few; a little; (following an adjective) slightly ...er",
+"sentence": "昨天发生了一些问题所以今天要处理。",
+"sentence_meaning": "Một số vấn đề đã xảy ra ngày hôm qua, vì vậy chúng ta cần giải quyết chúng hôm nay.",
+"wubi": "ggll hxff"
+},
+{
+"word": "三",
+"meaning": "surname San; three/3",
+"sentence": "我有三个朋友。",
+"sentence_meaning": "Tôi có ba người bạn.",
+"wubi": "dggg"
+},
+{
+"word": "那里",
+"meaning": "there; that place",
+"sentence": "我昨天去了那里。",
+"sentence_meaning": "Tôi đã đến đó hôm qua.",
+"wubi": "vfbh jfd"
+},
+{
+"word": "以为",
+"meaning": "to think; to believe (often with the implication that the belief is mistaken – unless referring to one's own current belief)",
+"sentence": "我以为你回家了。",
+"sentence_meaning": "Tôi tưởng bạn đã về nhà rồi.",
+"wubi": "nywy ylyi"
+},
+{
+"word": "高兴",
+"meaning": "happy/glad/willing (to do sth)/in a cheerful mood",
+"sentence": "我很高兴认识你。",
+"sentence_meaning": "Tôi rất vui được gặp bạn.",
+"wubi": "ymkf iwu"
+},
+{
+"word": "嘛",
+"meaning": "modal particle indicating that sth is obvious/particle indicating a pause for emphasis",
+"sentence": "这个问题嘛其实没那么复杂可以慢慢解决。",
+"sentence_meaning": "Vấn đề này thực ra không quá phức tạp; nó có thể được giải quyết từng bước.",
+"wubi": "kyss"
+},
+{
+"word": "老",
+"meaning": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity/old (of people)/venerable (person)/experienced/of long standing/always/all the time/of the past/very/outdated/(of meat etc) tough",
+"sentence": "我家有一只老狗。",
+"sentence_meaning": "Tôi có một con chó già.",
+"wubi": "ftxb"
+},
+{
+"word": "位",
+"meaning": "position/location/place/seat/classifier for people (honorific)/classifier for binary bits (e.g. 十六位 16-bit or 2 bytes)/(physics) potential",
+"sentence": "办公室里那位律师正在整理桌上的文件。",
+"sentence_meaning": "Vị luật sư trong văn phòng đang sắp xếp các tài liệu trên bàn làm việc của mình.",
+"wubi": "wug"
+},
+{
+"word": "过来",
+"meaning": "to come over/to manage/to handle/to be able to take care of",
+"sentence": "请过来一下。",
+"sentence_meaning": "Mời bạn lại gần đây một lát.",
+"wubi": "fpi goi"
+},
+{
+"word": "掉",
+"meaning": "to fall/to drop/to lag behind/to lose/to go missing/to reduce/fall (in prices)/to lose (value, weight etc)/to wag/to swing/to turn/to change/to exchange/to swap/to show off/to shed (hair)/(used after certain verbs to express completion, fulfillment, removal etc)",
+"sentence": "我的手机掉了。",
+"sentence_meaning": "Tôi bị mất điện thoại rồi.",
+"wubi": "rhjh"
+},
+{
+"word": "先",
+"meaning": "beforehand; first; earlier/at first; originally/for the time being; for now/(prefix) my late (in referring to deceased relatives older than oneself)",
+"sentence": "我很累，所以先回家。",
+"sentence_meaning": "Tôi rất mệt nên tôi sẽ về nhà trước.",
+"wubi": "tfqb"
+},
+{
+"word": "等等",
+"meaning": "et cetera/and so on .../wait a minute!/hold on!",
+"sentence": "请等等我。",
+"sentence_meaning": "Hãy đợi tôi.",
+"wubi": "tffu tffu"
+},
+{
+"word": "生活",
+"meaning": "to live/life/livelihood",
+"sentence": "我的生活很简单。",
+"sentence_meaning": "Cuộc sống của tôi rất giản dị.",
+"wubi": "tgd itdg"
+},
+{
+"word": "之",
+"meaning": "(possessive particle, literary equivalent of 的[de5])/him/her/it",
+"sentence": "这是成功之路。",
+"sentence_meaning": "Đây là con đường dẫn đến thành công.",
+"wubi": "pppp"
+},
+{
+"word": "买",
+"meaning": "to buy/to purchase",
+"sentence": "我买了一条鱼。",
+"sentence_meaning": "Tôi đã mua một con cá.",
+"wubi": "nudu"
+},
+{
+"word": "种",
+"meaning": "to plant/to grow/to cultivate",
+"sentence": "他是尼泊尔人，所以会说几种语言。",
+"sentence_meaning": "Anh ấy là người Nepal, vì vậy anh ấy nói được nhiều ngôn ngữ.",
+"wubi": "tkhh"
+},
+{
+"word": "医生",
+"meaning": "doctor; medical practitioner",
+"sentence": "医生来了。",
+"sentence_meaning": "Bác sĩ đã đến.",
+"wubi": "atdi tgd"
+},
+{
+"word": "最后",
+"meaning": "final; last; ultimate/finally; in the end",
+"sentence": "最后一个人到了。",
+"sentence_meaning": "Người cuối cùng đã đến.",
+"wubi": "jbcu rgkd"
+},
+{
+"word": "之前",
+"meaning": "before/prior to/ago/previously/beforehand",
+"sentence": "我之前见过他。",
+"sentence_meaning": "Tôi đã gặp anh ấy trước đây rồi.",
+"wubi": "pppp uejj"
+},
+{
+"word": "伙计",
+"meaning": "partner/fellow/mate/waiter/servant/shop assistant",
+"sentence": "伙计，你好吗？",
+"sentence_meaning": "Này anh bạn, cậu khỏe không?",
+"wubi": "woy yfh"
+},
+{
+"word": "手",
+"meaning": "hand/(formal) to hold/person engaged in certain types of work/person skilled in certain types of work/personal(ly)/convenient/classifier for skill",
+"sentence": "我的手很冷。",
+"sentence_meaning": "Tay tôi lạnh.",
+"wubi": "rtgh"
+},
+{
+"word": "任何",
+"meaning": "any; whatever; whichever",
+"sentence": "任何人都可以来。",
+"sentence_meaning": "Ai cũng có thể đến.",
+"wubi": "wtfg wskg"
+},
+{
+"word": "详细",
+"meaning": "detailed/in detail/minute",
+"sentence": "顾客可以询问商品详细信息。",
+"sentence_meaning": "cố_khách khả_dĩ tuân_vấn thương_phẩm tường_tế tín_tức 。",
+"wubi": "yudh xlg"
+},
+{
+"word": "港",
+"meaning": "Hong Kong (abbr. for 香港[Xiang1 gang3])/surname Gang; harbor/port",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "iawn"
+},
+{
+"word": "拨打",
+"meaning": "to call/to dial",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "rnty rsh"
+},
+{
+"word": "对头",
+"meaning": "(longstanding) opponent/enemy/inimical/adversary/opponent",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "cfy udi"
+},
+{
+"word": "上映",
+"meaning": "to screen; to show (a movie)",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "hhgg jmdy"
+},
+{
+"word": "土著",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "ffff aftj"
+},
+{
+"word": "行好",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "tfhh vbg"
+},
+{
+"word": "作文",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "wthf yygy"
+},
+{
+"word": "大雪",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "dddd fvf"
+},
+{
+"word": "轻蔑",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "lcag aldt"
+},
+{
+"word": "飞溅",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "nui imgt"
+},
+{
+"word": "塞子",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "pfjf bbbb"
+},
+{
+"word": "派头",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "irey udi"
+},
+{
+"word": "兰州",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "uff ytyh"
+},
+{
+"word": "胁",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "elwy"
+},
+{
+"word": "主心骨",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "ygd nyny mef"
+},
+{
+"word": "幽暗",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "xxmk jujg"
+},
+{
+"word": "乡里",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "xte jfd"
+},
+{
+"word": "图瓦卢",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "ltui gnyn hne"
+},
+{
+"word": "公断",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "wcu onrh"
+},
+{
+"word": "始建",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "vckg vfhp"
+},
+{
+"word": "福泽",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "pygl icfh"
+},
+{
+"word": "莫如",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "ajdu vkg"
+},
+{
+"word": "玛多",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "gcg qqu"
+},
+{
+"word": "板栗",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "srcy ssu"
+},
+{
+"word": "寇准",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "pfqc uwyg"
+},
+{
+"word": "层理",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "nfci gjfg"
+},
+{
+"word": "平芜",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "guhk afqb"
+},
+{
+"word": "得数",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "tjgf ovty"
+},
+{
+"word": "爱恨交加",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "epdc nvey uqu lkg"
+},
+{
+"word": "批荡",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "rxxn ainr"
+},
+{
+"word": "排水口",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "rdjd iiii kkkk"
+},
+{
+"word": "收容人",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "nhty pwwk wwww"
+},
+{
+"word": "既来之，则安之",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "vcaq goi pppp ， mjh pvf pppp"
+},
+{
+"word": "有一说一，有二说二",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "def ggll yukq ggll ， def fgg yukq fgg"
+},
+{
+"word": "柘蚕",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "sdg gdju"
+},
+{
+"word": "树洞",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "scfy imgk"
+},
+{
+"word": "毪",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "tfnh"
+},
+{
+"word": "德州",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "tfln ytyh"
+},
+{
+"word": "星系",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "jtgf txiu"
+},
+{
+"word": "直升飞机",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "fhf tak nui smn"
+},
+{
+"word": "看穿",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "rhf pwat"
+},
+{
+"word": "迪斯尼",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "mpd adwr nxv"
+},
+{
+"word": "安吉",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "pvf fkf"
+},
+{
+"word": "著",
+"meaning": "to make known/to show/to prove/to write/book/outstanding",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "aftj"
+},
+{
+"word": "夥",
+"meaning": "many; numerous",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "jsqq"
+},
+{
+"word": "着",
+"meaning": "aspect particle indicating action in progress or ongoing state",
+"sentence": "她看着手机。",
+"sentence_meaning": "Cô ấy nhìn vào điện thoại.",
+"wubi": "udhf"
+},
+{
+"word": "伙",
+"meaning": "companion/partner/group/classifier for groups of people/to combine/together",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "woy"
+},
+{
+"word": "髮",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "dedc"
+},
+{
+"word": "發",
+"meaning": "to send out/to show (one's feeling)/to issue/to develop/to make a bundle of money/classifier for gunshots (rounds)",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "wxmc"
+},
+{
+"word": "窗",
+"meaning": "window",
+"sentence": "杯子放在窗边被阳光照得有点亮。",
+"sentence_meaning": "Chiếc cốc được đặt cạnh cửa sổ và hơi bóng lên vì ánh nắng mặt trời.",
+"wubi": "pwtq"
+},
+{
+"word": "迎",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "qbpk"
+},
+{
+"word": "发",
+"meaning": "to send out/to show (one's feeling)/to issue/to develop/to make a bundle of money/classifier for gunshots (rounds)",
+"sentence": "他发消息了。",
+"sentence_meaning": "Anh ấy đã gửi một tin nhắn.",
+"wubi": "ntyc"
+},
+{
+"word": "用于",
+"meaning": "to use in; to use on; to use for",
+"sentence": "上帝这个词这里不适合用于正式工作表达已替换。",
+"sentence_meaning": "Từ \"Chúa\" không phù hợp để sử dụng trong các biểu thức công việc trang trọng ở đây và đã được thay thế.",
+"wubi": "etnh gfk"
+},
+{
+"word": "呢",
+"meaning": "(sentence-final particle) used in questions to link back to prior discourse or context (\"what about...?\", \"and...?\")/(sentence-final particle) indicating that a state or situation still holds/(discourse particle) used to mark a slight pause or emphasis in speech",
+"sentence": "你呢？",
+"sentence_meaning": "Và bạn?",
+"wubi": "knxn"
+},
+{
+"word": "〇",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "llll"
+},
+{
+"word": "㐀中",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "㐀 khk"
+},
+{
+"word": "𠀀我",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "𠀀 trnt"
+},
+{
+"word": "A1好",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "A1 vbg"
+},
+{
+"word": "你好，Hi",
+"meaning": "",
+"sentence": "",
+"sentence_meaning": "",
+"wubi": "wqiy vbg ，Hi"
+},
+{
+"word": "操",
+"meaning": "to grasp/to hold/to operate/to manage/to control/to steer/to exercise/to drill (practice)/to play/to speak (a language)",
+"sentence": "他很生气地说“操”。",
+"sentence_meaning": "Anh ta tức giận nói, \"Mẹ kiếp.\"",
+"wubi": "rkks"
+}
+]
+}

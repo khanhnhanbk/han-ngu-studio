@@ -21,6 +21,7 @@ export function Navbar() {
     { href: "/tools/segment", label: dict.nav.segment },
     { href: "/tools/pinyin", label: dict.nav.pinyin },
     { href: "/tools/hanviet", label: dict.nav.hanviet },
+    { href: "/tools/anki", label: dict.nav.anki },
   ];
 
   return (

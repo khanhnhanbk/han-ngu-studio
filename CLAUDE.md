@@ -12,7 +12,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Word segmentation | `/tools/segment` | Live, client-side (`lib/segment/`, word list in `public/data/word_list.txt`) |
 | Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
 | Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
-| Anki deck generator (Pinyin, meaning, Sino-Vietnamese, examples) → TSV | | Not built |
+| Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, data in `public/data/{meanings,sentences,wubi}.json`) |
 | Cloze exercise generator | | Not built |
 | N+1 sentence ordering (one new word per sentence) | | Not built |
 
@@ -65,6 +65,11 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 - Plan mode saves plans to `docs/plans/` (set via `plansDirectory` in `.claude/settings.json`).
 - For plans written outside plan mode, also save them in `docs/plans/` as `<YYYY-MM-DD>-<topic>.md`.
+
+## Data sources and credits
+
+- Meanings: CC-CEDICT (CC BY-SA 4.0). Wubi 86: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`). Example sentences: owner's own data.
+- Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide
 

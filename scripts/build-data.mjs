@@ -10,12 +10,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "assets/dictionary");
 const OUT = join(ROOT, "public/data");
 
-/** Minimal RFC 4180 CSV parser (quoted fields, "" escapes, CRLF). */
-function parseCsv(text) {
+/**
+ * Minimal CSV/TSV parser with Python csv-module quoting rules: a quote only
+ * opens a quoted field at the very start of the field ("" escapes inside);
+ * a quote anywhere else is literal text (e.g. `Từ "Chúa" …` in a TSV cell).
+ */
+function parseCsv(text, delimiter = ",") {
   const rows = [];
   let row = [];
   let field = "";
   let quoted = false;
+  let fieldHadQuotes = false;
   for (let i = 0; i < text.length; i++) {
     const ch = text[i];
     if (quoted) {
@@ -27,17 +32,20 @@ function parseCsv(text) {
       } else {
         field += ch;
       }
-    } else if (ch === '"') {
+    } else if (ch === '"' && field === "" && !fieldHadQuotes) {
       quoted = true;
-    } else if (ch === ",") {
+      fieldHadQuotes = true;
+    } else if (ch === delimiter) {
       row.push(field);
       field = "";
+      fieldHadQuotes = false;
     } else if (ch === "\n" || ch === "\r") {
       if (ch === "\r" && text[i + 1] === "\n") i++;
       row.push(field);
       rows.push(row);
       row = [];
       field = "";
+      fieldHadQuotes = false;
     } else {
       field += ch;
     }
@@ -49,9 +57,9 @@ function parseCsv(text) {
   return rows.filter((r) => r.some((f) => f !== ""));
 }
 
-function readCsv(name) {
-  const text = readFileSync(join(SRC, name), "utf-8").replace(/^﻿/, "");
-  const [header, ...rows] = parseCsv(text);
+function readCsv(name, delimiter = ",") {
+  const text = readFileSync(join(SRC, name), "utf-8").replace(/^\uFEFF/, "");
+  const [header, ...rows] = parseCsv(text, delimiter);
   return rows.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ""])));
 }
 
@@ -103,6 +111,85 @@ function buildHanviet() {
   return out;
 }
 
+/**
+ * meanings.json: { word: definitions } for the Anki deck.
+ *
+ * Port of anki_desk.py's meaning_map (Simplified, then Traditional keys), with
+ * two fixes: a Traditional key never overwrites another word's Simplified
+ * entry (Python gave 著 the meaning of 着), and empty definitions are skipped
+ * (pandas exported them as the text "nan").
+ */
+function buildMeanings() {
+  const rows = readCsv("chinese_dict.csv");
+  const meanings = {};
+  for (const r of rows) {
+    if (r.Simplified && r.Definitions.trim()) meanings[r.Simplified] = r.Definitions;
+  }
+  for (const r of rows) {
+    if (r.Traditional && r.Definitions.trim() && !Object.hasOwn(meanings, r.Traditional)) {
+      meanings[r.Traditional] = r.Definitions;
+    }
+  }
+  return meanings;
+}
+
+// normalize_new_word_tokens in anki_desk.py.
+const NEW_WORD_SPLIT = /[\s,，。！？、;；:：]+/;
+
+/**
+ * sentences.json: { rows: [[hanzi, vi, en]], index: { token: rowIndex } }.
+ * A token points to the first row (file order) listing it in NewWord, like
+ * anki_desk.py's scan, which stops looking for a word after its first match.
+ * Rows that are no word's first match are left out.
+ */
+function buildSentences() {
+  const rows = [];
+  const index = {};
+  for (const r of readCsv("sentences.tsv", "\t")) {
+    const fresh = (r.NewWord ?? "")
+      .split(NEW_WORD_SPLIT)
+      .map((t) => t.trim())
+      .filter((t) => t && !Object.hasOwn(index, t));
+    if (fresh.length === 0) continue;
+    const id = rows.length;
+    rows.push([r.Hanzi ?? "", r.Vietnamese ?? "", r.English ?? ""]);
+    for (const t of fresh) index[t] = id;
+  }
+  return { rows, index };
+}
+
+// pywubi's RE_HANS: only these characters get a Wubi code.
+const WUBI_HAN = /^[\u3007\u4e00-\ufa29]$/;
+
+/**
+ * wubi.json: { char: code } from pywubi 0.3.0's wubi_86.json (MIT, see
+ * assets/dictionary/LICENSE-pywubi.txt). Codes are listed longest first;
+ * pywubi's wubi() returns the first one.
+ */
+function buildWubi() {
+  const table = JSON.parse(readFileSync(join(SRC, "wubi_86.json"), "utf-8"));
+  const out = {};
+  for (const [char, codes] of Object.entries(table)) {
+    if (WUBI_HAN.test(char) && codes.length) out[char] = codes[0];
+  }
+  return out;
+}
+
+function write(name, data, summary) {
+  const json = JSON.stringify(data);
+  writeFileSync(join(OUT, name), json);
+  console.log(`${name}: ${summary} (${Math.round(Buffer.byteLength(json) / 1024)} KB)`);
+}
+
 const hanviet = buildHanviet();
-writeFileSync(join(OUT, "hanviet.json"), JSON.stringify(hanviet));
-console.log(`hanviet.json: ${Object.keys(hanviet).length} characters`);
+write("hanviet.json", hanviet, `${Object.keys(hanviet).length} characters`);
+const meanings = buildMeanings();
+write("meanings.json", meanings, `${Object.keys(meanings).length} words`);
+const wubi = buildWubi();
+write("wubi.json", wubi, `${Object.keys(wubi).length} characters`);
+const sentences = buildSentences();
+write(
+  "sentences.json",
+  sentences,
+  `${sentences.rows.length} sentences, ${Object.keys(sentences.index).length} words`,
+);

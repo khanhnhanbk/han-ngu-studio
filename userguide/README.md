@@ -21,8 +21,9 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Tách từ** | Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
 | **Hán Việt** | Tách từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
+| **Tạo thẻ Anki** | Từ danh sách từ vựng, tạo file thẻ Anki: Pinyin, nghĩa, câu ví dụ, Ngũ bút, Hán Việt | [anki.md](anki.md) |
 
-Các công cụ sắp có: tạo thẻ Anki, ảnh cho thẻ Anki, đọc to (TTS).
+Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 
 ## Mẹo chung
 
