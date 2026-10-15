@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { getDictionary } from "@/lib/i18n";
 
@@ -23,12 +24,12 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-white/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
-        <a href="/" className="flex items-center gap-2 font-bold text-ink-900">
+        <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
             汉
           </span>
           <span>Hán Ngữ Studio</span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
@@ -82,9 +83,9 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a href="/#cta" className="btn-primary">
+          <Link href="/#cta" className="btn-primary">
             {dict.nav.cta}
-          </a>
+          </Link>
         </div>
 
         <button
@@ -123,13 +124,13 @@ export function Navbar() {
                 {tool.label}
               </a>
             ))}
-            <a
+            <Link
               href="/#cta"
               onClick={() => setOpen(false)}
               className="btn-primary mt-2"
             >
               {dict.nav.cta}
-            </a>
+            </Link>
           </div>
         </div>
       )}

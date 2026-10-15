@@ -2,7 +2,7 @@
 
 A **free** tool that helps Vietnamese speakers learn and teach Chinese. Live site: https://han-ngu-studio.vercel.app/
 
-Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pro`. Package manager: **npm** (`package-lock.json` is the tracked lockfile).
+Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pro`. Package manager: **pnpm** (`pnpm-lock.yaml` is the tracked lockfile).
 
 ## Tools
 
@@ -24,10 +24,10 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 
 ## Commands
 
-- `npm run dev`: dev server (http://localhost:3000)
-- `npm run build`: production build. **Must succeed before any task counts as done.**
-- `npm run lint`: lint
-- `npm test`: Vitest (`lib/**/*.test.ts`), including golden tests
+- `pnpm run dev`: dev server (http://localhost:3000)
+- `pnpm run build`: production build. **Must succeed before any task counts as done.**
+- `pnpm run lint`: lint (ESLint `next/core-web-vitals` + `next/typescript`). `next build` also lints, so **a lint error fails the Vercel deploy**.
+- `pnpm test`: Vitest (`lib/**/*.test.ts`), including golden tests
 
 ## Porting algorithms from Python to TypeScript
 

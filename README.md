@@ -14,17 +14,17 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 ## Local development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 # open http://localhost:3000
-npm test   # Vitest (golden tests)
+pnpm test  # Vitest (golden tests)
 ```
 
 ## Build
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 ## Deploy to Vercel (free)
