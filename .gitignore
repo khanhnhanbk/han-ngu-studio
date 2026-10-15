@@ -33,3 +33,6 @@ next-env.d.ts
 
 # Windows download metadata (WSL)
 *:Zone.Identifier
+
+# Local-only fonts for the old Python PDF scripts (not used by the site; KaiTi licence)
+/assets/fonts/
