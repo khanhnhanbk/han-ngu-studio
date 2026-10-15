@@ -1,0 +1,3178 @@
+{
+"source": "hanviet.py get_hanviet_for_word (duplicate rows merged), assets/dictionary/char_hanviet.csv",
+"cases": [
+{
+"word": "的",
+"tone3": [
+"de5"
+],
+"hanviet": "đích"
+},
+{
+"word": "我",
+"tone3": [
+"wo3"
+],
+"hanviet": "ngã"
+},
+{
+"word": "你",
+"tone3": [
+"ni3"
+],
+"hanviet": "nhĩ"
+},
+{
+"word": "是",
+"tone3": [
+"shi4"
+],
+"hanviet": "thị"
+},
+{
+"word": "了",
+"tone3": [
+"liao3"
+],
+"hanviet": "liễu"
+},
+{
+"word": "不",
+"tone3": [
+"bu4"
+],
+"hanviet": "bất"
+},
+{
+"word": "在",
+"tone3": [
+"zai4"
+],
+"hanviet": "tại"
+},
+{
+"word": "他",
+"tone3": [
+"ta1"
+],
+"hanviet": "tha"
+},
+{
+"word": "我们",
+"tone3": [
+"wo3",
+"men5"
+],
+"hanviet": "ngã_môn"
+},
+{
+"word": "好",
+"tone3": [
+"hao3"
+],
+"hanviet": "hảo"
+},
+{
+"word": "有",
+"tone3": [
+"you3"
+],
+"hanviet": "hữu"
+},
+{
+"word": "这",
+"tone3": [
+"zhe4"
+],
+"hanviet": "giá"
+},
+{
+"word": "就",
+"tone3": [
+"jiu4"
+],
+"hanviet": "tựu"
+},
+{
+"word": "会",
+"tone3": [
+"hui4"
+],
+"hanviet": "hội"
+},
+{
+"word": "吗",
+"tone3": [
+"ma5"
+],
+"hanviet": "ma"
+},
+{
+"word": "要",
+"tone3": [
+"yao4"
+],
+"hanviet": "yếu"
+},
+{
+"word": "什么",
+"tone3": [
+"shen2",
+"me5"
+],
+"hanviet": "thậm_ma"
+},
+{
+"word": "说",
+"tone3": [
+"shuo1"
+],
+"hanviet": "thuyết"
+},
+{
+"word": "她",
+"tone3": [
+"ta1"
+],
+"hanviet": "tha"
+},
+{
+"word": "想",
+"tone3": [
+"xiang3"
+],
+"hanviet": "tưởng"
+},
+{
+"word": "一",
+"tone3": [
+"yi1"
+],
+"hanviet": "nhất"
+},
+{
+"word": "很",
+"tone3": [
+"hen3"
+],
+"hanviet": "ngận"
+},
+{
+"word": "知道",
+"tone3": [
+"zhi1",
+"dao4"
+],
+"hanviet": "tri_đạo"
+},
+{
+"word": "人",
+"tone3": [
+"ren2"
+],
+"hanviet": "nhân"
+},
+{
+"word": "吧",
+"tone3": [
+"ba5"
+],
+"hanviet": "ba"
+},
+{
+"word": "那",
+"tone3": [
+"na4"
+],
+"hanviet": "na"
+},
+{
+"word": "来",
+"tone3": [
+"lai2"
+],
+"hanviet": "lai"
+},
+{
+"word": "都",
+"tone3": [
+"dou1"
+],
+"hanviet": "đô"
+},
+{
+"word": "个",
+"tone3": [
+"ge4"
+],
+"hanviet": "cá"
+},
+{
+"word": "能",
+"tone3": [
+"neng2"
+],
+"hanviet": "năng"
+},
+{
+"word": "去",
+"tone3": [
+"qu4"
+],
+"hanviet": "khứ"
+},
+{
+"word": "没",
+"tone3": [
+"mei2"
+],
+"hanviet": "một"
+},
+{
+"word": "和",
+"tone3": [
+"he2"
+],
+"hanviet": "hoà"
+},
+{
+"word": "他们",
+"tone3": [
+"ta1",
+"men5"
+],
+"hanviet": "tha_môn"
+},
+{
+"word": "到",
+"tone3": [
+"dao4"
+],
+"hanviet": "đáo"
+},
+{
+"word": "对",
+"tone3": [
+"dui4"
+],
+"hanviet": "đối"
+},
+{
+"word": "也",
+"tone3": [
+"ye3"
+],
+"hanviet": "dã"
+},
+{
+"word": "啊",
+"tone3": [
+"a5"
+],
+"hanviet": "a"
+},
+{
+"word": "还",
+"tone3": [
+"hai2"
+],
+"hanviet": "hoàn"
+},
+{
+"word": "把",
+"tone3": [
+"ba3"
+],
+"hanviet": "bả"
+},
+{
+"word": "让",
+"tone3": [
+"rang4"
+],
+"hanviet": "nhượng"
+},
+{
+"word": "做",
+"tone3": [
+"zuo4"
+],
+"hanviet": "tố"
+},
+{
+"word": "给",
+"tone3": [
+"gei3"
+],
+"hanviet": "cấp"
+},
+{
+"word": "上",
+"tone3": [
+"shang4"
+],
+"hanviet": "thượng"
+},
+{
+"word": "你们",
+"tone3": [
+"ni3",
+"men5"
+],
+"hanviet": "nhĩ_môn"
+},
+{
+"word": "过",
+"tone3": [
+"guo4"
+],
+"hanviet": "quá"
+},
+{
+"word": "没有",
+"tone3": [
+"mei2",
+"you3"
+],
+"hanviet": "một_hữu"
+},
+{
+"word": "得",
+"tone3": [
+"de2"
+],
+"hanviet": "đắc"
+},
+{
+"word": "看",
+"tone3": [
+"kan4"
+],
+"hanviet": "khán"
+},
+{
+"word": "真",
+"tone3": [
+"zhen1"
+],
+"hanviet": "chân"
+},
+{
+"word": "着",
+"tone3": [
+"zhe5"
+],
+"hanviet": "trước"
+},
+{
+"word": "事",
+"tone3": [
+"shi4"
+],
+"hanviet": "sự"
+},
+{
+"word": "这个",
+"tone3": [
+"zhe4",
+"ge5"
+],
+"hanviet": "giá_cá"
+},
+{
+"word": "怎么",
+"tone3": [
+"zen3",
+"me5"
+],
+"hanviet": "chẩm_ma"
+},
+{
+"word": "现在",
+"tone3": [
+"xian4",
+"zai4"
+],
+"hanviet": "hiện_tại"
+},
+{
+"word": "可以",
+"tone3": [
+"ke3",
+"yi3"
+],
+"hanviet": "khả_dĩ"
+},
+{
+"word": "点",
+"tone3": [
+"dian3"
+],
+"hanviet": "điểm"
+},
+{
+"word": "呢",
+"tone3": [
+"ne5"
+],
+"hanviet": "ni"
+},
+{
+"word": "如果",
+"tone3": [
+"ru2",
+"guo3"
+],
+"hanviet": "như_quả"
+},
+{
+"word": "只",
+"tone3": [
+"zhi1"
+],
+"hanviet": "chích"
+},
+{
+"word": "别",
+"tone3": [
+"bie2"
+],
+"hanviet": "biệt"
+},
+{
+"word": "哦",
+"tone3": [
+"o4"
+],
+"hanviet": "nga"
+},
+{
+"word": "但",
+"tone3": [
+"dan4"
+],
+"hanviet": "đãn"
+},
+{
+"word": "被",
+"tone3": [
+"bei4"
+],
+"hanviet": "bị"
+},
+{
+"word": "走",
+"tone3": [
+"zou3"
+],
+"hanviet": "tẩu"
+},
+{
+"word": "太",
+"tone3": [
+"tai4"
+],
+"hanviet": "thái"
+},
+{
+"word": "这样",
+"tone3": [
+"zhe4",
+"yang4"
+],
+"hanviet": "giá_dạng"
+},
+{
+"word": "里",
+"tone3": [
+"li3"
+],
+"hanviet": "lý"
+},
+{
+"word": "跟",
+"tone3": [
+"gen1"
+],
+"hanviet": "cân"
+},
+{
+"word": "告诉",
+"tone3": [
+"gao4",
+"su4"
+],
+"hanviet": "cáo_tố"
+},
+{
+"word": "因为",
+"tone3": [
+"yin1",
+"wei4"
+],
+"hanviet": "nhân_vị"
+},
+{
+"word": "自己",
+"tone3": [
+"zi4",
+"ji3"
+],
+"hanviet": "tự_kỷ"
+},
+{
+"word": "再",
+"tone3": [
+"zai4"
+],
+"hanviet": "tái"
+},
+{
+"word": "听",
+"tone3": [
+"ting1"
+],
+"hanviet": "thính"
+},
+{
+"word": "这里",
+"tone3": [
+"zhe4",
+"li3"
+],
+"hanviet": "giá_lý"
+},
+{
+"word": "快",
+"tone3": [
+"kuai4"
+],
+"hanviet": "khoái"
+},
+{
+"word": "谁",
+"tone3": [
+"shui2"
+],
+"hanviet": "thuỳ"
+},
+{
+"word": "但是",
+"tone3": [
+"dan4",
+"shi4"
+],
+"hanviet": "đãn_thị"
+},
+{
+"word": "多",
+"tone3": [
+"duo1"
+],
+"hanviet": "đa"
+},
+{
+"word": "用",
+"tone3": [
+"yong4"
+],
+"hanviet": "dụng"
+},
+{
+"word": "时候",
+"tone3": [
+"shi2",
+"hou4"
+],
+"hanviet": "thời_hậu"
+},
+{
+"word": "下",
+"tone3": [
+"xia4"
+],
+"hanviet": "hạ"
+},
+{
+"word": "已经",
+"tone3": [
+"yi3",
+"jing1"
+],
+"hanviet": "dĩ_kinh"
+},
+{
+"word": "谢谢",
+"tone3": [
+"xie4",
+"xie4"
+],
+"hanviet": "tạ_tạ"
+},
+{
+"word": "为什么",
+"tone3": [
+"wei4",
+"shen2",
+"me5"
+],
+"hanviet": "vị_thậm_ma"
+},
+{
+"word": "觉得",
+"tone3": [
+"jue2",
+"de5"
+],
+"hanviet": "giác_đắc"
+},
+{
+"word": "天",
+"tone3": [
+"tian1"
+],
+"hanviet": "thiên"
+},
+{
+"word": "像",
+"tone3": [
+"xiang4"
+],
+"hanviet": "tượng"
+},
+{
+"word": "这么",
+"tone3": [
+"zhe4",
+"me5"
+],
+"hanviet": "giá_ma"
+},
+{
+"word": "它",
+"tone3": [
+"ta1"
+],
+"hanviet": "tha"
+},
+{
+"word": "从",
+"tone3": [
+"cong2"
+],
+"hanviet": "tòng"
+},
+{
+"word": "先生",
+"tone3": [
+"xian1",
+"sheng1"
+],
+"hanviet": "tiên_sinh"
+},
+{
+"word": "找",
+"tone3": [
+"zhao3"
+],
+"hanviet": "trảo"
+},
+{
+"word": "最",
+"tone3": [
+"zui4"
+],
+"hanviet": "tối"
+},
+{
+"word": "喜欢",
+"tone3": [
+"xi3",
+"huan5"
+],
+"hanviet": "hỷ_hoan"
+},
+{
+"word": "可",
+"tone3": [
+"ke3"
+],
+"hanviet": "khả"
+},
+{
+"word": "为",
+"tone3": [
+"wei4"
+],
+"hanviet": "vị"
+},
+{
+"word": "大",
+"tone3": [
+"da4"
+],
+"hanviet": "đại"
+},
+{
+"word": "可能",
+"tone3": [
+"ke3",
+"neng2"
+],
+"hanviet": "khả_năng"
+},
+{
+"word": "需要",
+"tone3": [
+"xu1",
+"yao4"
+],
+"hanviet": "nhu_yếu"
+},
+{
+"word": "死",
+"tone3": [
+"si3"
+],
+"hanviet": "tử"
+},
+{
+"word": "次",
+"tone3": [
+"ci4"
+],
+"hanviet": "thứ"
+},
+{
+"word": "出",
+"tone3": [
+"chu1"
+],
+"hanviet": "xuất"
+},
+{
+"word": "那么",
+"tone3": [
+"na4",
+"me5"
+],
+"hanviet": "na_ma"
+},
+{
+"word": "干",
+"tone3": [
+"gan1"
+],
+"hanviet": "can"
+},
+{
+"word": "那个",
+"tone3": [
+"na4",
+"ge5"
+],
+"hanviet": "na_cá"
+},
+{
+"word": "嘿",
+"tone3": [
+"hei1"
+],
+"hanviet": "hắc"
+},
+{
+"word": "们",
+"tone3": [
+"men5"
+],
+"hanviet": "môn"
+},
+{
+"word": "话",
+"tone3": [
+"hua4"
+],
+"hanviet": "thoại"
+},
+{
+"word": "而",
+"tone3": [
+"er2"
+],
+"hanviet": "nhi"
+},
+{
+"word": "么",
+"tone3": [
+"me5"
+],
+"hanviet": "ma"
+},
+{
+"word": "东西",
+"tone3": [
+"dong1",
+"xi1"
+],
+"hanviet": "đông_tây"
+},
+{
+"word": "应该",
+"tone3": [
+"ying1",
+"gai1"
+],
+"hanviet": "ưng_cai"
+},
+{
+"word": "孩子",
+"tone3": [
+"hai2",
+"zi5"
+],
+"hanviet": "hài_tử"
+},
+{
+"word": "起来",
+"tone3": [
+"qi3",
+"lai2"
+],
+"hanviet": "khởi_lai"
+},
+{
+"word": "所以",
+"tone3": [
+"suo3",
+"yi3"
+],
+"hanviet": "sở_dĩ"
+},
+{
+"word": "这些",
+"tone3": [
+"zhe4",
+"xie1"
+],
+"hanviet": "giá_ta"
+},
+{
+"word": "才",
+"tone3": [
+"cai2"
+],
+"hanviet": "tài"
+},
+{
+"word": "两",
+"tone3": [
+"liang3"
+],
+"hanviet": "lưỡng/lượng/lạng"
+},
+{
+"word": "错",
+"tone3": [
+"cuo4"
+],
+"hanviet": "thác"
+},
+{
+"word": "还有",
+"tone3": [
+"hai2",
+"you3"
+],
+"hanviet": "hoàn_hữu"
+},
+{
+"word": "又",
+"tone3": [
+"you4"
+],
+"hanviet": "hựu"
+},
+{
+"word": "小",
+"tone3": [
+"xiao3"
+],
+"hanviet": "tiểu"
+},
+{
+"word": "中",
+"tone3": [
+"zhong1"
+],
+"hanviet": "trung"
+},
+{
+"word": "叫",
+"tone3": [
+"jiao4"
+],
+"hanviet": "khiếu"
+},
+{
+"word": "嗯",
+"tone3": [
+"ng4"
+],
+"hanviet": "ân"
+},
+{
+"word": "该",
+"tone3": [
+"gai1"
+],
+"hanviet": "cai"
+},
+{
+"word": "等",
+"tone3": [
+"deng3"
+],
+"hanviet": "đẳng"
+},
+{
+"word": "问题",
+"tone3": [
+"wen4",
+"ti2"
+],
+"hanviet": "vấn_đề"
+},
+{
+"word": "一起",
+"tone3": [
+"yi4",
+"qi3"
+],
+"hanviet": "nhất_khởi"
+},
+{
+"word": "拿",
+"tone3": [
+"na2"
+],
+"hanviet": "nã"
+},
+{
+"word": "更",
+"tone3": [
+"geng4"
+],
+"hanviet": "càng"
+},
+{
+"word": "开始",
+"tone3": [
+"kai1",
+"shi3"
+],
+"hanviet": "khai_thuỷ"
+},
+{
+"word": "帮",
+"tone3": [
+"bang1"
+],
+"hanviet": "bang"
+},
+{
+"word": "打",
+"tone3": [
+"da3"
+],
+"hanviet": "đả"
+},
+{
+"word": "爱",
+"tone3": [
+"ai4"
+],
+"hanviet": "ái"
+},
+{
+"word": "带",
+"tone3": [
+"dai4"
+],
+"hanviet": "đới"
+},
+{
+"word": "时间",
+"tone3": [
+"shi2",
+"jian1"
+],
+"hanviet": "thời_gian"
+},
+{
+"word": "年",
+"tone3": [
+"nian2"
+],
+"hanviet": "niên"
+},
+{
+"word": "请",
+"tone3": [
+"qing3"
+],
+"hanviet": "thỉnh"
+},
+{
+"word": "回",
+"tone3": [
+"hui2"
+],
+"hanviet": "hồi"
+},
+{
+"word": "工作",
+"tone3": [
+"gong1",
+"zuo4"
+],
+"hanviet": "công_tác"
+},
+{
+"word": "然后",
+"tone3": [
+"ran2",
+"hou4"
+],
+"hanviet": "nhiên_hậu"
+},
+{
+"word": "当",
+"tone3": [
+"dang1"
+],
+"hanviet": "đương/đang"
+},
+{
+"word": "见",
+"tone3": [
+"jian4"
+],
+"hanviet": "kiến"
+},
+{
+"word": "钱",
+"tone3": [
+"qian2"
+],
+"hanviet": "tiền"
+},
+{
+"word": "噢",
+"tone3": [
+"o1"
+],
+"hanviet": "úc"
+},
+{
+"word": "一样",
+"tone3": [
+"yi2",
+"yang4"
+],
+"hanviet": "nhất_dạng"
+},
+{
+"word": "事情",
+"tone3": [
+"shi4",
+"qing2"
+],
+"hanviet": "sự_tình"
+},
+{
+"word": "就是",
+"tone3": [
+"jiu4",
+"shi4"
+],
+"hanviet": "tựu_thị"
+},
+{
+"word": "吃",
+"tone3": [
+"chi1"
+],
+"hanviet": "cật"
+},
+{
+"word": "所有",
+"tone3": [
+"suo3",
+"you3"
+],
+"hanviet": "sở_hữu"
+},
+{
+"word": "开",
+"tone3": [
+"kai1"
+],
+"hanviet": "khai"
+},
+{
+"word": "一下",
+"tone3": [
+"yi2",
+"xia4"
+],
+"hanviet": "nhất_hạ"
+},
+{
+"word": "家",
+"tone3": [
+"jia1"
+],
+"hanviet": "gia"
+},
+{
+"word": "非常",
+"tone3": [
+"fei1",
+"chang2"
+],
+"hanviet": "phi_thường"
+},
+{
+"word": "希望",
+"tone3": [
+"xi1",
+"wang4"
+],
+"hanviet": "hy_vọng"
+},
+{
+"word": "那些",
+"tone3": [
+"na4",
+"xie1"
+],
+"hanviet": "na_ta"
+},
+{
+"word": "哪",
+"tone3": [
+"na3"
+],
+"hanviet": "na"
+},
+{
+"word": "当然",
+"tone3": [
+"dang1",
+"ran2"
+],
+"hanviet": "đương/đang_nhiên"
+},
+{
+"word": "也许",
+"tone3": [
+"ye3",
+"xu3"
+],
+"hanviet": "dã_hứa"
+},
+{
+"word": "行",
+"tone3": [
+"xing2"
+],
+"hanviet": "hành"
+},
+{
+"word": "朋友",
+"tone3": [
+"peng2",
+"you3"
+],
+"hanviet": "bằng_hữu"
+},
+{
+"word": "妈妈",
+"tone3": [
+"ma1",
+"ma5"
+],
+"hanviet": "ma_ma"
+},
+{
+"word": "相信",
+"tone3": [
+"xiang1",
+"xin4"
+],
+"hanviet": "tương_tín"
+},
+{
+"word": "前",
+"tone3": [
+"qian2"
+],
+"hanviet": "tiền"
+},
+{
+"word": "嗨",
+"tone3": [
+"hei1"
+],
+"hanviet": "hải"
+},
+{
+"word": "认为",
+"tone3": [
+"ren4",
+"wei2"
+],
+"hanviet": "nhận_vi"
+},
+{
+"word": "将",
+"tone3": [
+"jiang1"
+],
+"hanviet": "tương"
+},
+{
+"word": "这儿",
+"tone3": [
+"zhe4",
+"er2"
+],
+"hanviet": "giá_nhi"
+},
+{
+"word": "今天",
+"tone3": [
+"jin1",
+"tian1"
+],
+"hanviet": "kim_thiên"
+},
+{
+"word": "明白",
+"tone3": [
+"ming2",
+"bai2"
+],
+"hanviet": "minh_bạch"
+},
+{
+"word": "一直",
+"tone3": [
+"yi4",
+"zhi2"
+],
+"hanviet": "nhất_trực"
+},
+{
+"word": "看看",
+"tone3": [
+"kan4",
+"kan4"
+],
+"hanviet": "khán_khán"
+},
+{
+"word": "车",
+"tone3": [
+"che1"
+],
+"hanviet": "xa"
+},
+{
+"word": "时",
+"tone3": [
+"shi2"
+],
+"hanviet": "thời"
+},
+{
+"word": "杀",
+"tone3": [
+"sha1"
+],
+"hanviet": "sát"
+},
+{
+"word": "地方",
+"tone3": [
+"di4",
+"fang1"
+],
+"hanviet": "địa_phương"
+},
+{
+"word": "不过",
+"tone3": [
+"bu2",
+"guo4"
+],
+"hanviet": "bất_quá"
+},
+{
+"word": "呃",
+"tone3": [
+"e4"
+],
+"hanviet": "ách"
+},
+{
+"word": "发生",
+"tone3": [
+"fa1",
+"sheng1"
+],
+"hanviet": "phát_sinh"
+},
+{
+"word": "几",
+"tone3": [
+"ji3"
+],
+"hanviet": "kỷ"
+},
+{
+"word": "回来",
+"tone3": [
+"hui2",
+"lai2"
+],
+"hanviet": "hồi_lai"
+},
+{
+"word": "准备",
+"tone3": [
+"zhun3",
+"bei4"
+],
+"hanviet": "chuẩn_bị"
+},
+{
+"word": "找到",
+"tone3": [
+"zhao3",
+"dao4"
+],
+"hanviet": "trảo_đáo"
+},
+{
+"word": "后",
+"tone3": [
+"hou4"
+],
+"hanviet": "hậu"
+},
+{
+"word": "爸爸",
+"tone3": [
+"ba4",
+"ba5"
+],
+"hanviet": "ba_ba"
+},
+{
+"word": "一切",
+"tone3": [
+"yi2",
+"qie4"
+],
+"hanviet": "nhất_thiết"
+},
+{
+"word": "抱歉",
+"tone3": [
+"bao4",
+"qian4"
+],
+"hanviet": "bão_khiểm"
+},
+{
+"word": "比",
+"tone3": [
+"bi3"
+],
+"hanviet": "tỷ"
+},
+{
+"word": "感觉",
+"tone3": [
+"gan3",
+"jue2"
+],
+"hanviet": "cảm_giác"
+},
+{
+"word": "些",
+"tone3": [
+"xie1"
+],
+"hanviet": "ta"
+},
+{
+"word": "只是",
+"tone3": [
+"zhi3",
+"shi4"
+],
+"hanviet": "chỉ_thị"
+},
+{
+"word": "怎么样",
+"tone3": [
+"zen3",
+"me5",
+"yang4"
+],
+"hanviet": "chẩm_ma_dạng"
+},
+{
+"word": "出来",
+"tone3": [
+"chu1",
+"lai2"
+],
+"hanviet": "xuất_lai"
+},
+{
+"word": "不要",
+"tone3": [
+"bu2",
+"yao4"
+],
+"hanviet": "bất_yếu"
+},
+{
+"word": "对不起",
+"tone3": [
+"dui4",
+"bu4",
+"qi3"
+],
+"hanviet": "đối_bất_khởi"
+},
+{
+"word": "问",
+"tone3": [
+"wen4"
+],
+"hanviet": "vấn"
+},
+{
+"word": "离开",
+"tone3": [
+"li2",
+"kai1"
+],
+"hanviet": "ly_khai"
+},
+{
+"word": "一点",
+"tone3": [
+"yi4",
+"dian3"
+],
+"hanviet": "nhất_điểm"
+},
+{
+"word": "一定",
+"tone3": [
+"yi2",
+"ding4"
+],
+"hanviet": "nhất_định"
+},
+{
+"word": "起",
+"tone3": [
+"qi3"
+],
+"hanviet": "khởi"
+},
+{
+"word": "还是",
+"tone3": [
+"hai2",
+"shi4"
+],
+"hanviet": "hoàn_thị"
+},
+{
+"word": "发现",
+"tone3": [
+"fa1",
+"xian4"
+],
+"hanviet": "phát_hiện"
+},
+{
+"word": "所",
+"tone3": [
+"suo3"
+],
+"hanviet": "sở"
+},
+{
+"word": "住",
+"tone3": [
+"zhu4"
+],
+"hanviet": "trú"
+},
+{
+"word": "件",
+"tone3": [
+"jian4"
+],
+"hanviet": "kiện"
+},
+{
+"word": "正",
+"tone3": [
+"zheng4"
+],
+"hanviet": "chính"
+},
+{
+"word": "而且",
+"tone3": [
+"er2",
+"qie3"
+],
+"hanviet": "nhi_thả"
+},
+{
+"word": "并",
+"tone3": [
+"bing4"
+],
+"hanviet": "tịnh/tính"
+},
+{
+"word": "必须",
+"tone3": [
+"bi4",
+"xu1"
+],
+"hanviet": "tất_tu"
+},
+{
+"word": "意思",
+"tone3": [
+"yi4",
+"si1"
+],
+"hanviet": "ý_tứ"
+},
+{
+"word": "放",
+"tone3": [
+"fang4"
+],
+"hanviet": "phóng"
+},
+{
+"word": "不错",
+"tone3": [
+"bu2",
+"cuo4"
+],
+"hanviet": "bất_thác"
+},
+{
+"word": "肯定",
+"tone3": [
+"ken3",
+"ding4"
+],
+"hanviet": "khẳng_định"
+},
+{
+"word": "电话",
+"tone3": [
+"dian4",
+"hua4"
+],
+"hanviet": "điện_thoại"
+},
+{
+"word": "为了",
+"tone3": [
+"wei4",
+"le5"
+],
+"hanviet": "vị_liễu"
+},
+{
+"word": "搞",
+"tone3": [
+"gao3"
+],
+"hanviet": "cảo"
+},
+{
+"word": "棒",
+"tone3": [
+"bang4"
+],
+"hanviet": "bổng"
+},
+{
+"word": "第一",
+"tone3": [
+"di4",
+"yi1"
+],
+"hanviet": "đệ_nhất"
+},
+{
+"word": "妈",
+"tone3": [
+"ma1"
+],
+"hanviet": "ma"
+},
+{
+"word": "地",
+"tone3": [
+"di4"
+],
+"hanviet": "địa"
+},
+{
+"word": "进",
+"tone3": [
+"jin4"
+],
+"hanviet": "tiến"
+},
+{
+"word": "那样",
+"tone3": [
+"na4",
+"yang4"
+],
+"hanviet": "na_dạng"
+},
+{
+"word": "大家",
+"tone3": [
+"da4",
+"jia1"
+],
+"hanviet": "đại_gia"
+},
+{
+"word": "新",
+"tone3": [
+"xin1"
+],
+"hanviet": "tân"
+},
+{
+"word": "您",
+"tone3": [
+"nin2"
+],
+"hanviet": "nâm"
+},
+{
+"word": "向",
+"tone3": [
+"xiang4"
+],
+"hanviet": "hướng"
+},
+{
+"word": "一些",
+"tone3": [
+"yi4",
+"xie1"
+],
+"hanviet": "nhất_ta"
+},
+{
+"word": "三",
+"tone3": [
+"san1"
+],
+"hanviet": "tam"
+},
+{
+"word": "那里",
+"tone3": [
+"na4",
+"li3"
+],
+"hanviet": "na_lý"
+},
+{
+"word": "以为",
+"tone3": [
+"yi3",
+"wei2"
+],
+"hanviet": "dĩ_vi"
+},
+{
+"word": "高兴",
+"tone3": [
+"gao1",
+"xing4"
+],
+"hanviet": "cao_hứng"
+},
+{
+"word": "嘛",
+"tone3": [
+"ma5"
+],
+"hanviet": "ma"
+},
+{
+"word": "老",
+"tone3": [
+"lao3"
+],
+"hanviet": "lão"
+},
+{
+"word": "位",
+"tone3": [
+"wei4"
+],
+"hanviet": "vị"
+},
+{
+"word": "过来",
+"tone3": [
+"guo4",
+"lai2"
+],
+"hanviet": "quá_lai"
+},
+{
+"word": "掉",
+"tone3": [
+"diao4"
+],
+"hanviet": "điệu"
+},
+{
+"word": "先",
+"tone3": [
+"xian1"
+],
+"hanviet": "tiên"
+},
+{
+"word": "等等",
+"tone3": [
+"deng3",
+"deng3"
+],
+"hanviet": "đẳng_đẳng"
+},
+{
+"word": "生活",
+"tone3": [
+"sheng1",
+"huo2"
+],
+"hanviet": "sinh_hoạt"
+},
+{
+"word": "之",
+"tone3": [
+"zhi1"
+],
+"hanviet": "chi"
+},
+{
+"word": "买",
+"tone3": [
+"mai3"
+],
+"hanviet": "mãi"
+},
+{
+"word": "种",
+"tone3": [
+"zhong3"
+],
+"hanviet": "chủng"
+},
+{
+"word": "医生",
+"tone3": [
+"yi1",
+"sheng1"
+],
+"hanviet": "y_sinh"
+},
+{
+"word": "最后",
+"tone3": [
+"zui4",
+"hou4"
+],
+"hanviet": "tối_hậu"
+},
+{
+"word": "之前",
+"tone3": [
+"zhi1",
+"qian2"
+],
+"hanviet": "chi_tiền"
+},
+{
+"word": "伙计",
+"tone3": [
+"huo3",
+"ji4"
+],
+"hanviet": "hoả_kế"
+},
+{
+"word": "手",
+"tone3": [
+"shou3"
+],
+"hanviet": "thủ"
+},
+{
+"word": "任何",
+"tone3": [
+"ren4",
+"he2"
+],
+"hanviet": "nhiệm_hà"
+},
+{
+"word": "的",
+"tone3": [
+"de5"
+],
+"hanviet": "đích"
+},
+{
+"word": "动",
+"tone3": [
+"dong4"
+],
+"hanviet": "động"
+},
+{
+"word": "建议",
+"tone3": [
+"jian4",
+"yi4"
+],
+"hanviet": "kiến_nghị"
+},
+{
+"word": "哥们",
+"tone3": [
+"ge1",
+"men5"
+],
+"hanviet": "ca_môn"
+},
+{
+"word": "压",
+"tone3": [
+"ya1"
+],
+"hanviet": "áp"
+},
+{
+"word": "关掉",
+"tone3": [
+"guan1",
+"diao4"
+],
+"hanviet": "quan_điệu"
+},
+{
+"word": "黄",
+"tone3": [
+"huang2"
+],
+"hanviet": "hoàng"
+},
+{
+"word": "主角",
+"tone3": [
+"zhu3",
+"jue2"
+],
+"hanviet": "chủ_giác"
+},
+{
+"word": "评论",
+"tone3": [
+"ping2",
+"lun4"
+],
+"hanviet": "bình_luận"
+},
+{
+"word": "灯光",
+"tone3": [
+"deng1",
+"guang1"
+],
+"hanviet": "đăng_quang"
+},
+{
+"word": "亲吻",
+"tone3": [
+"qin1",
+"wen3"
+],
+"hanviet": "thân_vẫn"
+},
+{
+"word": "告知",
+"tone3": [
+"gao4",
+"zhi1"
+],
+"hanviet": "cáo_tri"
+},
+{
+"word": "提升",
+"tone3": [
+"ti2",
+"sheng1"
+],
+"hanviet": "đề_thăng"
+},
+{
+"word": "宝藏",
+"tone3": [
+"bao3",
+"zang4"
+],
+"hanviet": "bảo_tạng"
+},
+{
+"word": "重视",
+"tone3": [
+"zhong4",
+"shi4"
+],
+"hanviet": "trọng_thị"
+},
+{
+"word": "拨打",
+"tone3": [
+"bo1",
+"da3"
+],
+"hanviet": "bát_đả"
+},
+{
+"word": "绰号",
+"tone3": [
+"chuo4",
+"hao4"
+],
+"hanviet": "xước_hiệu"
+},
+{
+"word": "震",
+"tone3": [
+"zhen4"
+],
+"hanviet": "chấn"
+},
+{
+"word": "俱",
+"tone3": [
+"ju4"
+],
+"hanviet": "câu"
+},
+{
+"word": "手榴弹",
+"tone3": [
+"shou3",
+"liu2",
+"dan4"
+],
+"hanviet": "thủ_lựu_đạn"
+},
+{
+"word": "住宅",
+"tone3": [
+"zhu4",
+"zhai2"
+],
+"hanviet": "trú_trạch"
+},
+{
+"word": "吴",
+"tone3": [
+"wu2"
+],
+"hanviet": "ngô"
+},
+{
+"word": "际",
+"tone3": [
+"ji4"
+],
+"hanviet": "tế"
+},
+{
+"word": "皇",
+"tone3": [
+"huang2"
+],
+"hanviet": "hoàng"
+},
+{
+"word": "渐",
+"tone3": [
+"jian4"
+],
+"hanviet": "tiệm"
+},
+{
+"word": "铁轨",
+"tone3": [
+"tie3",
+"gui3"
+],
+"hanviet": "thiết_quỹ"
+},
+{
+"word": "顺风",
+"tone3": [
+"shun4",
+"feng1"
+],
+"hanviet": "thuận_phong"
+},
+{
+"word": "叫喊",
+"tone3": [
+"jiao4",
+"han3"
+],
+"hanviet": "khiếu_hảm"
+},
+{
+"word": "仙人掌",
+"tone3": [
+"xian1",
+"ren2",
+"zhang3"
+],
+"hanviet": "tiên_nhân_chưởng"
+},
+{
+"word": "充气",
+"tone3": [
+"chong1",
+"qi4"
+],
+"hanviet": "sung_khí"
+},
+{
+"word": "行好",
+"tone3": [
+"xing2",
+"hao3"
+],
+"hanviet": "hành_hảo"
+},
+{
+"word": "羊毛",
+"tone3": [
+"yang2",
+"mao2"
+],
+"hanviet": "dương_mao"
+},
+{
+"word": "接见",
+"tone3": [
+"jie1",
+"jian4"
+],
+"hanviet": "tiếp_kiến"
+},
+{
+"word": "走道",
+"tone3": [
+"zou3",
+"dao4"
+],
+"hanviet": "tẩu_đạo"
+},
+{
+"word": "辱",
+"tone3": [
+"ru3"
+],
+"hanviet": "nhục"
+},
+{
+"word": "便宜货",
+"tone3": [
+"pian2",
+"yi5",
+"huo4"
+],
+"hanviet": "tiện_nghi_hoá"
+},
+{
+"word": "押金",
+"tone3": [
+"ya1",
+"jin1"
+],
+"hanviet": "áp_kim"
+},
+{
+"word": "先行",
+"tone3": [
+"xian1",
+"xing2"
+],
+"hanviet": "tiên_hành"
+},
+{
+"word": "优待",
+"tone3": [
+"you1",
+"dai4"
+],
+"hanviet": "ưu_đãi"
+},
+{
+"word": "警钟",
+"tone3": [
+"jing3",
+"zhong1"
+],
+"hanviet": "cảnh_chung"
+},
+{
+"word": "恳请",
+"tone3": [
+"ken3",
+"qing3"
+],
+"hanviet": "khẩn_thỉnh"
+},
+{
+"word": "养成",
+"tone3": [
+"yang3",
+"cheng2"
+],
+"hanviet": "dưỡng_thành"
+},
+{
+"word": "临头",
+"tone3": [
+"lin2",
+"tou2"
+],
+"hanviet": "lâm_đầu"
+},
+{
+"word": "受尽",
+"tone3": [
+"shou4",
+"jin4"
+],
+"hanviet": "thụ_tận"
+},
+{
+"word": "帕斯卡",
+"tone3": [
+"pa4",
+"si1",
+"ka3"
+],
+"hanviet": "phách_tư_ca"
+},
+{
+"word": "飞溅",
+"tone3": [
+"fei1",
+"jian4"
+],
+"hanviet": "phi_tiễn"
+},
+{
+"word": "牛角",
+"tone3": [
+"niu2",
+"jiao3"
+],
+"hanviet": "ngưu_giác"
+},
+{
+"word": "土包子",
+"tone3": [
+"tu3",
+"bao1",
+"zi3"
+],
+"hanviet": "thổ_bao_tử"
+},
+{
+"word": "奶瓶",
+"tone3": [
+"nai3",
+"ping2"
+],
+"hanviet": "nãi_bình"
+},
+{
+"word": "急性子",
+"tone3": [
+"ji2",
+"xing4",
+"zi3"
+],
+"hanviet": "cấp_tính_tử"
+},
+{
+"word": "情面",
+"tone3": [
+"qing2",
+"mian4"
+],
+"hanviet": "tình_diện"
+},
+{
+"word": "独创",
+"tone3": [
+"du2",
+"chuang4"
+],
+"hanviet": "độc_sáng"
+},
+{
+"word": "别称",
+"tone3": [
+"bie2",
+"cheng1"
+],
+"hanviet": "biệt_xưng"
+},
+{
+"word": "翻船",
+"tone3": [
+"fan1",
+"chuan2"
+],
+"hanviet": "phiên_thuyền"
+},
+{
+"word": "涂抹",
+"tone3": [
+"tu2",
+"mo3"
+],
+"hanviet": "đồ_mạt"
+},
+{
+"word": "耍滑",
+"tone3": [
+"shua3",
+"hua2"
+],
+"hanviet": "soạ_hoạt"
+},
+{
+"word": "心绞痛",
+"tone3": [
+"xin1",
+"jiao3",
+"tong4"
+],
+"hanviet": "tâm_giảo_thống"
+},
+{
+"word": "空置",
+"tone3": [
+"kong1",
+"zhi4"
+],
+"hanviet": "không_trí"
+},
+{
+"word": "行政部门",
+"tone3": [
+"xing2",
+"zheng4",
+"bu4",
+"men2"
+],
+"hanviet": "hành_chính_bộ_môn"
+},
+{
+"word": "偷税",
+"tone3": [
+"tou1",
+"shui4"
+],
+"hanviet": "thâu_thuế"
+},
+{
+"word": "胁",
+"tone3": [
+"xie2"
+],
+"hanviet": "hiếp"
+},
+{
+"word": "笃信",
+"tone3": [
+"du3",
+"xin4"
+],
+"hanviet": "đốc_tín"
+},
+{
+"word": "进口商",
+"tone3": [
+"jin4",
+"kou3",
+"shang1"
+],
+"hanviet": "tiến_khẩu_thương"
+},
+{
+"word": "隆起",
+"tone3": [
+"long2",
+"qi3"
+],
+"hanviet": "long_khởi"
+},
+{
+"word": "问鼎",
+"tone3": [
+"wen4",
+"ding3"
+],
+"hanviet": "vấn_đỉnh"
+},
+{
+"word": "候鸟",
+"tone3": [
+"hou4",
+"niao3"
+],
+"hanviet": "hậu_điểu"
+},
+{
+"word": "纳豆",
+"tone3": [
+"na4",
+"dou4"
+],
+"hanviet": "nạp_đậu"
+},
+{
+"word": "牙垢",
+"tone3": [
+"ya2",
+"gou4"
+],
+"hanviet": "nha_cấu"
+},
+{
+"word": "文人",
+"tone3": [
+"wen2",
+"ren2"
+],
+"hanviet": "văn_nhân"
+},
+{
+"word": "主语",
+"tone3": [
+"zhu3",
+"yu3"
+],
+"hanviet": "chủ_ngữ"
+},
+{
+"word": "枝节",
+"tone3": [
+"zhi1",
+"jie2"
+],
+"hanviet": "chi_tiết"
+},
+{
+"word": "全貌",
+"tone3": [
+"quan2",
+"mao4"
+],
+"hanviet": "toàn_mạo"
+},
+{
+"word": "大刀阔斧",
+"tone3": [
+"da4",
+"dao1",
+"kuo4",
+"fu3"
+],
+"hanviet": "đại_đao_khoát_phủ"
+},
+{
+"word": "重地",
+"tone3": [
+"zhong4",
+"di4"
+],
+"hanviet": "trọng_địa"
+},
+{
+"word": "磁化",
+"tone3": [
+"ci2",
+"hua4"
+],
+"hanviet": "từ_hoá"
+},
+{
+"word": "图瓦卢",
+"tone3": [
+"tu2",
+"wa3",
+"lu2"
+],
+"hanviet": "đồ_ngoã_lô"
+},
+{
+"word": "鸦雀无声",
+"tone3": [
+"ya1",
+"que4",
+"wu2",
+"sheng1"
+],
+"hanviet": "nha_tước_vô_thanh"
+},
+{
+"word": "斑驳",
+"tone3": [
+"ban1",
+"bo2"
+],
+"hanviet": "ban_bác"
+},
+{
+"word": "火葬场",
+"tone3": [
+"huo3",
+"zang4",
+"chang3"
+],
+"hanviet": "hoả_táng_trường"
+},
+{
+"word": "讷河",
+"tone3": [
+"ne4",
+"he2"
+],
+"hanviet": "nột_hà"
+},
+{
+"word": "眨巴",
+"tone3": [
+"zha3",
+"ba1"
+],
+"hanviet": "trát_ba"
+},
+{
+"word": "捶胸顿足",
+"tone3": [
+"chui2",
+"xiong1",
+"dun4",
+"zu2"
+],
+"hanviet": "chuỷ_hung_đốn_túc"
+},
+{
+"word": "四平八稳",
+"tone3": [
+"si4",
+"ping2",
+"ba1",
+"wen3"
+],
+"hanviet": "tứ_bình_bát_ổn"
+},
+{
+"word": "占先",
+"tone3": [
+"zhan4",
+"xian1"
+],
+"hanviet": "chiếm_tiên"
+},
+{
+"word": "掉换",
+"tone3": [
+"diao4",
+"huan4"
+],
+"hanviet": "điệu_hoán"
+},
+{
+"word": "早市",
+"tone3": [
+"zao3",
+"shi4"
+],
+"hanviet": "tảo_thị"
+},
+{
+"word": "横山",
+"tone3": [
+"heng2",
+"shan1"
+],
+"hanviet": "hoành_sơn"
+},
+{
+"word": "揾",
+"tone3": [
+"wen4"
+],
+"hanviet": "uấn/ấn/vấn"
+},
+{
+"word": "猝",
+"tone3": [
+"cu4"
+],
+"hanviet": "thốt"
+},
+{
+"word": "归心",
+"tone3": [
+"gui1",
+"xin1"
+],
+"hanviet": "quy_tâm"
+},
+{
+"word": "莫如",
+"tone3": [
+"mo4",
+"ru2"
+],
+"hanviet": "mạc_như"
+},
+{
+"word": "唛",
+"tone3": [
+"mai4"
+],
+"hanviet": "mác"
+},
+{
+"word": "仙界",
+"tone3": [
+"xian1",
+"jie4"
+],
+"hanviet": "tiên_giới"
+},
+{
+"word": "补票",
+"tone3": [
+"bu3",
+"piao4"
+],
+"hanviet": "bổ_phiếu"
+},
+{
+"word": "厄洛斯",
+"tone3": [
+"e4",
+"luo4",
+"si1"
+],
+"hanviet": "ách_lạc_tư"
+},
+{
+"word": "泰兴",
+"tone3": [
+"tai4",
+"xing1"
+],
+"hanviet": "thái_hưng"
+},
+{
+"word": "月球车",
+"tone3": [
+"yue4",
+"qiu2",
+"che1"
+],
+"hanviet": "nguyệt_cầu_xa"
+},
+{
+"word": "慉",
+"tone3": [
+"xu4"
+],
+"hanviet": "súc"
+},
+{
+"word": "娇痴",
+"tone3": [
+"jiao1",
+"chi1"
+],
+"hanviet": "kiều_si"
+},
+{
+"word": "学习时报",
+"tone3": [
+"xue2",
+"xi2",
+"shi2",
+"bao4"
+],
+"hanviet": "học_tập_thời_báo"
+},
+{
+"word": "定型水",
+"tone3": [
+"ding4",
+"xing2",
+"shui3"
+],
+"hanviet": "định_hình_thuỷ"
+},
+{
+"word": "宿豫",
+"tone3": [
+"su4",
+"yu4"
+],
+"hanviet": "túc_dự"
+},
+{
+"word": "宽城县",
+"tone3": [
+"kuan1",
+"cheng2",
+"xian4"
+],
+"hanviet": "khoan_thành_huyện"
+},
+{
+"word": "对苯醌",
+"tone3": [
+"dui4",
+"ben3",
+"kun1"
+],
+"hanviet": "đối_bản_côn"
+},
+{
+"word": "小龙虾",
+"tone3": [
+"xiao3",
+"long2",
+"xia1"
+],
+"hanviet": "tiểu_long_hà"
+},
+{
+"word": "层理",
+"tone3": [
+"ceng2",
+"li3"
+],
+"hanviet": "tầng_lý"
+},
+{
+"word": "岽",
+"tone3": [
+"dong1"
+],
+"hanviet": "đông"
+},
+{
+"word": "巴克科斯",
+"tone3": [
+"ba1",
+"ke4",
+"ke1",
+"si1"
+],
+"hanviet": "ba_khắc_khoa_tư"
+},
+{
+"word": "师兄弟",
+"tone3": [
+"shi1",
+"xiong1",
+"di4"
+],
+"hanviet": "sư_huynh_đệ"
+},
+{
+"word": "年逾",
+"tone3": [
+"nian2",
+"yu2"
+],
+"hanviet": "niên_du"
+},
+{
+"word": "广告宣传",
+"tone3": [
+"guang3",
+"gao4",
+"xuan1",
+"chuan2"
+],
+"hanviet": "quảng_cáo_tuyên_truyền"
+},
+{
+"word": "张家口",
+"tone3": [
+"zhang1",
+"jia1",
+"kou3"
+],
+"hanviet": "trương_gia_khẩu"
+},
+{
+"word": "征驾",
+"tone3": [
+"zheng1",
+"jia4"
+],
+"hanviet": "chinh/trưng/chứng_giá"
+},
+{
+"word": "微细加工",
+"tone3": [
+"wei1",
+"xi4",
+"jia1",
+"gong1"
+],
+"hanviet": "vi_tế_gia_công"
+},
+{
+"word": "快刀斩乱麻",
+"tone3": [
+"kuai4",
+"dao1",
+"zhan3",
+"luan4",
+"ma2"
+],
+"hanviet": "khoái_đao_trảm_loạn_ma"
+},
+{
+"word": "恤衫",
+"tone3": [
+"xu4",
+"shan1"
+],
+"hanviet": "tuất_sam"
+},
+{
+"word": "愀",
+"tone3": [
+"qiao3"
+],
+"hanviet": "thiểu"
+},
+{
+"word": "愤然",
+"tone3": [
+"fen4",
+"ran2"
+],
+"hanviet": "phẫn_nhiên"
+},
+{
+"word": "戒忌",
+"tone3": [
+"jie4",
+"ji4"
+],
+"hanviet": "giới_kỵ"
+},
+{
+"word": "扎赉诺尔区",
+"tone3": [
+"zha1",
+"lai4",
+"nuo4",
+"er3",
+"qu1"
+],
+"hanviet": "trát_lại_nặc_nhĩ_khu"
+},
+{
+"word": "批荡",
+"tone3": [
+"pi1",
+"dang4"
+],
+"hanviet": "phê_đãng"
+},
+{
+"word": "抱头鼠窜",
+"tone3": [
+"bao4",
+"tou2",
+"shu3",
+"cuan4"
+],
+"hanviet": "bão_đầu_thử_thoán"
+},
+{
+"word": "拘忌",
+"tone3": [
+"ju1",
+"ji4"
+],
+"hanviet": "câu_kỵ"
+},
+{
+"word": "挨挤",
+"tone3": [
+"ai1",
+"ji3"
+],
+"hanviet": "ai_tễ"
+},
+{
+"word": "采暖",
+"tone3": [
+"cai3",
+"nuan3"
+],
+"hanviet": "thái_noãn"
+},
+{
+"word": "揪住",
+"tone3": [
+"jiu1",
+"zhu4"
+],
+"hanviet": "thu_trú"
+},
+{
+"word": "撒切尔夫人",
+"tone3": [
+"sa1",
+"qie4",
+"er3",
+"fu1",
+"ren2"
+],
+"hanviet": "tát_thiết_nhĩ_phu_nhân"
+},
+{
+"word": "摆出",
+"tone3": [
+"bai3",
+"chu1"
+],
+"hanviet": "bãi/bài_xuất"
+},
+{
+"word": "放鸽子",
+"tone3": [
+"fang4",
+"ge1",
+"zi5"
+],
+"hanviet": "phóng_cáp_tử"
+},
+{
+"word": "数学模型",
+"tone3": [
+"shu4",
+"xue2",
+"mo2",
+"xing2"
+],
+"hanviet": "số_học_mô_hình"
+},
+{
+"word": "斯瓦特谷地",
+"tone3": [
+"si1",
+"wa3",
+"te4",
+"gu3",
+"di4"
+],
+"hanviet": "tư_ngoã_đặc_cốc_địa"
+},
+{
+"word": "旁遮普邦",
+"tone3": [
+"pang2",
+"zhe1",
+"pu3",
+"bang1"
+],
+"hanviet": "bàng_già_phổ_bang"
+},
+{
+"word": "明慧",
+"tone3": [
+"ming2",
+"hui4"
+],
+"hanviet": "minh_tuệ"
+},
+{
+"word": "晚近",
+"tone3": [
+"wan3",
+"jin4"
+],
+"hanviet": "vãn_cận"
+},
+{
+"word": "暹粒",
+"tone3": [
+"xian1",
+"li4"
+],
+"hanviet": "xiêm_lạp"
+},
+{
+"word": "期考",
+"tone3": [
+"qi1",
+"kao3"
+],
+"hanviet": "kỳ_khảo"
+},
+{
+"word": "李卫公",
+"tone3": [
+"li3",
+"wei4",
+"gong1"
+],
+"hanviet": "lý_vệ_công"
+},
+{
+"word": "板儿爷",
+"tone3": [
+"ban3",
+"er2",
+"ye2"
+],
+"hanviet": "bản_nhi_gia"
+},
+{
+"word": "柳林县",
+"tone3": [
+"liu3",
+"lin2",
+"xian4"
+],
+"hanviet": "liễu_lâm_huyện"
+},
+{
+"word": "桑那",
+"tone3": [
+"sang1",
+"na4"
+],
+"hanviet": "tang_na"
+},
+{
+"word": "植牙",
+"tone3": [
+"zhi2",
+"ya2"
+],
+"hanviet": "thực_nha"
+},
+{
+"word": "乐之",
+"tone3": [
+"le4",
+"zhi1"
+],
+"hanviet": "lạc_chi"
+},
+{
+"word": "横木",
+"tone3": [
+"heng2",
+"mu4"
+],
+"hanviet": "hoành_mộc"
+},
+{
+"word": "欧洲电视",
+"tone3": [
+"ou1",
+"zhou1",
+"dian4",
+"shi4"
+],
+"hanviet": "âu_châu_điện_thị"
+},
+{
+"word": "归侨",
+"tone3": [
+"gui1",
+"qiao2"
+],
+"hanviet": "quy_kiều"
+},
+{
+"word": "比方说",
+"tone3": [
+"bi3",
+"fang1",
+"shuo1"
+],
+"hanviet": "tỷ_phương_thuyết"
+},
+{
+"word": "氯磷定",
+"tone3": [
+"lu:4",
+"lin2",
+"ding4"
+],
+"hanviet": "lục_lân_định"
+},
+{
+"word": "汈",
+"tone3": [
+"diao1"
+],
+"hanviet": "汈"
+},
+{
+"word": "一二八事变",
+"tone3": [
+"yi1",
+"er4",
+"ba1",
+"shi4",
+"bian4"
+],
+"hanviet": "nhất_nhị_bát_sự_biến"
+},
+{
+"word": "当",
+"tone3": [
+"dang1"
+],
+"hanviet": "đương/đang"
+},
+{
+"word": "当",
+"tone3": [
+"dang4"
+],
+"hanviet": "đáng"
+},
+{
+"word": "女",
+"tone3": [
+"nu:3"
+],
+"hanviet": "nữ"
+},
+{
+"word": "女",
+"tone3": [
+"nv3"
+],
+"hanviet": "nhữ"
+},
+{
+"word": "离",
+"tone3": [
+"chi1"
+],
+"hanviet": "ly"
+},
+{
+"word": "的",
+"tone3": [
+"de5"
+],
+"hanviet": "đích"
+},
+{
+"word": "我",
+"tone3": [
+"wo3"
+],
+"hanviet": "ngã"
+},
+{
+"word": "行",
+"tone3": [
+"xyz9"
+],
+"hanviet": "hành"
+},
+{
+"word": "中国",
+"tone3": [
+"zhong1",
+"guo2"
+],
+"hanviet": "trung_quốc"
+},
+{
+"word": "㐀中",
+"tone3": [
+"qiu1",
+"zhong1"
+],
+"hanviet": "㐀_trung"
+},
+{
+"word": "里",
+"tone3": [
+"li3"
+],
+"hanviet": "lý"
+}
+]
+}

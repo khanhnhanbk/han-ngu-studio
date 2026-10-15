@@ -70,7 +70,7 @@ function syllableText(raw: string, char: string, style: ToneStyle): string {
   return raw;
 }
 
-function joinSyllables(syllables: string[], spacing: Spacing): string {
+export function joinSyllables(syllables: string[], spacing: Spacing): string {
   if (spacing === "syllable") return syllables.join(" ");
   return syllables
     .map((s, i) => (i > 0 && VOWEL_START.test(s) ? `'${s}` : s))

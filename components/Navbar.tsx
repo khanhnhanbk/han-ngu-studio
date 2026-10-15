@@ -20,6 +20,7 @@ export function Navbar() {
     { href: "/tools/practice-sheet", label: dict.nav.practiceSheet },
     { href: "/tools/segment", label: dict.nav.segment },
     { href: "/tools/pinyin", label: dict.nav.pinyin },
+    { href: "/tools/hanviet", label: dict.nav.hanviet },
   ];
 
   return (

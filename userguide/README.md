@@ -20,11 +20,12 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ) | [practice-sheet.md](practice-sheet.md) |
 | **Tách từ** | Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
+| **Hán Việt** | Tách từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
 
-Các công cụ sắp có: Hán Việt, tạo thẻ Anki, ảnh cho thẻ Anki, đọc to (TTS).
+Các công cụ sắp có: tạo thẻ Anki, ảnh cho thẻ Anki, đọc to (TTS).
 
 ## Mẹo chung
 
-- Lần đầu dùng **Tách từ** hoặc **Chuyển Pinyin**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.
+- Lần đầu dùng **Tách từ**, **Chuyển Pinyin** hoặc **Hán Việt**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.
 - Nút **Sao chép** chép kết quả vào bộ nhớ tạm; dán vào Word, Google Docs, Zalo… bằng `Ctrl + V` (máy tính) hoặc nhấn giữ → Dán (điện thoại).
 - File tải về (`.txt`, `.tsv`) nằm trong thư mục **Tải xuống / Downloads** của máy.

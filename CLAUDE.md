@@ -11,6 +11,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Character practice sheet (米字格 grid, Pinyin, Wubi, traceable characters) → PDF | `/tools/practice-sheet` | Live, client-side |
 | Word segmentation | `/tools/segment` | Live, client-side (`lib/segment/`, word list in `public/data/word_list.txt`) |
 | Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
+| Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
 | Anki deck generator (Pinyin, meaning, Sino-Vietnamese, examples) → TSV | | Not built |
 | Cloze exercise generator | | Not built |
 | N+1 sentence ordering (one new word per sentence) | | Not built |
@@ -29,6 +30,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 - `pnpm run build`: production build. **Must succeed before any task counts as done.**
 - `pnpm run lint`: lint (ESLint `next/core-web-vitals` + `next/typescript`). `next build` also lints, so **a lint error fails the Vercel deploy**.
 - `pnpm test`: Vitest (`lib/**/*.test.ts`), including golden tests
+- `pnpm build:data`: rebuild `public/data/*.json` from `assets/dictionary/` (`scripts/build-data.mjs`). Run after changing source data and commit the output.
 
 ## Porting algorithms from Python to TypeScript
 
