@@ -2,12 +2,13 @@ export const vi = {
   meta: {
     title: "Hán Ngữ Studio — Tạo tài liệu học tiếng Trung trong vài giây",
     description:
-      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: tạo phiếu tập viết chữ Hán, thẻ Anki tự động, bài tập điền khuyết và sắp xếp câu theo phương pháp N+1.",
+      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tách từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
   },
   nav: {
     features: "Tính năng",
     howItWorks: "Cách hoạt động",
     forTeachers: "Cho giáo viên",
+    roadmap: "Sắp ra mắt",
     tools: "Công cụ",
     segment: "Tách từ",
     pinyin: "Chuyển Pinyin",
@@ -20,49 +21,103 @@ export const vi = {
     badge: "Miễn phí · Không cần cài đặt",
     title: "Học và dạy tiếng Trung nhanh hơn",
     subtitle:
-      "Dán văn bản tiếng Trung, chọn công cụ, và tải về tài liệu học tập hoàn chỉnh — phiếu tập viết chữ Hán, bộ thẻ Anki, bài tập điền khuyết. Tất cả trong vài giây.",
-    ctaPrimary: "Dùng thử miễn phí",
-    ctaSecondary: "Xem công cụ",
+      "Dán văn bản tiếng Trung, chọn công cụ và nhận ngay tài liệu học: phiếu tập viết chữ Hán, Pinyin, âm Hán Việt, bộ thẻ Anki. Tất cả chạy trên trình duyệt của bạn.",
+    ctaPrimary: "Xem công cụ",
+    ctaSecondary: "Hướng dẫn sử dụng",
     trustNote: "Được tạo cho người Việt — không cần biết tiếng Anh",
+    mockupLabels: ["Pinyin", "Chữ mẫu", "Chữ mờ"],
   },
   problem: {
     title: "Soạn tài liệu học tiếng Trung rất tốn thời gian",
     items: [
-      "Mất hàng giờ đồng hồ để tạo phiếu tập viết bằng tay",
-      "Phải tra Pinyin, nghĩa và âm Hán-Việt cho từng từ một",
-      "Làm thẻ Anki thủ công rất dễ sai và thiếu câu ví dụ",
-      "Khó sắp xếp câu theo lộ trình học phù hợp từng học sinh",
+      "Mất hàng giờ để kẻ và soạn phiếu tập viết bằng tay",
+      "Chữ đa âm (行, 长, 了…) rất dễ ghi sai Pinyin",
+      "Phải tra âm Hán Việt cho từng chữ một",
+      "Làm thẻ Anki thủ công dễ sai và thiếu câu ví dụ",
     ],
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Bốn công cụ mạnh mẽ, tất cả chạy ngay trên trình duyệt.",
-    items: [
-      {
+    subtitle: "Năm công cụ miễn phí, chạy ngay trên trình duyệt.",
+    items: {
+      practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
         description:
-          "Tạo lưới ô vuông 米字格 kèm Pinyin và mã Ngũ bút, hỗ trợ chữ nét đứt để học viên đồ chữ.",
+          "Ô 米字格 hoặc 田字格 khổ A4, có Pinyin, chữ mẫu và chữ mờ để đồ theo. In ra giấy hoặc lưu PDF.",
         cta: "Tạo phiếu tập viết",
       },
-      {
+      segment: {
+        title: "Tách từ",
+        description:
+          "Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ — dễ tra từ điển và học từ vựng.",
+        cta: "Tách từ",
+      },
+      pinyin: {
+        title: "Chuyển Pinyin",
+        description:
+          "Pinyin cho chữ, câu hay cả đoạn văn; chữ đa âm đọc theo ngữ cảnh. Xem Pinyin trên đầu chữ hoặc tải TSV.",
+        cta: "Chuyển Pinyin",
+      },
+      hanviet: {
+        title: "Âm Hán Việt",
+        description:
+          "Ghi Pinyin và âm Hán Việt cho từng từ trong câu; bấm vào từ để xem mọi âm của từng chữ.",
+        cta: "Tra Hán Việt",
+      },
+      anki: {
         title: "Tạo bộ thẻ Anki",
         description:
-          "Nhập danh sách từ vựng và nhận file TSV sẵn sàng import: Pinyin, nghĩa, Hán-Việt, câu ví dụ.",
+          "Từ danh sách từ vựng: Pinyin, nghĩa, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
+    },
+  },
+  roadmap: {
+    eyebrow: "Lộ trình",
+    title: "Sắp ra mắt",
+    subtitle: "Những gì chúng tôi đang làm tiếp theo, theo thứ tự ưu tiên.",
+    statuses: {
+      next: "Tiếp theo",
+      planned: "Dự kiến",
+      idea: "Ý tưởng",
+    },
+    items: [
       {
-        title: "Bài tập điền khuyết",
+        status: "next",
+        title: "Ảnh minh họa cho thẻ Anki",
         description:
-          "Tự động sinh bài tập cloze từ câu có sẵn, giúp học viên luyện từ vựng trong ngữ cảnh.",
-        cta: "Tạo bài tập",
+          "Tìm ảnh có giấy phép mở cho từng từ vựng, chọn ảnh ưng ý và thêm thẳng vào bộ thẻ Anki của bạn.",
       },
       {
-        title: "Sắp xếp câu N+1",
+        status: "next",
+        title: "Tải bộ thẻ Anki (.apkg)",
         description:
-          "Sắp xếp kho câu theo phương pháp N+1 — mỗi câu chỉ có một từ mới, tối ưu lộ trình học.",
-        cta: "Sắp xếp câu",
+          "Một file duy nhất đã kèm ảnh: nhập bằng một chạm trên Anki máy tính, AnkiDroid và iPhone, không cần cài thêm gì.",
+      },
+      {
+        status: "planned",
+        title: "Nghe phát âm",
+        description:
+          "Bấm để nghe từ hoặc cả câu tiếng Trung ngay trên trình duyệt, miễn phí và không gửi dữ liệu đi đâu.",
+      },
+      {
+        status: "planned",
+        title: "Âm thanh cho thẻ Anki",
+        description:
+          "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
+      },
+      {
+        status: "idea",
+        title: "Bài tập điền khuyết",
+        description: "Tự sinh bài tập điền từ vào chỗ trống từ câu có sẵn, luyện từ vựng trong ngữ cảnh.",
+      },
+      {
+        status: "idea",
+        title: "Sắp xếp câu N+1",
+        description: "Sắp xếp kho câu để mỗi câu chỉ có một từ mới, tạo lộ trình học vừa sức.",
       },
     ],
+    note: "Lộ trình có thể thay đổi.",
   },
   howItWorks: {
     title: "Chỉ với ba bước",
@@ -70,15 +125,15 @@ export const vi = {
     steps: [
       {
         title: "Dán văn bản",
-        description: "Nhập hoặc dán chữ Hán bạn muốn xử lý.",
+        description: "Nhập hoặc dán chữ Hán, câu, đoạn văn hay danh sách từ vựng.",
       },
       {
         title: "Chọn công cụ",
-        description: "Chọn phiếu tập viết, thẻ Anki, bài tập hay sắp xếp câu.",
+        description: "Phiếu tập viết, tách từ, Pinyin, Hán Việt hoặc thẻ Anki.",
       },
       {
         title: "Tải xuống",
-        description: "Xem trước và tải tài liệu về máy để in hoặc dùng ngay.",
+        description: "Xem trước, chỉnh sửa nếu cần, rồi in PDF hoặc tải file TXT / TSV.",
       },
     ],
   },
@@ -87,65 +142,12 @@ export const vi = {
     subtitle:
       "Tiết kiệm hàng giờ chuẩn bị cho mỗi buổi lên lớp, cả lớp học đều được lợi.",
     points: [
-      "Tạo phiếu bài tập cho cả lớp chỉ trong vài phút",
-      "Xuất bộ thẻ Anki riêng cho từng học sinh",
-      "Chuẩn bị bài tập điền khuyết theo chủ đề",
-      "In phiếu tập viết chất lượng cao để phát trên lớp",
+      "In phiếu tập viết khổ A4 cho cả lớp chỉ trong vài phút",
+      "Soạn tài liệu có Pinyin trên đầu chữ để học viên đọc theo",
+      "Tạo bộ thẻ Anki cho cả lớp từ danh sách từ vựng của bài",
+      "Xuất bảng Pinyin, Hán Việt ra TSV để dán vào Excel hay Google Sheets",
     ],
-    cta: "Bắt đầu cho lớp của bạn",
-  },
-  testimonials: {
-    title: "Mọi người đang nói gì",
-    subtitle: "Phản hồi từ cộng đồng (đang cập nhật).",
-    items: [
-      {
-        quote:
-          "Trước đây tôi mất cả buổi tối để soạn phiếu tập viết cho lớp. Giờ chỉ mất 2 phút.",
-        name: "Giáo viên A",
-        role: "Giáo viên tiếng Trung",
-      },
-      {
-        quote:
-          "Bộ thẻ Anki có sẵn Pinyin và âm Hán-Việt giúp tôi học nhanh hơn hẳn.",
-        name: "Học viên B",
-        role: "Học sinh HSK 3",
-      },
-      {
-        quote:
-          "Phương pháp N+1 được sắp xếp tự động — đúng thứ tôi cần cho lộ trình học.",
-        name: "Học viên C",
-        role: "Tự học tại nhà",
-      },
-    ],
-  },
-  pricing: {
-    title: "Đơn giản và miễn phí",
-    subtitle: "Dùng toàn bộ công cụ miễn phí. Gói Pro đang được phát triển.",
-    free: {
-      name: "Miễn phí",
-      price: "0đ",
-      period: "mãi mãi",
-      features: [
-        "Tất cả công cụ tạo tài liệu",
-        "Không giới hạn số lần dùng",
-        "Xuất PDF, TSV",
-        "Không cần tài khoản",
-      ],
-      cta: "Dùng ngay",
-    },
-    pro: {
-      badge: "Sắp ra mắt",
-      name: "Pro",
-      price: "Sắp có",
-      period: "",
-      features: [
-        "Mọi tính năng của gói Miễn phí",
-        "Lưu và quản lý tài liệu",
-        "Xuất hàng loạt cho lớp học",
-        "Hỗ trợ ưu tiên",
-      ],
-      cta: "Nhận thông báo",
-    },
+    cta: "Tạo phiếu tập viết",
   },
   faq: {
     title: "Câu hỏi thường gặp",
@@ -153,7 +155,7 @@ export const vi = {
       {
         question: "Công cụ này có thực sự miễn phí không?",
         answer:
-          "Có. Tất cả công cụ hiện tại đều miễn phí và không giới hạn số lần sử dụng.",
+          "Có. Tất cả công cụ đều miễn phí, không giới hạn số lần dùng và không cần tạo tài khoản.",
       },
       {
         question: "Tôi có cần cài đặt phần mềm gì không?",
@@ -161,14 +163,34 @@ export const vi = {
           "Không. Mọi thứ chạy trực tiếp trên trình duyệt, bạn chỉ cần một kết nối internet.",
       },
       {
+        question: "Dùng trên điện thoại được không?",
+        answer:
+          "Được. Trang hiển thị tốt trên điện thoại; lần đầu dùng một công cụ, trang sẽ tải từ điển (khoảng 1–3 MB), các lần sau dùng ngay.",
+      },
+      {
         question: "File tải về dùng được ở đâu?",
         answer:
-          "Phiếu tập viết xuất ra PDF để in. Bộ thẻ xuất ra TSV, import trực tiếp vào Anki.",
+          "Phiếu tập viết in ra giấy hoặc lưu PDF. Tách từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file TSV để import vào Anki.",
       },
       {
         question: "Dữ liệu của tôi có được lưu lại không?",
         answer:
-          "Không. Quá trình xử lý diễn ra ngay trên máy của bạn, chúng tôi không lưu văn bản bạn nhập.",
+          "Không. Quá trình xử lý diễn ra ngay trên máy của bạn, chúng tôi không lưu và không gửi văn bản bạn nhập đi đâu.",
+      },
+      {
+        question: "Nghĩa, câu ví dụ và mã Ngũ bút lấy từ đâu?",
+        answer:
+          "Nghĩa tiếng Anh từ CC-CEDICT, mã Ngũ bút từ pywubi, câu ví dụ và bản dịch do Hán Ngữ Studio biên soạn. Pinyin và Hán Việt được tạo tự động, nên hãy kiểm tra lại các chữ đa âm.",
+      },
+      {
+        question: "Có chế độ tối không?",
+        answer:
+          "Có. Bấm nút “Giao diện” trên thanh menu để chọn Sáng, Tối hoặc Theo hệ thống, và chọn màu theo Ngũ hành.",
+      },
+      {
+        question: "Hướng dẫn sử dụng ở đâu?",
+        answer:
+          "Hướng dẫn từng bước cho mọi công cụ có trên GitHub — bấm “Hướng dẫn sử dụng” ở đầu trang hoặc cuối trang.",
       },
     ],
   },
@@ -375,29 +397,21 @@ export const vi = {
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",
-    subtitle: "Bắt đầu miễn phí ngay hôm nay, không cần thẻ tín dụng.",
-    placeholder: "Nhập email của bạn",
-    button: "Nhận thông báo",
-    note: "Chúng tôi sẽ chỉ liên hệ khi có tính năng mới. Không spam.",
+    subtitle: "Miễn phí, không cần tài khoản, không cần cài đặt. Mở công cụ và bắt đầu ngay.",
+    primary: "Tạo phiếu tập viết",
+    secondary: "Đọc hướng dẫn",
   },
   footer: {
     tagline: "Công cụ học và dạy tiếng Trung cho người Việt.",
     columns: {
-      product: "Sản phẩm",
+      tools: "Công cụ",
       resources: "Tài nguyên",
-      company: "Công ty",
     },
     links: {
-      practiceSheet: "Phiếu tập viết",
-      anki: "Thẻ Anki",
-      cloze: "Bài tập điền khuyết",
-      nPlusOne: "Sắp xếp N+1",
-      guide: "Hướng dẫn",
-      blog: "Blog",
+      guide: "Hướng dẫn sử dụng",
+      source: "Mã nguồn (GitHub)",
       faq: "Câu hỏi thường gặp",
-      about: "Giới thiệu",
-      contact: "Liên hệ",
-      privacy: "Quyền riêng tư",
+      roadmap: "Sắp ra mắt",
     },
     rights: "Bản quyền đã được bảo hộ.",
     languageLabel: "Ngôn ngữ",

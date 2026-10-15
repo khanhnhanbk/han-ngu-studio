@@ -4,7 +4,7 @@ const dict = getDictionary("vi");
 
 export function FAQ() {
   return (
-    <section className="border-y border-ink-900/5 bg-ink-50">
+    <section id="faq" className="border-y border-ink-900/5 bg-ink-50">
       <div className="container-page section">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">Giải đáp</p>

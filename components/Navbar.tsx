@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { getDictionary } from "@/lib/i18n";
+import { TOOLS } from "@/lib/links";
 
 import { ThemePicker } from "./ThemePicker";
 
@@ -16,32 +17,27 @@ export function Navbar() {
     { href: "/#features", label: dict.nav.features },
     { href: "/#how-it-works", label: dict.nav.howItWorks },
     { href: "/#for-teachers", label: dict.nav.forTeachers },
+    { href: "/#roadmap", label: dict.nav.roadmap },
   ];
 
-  const tools = [
-    { href: "/tools/practice-sheet", label: dict.nav.practiceSheet },
-    { href: "/tools/segment", label: dict.nav.segment },
-    { href: "/tools/pinyin", label: dict.nav.pinyin },
-    { href: "/tools/hanviet", label: dict.nav.hanviet },
-    { href: "/tools/anki", label: dict.nav.anki },
-  ];
+  const tools = TOOLS.map((tool) => ({ href: tool.href, label: dict.nav[tool.id] }));
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
+        <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
             汉
           </span>
           <span>Hán Ngữ Studio</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink-700 transition hover:text-brand-600"
+              className="whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-600"
             >
               {link.label}
             </a>
@@ -57,7 +53,7 @@ export function Navbar() {
               aria-haspopup="menu"
               aria-expanded={toolsOpen}
               onClick={() => setToolsOpen((v) => !v)}
-              className="flex items-center gap-1 text-sm font-medium text-ink-700 transition hover:text-brand-600"
+              className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-600"
             >
               {dict.nav.tools}
               <span aria-hidden className="text-xs">
@@ -87,9 +83,9 @@ export function Navbar() {
           </div>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <ThemePicker />
-          <Link href="/#cta" className="btn-primary">
+          <Link href="/#cta" className="btn-primary whitespace-nowrap">
             {dict.nav.cta}
           </Link>
         </div>
@@ -97,7 +93,7 @@ export function Navbar() {
         <button
           type="button"
           aria-label="Menu"
-          className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10 md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10 lg:hidden"
           onClick={() => setOpen((v) => !v)}
         >
           <span className="text-xl">{open ? "✕" : "☰"}</span>
@@ -105,7 +101,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-ink-900/5 bg-surface md:hidden">
+        <div className="border-t border-ink-900/5 bg-surface lg:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
             {links.map((link) => (
               <a

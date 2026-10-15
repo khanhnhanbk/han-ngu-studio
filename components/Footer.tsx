@@ -1,4 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
+import { REPO_URL, TOOLS, USER_GUIDE_URL } from "@/lib/links";
 
 const dict = getDictionary("vi");
 
@@ -7,28 +8,16 @@ export function Footer() {
 
   const columns = [
     {
-      title: dict.footer.columns.product,
-      links: [
-        { label: dict.footer.links.practiceSheet, href: "/tools/practice-sheet" },
-        { label: dict.footer.links.anki, href: "#features" },
-        { label: dict.footer.links.cloze, href: "#features" },
-        { label: dict.footer.links.nPlusOne, href: "#features" },
-      ],
+      title: dict.footer.columns.tools,
+      links: TOOLS.map((tool) => ({ label: dict.nav[tool.id], href: tool.href, external: false })),
     },
     {
       title: dict.footer.columns.resources,
       links: [
-        { label: dict.footer.links.guide, href: "#how-it-works" },
-        { label: dict.footer.links.blog, href: "#" },
-        { label: dict.footer.links.faq, href: "#" },
-      ],
-    },
-    {
-      title: dict.footer.columns.company,
-      links: [
-        { label: dict.footer.links.about, href: "#" },
-        { label: dict.footer.links.contact, href: "#cta" },
-        { label: dict.footer.links.privacy, href: "#" },
+        { label: dict.footer.links.guide, href: USER_GUIDE_URL, external: true },
+        { label: dict.footer.links.source, href: REPO_URL, external: true },
+        { label: dict.footer.links.faq, href: "/#faq", external: false },
+        { label: dict.footer.links.roadmap, href: "/#roadmap", external: false },
       ],
     },
   ];
@@ -36,7 +25,7 @@ export function Footer() {
   return (
     <footer className="border-t border-ink-900/5 bg-surface">
       <div className="container-page py-12">
-        <div className="grid gap-10 md:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-bold text-ink-900">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
@@ -59,6 +48,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="text-sm text-ink-700/70 transition hover:text-brand-600"
                     >
                       {link.label}

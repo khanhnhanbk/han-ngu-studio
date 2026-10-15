@@ -129,11 +129,13 @@ export function ThemePicker({ inline = false }: { inline?: boolean }) {
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-label={dict.theme.button}
+        title={dict.theme.button}
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-ink-700 transition hover:text-brand-600"
       >
         <PaletteIcon />
-        <span>{dict.theme.button}</span>
+        <span className="hidden xl:inline">{dict.theme.button}</span>
       </button>
       {open && (
         <div

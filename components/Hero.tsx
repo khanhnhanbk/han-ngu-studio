@@ -1,4 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
+import { USER_GUIDE_URL } from "@/lib/links";
 
 const dict = getDictionary("vi");
 
@@ -40,10 +41,15 @@ export function Hero() {
             {dict.hero.subtitle}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#cta" className="btn-primary">
+            <a href="#features" className="btn-primary">
               {dict.hero.ctaPrimary}
             </a>
-            <a href="#features" className="btn-secondary">
+            <a
+              href={USER_GUIDE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+            >
               {dict.hero.ctaSecondary}
             </a>
           </div>
@@ -69,9 +75,9 @@ export function Hero() {
             ))}
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs text-ink-700/70">
-            <span>Pinyin</span>
-            <span>Ngũ bút</span>
-            <span>Nét đứt</span>
+            {dict.hero.mockupLabels.map((label) => (
+              <span key={label}>{label}</span>
+            ))}
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
+import { TOOLS } from "@/lib/links";
 
 const dict = getDictionary("vi");
 
@@ -14,7 +15,7 @@ export function ForTeachers() {
           <p className="mt-4 text-lg text-ink-700">
             {dict.forTeachers.subtitle}
           </p>
-          <a href="#cta" className="btn-primary mt-8">
+          <a href={TOOLS[0].href} className="btn-primary mt-8">
             {dict.forTeachers.cta}
           </a>
         </div>
@@ -25,7 +26,7 @@ export function ForTeachers() {
               key={point}
               className="flex items-start gap-3 rounded-xl border border-ink-900/10 bg-surface p-4 shadow-sm"
             >
-              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-green-100 text-sm text-green-700">
+              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-100 text-sm text-brand-700">
                 ✓
               </span>
               <span className="text-sm text-ink-700">{point}</span>
