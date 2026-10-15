@@ -17,7 +17,7 @@ export function FAQ() {
           {dict.faq.items.map((item) => (
             <details
               key={item.question}
-              className="group rounded-xl border border-ink-900/10 bg-white p-5 shadow-sm"
+              className="group rounded-xl border border-ink-900/10 bg-surface p-5 shadow-sm"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-ink-900">
                 {item.question}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { getDictionary } from "@/lib/i18n";
 
+import { ThemePicker } from "./ThemePicker";
+
 const dict = getDictionary("vi");
 
 export function Navbar() {
@@ -25,7 +27,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
@@ -69,7 +71,7 @@ export function Navbar() {
                 toolsOpen ? "block" : "hidden"
               }`}
             >
-              <div className="min-w-48 rounded-xl border border-ink-900/10 bg-white p-2 shadow-lg">
+              <div className="min-w-48 rounded-xl border border-ink-900/10 bg-surface p-2 shadow-lg">
                 {tools.map((tool) => (
                   <a
                     key={tool.href}
@@ -86,6 +88,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
+          <ThemePicker />
           <Link href="/#cta" className="btn-primary">
             {dict.nav.cta}
           </Link>
@@ -102,7 +105,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-ink-900/5 bg-white md:hidden">
+        <div className="border-t border-ink-900/5 bg-surface md:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
             {links.map((link) => (
               <a
@@ -127,6 +130,12 @@ export function Navbar() {
                 {tool.label}
               </a>
             ))}
+            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
+              {dict.theme.button}
+            </p>
+            <div className="px-3 py-2">
+              <ThemePicker inline />
+            </div>
             <Link
               href="/#cta"
               onClick={() => setOpen(false)}

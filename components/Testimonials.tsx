@@ -18,7 +18,7 @@ export function Testimonials() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {dict.testimonials.items.map((t) => (
-            <figure key={t.name} className="rounded-2xl bg-white p-6 shadow-sm">
+            <figure key={t.name} className="rounded-2xl bg-surface p-6 shadow-sm">
               <blockquote className="text-sm text-ink-700">
                 “{t.quote}”
               </blockquote>

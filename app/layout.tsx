@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { getDictionary } from "@/lib/i18n";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
@@ -47,10 +48,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // The init script sets the theme class before React hydrates.
     <html
       lang="vi"
       className={`${beVietnam.variable} ${notoSansSC.variable} ${kai.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>{children}</body>
     </html>
   );

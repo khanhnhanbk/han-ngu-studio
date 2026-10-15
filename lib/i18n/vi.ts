@@ -221,6 +221,22 @@ export const vi = {
     tooLong: "Văn bản quá dài (tối đa 5000 ký tự).",
     loadFailed: "Không tải được từ điển. Vui lòng kiểm tra kết nối mạng và thử lại.",
   },
+  theme: {
+    button: "Giao diện",
+    mode: "Chế độ",
+    modes: {
+      light: "Sáng",
+      dark: "Tối",
+      system: "Theo hệ thống",
+    },
+    accent: "Màu chủ đạo",
+    accents: {
+      orange: "Cam",
+      red: "Đỏ son",
+      teal: "Xanh ngọc",
+      blue: "Xanh dương",
+    },
+  },
   hanviet: {
     title: "Chuyển chữ Hán sang Hán Việt",
     subtitle:

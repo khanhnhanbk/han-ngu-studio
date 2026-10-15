@@ -25,6 +25,15 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 
+## Đổi giao diện (sáng / tối, màu sắc)
+
+1. Trên thanh menu, bấm **Giao diện** (biểu tượng bảng màu, bên trái nút **Dùng thử miễn phí**).
+   - Trên điện thoại: bấm **☰**, mục **Giao diện** nằm cuối danh sách.
+2. **Chế độ**: **Sáng**, **Tối**, hoặc **Theo hệ thống** (tự đổi theo cài đặt sáng/tối của máy).
+3. **Màu chủ đạo**: bấm một trong 4 chấm màu: **Cam**, **Đỏ son**, **Xanh ngọc**, **Xanh dương**.
+
+Lựa chọn được lưu trên trình duyệt của bạn và giữ nguyên cho lần sau. Phiếu tập viết luôn in ra nền trắng, kể cả khi dùng chế độ Tối.
+
 ## Mẹo chung
 
 - Lần đầu dùng **Tách từ**, **Chuyển Pinyin** hoặc **Hán Việt**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.

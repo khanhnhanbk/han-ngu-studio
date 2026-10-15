@@ -18,7 +18,7 @@ export function HowItWorks() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {dict.howItWorks.steps.map((step, i) => (
-            <div key={step.title} className="relative rounded-2xl bg-white p-6 shadow-sm">
+            <div key={step.title} className="relative rounded-2xl bg-surface p-6 shadow-sm">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-600 text-lg font-bold text-white">
                 {i + 1}
               </span>

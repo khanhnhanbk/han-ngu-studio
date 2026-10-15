@@ -7,12 +7,120 @@
   --font-hanzi: "Noto Sans SC", "KaiTi", serif;
 }
 
+/*
+ * Theme colours as RGB channels (used by tailwind.config.ts).
+ * Each accent sets a raw palette --b-*; light and dark mode map --brand-*
+ * onto it. <html> gets data-accent and the "dark" class from lib/theme.ts.
+ */
+:root {
+  /* Accent: orange (default) — Tailwind orange */
+  --b-50: 255 247 237;
+  --b-100: 255 237 213;
+  --b-200: 254 215 170;
+  --b-300: 253 186 116;
+  --b-400: 251 146 60;
+  --b-500: 249 115 22;
+  --b-600: 234 88 12;
+  --b-700: 194 65 12;
+  --b-800: 154 52 18;
+  --b-900: 124 45 18;
+  --b-950: 67 20 7;
+
+  /* Light mode */
+  --page: 255 255 255;
+  --surface: 255 255 255;
+  --ink-50: 246 247 249;
+  --ink-500: 100 116 139;
+  --ink-700: 51 65 85;
+  --ink-800: 30 41 59;
+  --ink-900: 15 23 42;
+  --brand-50: var(--b-50);
+  --brand-100: var(--b-100);
+  --brand-200: var(--b-200);
+  --brand-300: var(--b-300);
+  --brand-400: var(--b-400);
+  --brand-500: var(--b-500);
+  --brand-600: var(--b-600);
+  --brand-700: var(--b-700);
+  --brand-800: var(--b-800);
+  --brand-900: var(--b-900);
+  color-scheme: light;
+}
+
+/* Accent: red (Đỏ son) — Tailwind red */
+:root[data-accent="red"] {
+  --b-50: 254 242 242;
+  --b-100: 254 226 226;
+  --b-200: 254 202 202;
+  --b-300: 252 165 165;
+  --b-400: 248 113 113;
+  --b-500: 239 68 68;
+  --b-600: 220 38 38;
+  --b-700: 185 28 28;
+  --b-800: 153 27 27;
+  --b-900: 127 29 29;
+  --b-950: 69 10 10;
+}
+
+/* Accent: teal (Xanh ngọc) — Tailwind teal */
+:root[data-accent="teal"] {
+  --b-50: 240 253 250;
+  --b-100: 204 251 241;
+  --b-200: 153 246 228;
+  --b-300: 94 234 212;
+  --b-400: 45 212 191;
+  --b-500: 20 184 166;
+  --b-600: 13 148 136;
+  --b-700: 15 118 110;
+  --b-800: 17 94 89;
+  --b-900: 19 78 74;
+  --b-950: 4 47 46;
+}
+
+/* Accent: blue (Xanh dương) — Tailwind blue */
+:root[data-accent="blue"] {
+  --b-50: 239 246 255;
+  --b-100: 219 234 254;
+  --b-200: 191 219 254;
+  --b-300: 147 197 253;
+  --b-400: 96 165 250;
+  --b-500: 59 130 246;
+  --b-600: 37 99 235;
+  --b-700: 29 78 216;
+  --b-800: 30 64 175;
+  --b-900: 30 58 138;
+  --b-950: 23 37 84;
+}
+
+/*
+ * Dark mode: ink is inverted (900 = near-white text, 50 = panel), light
+ * brand tints become dark tints and dark shades become light, so
+ * "bg-brand-50 text-brand-700" stays readable. 400–600 keep the accent.
+ */
+:root.dark {
+  --page: 11 18 32;
+  --surface: 17 26 46;
+  --ink-50: 30 41 59;
+  --ink-500: 148 163 184;
+  --ink-700: 203 213 225;
+  --ink-800: 226 232 240;
+  --ink-900: 241 245 249;
+  --brand-50: var(--b-950);
+  --brand-100: var(--b-900);
+  --brand-200: var(--b-800);
+  --brand-300: var(--b-700);
+  --brand-700: var(--b-300);
+  --brand-800: var(--b-200);
+  --brand-900: var(--b-100);
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-white text-ink-900 antialiased;
+  @apply bg-page text-ink-900 antialiased;
   /* Extra leading so Vietnamese diacritics never clip */
   line-height: 1.7;
 }
@@ -24,6 +132,18 @@ h3,
 h4 {
   line-height: 1.25;
   text-wrap: balance;
+}
+
+/* Text fields follow the theme (otherwise dark mode shows the browser's grey).
+   In @layer base so utilities such as bg-transparent still win. */
+@layer base {
+  textarea,
+  select,
+  input:not([type]),
+  input[type="text"],
+  input[type="number"] {
+    @apply bg-page text-ink-900;
+  }
 }
 
 /* Hanzi + Vietnamese mixed text uses the hanzi font for CJK glyphs */
@@ -42,11 +162,11 @@ h4 {
   }
 
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2;
+    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-page dark:hover:bg-brand-500;
   }
 
   .btn-secondary {
-    @apply btn border border-ink-900/10 bg-white text-ink-900 hover:bg-ink-50 focus:outline-none focus:ring-2 focus:ring-ink-900/10 focus:ring-offset-2;
+    @apply btn border border-ink-900/10 bg-surface text-ink-900 hover:bg-ink-50 focus:outline-none focus:ring-2 focus:ring-ink-900/10 focus:ring-offset-2 focus:ring-offset-page;
   }
 
   .section {
@@ -58,7 +178,7 @@ h4 {
   }
 
   .card {
-    @apply rounded-2xl border border-ink-900/10 bg-white p-6 shadow-sm transition hover:shadow-md;
+    @apply rounded-2xl border border-ink-900/10 bg-surface p-6 shadow-sm transition hover:shadow-md;
   }
 }
 
@@ -72,6 +192,18 @@ h4 {
 }
 
 @media print {
+  /* Paper is white: print with the light palette even in dark mode. */
+  :root.dark {
+    --page: 255 255 255;
+    --surface: 255 255 255;
+    --ink-50: 246 247 249;
+    --ink-500: 100 116 139;
+    --ink-700: 51 65 85;
+    --ink-800: 30 41 59;
+    --ink-900: 15 23 42;
+    color-scheme: light;
+  }
+
   @page {
     size: A4;
     margin: 0;

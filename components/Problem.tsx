@@ -13,7 +13,7 @@ export function Problem() {
           {dict.problem.items.map((item) => (
             <div
               key={item}
-              className="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm"
+              className="flex items-start gap-3 rounded-xl bg-surface p-4 shadow-sm"
             >
               <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">
                 !

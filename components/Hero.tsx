@@ -7,7 +7,7 @@ const cells = ["永", "和", "九", "年", "岁", "在"];
 
 function MizigeCell({ char }: { char: string }) {
   return (
-    <div className="relative aspect-square rounded-md border border-brand-300 bg-white">
+    <div className="relative aspect-square rounded-md border border-brand-300 bg-surface">
       <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-[10px] text-brand-500/40">
         <span className="absolute h-px w-full rotate-0 bg-brand-300/40" />
         <span className="absolute h-full w-px bg-brand-300/40" />
@@ -51,7 +51,7 @@ export function Hero() {
         </div>
 
         {/* Mockup: practice sheet preview */}
-        <div className="animate-fade-up rounded-2xl border border-ink-900/10 bg-white p-5 shadow-lg">
+        <div className="animate-fade-up rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-lg">
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm font-semibold text-ink-900">
               Phiếu tập viết

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -12,25 +13,20 @@ const config: Config = {
         sans: ["var(--font-be-vietnam)", "system-ui", "sans-serif"],
         hanzi: ["var(--font-hanzi)", "serif"],
       },
+      // Colours are CSS variables (RGB channels) set in app/globals.css, so the
+      // theme picker can switch accent and dark mode at runtime.
       colors: {
-        brand: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          300: "#fdba74",
-          400: "#fb923c",
-          500: "#f97316",
-          600: "#ea580c",
-          700: "#c2410c",
-          800: "#9a3412",
-          900: "#7c2d12",
-        },
-        ink: {
-          50: "#f6f7f9",
-          700: "#334155",
-          800: "#1e293b",
-          900: "#0f172a",
-        },
+        brand: Object.fromEntries(
+          [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((n) => [
+            n,
+            `rgb(var(--brand-${n}) / <alpha-value>)`,
+          ]),
+        ),
+        ink: Object.fromEntries(
+          [50, 500, 700, 800, 900].map((n) => [n, `rgb(var(--ink-${n}) / <alpha-value>)`]),
+        ),
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        page: "rgb(var(--page) / <alpha-value>)",
       },
       keyframes: {
         "fade-up": {

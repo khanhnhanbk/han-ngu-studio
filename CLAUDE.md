@@ -48,7 +48,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - Strict TypeScript; avoid `any`.
 - Components using browser APIs or client logic need `"use client"`.
 - UI text is **Vietnamese** and goes through `lib/i18n` (`getDictionary`). English currently falls back to Vietnamese; add `lib/i18n/en.ts` when translating.
-- Style with Tailwind, matching the existing design.
+- Style with Tailwind, matching the existing design. Colours come from theme tokens (CSS variables in `app/globals.css`): `brand-*`, `ink-*`, `surface`, `page`. Never use raw hex or `bg-white` for surfaces; check new UI in dark mode and with another accent (theme picker: `components/ThemePicker.tsx`, `lib/theme.ts`).
 - Exported files (PDF, TSV) are generated on the client.
 
 ## Folder structure

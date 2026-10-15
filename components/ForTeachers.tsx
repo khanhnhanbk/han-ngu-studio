@@ -23,7 +23,7 @@ export function ForTeachers() {
           {dict.forTeachers.points.map((point) => (
             <li
               key={point}
-              className="flex items-start gap-3 rounded-xl border border-ink-900/10 bg-white p-4 shadow-sm"
+              className="flex items-start gap-3 rounded-xl border border-ink-900/10 bg-surface p-4 shadow-sm"
             >
               <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-green-100 text-sm text-green-700">
                 ✓

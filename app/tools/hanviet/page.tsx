@@ -38,7 +38,7 @@ function WordDetails({
 }) {
   const rows = allReadings(data, word.chars, word.tone3);
   return (
-    <div className="mt-4 rounded-lg border border-brand-200 bg-white p-4">
+    <div className="mt-4 rounded-lg border border-brand-200 bg-surface p-4">
       <div className="flex items-start justify-between gap-4">
         <p className="font-semibold text-ink-900">
           {dict.hanviet.details}: <span className="hanzi text-xl">{word.hanzi}</span>{" "}
@@ -244,8 +244,8 @@ export default function HanvietPage() {
                                     onClick={() => setSelected(w)}
                                     className={`rounded-lg border px-2 py-1 text-center transition hover:border-brand-500 ${
                                       selected === w
-                                        ? "border-brand-500 bg-white"
-                                        : "border-ink-900/10 bg-white/60"
+                                        ? "border-brand-500 bg-surface"
+                                        : "border-ink-900/10 bg-surface/60"
                                     }`}
                                   >
                                     <span className="block text-xs text-ink-700/70">
