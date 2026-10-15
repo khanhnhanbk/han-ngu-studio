@@ -10,6 +10,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 |---|---|---|
 | Character practice sheet (米字格 grid, Pinyin, Wubi, traceable characters) → PDF | `/tools/practice-sheet` | Live, client-side |
 | Word segmentation | `/tools/segment` | Live, client-side (`lib/segment/`, word list in `public/data/word_list.txt`) |
+| Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
 | Anki deck generator (Pinyin, meaning, Sino-Vietnamese, examples) → TSV | | Not built |
 | Cloze exercise generator | | Not built |
 | N+1 sentence ordering (one new word per sentence) | | Not built |
@@ -56,11 +57,17 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - `public/data/`: static data files fetched at runtime
 - `assets/dictionary/`: raw source data (CSV/TSV) for future data builds
 - `docs/plans/`: implementation plans (see below)
+- `userguide/`: end-user guide in Vietnamese, one page per tool. Lives on GitHub only (not served, listed in `.vercelignore`).
 
 ## Plans
 
 - Plan mode saves plans to `docs/plans/` (set via `plansDirectory` in `.claude/settings.json`).
 - For plans written outside plan mode, also save them in `docs/plans/` as `<YYYY-MM-DD>-<topic>.md`.
+
+## User guide
+
+- Every user-facing tool change must update its page in `userguide/` (and the index in `userguide/README.md`).
+- Write it in Vietnamese, step by step, quoting the **exact** UI labels from `lib/i18n/vi.ts`, and keep a "Lỗi thường gặp" section.
 
 ## Notes
 

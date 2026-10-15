@@ -1,43 +1,48 @@
-# Phase 1: Pinyin tool, `/tools/pinyin` (~600 LOC)
+# Phase 1: Pinyin tool, `/tools/pinyin` (done)
 
 **Depends on:** Phase 0 (browser tokenizer).
 
 ## Context
 
-Learners want Pinyin for a single character, a sentence or a whole paragraph. The old `pinyin_coverter.py` segmented the text first, then ran pypinyin on each word, so polyphones were resolved per word. The site already uses `pinyin-pro` (`lib/practiceSheet.ts`), so this phase reuses it instead of porting pypinyin.
+Learners want Pinyin for a single character, a sentence or a whole paragraph. The old `pinyin_coverter.py` segmented the text first, then ran pypinyin on each word. The site already uses `pinyin-pro` (pinned at `3.26.0`).
 
-Because the two libraries choose readings differently, the expected outputs are **curated by hand** rather than dumped from Python.
+## Design decision: whole-line context
 
-## Scope
+Running pinyin-pro on each segmented word in isolation loses context. A lone `了` becomes `liǎo`, while `他长大了` as a whole gives `le`.
 
-- **`lib/pinyin/convert.ts`**: pure logic.
-  - Segment the text with `lib/segment`, then run `pinyin-pro` on each Han token.
-  - Tone style: marks, numbers or none.
-  - Spacing: per word (as in `pinyin_coverter.py`) or per syllable.
-  - Non-Han tokens and punctuation pass through unchanged. Apply the punctuation-spacing rules from `pinyin_coverter.py`: no space before `，。！？、；：,.!?;:`, and one space after.
-  - Keep line and paragraph breaks.
-- **`app/tools/pinyin/page.tsx`**: the page.
-  - Input: a textarea, or a `.txt` upload.
-  - Output views:
-    - plain Pinyin
-    - interlinear (`<ruby>` Pinyin above each character)
-    - TSV: original line, Pinyin
-  - Copy and download buttons, using the pattern from the segment page.
-- **Shared**: strings go in `lib/i18n/vi.ts` (`pinyin.*`), and the tool is added to the Navbar "Công cụ" dropdown.
+So `lib/pinyin/convert.ts` runs pinyin-pro on the **whole line** (`type: "all"`, one entry per code point), and uses our tokenizer **only to group syllables into words**. This deliberately departs from a faithful port, because CLAUDE.md rule 3 puts correctness first.
+
+## What was built
+
+- **`lib/pinyin/convert.ts`**: `convertLine`, `convertText`, `toTsv`.
+  - Tone styles: mark, number (neutral tone `5`, as in CC-CEDICT), none. ü is kept in every style.
+  - Spacing: word (with an apostrophe before a/o/e syllables, as in `xī'ān`) or syllable.
+  - Non-Han text passes through. Full-width punctuation becomes ASCII, followed by a space, and `……` becomes `…`.
+- **`app/tools/pinyin/page.tsx`**:
+  - Input: textarea or `.txt` upload, 5000 code points maximum.
+  - Changing an option re-renders the result immediately.
+  - Three views: Chỉ Pinyin (Pinyin only), Pinyin trên chữ (Pinyin above characters, using `<ruby>`), and Bảng TSV (TSV table).
+- **`lib/download.ts`**: a shared download helper, also used by the segment page.
+- **Shared**: i18n strings (`pinyin.*`, `nav.pinyin`) and a Navbar entry.
+- **`userguide/`**: a Vietnamese user guide for all live tools.
 
 ## Tests
 
-`lib/pinyin/convert.test.ts`, with curated cases covering:
-- polyphones in context: 行 (银行 / 行走), 了, 的, 长 (长大 / 长度), 重
-- ü (女, 绿)
-- the neutral tone
-- mixed Latin text and digits
-- multiline input
-- every tone style and both spacing modes
+`lib/pinyin/convert.test.ts`: curated cases (pinyin-pro output checked by hand) covering:
+- polyphones
+- ü
+- every tone style and spacing combination
+- apostrophes
+- Latin text, digits and punctuation
+- astral characters
+- multiline input with CRLF
+- the ruby segments
+- the TSV output
 
-## Verification
+## Known limitations (documented in `userguide/pinyin.md`)
 
-- `npm test` and `npm run build` pass.
-- In `npm run dev`, a paragraph of about 500 characters converts instantly.
-- The ruby view lines up.
-- DevTools → Network shows no request carrying the user's text.
+pinyin-pro gives:
+- `还书` as `hái shū`; it should be `huán`
+- `东西` as `dōngxī`; it should be `dōngxi`
+
+It also applies the 一 and 不 tone changes (一起 → `yìqǐ`).

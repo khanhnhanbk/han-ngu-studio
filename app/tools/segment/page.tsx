@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { downloadText } from "@/lib/download";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer } from "@/lib/segment/load";
 import { joinTokens, segment } from "@/lib/segment/tokenizer";
@@ -52,13 +53,7 @@ export default function SegmentPage() {
   }
 
   function handleDownload() {
-    const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "segmented.txt";
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadText(result, "segmented.txt");
   }
 
   return (

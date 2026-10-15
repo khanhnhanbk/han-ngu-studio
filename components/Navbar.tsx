@@ -19,6 +19,7 @@ export function Navbar() {
   const tools = [
     { href: "/tools/practice-sheet", label: dict.nav.practiceSheet },
     { href: "/tools/segment", label: dict.nav.segment },
+    { href: "/tools/pinyin", label: dict.nav.pinyin },
   ];
 
   return (

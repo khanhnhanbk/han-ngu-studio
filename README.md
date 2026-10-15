@@ -8,8 +8,13 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 - ✅ Phase 1 — Landing page (this pass)
 - ✅ Phase 2 — Practice-sheet generator (`/tools/practice-sheet`, rendered in the browser, print to PDF)
 - ✅ Word segmentation (`/tools/segment`, runs in the browser)
-- ⏳ Pinyin, Hán Việt, Anki deck, Anki images, TTS: see [`docs/plans/2026-10-15-roadmap.md`](docs/plans/2026-10-15-roadmap.md)
+- ✅ Pinyin converter (`/tools/pinyin`, runs in the browser)
+- ⏳ Hán Việt, Anki deck, Anki images, TTS: see [`docs/plans/2026-10-15-roadmap.md`](docs/plans/2026-10-15-roadmap.md)
 - ⏳ Phase 4 — i18n (EN), SEO, analytics, monetization
+
+## User guide
+
+How to use each tool (Vietnamese): [`userguide/`](userguide/README.md).
 
 ## Local development
 
