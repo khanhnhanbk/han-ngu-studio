@@ -30,3 +30,6 @@ next-env.d.ts
 # vercel
 .vercel
 
+
+# Windows download metadata (WSL)
+*:Zone.Identifier
