@@ -4,18 +4,14 @@ import { useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { postJSON } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
+import { loadTokenizer } from "@/lib/segment/load";
+import { joinTokens, segment } from "@/lib/segment/tokenizer";
 
 const dict = getDictionary("vi");
 
 const SAMPLE = "我喜欢学习中文。";
 const MAX_LENGTH = 5000;
-
-type SegmentResponse = {
-  segmented: string;
-  lines: string[][];
-};
 
 export default function SegmentPage() {
   const [text, setText] = useState(SAMPLE);
@@ -24,7 +20,9 @@ export default function SegmentPage() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const tooLong = text.length > MAX_LENGTH;
+  // Counted in code points, like the old Python API's limit.
+  const length = Array.from(text).length;
+  const tooLong = length > MAX_LENGTH;
 
   async function handleSegment() {
     setError("");
@@ -39,10 +37,10 @@ export default function SegmentPage() {
     }
     setLoading(true);
     try {
-      const data = await postJSON<SegmentResponse>("/api/py/segment", { text });
-      setResult(data.segmented);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : dict.segment.error);
+      const tokenizer = await loadTokenizer();
+      setResult(segment(tokenizer, text).map(joinTokens).join("\n"));
+    } catch {
+      setError(dict.segment.loadFailed);
     } finally {
       setLoading(false);
     }
@@ -84,7 +82,7 @@ export default function SegmentPage() {
               />
               <div className="mt-2 flex items-center justify-between text-sm text-ink-500">
                 <span>
-                  {text.length} / {MAX_LENGTH}
+                  {length} / {MAX_LENGTH}
                 </span>
                 {tooLong && (
                   <span className="text-red-600">{dict.segment.tooLong}</span>

@@ -7,17 +7,17 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 
 - ✅ Phase 1 — Landing page (this pass)
 - ✅ Phase 2 — Practice-sheet generator (`/tools/practice-sheet`, rendered in the browser, print to PDF)
-- ✅ Word segmentation (`/tools/segment`, Python API in `api/`)
-- ⏳ Phase 3 — Anki export, Cloze, N+1
+- ✅ Word segmentation (`/tools/segment`, runs in the browser)
+- ⏳ Pinyin, Hán Việt, Anki deck, Anki images, TTS: see [`docs/plans/2026-10-15-roadmap.md`](docs/plans/2026-10-15-roadmap.md)
 - ⏳ Phase 4 — i18n (EN), SEO, analytics, monetization
 
 ## Local development
 
 ```bash
-cd web
 npm install
 npm run dev
 # open http://localhost:3000
+npm test   # Vitest (golden tests)
 ```
 
 ## Build
@@ -31,14 +31,13 @@ npm run start
 
 1. Push this repo to GitHub.
 2. Go to https://vercel.com → **New Project** → import the repo.
-3. Set **Root Directory** to `web` (important — the repo also contains Python code).
-4. Framework preset auto-detects **Next.js**. Click **Deploy**.
-5. You get a free `*.vercel.app` URL. Add a custom domain later if you want.
+3. Framework preset auto-detects **Next.js**. Click **Deploy**.
+4. You get a free `*.vercel.app` URL. Add a custom domain later if you want.
 
 ## Structure
 
 ```
-web/
+.
 ├─ app/
 │  ├─ layout.tsx            # root layout, fonts, metadata
 │  ├─ page.tsx              # landing page composition
@@ -51,6 +50,8 @@ web/
 │  ├─ Pricing.tsx  FAQ.tsx  CTASection.tsx  Footer.tsx
 │  └─ practice-sheet/SheetPage.tsx  # one A4 sheet as SVG
 ├─ lib/practiceSheet.ts     # character parsing, pagination, pinyin
+├─ lib/segment/             # word segmentation (Viterbi, runs in the browser)
+├─ public/data/             # static data (word_list.txt), lazy-loaded
 ├─ lib/i18n/               # Vietnamese copy (English-ready)
 │  ├─ vi.ts
 │  └─ index.ts

@@ -9,7 +9,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Tool | Route | Status |
 |---|---|---|
 | Character practice sheet (米字格 grid, Pinyin, Wubi, traceable characters) → PDF | `/tools/practice-sheet` | Live, client-side |
-| Word segmentation | `/tools/segment` | Live, but **still calls the legacy Python API** (`/api/py/segment`). Must be ported to TS. |
+| Word segmentation | `/tools/segment` | Live, client-side (`lib/segment/`, word list in `public/data/word_list.txt`) |
 | Anki deck generator (Pinyin, meaning, Sino-Vietnamese, examples) → TSV | | Not built |
 | Cloze exercise generator | | Not built |
 | N+1 sentence ordering (one new word per sentence) | | Not built |
@@ -27,20 +27,18 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 - `npm run dev`: dev server (http://localhost:3000)
 - `npm run build`: production build. **Must succeed before any task counts as done.**
 - `npm run lint`: lint
-- `npm run dev:api`: **legacy** Python API (uvicorn, port 8000), only needed for `/tools/segment` until it is ported. Do not add code that depends on it.
-- No JS test runner is set up yet. Add one (e.g. Vitest) when the first golden test is written.
+- `npm test`: Vitest (`lib/**/*.test.ts`), including golden tests
 
 ## Porting algorithms from Python to TypeScript
 
-Python originals live in `api/_core/` (tests in `api/tests/`, data in `api/data/`).
+Python originals are the owner's old scripts. The legacy segmentation API (`api/`) was removed after its port; see git history before that commit if needed. Raw source data lives in `assets/dictionary/`.
 
 - Port **faithfully**. Do not "improve" an algorithm unless asked.
 - Where Python and JS differ (Unicode, sorting, regex, integer division, rounding, dict ordering), match the Python output and add a comment explaining why.
 - CJK outside the BMP: use `Array.from(str)` or `for...of`; never `str.length` / `str[i]` to count or split characters.
-- Every port needs **golden tests** comparing against the Python output on the same inputs.
+- Every port needs **golden tests** comparing against the Python output on the same inputs. Store them as JSON in `lib/<tool-name>/__golden__/` with a `source` field naming the Python file and commit.
 - Pure logic goes in `lib/<tool-name>/`, separate from UI.
 - Convert large data once to static JSON. No external API calls at runtime.
-- After a port, remove the matching legacy code: the Python file, the `/api/py` rewrite in `next.config.js`, the function in `vercel.json`, `lib/api.ts` if unused, and `requirements.txt` once `api/` is empty.
 
 ## Code conventions
 
@@ -54,8 +52,9 @@ Python originals live in `api/_core/` (tests in `api/tests/`, data in `api/data/
 
 - `app/`: pages (`page.tsx` landing, `tools/practice-sheet/`, `tools/segment/`)
 - `components/`: landing-page sections (Hero, Features, FAQ, …) and `practice-sheet/` tool UI
-- `lib/`: client logic (`practiceSheet.ts`, `i18n/`, `api.ts` legacy fetch helper)
-- `api/`: legacy Python code (FastAPI + tokenizer). To be removed.
+- `lib/`: client logic (`practiceSheet.ts`, `segment/`, `i18n/`)
+- `public/data/`: static data files fetched at runtime
+- `assets/dictionary/`: raw source data (CSV/TSV) for future data builds
 - `docs/plans/`: implementation plans (see below)
 
 ## Plans

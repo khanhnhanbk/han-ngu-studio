@@ -181,6 +181,7 @@ export const vi = {
     download: "Tải .txt",
     error: "Vui lòng nhập văn bản tiếng Trung.",
     tooLong: "Văn bản quá dài (tối đa 5000 ký tự).",
+    loadFailed: "Không tải được từ điển. Vui lòng kiểm tra kết nối mạng và thử lại.",
   },
   practiceSheet: {
     title: "Tạo phiếu tập viết chữ Hán",
