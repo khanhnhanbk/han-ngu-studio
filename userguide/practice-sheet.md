@@ -31,9 +31,43 @@ Muốn thử nhanh? Bấm **Dùng văn bản mẫu**.
 | **Màu ô** | Bấm một màu: Đỏ, Xanh lá, Xanh dương, Đen / xám | Đỏ |
 | **Hiện Pinyin** | Tích để in Pinyin của mỗi chữ trên phiếu | Bật |
 | **Bỏ chữ trùng lặp** | Tích để mỗi chữ chỉ xuất hiện một lần | Tắt |
+| **Phông chữ** | Kiểu chữ của ô chữ mẫu và chữ mờ (xem bên dưới) | Khải thư – LXGW WenKai (mặc định) |
 | **Hiện thứ tự nét** | Tích để thêm dải ô nhỏ phía trên mỗi chữ (xem bên dưới) | Tắt |
 
 Trang sẽ **nhớ các tùy chọn** của bạn cho lần sau (lưu trên trình duyệt của bạn).
+
+#### Phông chữ
+
+Chọn trong danh sách **Phông chữ**; ô bên cạnh hiện chữ mẫu với phông đã chọn.
+
+| Lựa chọn | Phù hợp với |
+|---|---|
+| **Khải thư – LXGW WenKai (mặc định)** | Gần với chữ viết tay chuẩn, nên dùng để tập viết |
+| **Bút lông – Ma Shan Zheng** | Kiểu chữ bút lông. Chủ yếu có chữ giản thể; chữ phồn thể thiếu sẽ hiện bằng phông mặc định |
+| **Tống thể (chữ in) – Noto Serif SC** | Kiểu chữ in trong sách báo |
+| **Hắc thể (không chân) – Noto Sans SC** | Kiểu chữ không chân, nét đều |
+| **Phông có sẵn trên máy…** | Dùng phông đã cài trên máy của bạn |
+| **Tải file phông lên…** | Dùng file phông bạn có (ví dụ phông Khải thư của trường) |
+
+**Phông có sẵn trên máy:**
+
+1. Chọn **Phông có sẵn trên máy…**.
+2. Gõ tên phông vào ô bên dưới, ví dụ `KaiTi`, `STKaiti`, `SimSun`, `Microsoft YaHei` (Windows) hoặc `Kaiti SC`, `Songti SC`, `PingFang SC` (Mac). Ô gõ có gợi ý sẵn.
+3. Trên Chrome/Edge máy tính có thêm nút **Liệt kê phông trên máy**: bấm và cho phép trình duyệt đọc danh sách phông, rồi gõ để lọc.
+
+Phông này chỉ có trên máy bạn: người khác mở trang trên máy khác có thể không có. Hãy lưu PDF rồi gửi file PDF.
+
+**Tải file phông lên:**
+
+1. Chọn **Tải file phông lên…**.
+2. Bấm nút chọn file và chọn file `.ttf`, `.otf`, `.woff` hoặc `.woff2` (tối đa 50 MB).
+3. Dòng "Đang dùng: …" cho biết phông đã được nạp.
+
+File phông chỉ được đọc ngay trên trình duyệt, không gửi đi đâu. Sau khi tải lại trang, cần chọn lại file (trang sẽ quay về phông mặc định).
+
+Phông chỉ áp dụng cho chữ mẫu, chữ mờ và chữ gợi ý; dải thứ tự nét được vẽ từ dữ liệu nét nên không đổi theo phông.
+
+Các phông có sẵn (LXGW WenKai, Ma Shan Zheng, Noto Serif SC, Noto Sans SC) dùng giấy phép SIL Open Font License và được tải từ chính trang web này.
 
 #### Thứ tự nét
 
@@ -75,4 +109,9 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
 | "Chưa có dữ liệu thứ tự nét cho chữ này" trên dải ô | Chữ đó (thường là chữ hiếm) không có trong dữ liệu nét. Phần tập viết của chữ vẫn in bình thường. |
 | "Không tải được dữ liệu thứ tự nét. …" | Kiểm tra kết nối mạng rồi tải lại trang, hoặc bỏ tích **Hiện thứ tự nét** để in phiếu không có thứ tự nét. |
 | Nút in hiện "Đang tải dữ liệu nét…" rất lâu | Mạng chậm. Đợi thêm một chút; lần sau trình duyệt đã có sẵn dữ liệu nên nhanh hơn. |
+| "Không tìm thấy phông này trên máy. …" | Kiểm tra lại tên phông (đúng chữ hoa/thường, dấu cách), hoặc bấm **Liệt kê phông trên máy** để chọn từ danh sách. |
+| "Trình duyệt không cho phép đọc danh sách phông. …" | Bạn đã từ chối quyền đọc phông, hoặc trình duyệt không hỗ trợ. Gõ thẳng tên phông. |
+| "Không đọc được file phông này." | File bị hỏng hoặc không phải file phông. Thử file `.ttf` hoặc `.otf` khác. |
+| Một vài chữ trông khác các chữ còn lại | Phông đã chọn không có chữ đó nên trang dùng phông mặc định cho chữ đó (hay gặp với chữ phồn thể). Chọn phông khác. |
+| Phông tải lên bị mất | Sau khi tải lại trang cần chọn lại file phông. |
 | Phiếu bị lệch hoặc thừa trang trắng | Chọn khổ **A4** và lề **Không**; tỷ lệ (Scale) để **100%** / Mặc định. |

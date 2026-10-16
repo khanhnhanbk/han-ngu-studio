@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { FontPicker } from "@/components/practice-sheet/FontPicker";
 import { SheetPage } from "@/components/practice-sheet/SheetPage";
 import { getDictionary } from "@/lib/i18n";
 import {
@@ -19,8 +20,11 @@ import {
   type SheetOptions,
   type TraceShadeName,
 } from "@/lib/practiceSheet";
+import { fontStack, isSheetFontId, type SheetFontId } from "@/lib/sheetFonts";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
+
+import { sheetFontVariables } from "./fonts";
 
 const dict = getDictionary("vi");
 
@@ -38,6 +42,8 @@ type StoredOptions = {
   boxSize: BoxSizeName;
   linesPerChar: number;
   showStrokeOrder: boolean;
+  fontId: SheetFontId;
+  localFontName: string;
 };
 
 const DEFAULTS: StoredOptions = {
@@ -50,6 +56,8 @@ const DEFAULTS: StoredOptions = {
   boxSize: "medium",
   linesPerChar: 1,
   showStrokeOrder: false,
+  fontId: "wenkai",
+  localFontName: "",
 };
 
 type StrokeState =
@@ -70,6 +78,10 @@ export default function PracticeSheetPage() {
   const [showStrokeOrder, setShowStrokeOrder] = useState(
     DEFAULTS.showStrokeOrder,
   );
+  const [fontId, setFontId] = useState<SheetFontId>(DEFAULTS.fontId);
+  const [localFontName, setLocalFontName] = useState(DEFAULTS.localFontName);
+  // Name of the font file loaded this visit (uploaded fonts are not saved).
+  const [uploadName, setUploadName] = useState<string | null>(null);
   const [strokeState, setStrokeState] = useState<StrokeState>({
     status: "idle",
   });
@@ -92,6 +104,13 @@ export default function PracticeSheetPage() {
         setBoxSize(saved.boxSize);
         setLinesPerChar(saved.linesPerChar);
         setShowStrokeOrder(saved.showStrokeOrder);
+        // An uploaded font is gone after a reload, so it is never restored.
+        if (isSheetFontId(saved.fontId) && saved.fontId !== "upload") {
+          setFontId(saved.fontId);
+        }
+        if (typeof saved.localFontName === "string") {
+          setLocalFontName(saved.localFontName);
+        }
       }
     } catch {
       /* ignore corrupt storage */
@@ -122,6 +141,8 @@ export default function PracticeSheetPage() {
         boxSize,
         linesPerChar,
         showStrokeOrder,
+        fontId: fontId === "upload" ? DEFAULTS.fontId : fontId,
+        localFontName,
       };
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch {
@@ -137,6 +158,8 @@ export default function PracticeSheetPage() {
     boxSize,
     linesPerChar,
     showStrokeOrder,
+    fontId,
+    localFontName,
   ]);
 
   const characters = useMemo(
@@ -194,6 +217,10 @@ export default function PracticeSheetPage() {
     boxSize,
     linesPerChar,
     showStrokeOrder,
+    fontFamily: fontStack(
+      fontId === "upload" && !uploadName ? DEFAULTS.fontId : fontId,
+      localFontName,
+    ),
   };
 
   async function handleFile(file: File | undefined) {
@@ -206,7 +233,7 @@ export default function PracticeSheetPage() {
     setText(await file.text());
   }
 
-  function handlePrint() {
+  async function handlePrint() {
     setError("");
     if (characters.length === 0) {
       setError(dict.practiceSheet.error);
@@ -217,13 +244,15 @@ export default function PracticeSheetPage() {
       return;
     }
     if (strokesPending) return;
+    // Let the chosen font's glyphs finish loading before the print snapshot.
+    await document.fonts.ready;
     window.print();
   }
 
   return (
     <>
       <Navbar />
-      <main>
+      <main className={sheetFontVariables}>
         <section className="section print:p-0">
           <div className="container-page print:max-w-none print:p-0">
             <div className="print:hidden">
@@ -352,6 +381,15 @@ export default function PracticeSheetPage() {
                       className="rounded-lg border border-ink-900/10 px-3 py-2"
                     />
                   </label>
+
+                  <FontPicker
+                    fontId={fontId}
+                    onFontId={setFontId}
+                    localName={localFontName}
+                    onLocalName={setLocalFontName}
+                    uploadName={uploadName}
+                    onUploadName={setUploadName}
+                  />
 
                   <div className="flex flex-col gap-1 sm:col-span-2">
                     <span className="font-medium">

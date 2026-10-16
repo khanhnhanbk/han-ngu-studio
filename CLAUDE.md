@@ -70,6 +70,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 ## Data sources and credits
 
 - Meanings: CC-CEDICT (CC BY-SA 4.0). Wubi 86: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`). Example sentences: owner's own data.
+- Sheet fonts: LXGW WenKai TC, Ma Shan Zheng, Noto Serif SC, Noto Sans SC (SIL OFL), self-hosted by `next/font/google` (`app/layout.tsx`, `app/tools/practice-sheet/fonts.ts`). User-uploaded fonts are loaded with `FontFace` in the browser only.
 - Stroke order: Hanzi Writer 3.7.3 (MIT) for animation/quiz, with `charDataLoader` reading our own files (never its CDN). Characters passed between pages go in the URL hash (`#c=`, `#chars=…&strokes=1`), never the query string, so they are not sent to the server.
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.
 - Keep these credits visible on the pages that use the data and in `userguide/`.

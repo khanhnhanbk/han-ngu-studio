@@ -21,6 +21,8 @@ export type SheetOptions = {
   linesPerChar: number;
   /** Add a stroke-by-stroke strip above each character's first line. */
   showStrokeOrder: boolean;
+  /** CSS font-family for the model, trace and hint characters. */
+  fontFamily: string;
 };
 
 // A4 layout in millimetres (mirrors main.py). Box size is now selectable,

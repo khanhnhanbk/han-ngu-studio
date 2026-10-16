@@ -12,8 +12,6 @@ import type { StrokeData } from "@/lib/strokes/types";
 import { GridBox } from "./GridBox";
 import { StrokeStrip } from "./StrokeStrip";
 
-const KAI_FONT =
-  'var(--font-kai), "KaiTi", "STKaiti", var(--font-hanzi), serif';
 const UI_FONT = "var(--font-be-vietnam), sans-serif";
 
 type Props = {
@@ -159,7 +157,7 @@ export function SheetPage({
                         y={y + boxSize / 2}
                         textAnchor="middle"
                         dominantBaseline="central"
-                        fontFamily={KAI_FONT}
+                        fontFamily={options.fontFamily}
                         fontSize={fontSize}
                         fill={showModel ? "#000" : traceColor}
                       >
