@@ -42,6 +42,9 @@ importers:
       eslint-config-next:
         specifier: 15.5.27
         version: 15.5.27(eslint@9.39.5(jiti@1.21.7)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.7.3)
+      hanzi-writer-data:
+        specifier: 2.0.1
+        version: 2.0.1
       postcss:
         specifier: 8.5.1
         version: 8.5.1
@@ -1573,6 +1576,9 @@ packages:
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
+
+  hanzi-writer-data@2.0.1:
+    resolution: {integrity: sha512-nbQwM+MaryGoq7pBMIZLCd3lFq03nXuJuwku1+6UbjL58uU+9OULVcMkoNvNuJSoIV7f1bbPRfD4D/LQa5S7qg==}
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -4033,6 +4039,8 @@ snapshots:
       gopd: 1.2.0
 
   gopd@1.2.0: {}
+
+  hanzi-writer-data@2.0.1: {}
 
   has-bigints@1.1.0: {}
 

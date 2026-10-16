@@ -3,9 +3,14 @@ import {
   TRACE_COLORS,
   getLayout,
   getPinyin,
+  rowHeight,
   type SheetOptions,
   type SheetRow,
 } from "@/lib/practiceSheet";
+import type { StrokeData } from "@/lib/strokes/types";
+
+import { GridBox } from "./GridBox";
+import { StrokeStrip } from "./StrokeStrip";
 
 const KAI_FONT =
   'var(--font-kai), "KaiTi", "STKaiti", var(--font-hanzi), serif';
@@ -16,49 +21,10 @@ type Props = {
   options: SheetOptions;
   pageNumber: number;
   pageCount: number;
-  labels: { name: string; date: string };
+  labels: { name: string; date: string; strokes: string; noStrokes: string };
+  /** Stroke data by character; only needed when showStrokeOrder is on. */
+  strokes?: Map<string, StrokeData>;
 };
-
-function GridBox({
-  x,
-  y,
-  size,
-  gridType,
-  border,
-  guide,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  gridType: SheetOptions["gridType"];
-  border: string;
-  guide: string;
-}) {
-  const half = size / 2;
-  return (
-    <g>
-      <g stroke={guide} strokeWidth={0.18} strokeDasharray="0.8 0.8">
-        <line x1={x} y1={y + half} x2={x + size} y2={y + half} />
-        <line x1={x + half} y1={y} x2={x + half} y2={y + size} />
-        {gridType === "mizi" && (
-          <>
-            <line x1={x} y1={y} x2={x + size} y2={y + size} />
-            <line x1={x} y1={y + size} x2={x + size} y2={y} />
-          </>
-        )}
-      </g>
-      <rect
-        x={x}
-        y={y}
-        width={size}
-        height={size}
-        fill="none"
-        stroke={border}
-        strokeWidth={0.4}
-      />
-    </g>
-  );
-}
 
 export function SheetPage({
   rows,
@@ -66,6 +32,7 @@ export function SheetPage({
   pageNumber,
   pageCount,
   labels,
+  strokes,
 }: Props) {
   const layout = getLayout(options.boxSize);
   const {
@@ -81,6 +48,21 @@ export function SheetPage({
   const { border, guide } = GRID_COLORS[options.gridColor];
   const traceColor = TRACE_COLORS[options.traceShade];
   const effectiveTrace = Math.min(options.traceCount, maxTrace);
+
+  // Rows have different heights (the stroke strip is shorter), so place them
+  // one after another, then fill the rest of the page with blank rows.
+  const placed: { row: SheetRow | null; y: number }[] = [];
+  const bottom = 16 + rowsPerPage * boxSize;
+  let y = 16;
+  for (const row of rows) {
+    placed.push({ row, y });
+    y += rowHeight(row, boxSize);
+  }
+  // The epsilon absorbs floating-point error from the half-height strips.
+  while (y + boxSize <= bottom + 1e-6) {
+    placed.push({ row: null, y });
+    y += boxSize;
+  }
 
   return (
     <div className="sheet-page">
@@ -104,10 +86,42 @@ export function SheetPage({
           </text>
         </g>
 
-        {Array.from({ length: rowsPerPage }, (_, row) => {
-          const item = rows[row];
-          const y = 16 + row * boxSize;
+        {placed.map(({ row: item, y }, row) => {
           const char = item?.char ?? null;
+          if (item?.kind === "strokes") {
+            const data = strokes?.get(item.char);
+            return (
+              <g key={row}>
+                {data && (
+                  <text
+                    x={8 + labelWidth / 2}
+                    y={y + rowHeight(item, boxSize) / 2}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontFamily={UI_FONT}
+                    fontSize={2.6}
+                    fill="#555"
+                  >
+                    {data.strokes.length} {labels.strokes}
+                  </text>
+                )}
+                <StrokeStrip
+                  data={data}
+                  x={gridLeft}
+                  y={y}
+                  height={rowHeight(item, boxSize)}
+                  width={boxesPerRow * boxSize}
+                  boxSize={boxSize}
+                  gridType={options.gridType}
+                  border={border}
+                  guide={guide}
+                  doneColor={traceColor}
+                  noDataLabel={labels.noStrokes}
+                  fontFamily={UI_FONT}
+                />
+              </g>
+            );
+          }
           const isFirst = item?.kind === "first";
           return (
             <g key={row}>

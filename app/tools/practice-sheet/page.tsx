@@ -19,6 +19,8 @@ import {
   type SheetOptions,
   type TraceShadeName,
 } from "@/lib/practiceSheet";
+import { loadStrokes } from "@/lib/strokes/load";
+import type { StrokeData } from "@/lib/strokes/types";
 
 const dict = getDictionary("vi");
 
@@ -35,6 +37,7 @@ type StoredOptions = {
   traceShade: TraceShadeName;
   boxSize: BoxSizeName;
   linesPerChar: number;
+  showStrokeOrder: boolean;
 };
 
 const DEFAULTS: StoredOptions = {
@@ -46,7 +49,12 @@ const DEFAULTS: StoredOptions = {
   traceShade: "medium",
   boxSize: "medium",
   linesPerChar: 1,
+  showStrokeOrder: false,
 };
+
+type StrokeState =
+  | { status: "idle" | "loading" | "error" }
+  | { status: "ready"; data: Map<string, StrokeData> };
 
 export default function PracticeSheetPage() {
   const [text, setText] = useState(SAMPLE);
@@ -59,25 +67,38 @@ export default function PracticeSheetPage() {
     useState<TraceShadeName>(DEFAULTS.traceShade);
   const [boxSize, setBoxSize] = useState<BoxSizeName>(DEFAULTS.boxSize);
   const [linesPerChar, setLinesPerChar] = useState(DEFAULTS.linesPerChar);
+  const [showStrokeOrder, setShowStrokeOrder] = useState(
+    DEFAULTS.showStrokeOrder,
+  );
+  const [strokeState, setStrokeState] = useState<StrokeState>({
+    status: "idle",
+  });
   const [error, setError] = useState("");
 
-  // Hydrate persisted options on mount (SSR-safe).
+  // Hydrate persisted options on mount (SSR-safe), then apply
+  // ?chars=…&strokes=1 from links such as the stroke-order lookup page.
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const saved = { ...DEFAULTS, ...JSON.parse(raw) } as StoredOptions;
-      setGridType(saved.gridType);
-      setTraceCount(saved.traceCount);
-      setShowPinyin(saved.showPinyin);
-      setDedupe(saved.dedupe);
-      setGridColor(saved.gridColor);
-      setTraceShade(saved.traceShade);
-      setBoxSize(saved.boxSize);
-      setLinesPerChar(saved.linesPerChar);
+      if (raw) {
+        const saved = { ...DEFAULTS, ...JSON.parse(raw) } as StoredOptions;
+        setGridType(saved.gridType);
+        setTraceCount(saved.traceCount);
+        setShowPinyin(saved.showPinyin);
+        setDedupe(saved.dedupe);
+        setGridColor(saved.gridColor);
+        setTraceShade(saved.traceShade);
+        setBoxSize(saved.boxSize);
+        setLinesPerChar(saved.linesPerChar);
+        setShowStrokeOrder(saved.showStrokeOrder);
+      }
     } catch {
       /* ignore corrupt storage */
     }
+    const params = new URLSearchParams(window.location.search);
+    const chars = params.get("chars");
+    if (chars) setText(chars);
+    if (params.get("strokes") === "1") setShowStrokeOrder(true);
   }, []);
 
   const layout = useMemo(() => getLayout(boxSize), [boxSize]);
@@ -99,6 +120,7 @@ export default function PracticeSheetPage() {
         traceShade,
         boxSize,
         linesPerChar,
+        showStrokeOrder,
       };
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch {
@@ -113,6 +135,7 @@ export default function PracticeSheetPage() {
     traceShade,
     boxSize,
     linesPerChar,
+    showStrokeOrder,
   ]);
 
   const characters = useMemo(
@@ -124,9 +147,43 @@ export default function PracticeSheetPage() {
     () =>
       tooMany
         ? []
-        : buildPages(characters, linesPerChar, layout.rowsPerPage),
-    [characters, linesPerChar, layout.rowsPerPage, tooMany],
+        : buildPages(
+            characters,
+            linesPerChar,
+            layout.rowsPerPage,
+            showStrokeOrder,
+          ),
+    [characters, linesPerChar, layout.rowsPerPage, tooMany, showStrokeOrder],
   );
+
+  // Fetch stroke data for the characters on the sheet (only the shards
+  // they fall in; each shard is fetched once per visit).
+  useEffect(() => {
+    if (!showStrokeOrder || tooMany || characters.length === 0) {
+      setStrokeState({ status: "idle" });
+      return;
+    }
+    let cancelled = false;
+    setStrokeState((s) => (s.status === "ready" ? s : { status: "loading" }));
+    loadStrokes(characters).then(
+      (data) => {
+        if (!cancelled) setStrokeState({ status: "ready", data });
+      },
+      () => {
+        if (!cancelled) setStrokeState({ status: "error" });
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [showStrokeOrder, characters, tooMany]);
+
+  // Hold printing until the strips can be drawn.
+  const strokesPending =
+    showStrokeOrder &&
+    characters.length > 0 &&
+    !tooMany &&
+    strokeState.status !== "ready";
   const options: SheetOptions = {
     gridType,
     traceCount,
@@ -135,6 +192,7 @@ export default function PracticeSheetPage() {
     traceShade,
     boxSize,
     linesPerChar,
+    showStrokeOrder,
   };
 
   async function handleFile(file: File | undefined) {
@@ -157,6 +215,7 @@ export default function PracticeSheetPage() {
       setError(dict.practiceSheet.tooMany);
       return;
     }
+    if (strokesPending) return;
     window.print();
   }
 
@@ -343,16 +402,27 @@ export default function PracticeSheetPage() {
                       />
                       {dict.practiceSheet.dedupe}
                     </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={showStrokeOrder}
+                        onChange={(e) => setShowStrokeOrder(e.target.checked)}
+                      />
+                      {dict.practiceSheet.showStrokeOrder}
+                    </label>
                   </div>
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <button
                     type="button"
-                    className="btn-primary"
+                    className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                     onClick={handlePrint}
+                    disabled={strokesPending}
                   >
-                    {dict.practiceSheet.print}
+                    {strokesPending && strokeState.status === "loading"
+                      ? dict.practiceSheet.strokesLoading
+                      : dict.practiceSheet.print}
                   </button>
                   <button
                     type="button"
@@ -365,6 +435,16 @@ export default function PracticeSheetPage() {
                 <p className="mt-3 text-xs text-ink-500">
                   {dict.practiceSheet.printHint}
                 </p>
+                {showStrokeOrder && (
+                  <p className="mt-1 text-xs text-ink-500">
+                    {dict.practiceSheet.strokesCredit}
+                  </p>
+                )}
+                {strokeState.status === "error" && (
+                  <p className="mt-4 text-sm text-red-600">
+                    {dict.practiceSheet.strokesFailed}
+                  </p>
+                )}
 
                 {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
               </div>
@@ -386,7 +466,14 @@ export default function PracticeSheetPage() {
                   labels={{
                     name: dict.practiceSheet.nameLabel,
                     date: dict.practiceSheet.dateLabel,
+                    strokes: dict.practiceSheet.strokesUnit,
+                    noStrokes: dict.practiceSheet.noStrokes,
                   }}
+                  strokes={
+                    strokeState.status === "ready"
+                      ? strokeState.data
+                      : undefined
+                  }
                 />
               ))}
             </div>

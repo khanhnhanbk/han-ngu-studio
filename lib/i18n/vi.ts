@@ -107,6 +107,18 @@ export const vi = {
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
       },
       {
+        status: "planned",
+        title: "Thứ tự nét trên phiếu tập viết",
+        description:
+          "Thêm một dải ô nhỏ trên mỗi chữ, mỗi ô thêm một nét, để biết viết nét nào trước, nét nào sau.",
+      },
+      {
+        status: "planned",
+        title: "Tra thứ tự nét",
+        description:
+          "Xem hoạt hình từng nét của một chữ, tự viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho chữ đó.",
+      },
+      {
         status: "idea",
         title: "Bài tập điền khuyết",
         description: "Tự sinh bài tập điền từ vào chỗ trống từ câu có sẵn, luyện từ vựng trong ngữ cảnh.",
@@ -384,6 +396,14 @@ export const vi = {
     traceCount: "Số ô chữ mờ để đồ",
     showPinyin: "Hiện Pinyin",
     dedupe: "Bỏ chữ trùng lặp",
+    showStrokeOrder: "Hiện thứ tự nét",
+    strokesUnit: "nét",
+    noStrokes: "Chưa có dữ liệu thứ tự nét cho chữ này",
+    strokesLoading: "Đang tải dữ liệu nét…",
+    strokesFailed:
+      "Không tải được dữ liệu thứ tự nét. Vui lòng kiểm tra kết nối mạng, hoặc tắt “Hiện thứ tự nét” để in.",
+    strokesCredit:
+      "Dữ liệu thứ tự nét: Make Me a Hanzi / hanzi-writer-data (Arphic Public License).",
     print: "In / Tải PDF",
     sample: "Dùng văn bản mẫu",
     printHint:

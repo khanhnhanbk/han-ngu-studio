@@ -1,6 +1,6 @@
 # Phiếu tập viết chữ Hán
 
-Tạo phiếu luyện viết khổ A4: mỗi chữ có một ô chữ mẫu màu đen, các ô chữ mờ để đồ theo, và ô trống để tự viết. In ra giấy hoặc lưu thành PDF.
+Tạo phiếu luyện viết khổ A4: mỗi chữ có một ô chữ mẫu màu đen, các ô chữ mờ để đồ theo, và ô trống để tự viết. Có thể thêm một dải ô nhỏ chỉ **thứ tự nét** phía trên mỗi chữ. In ra giấy hoặc lưu thành PDF.
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Phiếu tập viết**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/practice-sheet)
@@ -31,8 +31,22 @@ Muốn thử nhanh? Bấm **Dùng văn bản mẫu**.
 | **Màu ô** | Bấm một màu: Đỏ, Xanh lá, Xanh dương, Đen / xám | Đỏ |
 | **Hiện Pinyin** | Tích để in Pinyin của mỗi chữ trên phiếu | Bật |
 | **Bỏ chữ trùng lặp** | Tích để mỗi chữ chỉ xuất hiện một lần | Tắt |
+| **Hiện thứ tự nét** | Tích để thêm dải ô nhỏ phía trên mỗi chữ (xem bên dưới) | Tắt |
 
 Trang sẽ **nhớ các tùy chọn** của bạn cho lần sau (lưu trên trình duyệt của bạn).
+
+#### Thứ tự nét
+
+Khi tích **Hiện thứ tự nét**, phía trên hàng đầu tiên của mỗi chữ có thêm một dải ô nhỏ:
+
+- Ô thứ 1 có nét thứ 1, ô thứ 2 có nét 1 và 2, … ô cuối cùng là cả chữ.
+- Trong mỗi ô, **nét mới viết có màu đen**, các nét đã viết trước đó có màu xám (theo **Độ đậm chữ mờ**).
+- Bên trái dải ô ghi tổng số nét, ví dụ "6 nét".
+- Chữ nhiều nét thì các ô nhỏ lại để vừa một hàng.
+
+Lần đầu bật, trang tải dữ liệu nét chữ (chỉ phần cần cho các chữ bạn nhập). Trong lúc tải, nút in hiện "Đang tải dữ liệu nét…" và chưa bấm được.
+
+Dữ liệu thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arphic Public License), có khoảng 9.500 chữ giản thể và phồn thể thông dụng.
 
 ### 3. Xem trước
 
@@ -56,4 +70,7 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
 | "Quá nhiều chữ (tối đa 300 chữ)." | Chia văn bản thành nhiều lần in, hoặc tích **Bỏ chữ trùng lặp**. |
 | "Chỉ hỗ trợ file .txt hoặc .csv." | Lưu file Word/Excel thành `.txt` hoặc `.csv` trước khi tải lên. |
 | PDF không có ô đỏ / chữ mờ | Trong hộp thoại in, bật **Đồ họa nền** (Background graphics). |
+| "Chưa có dữ liệu thứ tự nét cho chữ này" trên dải ô | Chữ đó (thường là chữ hiếm) không có trong dữ liệu nét. Phần tập viết của chữ vẫn in bình thường. |
+| "Không tải được dữ liệu thứ tự nét. …" | Kiểm tra kết nối mạng rồi tải lại trang, hoặc bỏ tích **Hiện thứ tự nét** để in phiếu không có thứ tự nét. |
+| Nút in hiện "Đang tải dữ liệu nét…" rất lâu | Mạng chậm. Đợi thêm một chút; lần sau trình duyệt đã có sẵn dữ liệu nên nhanh hơn. |
 | Phiếu bị lệch hoặc thừa trang trắng | Chọn khổ **A4** và lề **Không**; tỷ lệ (Scale) để **100%** / Mặc định. |

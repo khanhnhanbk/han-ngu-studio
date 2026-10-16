@@ -19,6 +19,8 @@ export type SheetOptions = {
   boxSize: BoxSizeName;
   /** How many practice lines each character gets (1 = one row per char). */
   linesPerChar: number;
+  /** Add a stroke-by-stroke strip above each character's first line. */
+  showStrokeOrder: boolean;
 };
 
 // A4 layout in millimetres (mirrors main.py). Box size is now selectable,
@@ -93,26 +95,39 @@ export function paginate<T>(items: T[], perPage = 17): T[][] {
   return pages;
 }
 
-/** A single practice row: the first line of a character (with model/trace)
- *  or an extra blank line that only shows a faint hint in the first box. */
-export type SheetRow = { char: string; kind: "first" | "extra" };
+/** A single practice row: the first line of a character (with model/trace),
+ *  an extra blank line that only shows a faint hint in the first box, or the
+ *  stroke-order strip shown above the first line. */
+export type SheetRow = { char: string; kind: "first" | "extra" | "strokes" };
+
+/** Height of the stroke-order strip, as a fraction of a practice row. */
+export const STROKE_STRIP_RATIO = 0.5;
+
+/** Height of a row in mm. */
+export function rowHeight(row: SheetRow, boxSize: number): number {
+  return row.kind === "strokes" ? boxSize * STROKE_STRIP_RATIO : boxSize;
+}
 
 /**
  * Build A4 pages of rows. Each character occupies `linesPerChar` consecutive
- * rows, and a character's group is never split across two pages.
+ * rows (plus a half-height stroke strip when `withStrokes`), and a
+ * character's group is never split across two pages.
  */
 export function buildPages(
   chars: string[],
   linesPerChar: number,
   rowsPerPage: number,
+  withStrokes = false,
 ): SheetRow[][] {
   const lines = Math.max(1, Math.min(6, Math.floor(linesPerChar) || 1));
-  const groupsPerPage = Math.max(1, Math.floor(rowsPerPage / lines));
+  const groupRows = lines + (withStrokes ? STROKE_STRIP_RATIO : 0);
+  const groupsPerPage = Math.max(1, Math.floor(rowsPerPage / groupRows));
   const pages: SheetRow[][] = [];
   for (let i = 0; i < chars.length; i += groupsPerPage) {
     const slice = chars.slice(i, i + groupsPerPage);
     const rows: SheetRow[] = [];
     for (const char of slice) {
+      if (withStrokes) rows.push({ char, kind: "strokes" });
       for (let l = 0; l < lines; l++) {
         rows.push({ char, kind: l === 0 ? "first" : "extra" });
       }
@@ -120,6 +135,20 @@ export function buildPages(
     pages.push(rows);
   }
   return pages;
+}
+
+/**
+ * Side of one stroke-strip cell in mm: half a box, shrunk so that all
+ * `strokeCount` steps fit on one strip across the grid width.
+ */
+export function stripCellSize(
+  boxSize: number,
+  gridWidth: number,
+  strokeCount: number,
+): number {
+  const half = boxSize * STROKE_STRIP_RATIO;
+  if (strokeCount <= 0) return half;
+  return Math.min(half, gridWidth / strokeCount);
 }
 
 export function getPinyin(char: string): string {

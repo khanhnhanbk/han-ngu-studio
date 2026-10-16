@@ -2,7 +2,8 @@
 // Run by hand after changing the source data: `pnpm build:data`.
 // Output is committed; nothing here runs at deploy time or in the browser.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -181,6 +182,54 @@ function buildWubi() {
   return out;
 }
 
+// Stroke shards group 64 consecutive code points (codepoint >> 6), so a page
+// fetches only the few small files its characters fall in. Must match
+// shardKey() in lib/strokes/load.ts.
+const STROKE_SHARD_BITS = 6;
+const MAX_SHARD_BYTES = 1.5 * 1024 * 1024;
+
+/**
+ * strokes/<hex>.json: { char: { strokes, medians, radStrokes? } } from
+ * hanzi-writer-data 2.0.1 (Arphic Public License, derived from Make Me a
+ * Hanzi; see assets/dictionary/LICENSE-arphic.txt). Each entry is copied
+ * unchanged, in the format Hanzi Writer's charDataLoader expects.
+ */
+function buildStrokes() {
+  const dir = dirname(createRequire(import.meta.url).resolve("hanzi-writer-data/package.json"));
+  const shards = new Map();
+  for (const file of readdirSync(dir).sort()) {
+    if (!file.endsWith(".json") || file === "package.json") continue;
+    const char = file.slice(0, -".json".length);
+    if (Array.from(char).length !== 1) throw new Error(`unexpected file: ${file}`);
+    const data = JSON.parse(readFileSync(join(dir, file), "utf-8"));
+    if (!Array.isArray(data.strokes) || !Array.isArray(data.medians)) {
+      throw new Error(`bad stroke data: ${file}`);
+    }
+    const key = (char.codePointAt(0) >> STROKE_SHARD_BITS).toString(16);
+    if (!shards.has(key)) shards.set(key, {});
+    shards.get(key)[char] = data;
+  }
+  const outDir = join(OUT, "strokes");
+  rmSync(outDir, { recursive: true, force: true });
+  mkdirSync(outDir);
+  let chars = 0;
+  let total = 0;
+  let largest = 0;
+  for (const [key, data] of shards) {
+    const json = JSON.stringify(data);
+    const bytes = Buffer.byteLength(json);
+    if (bytes > MAX_SHARD_BYTES) throw new Error(`strokes/${key}.json is ${bytes} bytes`);
+    writeFileSync(join(outDir, `${key}.json`), json);
+    chars += Object.keys(data).length;
+    total += bytes;
+    largest = Math.max(largest, bytes);
+  }
+  console.log(
+    `strokes/: ${chars} characters in ${shards.size} shards ` +
+      `(${Math.round(total / 1024)} KB, largest ${Math.round(largest / 1024)} KB)`,
+  );
+}
+
 function write(name, data, summary) {
   const json = JSON.stringify(data);
   writeFileSync(join(OUT, name), json);
@@ -199,3 +248,4 @@ write(
   sentences,
   `${sentences.rows.length} sentences, ${Object.keys(sentences.index).length} words`,
 );
+buildStrokes();

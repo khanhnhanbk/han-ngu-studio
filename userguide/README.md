@@ -17,7 +17,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 | Công cụ | Dùng để | Hướng dẫn |
 |---|---|---|
-| **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ) | [practice-sheet.md](practice-sheet.md) |
+| **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ, thứ tự nét) | [practice-sheet.md](practice-sheet.md) |
 | **Tách từ** | Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
 | **Hán Việt** | Tách từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
