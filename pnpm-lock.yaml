@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      hanzi-writer:
+        specifier: 3.7.3
+        version: 3.7.3
       next:
         specifier: ^15.5.27
         version: 15.5.27(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@22.10.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1579,6 +1582,9 @@ packages:
 
   hanzi-writer-data@2.0.1:
     resolution: {integrity: sha512-nbQwM+MaryGoq7pBMIZLCd3lFq03nXuJuwku1+6UbjL58uU+9OULVcMkoNvNuJSoIV7f1bbPRfD4D/LQa5S7qg==}
+
+  hanzi-writer@3.7.3:
+    resolution: {integrity: sha512-fdOFrb1cXWL/pV/oplJkcdziCvjJzhhf+qoIBm5IpVGxPBZEu4eLB6ZG5RJDbKXyNbNlyx8oIpa3XrcUBcSXpg==}
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -4041,6 +4047,8 @@ snapshots:
   gopd@1.2.0: {}
 
   hanzi-writer-data@2.0.1: {}
+
+  hanzi-writer@3.7.3: {}
 
   has-bigints@1.1.0: {}
 

@@ -76,7 +76,8 @@ export default function PracticeSheetPage() {
   const [error, setError] = useState("");
 
   // Hydrate persisted options on mount (SSR-safe), then apply
-  // ?chars=…&strokes=1 from links such as the stroke-order lookup page.
+  // #chars=…&strokes=1 from links such as the stroke-order lookup page.
+  // The hash is never sent to the server, so the text stays on the device.
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -95,7 +96,7 @@ export default function PracticeSheetPage() {
     } catch {
       /* ignore corrupt storage */
     }
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.hash.slice(1));
     const chars = params.get("chars");
     if (chars) setText(chars);
     if (params.get("strokes") === "1") setShowStrokeOrder(true);

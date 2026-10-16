@@ -44,6 +44,8 @@ Khi tích **Hiện thứ tự nét**, phía trên hàng đầu tiên của mỗi
 - Bên trái dải ô ghi tổng số nét, ví dụ "6 nét".
 - Chữ nhiều nét thì các ô nhỏ lại để vừa một hàng.
 
+Muốn xem hoạt hình hoặc tự viết thử trước khi in, dùng trang [Tra thứ tự nét](stroke-order.md); nút **Tạo phiếu tập viết với các chữ này** ở đó mở trang này với các chữ đã tra và đã bật **Hiện thứ tự nét**.
+
 Lần đầu bật, trang tải dữ liệu nét chữ (chỉ phần cần cho các chữ bạn nhập). Trong lúc tải, nút in hiện "Đang tải dữ liệu nét…" và chưa bấm được.
 
 Dữ liệu thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arphic Public License), có khoảng 9.500 chữ giản thể và phồn thể thông dụng.

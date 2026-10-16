@@ -18,6 +18,8 @@ Split into two PRs to stay under the ~1000-line limit: **6a** data + sheet strip
 
 Linked from `docs/plans/2026-10-15-roadmap.md` as rows 6a / 6b.
 
+**Change during 6b:** characters travel in the URL **hash** (`#c=…`, `#chars=…&strokes=1`) instead of the query string, because the hash is never sent to the server (hard rule 4). The "Từng nét" step button was dropped; the step diagram covers it.
+
 ## Data (6a)
 
 - Add `hanzi-writer-data@2.0.1` as a **devDependency** (exact pin). Copy its `ARPHICPL.TXT` to `assets/dictionary/LICENSE-arphic.txt`.

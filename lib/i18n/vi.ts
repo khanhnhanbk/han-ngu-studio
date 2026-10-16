@@ -2,7 +2,7 @@ export const vi = {
   meta: {
     title: "Hán Ngữ Studio — Tạo tài liệu học tiếng Trung trong vài giây",
     description:
-      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tách từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
+      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tra thứ tự nét, tách từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
   },
   nav: {
     features: "Tính năng",
@@ -15,6 +15,7 @@ export const vi = {
     hanviet: "Hán Việt",
     anki: "Tạo thẻ Anki",
     practiceSheet: "Phiếu tập viết",
+    strokeOrder: "Thứ tự nét",
     cta: "Dùng thử miễn phí",
   },
   hero: {
@@ -38,13 +39,19 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Năm công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Sáu công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
         description:
-          "Ô 米字格 hoặc 田字格 khổ A4, có Pinyin, chữ mẫu và chữ mờ để đồ theo. In ra giấy hoặc lưu PDF.",
+          "Ô 米字格 hoặc 田字格 khổ A4, có Pinyin, chữ mẫu, chữ mờ để đồ theo và thứ tự nét. In ra giấy hoặc lưu PDF.",
         cta: "Tạo phiếu tập viết",
+      },
+      strokeOrder: {
+        title: "Tra thứ tự nét",
+        description:
+          "Xem hoạt hình từng nét của chữ Hán, tự viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho các chữ đó.",
+        cta: "Tra thứ tự nét",
       },
       segment: {
         title: "Tách từ",
@@ -105,18 +112,6 @@ export const vi = {
         title: "Âm thanh cho thẻ Anki",
         description:
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
-      },
-      {
-        status: "planned",
-        title: "Thứ tự nét trên phiếu tập viết",
-        description:
-          "Thêm một dải ô nhỏ trên mỗi chữ, mỗi ô thêm một nét, để biết viết nét nào trước, nét nào sau.",
-      },
-      {
-        status: "planned",
-        title: "Tra thứ tự nét",
-        description:
-          "Xem hoạt hình từng nét của một chữ, tự viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho chữ đó.",
       },
       {
         status: "idea",
@@ -414,6 +409,45 @@ export const vi = {
     dateLabel: "Ngày",
     error: "Vui lòng nhập ít nhất một chữ Hán.",
     tooMany: "Quá nhiều chữ (tối đa 300 chữ).",
+  },
+  strokeOrder: {
+    title: "Tra thứ tự nét chữ Hán",
+    subtitle:
+      "Nhập một hoặc nhiều chữ Hán để xem hoạt hình cách viết từng nét, sơ đồ từng bước, rồi tự viết thử bằng chuột hoặc ngón tay.",
+    inputLabel: "Chữ Hán cần tra (tối đa 20 chữ)",
+    placeholder: "Ví dụ: 永字",
+    button: "Tra",
+    loading: "Đang tải…",
+    watch: "Xem cách viết",
+    quiz: "Tự viết thử",
+    play: "Phát",
+    loop: "Phát lặp lại",
+    pause: "Tạm dừng",
+    resume: "Tiếp tục",
+    speed: "Tốc độ",
+    speeds: {
+      slow: "Chậm",
+      normal: "Vừa",
+      fast: "Nhanh",
+    },
+    showOutline: "Hiện chữ mờ",
+    quizProgress: "Đã viết đúng {done} / {total} nét · Sai {mistakes} lần",
+    quizDone: "Hoàn thành! Số lần sai: {mistakes}.",
+    quizHint: "Viết từng nét theo đúng thứ tự vào ô. Sai 3 lần thì nét đúng sẽ nhấp nháy để gợi ý.",
+    restart: "Viết lại",
+    pinyin: "Pinyin",
+    hanviet: "Hán Việt",
+    strokeCount: "Số nét",
+    steps: "Từng bước",
+    stepsHint: "Nét màu là nét mới viết ở bước đó.",
+    stroke: "Nét",
+    toSheet: "Tạo phiếu tập viết với các chữ này",
+    noData: "Chưa có dữ liệu thứ tự nét cho chữ này.",
+    error: "Vui lòng nhập ít nhất một chữ Hán.",
+    tooMany: "Quá nhiều chữ (tối đa 20 chữ khác nhau).",
+    loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+    credit:
+      "Dữ liệu thứ tự nét: Make Me a Hanzi / hanzi-writer-data (Arphic Public License). Hoạt hình: Hanzi Writer (MIT).",
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",
