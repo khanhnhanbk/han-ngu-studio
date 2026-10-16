@@ -370,8 +370,13 @@ export const vi = {
     gridColor: "Màu ô",
     colors: {
       red: "Đỏ",
+      orange: "Cam",
+      brown: "Nâu",
       green: "Xanh lá",
+      teal: "Xanh ngọc",
       blue: "Xanh dương",
+      purple: "Tím",
+      pink: "Hồng",
       gray: "Đen / xám",
     },
     traceShade: "Độ đậm chữ mờ",

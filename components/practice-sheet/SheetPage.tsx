@@ -110,9 +110,7 @@ export function SheetPage({
                   height={rowHeight(item, boxSize)}
                   width={boxesPerRow * boxSize}
                   boxSize={boxSize}
-                  gridType={options.gridType}
                   border={border}
-                  guide={guide}
                   doneColor={traceColor}
                   noDataLabel={labels.noStrokes}
                   fontFamily={UI_FONT}

@@ -2,8 +2,6 @@ import { stripCellSize } from "@/lib/practiceSheet";
 import { strokeSteps, strokeTransform } from "@/lib/strokes/render";
 import type { StrokeData } from "@/lib/strokes/types";
 
-import { GridBox } from "./GridBox";
-
 type Props = {
   data: StrokeData | undefined;
   /** Top-left corner of the strip (start of the grid, not the label). */
@@ -14,16 +12,17 @@ type Props = {
   /** Width available for the cells in mm. */
   width: number;
   boxSize: number;
-  gridType: "mizi" | "tianzi";
   border: string;
-  guide: string;
   /** Colour of strokes written in earlier steps. */
   doneColor: string;
   noDataLabel: string;
   fontFamily: string;
 };
 
-/** Stroke-by-stroke cells: cell k shows strokes 1..k, stroke k in black. */
+/**
+ * Stroke-by-stroke cells: cell k shows strokes 1..k, stroke k in black.
+ * Plain bordered cells, without the 米/田 guide lines, to keep them clean.
+ */
 export function StrokeStrip({
   data,
   x,
@@ -31,9 +30,7 @@ export function StrokeStrip({
   height,
   width,
   boxSize,
-  gridType,
   border,
-  guide,
   doneColor,
   noDataLabel,
   fontFamily,
@@ -61,13 +58,14 @@ export function StrokeStrip({
         const cx = x + i * cell;
         return (
           <g key={i}>
-            <GridBox
+            <rect
               x={cx}
               y={top}
-              size={cell}
-              gridType={gridType}
-              border={border}
-              guide={guide}
+              width={cell}
+              height={cell}
+              fill="none"
+              stroke={border}
+              strokeWidth={0.3}
             />
             <g transform={strokeTransform(cx, top, cell)}>
               {step.done.map((d, j) => (

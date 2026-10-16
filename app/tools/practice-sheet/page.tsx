@@ -99,7 +99,9 @@ export default function PracticeSheetPage() {
         setTraceCount(saved.traceCount);
         setShowPinyin(saved.showPinyin);
         setDedupe(saved.dedupe);
-        setGridColor(saved.gridColor);
+        if (Object.hasOwn(GRID_COLORS, saved.gridColor)) {
+          setGridColor(saved.gridColor);
+        }
         setTraceShade(saved.traceShade);
         setBoxSize(saved.boxSize);
         setLinesPerChar(saved.linesPerChar);

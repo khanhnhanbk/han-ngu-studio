@@ -28,7 +28,7 @@ Muốn thử nhanh? Bấm **Dùng văn bản mẫu**.
 | **Độ đậm chữ mờ** | Màu của các chữ để đồ: Vừa, Nhạt, Đậm | Vừa |
 | **Số ô chữ mờ để đồ** | Kéo thanh trượt: số ô chữ mờ sau ô chữ mẫu. Các ô còn lại trong hàng để trống | 8 |
 | **Số dòng mỗi chữ** | Mỗi chữ chiếm bao nhiêu hàng (1 đến 6) | 1 |
-| **Màu ô** | Bấm một màu: Đỏ, Xanh lá, Xanh dương, Đen / xám | Đỏ |
+| **Màu ô** | Bấm một màu: Đỏ, Cam, Nâu, Xanh lá, Xanh ngọc, Xanh dương, Tím, Hồng, Đen / xám | Đỏ |
 | **Hiện Pinyin** | Tích để in Pinyin của mỗi chữ trên phiếu | Bật |
 | **Bỏ chữ trùng lặp** | Tích để mỗi chữ chỉ xuất hiện một lần | Tắt |
 | **Phông chữ** | Kiểu chữ của ô chữ mẫu và chữ mờ (xem bên dưới) | Khải thư – LXGW WenKai (mặc định) |
@@ -74,6 +74,7 @@ Các phông có sẵn (LXGW WenKai, Ma Shan Zheng, Noto Serif SC, Noto Sans SC) 
 Khi tích **Hiện thứ tự nét**, phía trên hàng đầu tiên của mỗi chữ có thêm một dải ô nhỏ:
 
 - Ô thứ 1 có nét thứ 1, ô thứ 2 có nét 1 và 2, … ô cuối cùng là cả chữ.
+- Các ô nhỏ chỉ có viền (theo **Màu ô**), không kẻ đường chéo hay đường giữa, để dễ nhìn nét.
 - Trong mỗi ô, **nét mới viết có màu đen**, các nét đã viết trước đó có màu xám (theo **Độ đậm chữ mờ**).
 - Bên trái dải ô ghi tổng số nét, ví dụ "6 nét".
 - Chữ nhiều nét thì các ô nhỏ lại để vừa một hàng.

@@ -2,7 +2,16 @@ import { pinyin } from "pinyin-pro";
 
 export type GridType = "mizi" | "tianzi";
 
-export type GridColorName = "red" | "green" | "blue" | "gray";
+export type GridColorName =
+  | "red"
+  | "orange"
+  | "brown"
+  | "green"
+  | "teal"
+  | "blue"
+  | "purple"
+  | "pink"
+  | "gray";
 export type TraceShadeName = "medium" | "light" | "dark";
 export type BoxSizeName = "small" | "medium" | "large" | "xlarge";
 
@@ -38,8 +47,13 @@ export const GRID_COLORS: Record<
   { border: string; guide: string }
 > = {
   red: { border: "#801a1a", guide: "#cc6666" },
+  orange: { border: "#b4530f", guide: "#f0a060" },
+  brown: { border: "#6b4423", guide: "#b8906a" },
   green: { border: "#1f6b3a", guide: "#6fbf8a" },
+  teal: { border: "#0f6b6b", guide: "#5fbcbc" },
   blue: { border: "#1d4e89", guide: "#6f9fd8" },
+  purple: { border: "#5b2a86", guide: "#a983d1" },
+  pink: { border: "#a3245e", guide: "#e28ab3" },
   gray: { border: "#333333", guide: "#999999" },
 };
 
