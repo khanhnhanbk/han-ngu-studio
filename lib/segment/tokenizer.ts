@@ -30,7 +30,7 @@ const PY_SPACE =
 const PY_STRIP_RE = new RegExp(`^[${PY_SPACE}]+|[${PY_SPACE}]+$`, "g");
 
 /** Python's str.strip(). */
-function pyStrip(s: string): string {
+export function pyStrip(s: string): string {
   return s.replace(PY_STRIP_RE, "");
 }
 
