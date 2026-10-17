@@ -26,3 +26,18 @@ export function toTsv(questions: readonly Question[], kindLabels: Record<QuizKin
   }
   return rows.map((r) => r.map(clean).join("\t")).join("\n") + "\n";
 }
+
+/**
+ * Every string the printed worksheet shows (components/quiz/PrintSheet.tsx),
+ * plus its fixed labels. The sheet is hidden on screen, so the browser never
+ * fetches the font slices its Pinyin, Vietnamese or rarer hanzi need; this
+ * text tells lib/quiz/printFonts.ts which slices to load before printing.
+ */
+export function printText(questions: readonly Question[], labels: readonly string[]): string {
+  const parts = [...labels, ...LETTERS, "0123456789./:"];
+  for (const q of questions) {
+    if (q.kind === "ordering") parts.push(q.hint, ...q.tokens, q.end, orderedSentence(q));
+    else parts.push(q.prompt, q.hint ?? "", ...q.options);
+  }
+  return parts.join(" ");
+}

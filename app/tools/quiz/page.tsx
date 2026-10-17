@@ -16,7 +16,8 @@ import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { buildQuiz, isCorrect, MAX_ENTRIES, parseEntries, reshuffle } from "@/lib/quiz/build";
-import { orderedSentence, toTsv } from "@/lib/quiz/export";
+import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
+import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
 import { KINDS, type Question, type QuizKind, type Response, type Skipped } from "@/lib/quiz/types";
 import { loadTokenizer } from "@/lib/segment/load";
@@ -49,6 +50,7 @@ export default function QuizPage() {
   const [duplicates, setDuplicates] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [printing, setPrinting] = useState(false);
 
   const { entries } = useMemo(() => parseEntries(text), [text]);
   const tooMany = entries.length > MAX_ENTRIES;
@@ -146,9 +148,38 @@ export default function QuizPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase, current, currentResponse, index, questions.length]);
 
+  const sheetText = useMemo(
+    () =>
+      printText(questions, [
+        dict.quiz.printTitle,
+        dict.quiz.printName,
+        dict.quiz.printOrdering,
+        dict.quiz.hintLabel,
+        dict.quiz.answerKey,
+        ...Object.values(dict.quiz.prompts),
+      ]),
+    [questions],
+  );
+
+  // Fetch the worksheet's fonts as soon as there is a quiz, so Ctrl+P prints
+  // with them too (beforeprint cannot wait for an async load).
+  useEffect(() => {
+    if (questions.length > 0) void ensurePrintFonts(sheetText);
+  }, [questions, sheetText]);
+
+  async function handlePrint() {
+    setPrinting(true);
+    try {
+      await ensurePrintFonts(sheetText);
+      window.print();
+    } finally {
+      setPrinting(false);
+    }
+  }
+
   const exportButtons = (
     <div className="flex flex-wrap gap-3">
-      <IconButton icon={PrinterIcon} className="btn-secondary" onClick={() => window.print()}>
+      <IconButton icon={PrinterIcon} className="btn-secondary" disabled={printing} onClick={handlePrint}>
         {dict.quiz.print}
       </IconButton>
       <IconButton

@@ -4,7 +4,7 @@
 
 :root {
   --font-be-vietnam: "Be Vietnam Pro", system-ui, sans-serif;
-  --font-hanzi: "Noto Sans SC", "KaiTi", serif;
+  --font-hanzi: "Noto Sans SC", "KaiTi", sans-serif;
 }
 
 /*
