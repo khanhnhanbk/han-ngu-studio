@@ -92,3 +92,36 @@ Local `main` is 5 commits behind. Run `git pull --ff-only origin main`. The loca
 ## Commit
 
 Commit on `main` (no PR), one commit per part: fixes, stats, explanation, user guide. Ask before pushing, since a push deploys to Vercel.
+
+---
+
+# Follow-up (2026-10-17): show only the first N rows
+
+## Context
+
+With 1,907 sentences the page renders every row, so the result is far too long. The owner wants the page to show only the first rows (100 by default, or a number the user picks) and to leave the full list to the TSV download.
+
+## Approach
+
+All in `app/tools/comprehensible-input/page.tsx` and `lib/i18n/vi.ts`. The ordering, statistics and TSV keep using all rows.
+
+- Add a constant `SHOW_OPTIONS = [50, 100, 200, 500] as const` and state `const [limit, setLimit] = useState(100)`. There is no "show all" option on purpose: the full list goes through the download.
+- Render `rows.slice(0, limit)` in the `<ol>`. The numbering is unchanged (`i + 1`), because the visible rows are always the first ones.
+- **Statistics and notice:** still use `summarize(rows)` over all rows.
+- **Show control:** above the list, after the notice, a `<label>` + `<select>` in the same style as the selects on `app/tools/pinyin/page.tsx` (`rounded-lg border border-ink-900/10 px-3 py-2`). The select is labelled "Hiện" and its options read "50 câu đầu", "100 câu đầu", and so on. It only appears when `rows.length > 50`.
+- **Truncation note:** when `rows.length > limit`, show a line under the list: "Đang hiện {limit} / {total} câu đầu tiên. Tải sentence_sorted.tsv để xem toàn bộ danh sách.", followed by a second download button that reuses `handleDownload`.
+- **New `vi.ts` strings** under `comprehensibleInput`:
+  - `showLabel: "Hiện"`
+  - `showOption: (n) => \`${n} câu đầu\``
+  - `truncated: (shown, total) => …`
+- **User guide:** in `userguide/comprehensible-input.md`, add a step for the **Hiện** selector and explain that the full list is in the TSV.
+
+## Verification
+
+- `pnpm test`, `pnpm run lint` and `pnpm run build` pass.
+- Run `pnpm run dev`:
+  - With more than 100 sentences, only 100 rows show, the statistics still count every sentence, and the truncation note and download button appear.
+  - Choosing 500 shows more rows.
+  - The downloaded TSV has every row.
+  - With fewer than 50 sentences, no selector or note appears.
+- Commit on `main`, push, and check the Vercel status.

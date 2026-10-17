@@ -14,7 +14,9 @@ Khi học bằng câu, mỗi câu chỉ nên có **khoảng một từ mới** (
 3. Bấm **Sắp xếp**.
    - Lần đầu tiên, nút hiện **Đang xử lý…** trong vài giây vì trang đang tải danh sách từ. Các lần sau nhanh hơn.
 4. Xem kết quả (giải thích bên dưới).
-5. Bấm **Tải sentence_sorted.tsv** để lưu danh sách đã sắp xếp (mở được bằng Excel, Google Sheets hoặc nhập vào Anki).
+   - Khi có nhiều câu, trang chỉ hiện **100 câu đầu**. Chọn số câu muốn xem ở ô **Hiện** (50, 100, 200 hoặc 500 câu đầu).
+   - Bảng **Thống kê** luôn tính trên **toàn bộ** danh sách, không chỉ phần đang hiện.
+5. Bấm **Tải sentence_sorted.tsv** để lưu **toàn bộ** danh sách đã sắp xếp (mở được bằng Excel, Google Sheets hoặc nhập vào Anki). Dưới danh sách cũng có nút tải này khi danh sách bị rút gọn.
 
 ## Đọc kết quả
 
