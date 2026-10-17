@@ -94,6 +94,7 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 | Một từ vẫn hiện nghĩa tiếng Anh | Từ đó không có trong danh sách HSK 3.0. Ghi nghĩa tiếng Việt của bạn sau dấu Tab. |
 | Nghĩa tiếng Anh dài hoặc chưa sát | Nghĩa lấy từ CC-CEDICT, mỗi từ chỉ có một mục. Ghi nghĩa tiếng Việt của bạn sau dấu Tab. |
 | Đề in ra bị lẫn thanh menu hoặc nút bấm | Dùng nút **In đề / Lưu PDF** của trang (không dùng ảnh chụp màn hình). Trong hộp thoại in, đặt **Lề** là **Mặc định**. |
+| File PDF bị lỗi phông: Pinyin (lǚ, nǐ…) hoặc chữ tiếng Việt có dấu hiện sang phông khác | Dùng nút **In đề / Lưu PDF** của trang (nút này tải đủ phông trước khi mở hộp thoại in). Nếu vẫn lỗi, đợi trang tải xong rồi bấm lại. Nên dùng Chrome hoặc Edge và chọn **Lưu dưới dạng PDF**. |
 | Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 3.800 từ thông dụng; các từ khác sẽ bị bỏ qua ở hai loại câu này. |
 | Một chữ có nhiều cách đọc (好 hǎo / hào) | Pinyin và Hán Việt theo cách đọc phổ biến. Các cách đọc khác của chữ đó không bao giờ được dùng làm đáp án sai. |
 

@@ -9,7 +9,7 @@ import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 
 import { BLANK, buildQuiz, isCorrect, parseEntries, reshuffle, shortMeaning, type QuizData } from "./build";
-import { toTsv } from "./export";
+import { printText, toTsv } from "./export";
 import { createRng, shuffle } from "./rng";
 import { KINDS, type ChoiceKind, type ChoiceQuestion, type OrderQuestion, type Question, type QuizKind } from "./types";
 
@@ -271,5 +271,14 @@ describe("toTsv", () => {
   it("lists an ordering question's words and the full sentence", () => {
     const q: OrderQuestion = { kind: "ordering", word: "朋友", hint: "Anh ấy là bạn tôi.", tokens: ["朋友", "他", "是"], end: "。", answer: ["他", "是", "朋友"] };
     expect(toTsv([q], labels).split("\n")[1]).toBe("ordering\t朋友 / 他 / 是 。\tAnh ấy là bạn tôi.\t\t\t\t\t他是朋友。");
+  });
+});
+
+describe("printText", () => {
+  it("covers the Pinyin, Vietnamese and hanzi the worksheet prints", () => {
+    const pinyin: ChoiceQuestion = { kind: "hanToPinyin", word: "旅游", prompt: "旅游", options: ["lǚ yóu", "lǜ yǒu"], answer: 0 };
+    const order: OrderQuestion = { kind: "ordering", word: "朋友", hint: "Anh ấy là bạn tôi.", tokens: ["朋友", "他", "是"], end: "。", answer: ["他", "是", "朋友"] };
+    const text = printText([pinyin, order], ["Đáp án"]);
+    for (const s of ["Đáp án", "旅游", "lǚ yóu", "lǜ yǒu", "Anh ấy là bạn tôi.", "他是朋友。", "A"]) expect(text).toContain(s);
   });
 });

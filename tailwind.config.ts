@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-be-vietnam)", "system-ui", "sans-serif"],
-        hanzi: ["var(--font-hanzi)", "serif"],
+        hanzi: ["var(--font-hanzi)", "sans-serif"],
       },
       // Colours are CSS variables (RGB channels) set in app/globals.css, so the
       // theme picker can switch accent and dark mode at runtime.
