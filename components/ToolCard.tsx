@@ -9,6 +9,7 @@ import { ListOrderedIcon } from "./icons/list-ordered";
 import { PaintbrushIcon } from "./icons/paintbrush";
 import { PencilIcon } from "./icons/pencil";
 import { ScissorsIcon } from "./icons/scissors";
+import { SparklesIcon } from "./icons/sparkles";
 import { useIconTrigger, type AnimatedIcon } from "./icons/trigger";
 
 const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
@@ -18,6 +19,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   pinyin: LanguagesIcon,
   hanviet: BookOpenIcon,
   anki: LayersIcon,
+  quiz: SparklesIcon,
   comprehensibleInput: ListOrderedIcon,
 };
 

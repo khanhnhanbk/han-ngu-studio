@@ -48,7 +48,7 @@ export function parseWords(text: string): { words: string[]; duplicates: number 
  * joined by "/", characters joined by spaces, characters with no reading
  * left out.
  */
-function hanvietLine(data: DeckData, word: string): string {
+export function hanvietLine(data: Pick<DeckData, "tokenizer" | "hanviet">, word: string): string {
   const nums = convertLine(data.tokenizer, word, { toneStyle: "number", spacing: "syllable" });
   const parts: string[] = [];
   for (const seg of nums.segments) {
