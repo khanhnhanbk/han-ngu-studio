@@ -93,7 +93,7 @@ export const vi = {
       quiz: {
         title: "Trắc nghiệm từ vựng",
         description:
-          "Từ danh sách từ vựng, tự tạo câu hỏi trắc nghiệm: chọn nghĩa, Pinyin, âm Hán Việt hoặc chữ Hán đúng. Làm bài ngay và ôn lại câu sai.",
+          "Từ danh sách từ vựng, tự tạo câu hỏi: chọn nghĩa, Pinyin, âm Hán Việt, điền từ vào câu, sắp xếp câu. Làm bài ngay hoặc in đề kèm đáp án.",
         cta: "Làm trắc nghiệm",
       },
       radicals: {
@@ -137,12 +137,6 @@ export const vi = {
         title: "Âm thanh cho thẻ Anki",
         description:
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
-      },
-      {
-        status: "next",
-        title: "Điền từ và sắp xếp câu",
-        description:
-          "Thêm vào Trắc nghiệm: điền từ vào chỗ trống và sắp xếp lại câu từ câu ví dụ có sẵn; in đề kèm đáp án hoặc tải TSV.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",
@@ -443,13 +437,30 @@ export const vi = {
       meaningToHan: "Nghĩa → Chữ Hán",
       hanToPinyin: "Chữ Hán → Pinyin",
       hanToHanviet: "Chữ Hán → Âm Hán Việt",
+      cloze: "Điền từ vào câu",
+      ordering: "Sắp xếp câu",
     },
+    kindsNote: "Điền từ vào câu và Sắp xếp câu dùng câu ví dụ có sẵn; từ chưa có câu ví dụ sẽ được bỏ qua.",
     prompts: {
       hanToMeaning: "Từ này nghĩa là gì?",
       meaningToHan: "Từ nào có nghĩa này?",
       hanToPinyin: "Pinyin đúng của từ này là gì?",
       hanToHanviet: "Âm Hán Việt của từ này là gì?",
+      cloze: "Chọn từ điền vào chỗ trống",
+      ordering: "Bấm các từ theo đúng thứ tự để tạo thành câu",
     },
+    hintLabel: "Nghĩa của câu",
+    orderPlaceholder: "Bấm các từ bên dưới…",
+    orderUndo: "Bấm một từ đã chọn để bỏ ra.",
+    check: "Kiểm tra",
+    orderWrong: "Chưa đúng.",
+    rightSentence: "Câu đúng",
+    print: "In đề / Lưu PDF",
+    download: "Tải .tsv",
+    printTitle: "Bài trắc nghiệm từ vựng",
+    printOrdering: "Sắp xếp các từ sau thành câu đúng",
+    printName: "Họ tên: ……………………………………    Lớp: ……………    Ngày: ……………",
+    answerKey: "Đáp án",
     button: "Tạo bài trắc nghiệm",
     loading: "Đang tạo câu hỏi…",
     progress: "Câu {n} / {total}",
@@ -469,10 +480,10 @@ export const vi = {
     edit: "Sửa danh sách từ",
     skippedTitle: "Không tạo được câu hỏi",
     skippedHint:
-      "Các từ này thiếu dữ liệu (hoặc không có đáp án sai nào khác) cho loại câu hỏi đó. Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
+      "Các từ này thiếu dữ liệu cho loại câu hỏi đó (chưa có nghĩa, câu ví dụ, hoặc không có đáp án sai nào khác). Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
     duplicates: "Đã bỏ {n} từ trùng lặp.",
     credits:
-      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: Hán Ngữ Studio.",
+      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt và câu ví dụ: Hán Ngữ Studio.",
     error: "Vui lòng nhập ít nhất một từ.",
     noKinds: "Hãy chọn ít nhất một loại câu hỏi.",
     tooMany: "Quá nhiều từ (tối đa 200 từ).",

@@ -1,18 +1,19 @@
 import { convert, pinyin } from "pinyin-pro";
 
 import { hanvietLine } from "@/lib/anki/buildDeck";
-import type { Meanings } from "@/lib/anki/load";
+import type { Meanings, Sentences } from "@/lib/anki/load";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { convertLine } from "@/lib/pinyin/convert";
-import type { Tokenizer } from "@/lib/segment/tokenizer";
+import { segment, type Tokenizer } from "@/lib/segment/tokenizer";
 
 import { shuffle, type Rng } from "./rng";
-import type { Question, QuizEntry, QuizKind, Skipped } from "./types";
+import type { ChoiceKind, Question, QuizEntry, QuizKind, Response, Skipped } from "./types";
 
 export type QuizData = {
   tokenizer: Tokenizer;
   hanviet: HanvietData;
   meanings: Meanings;
+  sentences: Sentences;
 };
 
 export const MAX_ENTRIES = 200;
@@ -23,6 +24,11 @@ const FALLBACK_SIZE = 300;
 const MEANING_MAX = 80;
 
 const HAN = /^\p{Script=Han}+$/u;
+/** Shown in place of the word in a cloze sentence. */
+export const BLANK = "＿＿";
+/** Longer sentences make the ordering exercise a chore. */
+const MAX_ORDER_TOKENS = 12;
+const PUNCT = /^[\p{P}\s]+$/u;
 
 /**
  * One entry per line: "word" or "word<Tab>meaning". Blank lines are dropped;
@@ -214,10 +220,16 @@ function buildOne(
   rng: Rng,
 ): Question | null {
   const word = info.word;
-  const make = (prompt: string, answer: string, groups: ReadonlyArray<readonly string[]>): Question | null => {
+  const make = (
+    choice: ChoiceKind,
+    prompt: string,
+    answer: string,
+    groups: ReadonlyArray<readonly string[]>,
+    hint?: string,
+  ): Question | null => {
     if (!prompt || !answer) return null;
     const picked = makeOptions(answer, groups, rng);
-    return picked && { kind, word, prompt, ...picked };
+    return picked && { kind: choice, word, prompt, ...(hint ? { hint } : {}), ...picked };
   };
 
   switch (kind) {
@@ -227,13 +239,13 @@ function buildOne(
       const sameSource = (i: Info) => (i.userMeaning === info.userMeaning ? i.meaning : "");
       const groups = bySameLength(own, word, sameSource);
       if (!info.userMeaning) groups.push(...bySameLength(fallback, word, (i) => i.meaning));
-      return make(word, info.meaning, groups);
+      return make(kind, word, info.meaning, groups);
     }
     case "meaningToHan": {
       // A word with the very same meaning would be a second right answer.
       const key = norm(info.meaning);
       const pick = (i: Info) => (norm(i.meaning) === key ? "" : i.word);
-      return make(info.meaning, word, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)]);
+      return make(kind, info.meaning, word, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)]);
     }
     case "hanToPinyin": {
       // A lone polyphone has more than one right reading (为 wèi / wéi), so
@@ -241,7 +253,7 @@ function buildOne(
       const readings =
         charCount(word) === 1 ? new Set(pinyin(word, { multiple: true, type: "array" }).map(norm)) : new Set();
       const pick = (i: Info) => (readings.has(norm(i.pinyin)) ? "" : i.pinyin);
-      return make(word, info.pinyin, [
+      return make(kind, word, info.pinyin, [
         toneVariants(info.syllables).filter((v) => !readings.has(norm(v))),
         ...bySameLength(own, word, pick),
         ...bySameLength(fallback, word, pick),
@@ -253,7 +265,67 @@ function buildOne(
         charCount(word) === 1 ? (data.hanviet[word] ?? []).flatMap(([, r]) => r).map(norm) : [],
       );
       const pick = (i: Info) => (i.hanviet.split("/").some((r) => readings.has(norm(r))) ? "" : i.hanviet);
-      return make(word, info.hanviet, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)]);
+      return make(kind, word, info.hanviet, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)]);
+    }
+    case "cloze": {
+      const s = sentenceFor(data, word);
+      if (!s) return null;
+      // Blank the first occurrence. indexOf is safe for astral characters:
+      // a well-formed word cannot match half of a surrogate pair.
+      const at = s.text.indexOf(word);
+      const prompt = s.text.slice(0, at) + BLANK + s.text.slice(at + word.length);
+      // A word already in the sentence makes an odd wrong option.
+      const pick = (i: Info) => (s.text.includes(i.word) ? "" : i.word);
+      return make(kind, prompt, word, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)], s.hint);
+    }
+    case "ordering": {
+      const s = sentenceFor(data, word);
+      if (!s) return null;
+      const words = [...segment(data.tokenizer, s.text)[0]];
+      let end = "";
+      while (words.length && PUNCT.test(words[words.length - 1])) end = words.pop() + end;
+      if (words.length < 3 || words.length > MAX_ORDER_TOKENS) return null;
+      const original = words.join("");
+      let tokens = words;
+      for (let i = 0; i < 10 && tokens.join("") === original; i++) tokens = shuffle(words, rng);
+      // Every order reads the same (e.g. 哈哈哈): nothing to practise.
+      if (tokens.join("") === original) return null;
+      return { kind, word, hint: s.hint, tokens, end, answer: words };
     }
   }
+}
+
+/**
+ * The word's example sentence and its translation (Vietnamese, else English).
+ * Null when there is none, the sentence lacks the word, or it has no
+ * translation: without one, more than one option could fit the blank.
+ */
+function sentenceFor(data: QuizData, word: string): { text: string; hint: string } | null {
+  if (!Object.hasOwn(data.sentences.index, word)) return null;
+  const [text, vi, en] = data.sentences.rows[data.sentences.index[word]];
+  const hint = vi || en;
+  return text.includes(word) && hint ? { text, hint } : null;
+}
+
+export function isCorrect(question: Question, response: Response | null): boolean {
+  if (response === null) return false;
+  if (question.kind === "ordering") {
+    // Compare the text, so swapping two identical words still counts as right.
+    return Array.isArray(response) && response.join("") === question.answer.join("");
+  }
+  return response === question.answer;
+}
+
+/** The same questions in a new order, each with its options (or words) reshuffled. */
+export function reshuffle(questions: readonly Question[], rng: Rng): Question[] {
+  return shuffle(questions, rng).map((q) => {
+    if (q.kind === "ordering") {
+      const original = q.answer.join("");
+      let tokens = shuffle(q.tokens, rng);
+      for (let i = 0; i < 10 && tokens.join("") === original; i++) tokens = shuffle(q.tokens, rng);
+      return { ...q, tokens };
+    }
+    const options = shuffle(q.options, rng);
+    return { ...q, options, answer: options.indexOf(q.options[q.answer]) };
+  });
 }

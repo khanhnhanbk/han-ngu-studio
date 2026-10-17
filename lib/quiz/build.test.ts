@@ -3,13 +3,14 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import type { Meanings } from "@/lib/anki/load";
+import type { Meanings, Sentences } from "@/lib/anki/load";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 
-import { buildQuiz, parseEntries, shortMeaning, type QuizData } from "./build";
+import { BLANK, buildQuiz, isCorrect, parseEntries, reshuffle, shortMeaning, type QuizData } from "./build";
+import { toTsv } from "./export";
 import { createRng, shuffle } from "./rng";
-import { KINDS, type Question } from "./types";
+import { KINDS, type ChoiceKind, type ChoiceQuestion, type OrderQuestion, type Question, type QuizKind } from "./types";
 
 const dataDir = join(__dirname, "../../public/data");
 const json = <T,>(name: string) => JSON.parse(readFileSync(join(dataDir, name), "utf-8")) as T;
@@ -18,15 +19,27 @@ const data: QuizData = {
   tokenizer: createTokenizer(readFileSync(join(dataDir, "word_list.txt"), "utf-8").split("\n")),
   hanviet: json<HanvietData>("hanviet.json"),
   meanings: json<Meanings>("meanings.json"),
+  sentences: json<Sentences>("sentences.json"),
 };
+
+/** The four word-level kinds; cloze and ordering need an example sentence. */
+const WORD_KINDS: ChoiceKind[] = ["hanToMeaning", "meaningToHan", "hanToPinyin", "hanToHanviet"];
 
 const WORDS = ["大学", "学习", "朋友", "喜欢", "电脑", "妈妈", "好"].map((word) => ({ word }));
 
-function find(questions: Question[], kind: Question["kind"], word: string): Question {
+function find(questions: Question[], kind: ChoiceKind, word: string): ChoiceQuestion {
   const q = questions.find((x) => x.kind === kind && x.word === word);
-  if (!q) throw new Error(`no ${kind} question for ${word}`);
+  if (!q || q.kind === "ordering") throw new Error(`no ${kind} question for ${word}`);
   return q;
 }
+
+function findOrder(questions: Question[], word: string): OrderQuestion {
+  const q = questions.find((x) => x.kind === "ordering" && x.word === word);
+  if (!q || q.kind !== "ordering") throw new Error(`no ordering question for ${word}`);
+  return q;
+}
+
+const choices = (qs: Question[]) => qs.filter((q): q is ChoiceQuestion => q.kind !== "ordering");
 
 describe("parseEntries", () => {
   it("reads an optional meaning after a tab and drops duplicates", () => {
@@ -73,19 +86,19 @@ describe("rng", () => {
 });
 
 describe("buildQuiz", () => {
-  const { questions, skipped } = buildQuiz(data, WORDS, KINDS, createRng(7));
+  const { questions, skipped } = buildQuiz(data, WORDS, WORD_KINDS, createRng(7));
 
   it("is the same quiz for the same seed", () => {
-    expect(buildQuiz(data, WORDS, KINDS, createRng(7)).questions).toEqual(questions);
+    expect(buildQuiz(data, WORDS, KINDS, createRng(7))).toEqual(buildQuiz(data, WORDS, KINDS, createRng(7)));
   });
 
   it("makes one question per word and kind", () => {
-    expect(questions.length + skipped.length).toBe(WORDS.length * KINDS.length);
+    expect(questions.length + skipped.length).toBe(WORDS.length * WORD_KINDS.length);
     expect(skipped).toEqual([]);
   });
 
   it("always has the answer among 2–4 unique options", () => {
-    for (const q of questions) {
+    for (const q of choices(buildQuiz(data, WORDS, KINDS, createRng(7)).questions)) {
       expect(q.options.length).toBeGreaterThanOrEqual(2);
       expect(q.options.length).toBeLessThanOrEqual(4);
       expect(new Set(q.options).size).toBe(q.options.length);
@@ -95,7 +108,7 @@ describe("buildQuiz", () => {
   });
 
   it("gets the right answers from our data", () => {
-    const pick = (q: Question) => q.options[q.answer];
+    const pick = (q: ChoiceQuestion) => q.options[q.answer];
     expect(pick(find(questions, "hanToPinyin", "大学"))).toBe("dà xué");
     expect(pick(find(questions, "hanToHanviet", "大学"))).toBe("đại học");
     expect(pick(find(questions, "hanToMeaning", "朋友"))).toBe(shortMeaning(data.meanings["朋友"]));
@@ -126,7 +139,7 @@ describe("buildQuiz", () => {
       { word: "朋友", meaning: "bạn bè" },
     ];
     const { questions: qs } = buildQuiz(data, entries, ["hanToMeaning"], createRng(3));
-    for (const q of qs) {
+    for (const q of choices(qs)) {
       expect(q.options.every((o) => ["đại học", "học tập", "bạn bè"].includes(o))).toBe(true);
     }
   });
@@ -143,5 +156,101 @@ describe("buildQuiz", () => {
     const { questions: qs, skipped: sk } = buildQuiz(data, [{ word: "abc" }], KINDS, createRng(1));
     expect(qs).toEqual([]);
     expect(sk.map((s) => s.kind).sort()).toEqual([...KINDS].sort());
+  });
+});
+
+describe("cloze", () => {
+  const { questions } = buildQuiz(data, WORDS, ["cloze"], createRng(11));
+
+  it("blanks the word in its example sentence and gives the translation", () => {
+    const q = find(questions, "cloze", "朋友");
+    expect(q.prompt).toBe(`他是我的${BLANK}。`);
+    expect(q.hint).toBe("Anh ấy là bạn tôi.");
+    expect(q.options[q.answer]).toBe("朋友");
+  });
+
+  it("blanks only the first occurrence and never offers a word already in the sentence", () => {
+    const q = find(questions, "cloze", "大学");
+    expect(q.prompt).toBe(`我在${BLANK}学习。`);
+    expect(q.options).not.toContain("学习");
+  });
+
+  it("blanks a word with a character outside the BMP intact", () => {
+    // 𠮷 (U+20BB7) is a surrogate pair in JavaScript strings.
+    const astral: QuizData = { ...data, sentences: { rows: [["𠮷野家很好。", "Yoshinoya rất ngon.", ""]], index: { 𠮷野家: 0 } } };
+    const q = find(buildQuiz(astral, [{ word: "𠮷野家" }], ["cloze"], createRng(1)).questions, "cloze", "𠮷野家");
+    expect(q.prompt).toBe(`${BLANK}很好。`);
+    expect(Array.from(q.prompt)).not.toContain("\uD842");
+  });
+
+  it("skips a word with no example sentence", () => {
+    const { skipped } = buildQuiz(data, [{ word: "abc" }, ...WORDS], ["cloze"], createRng(1));
+    expect(skipped).toEqual([{ word: "abc", kind: "cloze" }]);
+  });
+});
+
+describe("ordering", () => {
+  const { questions, skipped } = buildQuiz(data, WORDS, ["ordering"], createRng(5));
+
+  it("shuffles the words and keeps the end punctuation apart", () => {
+    const q = findOrder(questions, "朋友");
+    expect(q.answer).toEqual(["他", "是", "我", "的", "朋友"]);
+    expect(q.end).toBe("。");
+    expect([...q.tokens].sort()).toEqual([...q.answer].sort());
+    expect(q.tokens.join("")).not.toBe(q.answer.join(""));
+  });
+
+  it("skips sentences too short to reorder", () => {
+    const short: QuizData = { ...data, sentences: { rows: [["谢谢你。", "Cảm ơn bạn.", ""]], index: { 谢谢: 0 } } };
+    // 谢谢 / 你 + 。: two words are not an exercise.
+    expect(buildQuiz(short, [{ word: "谢谢" }], ["ordering"], createRng(1)).skipped).toEqual([
+      { word: "谢谢", kind: "ordering" },
+    ]);
+    expect(skipped.every((s) => s.kind === "ordering")).toBe(true);
+  });
+
+  it("checks the order by text", () => {
+    const q = findOrder(questions, "朋友");
+    expect(isCorrect(q, ["他", "是", "我", "的", "朋友"])).toBe(true);
+    expect(isCorrect(q, ["我", "是", "他", "的", "朋友"])).toBe(false);
+    expect(isCorrect(q, null)).toBe(false);
+  });
+});
+
+describe("reshuffle", () => {
+  it("keeps every answer right after reordering", () => {
+    const { questions } = buildQuiz(data, WORDS, KINDS, createRng(3));
+    const again = reshuffle(questions, createRng(4));
+    expect(again).toHaveLength(questions.length);
+    for (const q of again) {
+      if (q.kind === "ordering") {
+        expect(q.tokens.join("")).not.toBe(q.answer.join(""));
+        expect(isCorrect(q, q.answer)).toBe(true);
+      } else {
+        const before = questions.find((x) => x.kind === q.kind && x.word === q.word) as ChoiceQuestion;
+        expect(q.options[q.answer]).toBe(before.options[before.answer]);
+      }
+    }
+  });
+});
+
+describe("toTsv", () => {
+  const labels = Object.fromEntries(KINDS.map((k) => [k, k])) as Record<QuizKind, string>;
+
+  it("writes one row per question with the answer letter", () => {
+    const q: ChoiceQuestion = { kind: "hanToPinyin", word: "大学", prompt: "大学", options: ["dà xue", "dà xué"], answer: 1 };
+    expect(toTsv([q], labels)).toBe("type\tquestion\thint\tA\tB\tC\tD\tanswer\nhanToPinyin\t大学\t\tdà xue\tdà xué\t\t\tB\n");
+  });
+
+  it("keeps tabs and line breaks inside a field from splitting the row", () => {
+    const q: ChoiceQuestion = { kind: "hanToMeaning", word: "x", prompt: "x", options: ["a\tb", "c\nd"], answer: 0 };
+    const row = toTsv([q], labels).split("\n")[1];
+    expect(row.split("\t")).toHaveLength(8);
+    expect(row).toContain("a b\tc d");
+  });
+
+  it("lists an ordering question's words and the full sentence", () => {
+    const q: OrderQuestion = { kind: "ordering", word: "朋友", hint: "Anh ấy là bạn tôi.", tokens: ["朋友", "他", "是"], end: "。", answer: ["他", "是", "朋友"] };
+    expect(toTsv([q], labels).split("\n")[1]).toBe("ordering\t朋友 / 他 / 是 。\tAnh ấy là bạn tôi.\t\t\t\t\t他是朋友。");
   });
 });
