@@ -1,0 +1,506 @@
+{
+ "cases": [
+  {
+   "name": "chain",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "我",
+      "你",
+      "好"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "我",
+      "你"
+     ]
+    },
+    {
+     "text": "s2",
+     "words": [
+      "你",
+      "好",
+      "吗"
+     ]
+    }
+   ],
+   "known": [
+    "我"
+   ],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": [
+      "你"
+     ]
+    },
+    {
+     "idx": 0,
+     "newWords": [
+      "好"
+     ]
+    },
+    {
+     "idx": 2,
+     "newWords": [
+      "吗"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 3,
+    "twoPlus": 0,
+    "distinctNewWords": 3
+   }
+  },
+  {
+   "name": "known words give 0-new rows first",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "我",
+      "好"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "我",
+      "你"
+     ]
+    }
+   ],
+   "known": [
+    "我",
+    "你"
+   ],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": []
+    },
+    {
+     "idx": 0,
+     "newWords": [
+      "好"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 1,
+    "one": 1,
+    "twoPlus": 0,
+    "distinctNewWords": 1
+   }
+  },
+  {
+   "name": "long (26 chars) goes last even with 0 new",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+     "words": [
+      "我"
+     ]
+    },
+    {
+     "text": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+     "words": [
+      "你"
+     ]
+    }
+   ],
+   "known": [
+    "我"
+   ],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": [
+      "你"
+     ]
+    },
+    {
+     "idx": 0,
+     "newWords": []
+    }
+   ],
+   "summary": {
+    "zero": 1,
+    "one": 1,
+    "twoPlus": 0,
+    "distinctNewWords": 1
+   }
+  },
+  {
+   "name": "25 chars is not long",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+     "words": [
+      "我"
+     ]
+    },
+    {
+     "text": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+     "words": [
+      "你"
+     ]
+    }
+   ],
+   "known": [
+    "我"
+   ],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 0,
+     "newWords": []
+    },
+    {
+     "idx": 1,
+     "newWords": [
+      "你"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 1,
+    "one": 1,
+    "twoPlus": 0,
+    "distinctNewWords": 1
+   }
+  },
+  {
+   "name": "tie-break unknown_count",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "你",
+      "好"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "你"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": [
+      "你"
+     ]
+    },
+    {
+     "idx": 0,
+     "newWords": [
+      "好"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "tie-break best_freq (rank = line number, blanks counted)",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "甲"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "乙"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [
+    "",
+    "乙",
+    "",
+    "甲"
+   ],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": [
+      "乙"
+     ]
+    },
+    {
+     "idx": 0,
+     "newWords": [
+      "甲"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "tie-break -known_count",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "甲"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "我",
+      "乙"
+     ]
+    }
+   ],
+   "known": [
+    "我"
+   ],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 1,
+     "newWords": [
+      "乙"
+     ]
+    },
+    {
+     "idx": 0,
+     "newWords": [
+      "甲"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "tie-break idx",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "甲"
+     ]
+    },
+    {
+     "text": "s1",
+     "words": [
+      "乙"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 0,
+     "newWords": [
+      "甲"
+     ]
+    },
+    {
+     "idx": 1,
+     "newWords": [
+      "乙"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "2+ new words sorted by code point",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "甲",
+      "乙"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 0,
+     "newWords": [
+      "乙",
+      "甲"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 0,
+    "twoPlus": 1,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "blank lines keep idx and are not emitted",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "",
+     "words": []
+    },
+    {
+     "text": "乙乙",
+     "words": [
+      "乙"
+     ]
+    },
+    {
+     "text": "",
+     "words": []
+    },
+    {
+     "text": "甲甲",
+     "words": [
+      "甲"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [
+    "甲",
+    "乙"
+   ],
+   "expected": [
+    {
+     "idx": 3,
+     "newWords": [
+      "甲"
+     ]
+    },
+    {
+     "idx": 1,
+     "newWords": [
+      "乙"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "non-BMP sorts after U+FF5E",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "s0",
+     "words": [
+      "𠮷",
+      "～"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 0,
+     "newWords": [
+      "～",
+      "𠮷"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 0,
+    "twoPlus": 1,
+    "distinctNewWords": 2
+   }
+  },
+  {
+   "name": "non-BMP chars count as one each (25 is not long)",
+   "source": "hand-computed from the Python reference rules (key = is_long, unknown, best_freq, -known, idx)",
+   "sentences": [
+    {
+     "text": "𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷",
+     "words": [
+      "𠮷"
+     ]
+    },
+    {
+     "text": "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+     "words": [
+      "你"
+     ]
+    }
+   ],
+   "known": [],
+   "wordList": [],
+   "expected": [
+    {
+     "idx": 0,
+     "newWords": [
+      "𠮷"
+     ]
+    },
+    {
+     "idx": 1,
+     "newWords": [
+      "你"
+     ]
+    }
+   ],
+   "summary": {
+    "zero": 0,
+    "one": 2,
+    "twoPlus": 0,
+    "distinctNewWords": 2
+   }
+  }
+ ]
+}

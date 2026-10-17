@@ -1,0 +1,10 @@
+{
+  "source": "hand-checked against the Python original (\\w+ filter over tokenizer output); stub vocab 我,爱,学习,中文",
+  "cases": [
+    { "input": "我爱学习中文。", "expected": ["我", "爱", "学习", "中文"] },
+    { "input": "  我爱我，学习!  ", "expected": ["我", "爱", "学习"] },
+    { "input": "我爱abc123", "expected": ["我", "爱", "a", "b", "c", "1", "2", "3"] },
+    { "input": "，。！", "expected": [] },
+    { "input": "𠮷爱", "expected": ["𠮷", "爱"] }
+  ]
+}
