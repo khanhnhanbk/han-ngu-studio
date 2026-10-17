@@ -23,6 +23,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
 | **Hán Việt** | Tách từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
 | **Tạo thẻ Anki** | Từ danh sách từ vựng, tạo file thẻ Anki: Pinyin, nghĩa, câu ví dụ, Ngũ bút, Hán Việt | [anki.md](anki.md) |
+| **Sắp xếp câu N+1** | Sắp xếp câu từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; xem thống kê và tải TSV | [comprehensible-input.md](comprehensible-input.md) |
 
 Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 
@@ -46,6 +47,6 @@ Lựa chọn được lưu trên trình duyệt của bạn và giữ nguyên ch
 
 ## Mẹo chung
 
-- Lần đầu dùng **Tách từ**, **Chuyển Pinyin** hoặc **Hán Việt**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.
+- Lần đầu dùng **Tách từ**, **Chuyển Pinyin**, **Hán Việt** hoặc **Sắp xếp câu N+1**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.
 - Nút **Sao chép** chép kết quả vào bộ nhớ tạm; dán vào Word, Google Docs, Zalo… bằng `Ctrl + V` (máy tính) hoặc nhấn giữ → Dán (điện thoại).
 - File tải về (`.txt`, `.tsv`) nằm trong thư mục **Tải xuống / Downloads** của máy.
