@@ -19,10 +19,23 @@ export interface OrderSummary {
   one: number;
   twoPlus: number;
   distinctNewWords: number;
+  /** Sum of newCount over all rows (each word is new once, so = distinctNewWords). */
+  totalNewWords: number;
+  /** totalNewWords / number of rows; 0 when there are no rows. */
+  average: number;
+  /** Most new words introduced by a single row. */
+  maxNew: number;
+  /** Rows longer than LONG_THRESHOLD code points (always sorted last). */
+  longCount: number;
 }
 
 const MISSING_FREQ = 999999;
-const LONG_THRESHOLD = 25;
+export const LONG_THRESHOLD = 25;
+
+/** Python `len(text) > 25`: len counts code points; JS .length counts UTF-16 units. */
+export function isLongSentence(text: string): boolean {
+  return Array.from(text).length > LONG_THRESHOLD;
+}
 
 /**
  * Compare strings by Unicode code point, like Python's str ordering.
@@ -77,10 +90,7 @@ export function orderSentences(
 
   const version = items.map(() => 0);
   const done = items.map(() => false);
-  // Python len(str) counts code points; JS .length counts UTF-16 units.
-  const isLong = items.map((it) =>
-    Array.from(it.text).length > LONG_THRESHOLD ? 1 : 0,
-  );
+  const isLong = items.map((it) => (isLongSentence(it.text) ? 1 : 0));
 
   const makeKey = (sid: number): number[] => {
     const unknown = items[sid].words.filter((w) => !knownNow.has(w));
@@ -139,11 +149,26 @@ export function summarize(rows: OrderedRow[]): OrderSummary {
   let zero = 0;
   let one = 0;
   let twoPlus = 0;
+  let totalNewWords = 0;
+  let maxNew = 0;
+  let longCount = 0;
   for (const r of rows) {
     if (r.newCount === 0) zero++;
     else if (r.newCount === 1) one++;
     else twoPlus++;
+    totalNewWords += r.newCount;
+    maxNew = Math.max(maxNew, r.newCount);
+    if (isLongSentence(r.text)) longCount++;
     r.newWords.forEach((w) => learned.add(w));
   }
-  return { zero, one, twoPlus, distinctNewWords: learned.size };
+  return {
+    zero,
+    one,
+    twoPlus,
+    distinctNewWords: learned.size,
+    totalNewWords,
+    average: rows.length ? totalNewWords / rows.length : 0,
+    maxNew,
+    longCount,
+  };
 }

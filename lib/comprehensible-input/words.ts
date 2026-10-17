@@ -4,11 +4,12 @@
  * Mirrors the owner's Python script: strip the sentence, run the tokenizer
  * on the whole stripped text, keep tokens matching `\w+`.
  *
- * Python vs JS: Python 3's `\w` is Unicode-aware (str.isalnum() plus "_":
- * letters, digits Nd/Nl/No), whereas JS `\w` is ASCII-only. We emulate it with
- * \p{L}\p{N}\p{M}_ (\p{N} = Nd/Nl/No). \p{M} (combining marks) is included
- * by design choice, so marks inside a token do not reject it; 一-鿿 is
- * kept explicitly for Han (already covered by \p{L}, harmless).
+ * Python vs JS: Python 3's `\w` is Unicode-aware: a character matches when
+ * str.isalnum() is true, or it is "_". isalnum() covers letters (Lu/Ll/Lt/Lm/Lo
+ * = \p{L}) and numbers (Nd/Nl/No = \p{N}). Combining marks (\p{M}) are NOT
+ * alphanumeric, so e.g. "e\u0301" fails in Python and must fail here too.
+ * JS `\w` is ASCII-only, hence the explicit classes. 一-鿿 is kept to mirror
+ * the Python pattern (already covered by \p{L}).
  */
 import { pyStrip } from "../segment/tokenizer";
 
@@ -16,19 +17,25 @@ import type { Sentence } from "./types";
 
 export type WordTokenizer = { tokenize(text: string): string[] };
 
-const PY_WORD_RE = /^[一-鿿\p{L}\p{N}\p{M}_]+$/u;
+const PY_WORD_RE = /^[一-鿿\p{L}\p{N}_]+$/u;
 
 /** True if the whole token is word characters (Python `\w+` full match). */
 export function pyWordMatch(token: string): boolean {
   return PY_WORD_RE.test(token);
 }
 
-/** Split on newlines, keep 1-based line numbers, skip blank lines. */
+// Python reads text files with universal newlines: \r\n, \r and \n all end a line.
+const LINE_BREAK = /\r\n|\r|\n/;
+
+/**
+ * Split into lines, skip blank ones, keep each line's 0-based index
+ * (Python `enumerate` over the file), so `idx` matches the script's output.
+ */
 export function parseSentences(text: string): Sentence[] {
   const out: Sentence[] = [];
-  text.split(/\r?\n/).forEach((line, i) => {
+  text.split(LINE_BREAK).forEach((line, i) => {
     const t = pyStrip(line);
-    if (t) out.push({ idx: i + 1, text: t });
+    if (t) out.push({ idx: i, text: t });
   });
   return out;
 }
@@ -36,7 +43,7 @@ export function parseSentences(text: string): Sentence[] {
 /** One known word per line; blanks skipped. */
 export function parseKnownWords(text: string): Set<string> {
   const words = new Set<string>();
-  for (const line of text.split(/\r?\n/)) {
+  for (const line of text.split(LINE_BREAK)) {
     const w = pyStrip(line);
     if (w) words.add(w);
   }

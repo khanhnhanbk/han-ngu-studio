@@ -84,12 +84,6 @@ export const vi = {
           "Từ danh sách từ vựng: Pinyin, nghĩa, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
-      comprehensibleInput: {
-        title: "Sắp xếp câu N+1",
-        description:
-          "Sắp xếp kho câu để mỗi câu chỉ có một từ mới, tạo lộ trình học vừa sức.",
-        cta: "Sắp xếp câu N+1",
-      },
     },
   },
   roadmap: {
@@ -224,12 +218,36 @@ export const vi = {
     loadFailed:
       "Không tải được danh sách từ. Vui lòng kiểm tra kết nối mạng rồi bấm Sắp xếp để thử lại.",
     flagZero: "Không có từ mới",
+    flagZeroHint: "Mọi từ trong câu đều đã biết: dùng câu này để ôn tập.",
     flagMany: "Quá nhiều từ mới",
+    flagManyHint: (n: number) =>
+      `Câu này thêm ${n} từ mới cùng lúc vì không còn câu nào chỉ thêm 1 từ mới.`,
+    flagLong: "Câu dài",
+    flagLongHint: "Câu dài hơn 25 ký tự (tính cả dấu câu) luôn được xếp cuối danh sách.",
     originalLine: (n: number) => `Dòng gốc ${n}`,
     newWords: "Từ mới",
     count: (n: number) => `${n} từ mới`,
-    summary: (total: number, newWords: number, flagged: number) =>
-      `${total} câu · ${newWords} từ mới · ${flagged} câu cần chú ý`,
+    stats: {
+      title: "Thống kê",
+      sentences: "Số câu",
+      totalNew: "Tổng từ mới",
+      average: "TB từ mới / câu",
+      one: "Câu đúng 1 từ mới",
+      zero: "Câu 0 từ mới (ôn tập)",
+      many: "Câu ≥ 2 từ mới",
+      max: "Nhiều nhất trong một câu",
+      long: "Câu dài (> 25 ký tự)",
+    },
+    manyNotice: {
+      title: (n: number) => `Vì sao có ${n} câu “Quá nhiều từ mới”?`,
+      why: "Công cụ luôn chọn câu dễ nhất còn lại trước. Khi không còn câu nào chỉ thêm 1 từ mới, câu tiếp theo buộc phải mang 2 từ mới trở lên cùng lúc và được đánh dấu “Quá nhiều từ mới”. Câu dài hơn 25 ký tự (tính cả dấu câu) luôn được xếp cuối danh sách.",
+      whatTitle: "Nên làm gì?",
+      what: [
+        "Học trước các từ mới được liệt kê, thêm chúng vào ô “Từ đã biết” rồi bấm Sắp xếp lần nữa.",
+        "Thêm các câu ngắn, đơn giản có chứa những từ đó: mỗi câu như vậy là một bậc thang trước câu khó.",
+        "Tách câu dài thành nhiều câu ngắn hơn.",
+      ],
+    },
   },
   segment: {
     title: "Tách từ tiếng Trung",
