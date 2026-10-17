@@ -27,6 +27,7 @@ import type { StrokeData } from "@/lib/strokes/types";
 import { sheetFontVariables } from "./fonts";
 import { PrinterIcon } from "@/components/icons/printer";
 import { IconButton } from "@/components/icons/trigger";
+import { FileInput } from "@/components/FileInput";
 
 const dict = getDictionary("vi");
 
@@ -287,17 +288,7 @@ export default function PracticeSheetPage() {
                 </div>
 
                 <div className="mt-4 grid gap-4 text-sm text-ink-700 sm:grid-cols-2">
-                  <label className="flex flex-col gap-1">
-                    <span className="font-medium">
-                      {dict.practiceSheet.upload}
-                    </span>
-                    <input
-                      type="file"
-                      accept=".txt,.csv"
-                      onChange={(e) => handleFile(e.target.files?.[0])}
-                      className="text-sm"
-                    />
-                  </label>
+                  <FileInput label={dict.practiceSheet.upload} accept=".txt,.csv" onFile={handleFile} />
 
                   <label className="flex flex-col gap-1">
                     <span className="font-medium">

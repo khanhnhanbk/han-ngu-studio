@@ -11,6 +11,7 @@ import {
   quoteFamily,
   type SheetFontId,
 } from "@/lib/sheetFonts";
+import { FileInput } from "../FileInput";
 
 const dict = getDictionary("vi");
 const t = dict.practiceSheet.font;
@@ -177,12 +178,7 @@ export function FontPicker({
 
       {fontId === "upload" && (
         <div className="flex flex-col gap-1">
-          <input
-            type="file"
-            accept=".ttf,.otf,.woff,.woff2"
-            onChange={(e) => handleUpload(e.target.files?.[0])}
-            className="text-sm"
-          />
+          <FileInput accept=".ttf,.otf,.woff,.woff2" onFile={handleUpload} showName={false} />
           <p className="text-xs text-ink-500">
             {uploadName ? t.uploaded.replace("{name}", uploadName) : t.uploadHint}
           </p>

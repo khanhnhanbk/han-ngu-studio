@@ -12,7 +12,7 @@ Tạo phiếu luyện viết khổ A4: mỗi chữ có một ô chữ mẫu màu
 Có hai cách:
 
 - **Gõ hoặc dán** chữ Hán vào ô lớn ở đầu trang ("Nhập hoặc dán chữ Hán vào đây…").
-- Bấm nút chọn file dưới dòng **Hoặc tải file (.txt, .csv)** và chọn file trên máy.
+- Bấm nút **Chọn file** dưới dòng **Hoặc tải file (.txt, .csv)** và chọn file trên máy.
 
 Chỉ chữ Hán được giữ lại; dấu câu, khoảng trắng, chữ Latin và số sẽ bị bỏ qua.
 Dòng **Số chữ: … / 300** cho biết bạn đã nhập bao nhiêu chữ (tối đa 300 chữ).
@@ -60,7 +60,7 @@ Phông này chỉ có trên máy bạn: người khác mở trang trên máy kh�
 **Tải file phông lên:**
 
 1. Chọn **Tải file phông lên…**.
-2. Bấm nút chọn file và chọn file `.ttf`, `.otf`, `.woff` hoặc `.woff2` (tối đa 50 MB).
+2. Bấm nút **Chọn file** và chọn file `.ttf`, `.otf`, `.woff` hoặc `.woff2` (tối đa 50 MB).
 3. Dòng "Đang dùng: …" cho biết phông đã được nạp.
 
 File phông chỉ được đọc ngay trên trình duyệt, không gửi đi đâu. Sau khi tải lại trang, cần chọn lại file (trang sẽ quay về phông mặc định).

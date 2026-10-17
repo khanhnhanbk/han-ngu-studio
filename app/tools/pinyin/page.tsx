@@ -19,6 +19,7 @@ import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
+import { FileInput } from "@/components/FileInput";
 
 const dict = getDictionary("vi");
 
@@ -143,15 +144,7 @@ export default function PinyinPage() {
               </div>
 
               <div className="mt-4 grid gap-4 text-sm text-ink-700 sm:grid-cols-3">
-                <label className="flex flex-col gap-1">
-                  <span className="font-medium">{dict.pinyin.upload}</span>
-                  <input
-                    type="file"
-                    accept=".txt"
-                    onChange={(e) => handleFile(e.target.files?.[0])}
-                    className="text-sm"
-                  />
-                </label>
+                <FileInput label={dict.pinyin.upload} accept=".txt" onFile={handleFile} />
 
                 <label className="flex flex-col gap-1">
                   <span className="font-medium">{dict.pinyin.toneStyle}</span>
