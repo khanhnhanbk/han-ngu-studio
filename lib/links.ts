@@ -9,6 +9,7 @@ export type ToolId =
   | "pinyin"
   | "hanviet"
   | "anki"
+  | "quiz"
   | "comprehensibleInput";
 
 /** Live tools, in the order the landing page and footer show them. */
@@ -19,5 +20,6 @@ export const TOOLS: ReadonlyArray<{ id: ToolId; href: string }> = [
   { id: "pinyin", href: "/tools/pinyin" },
   { id: "hanviet", href: "/tools/hanviet" },
   { id: "anki", href: "/tools/anki" },
+  { id: "quiz", href: "/tools/quiz" },
   { id: "comprehensibleInput", href: "/tools/comprehensible-input" },
 ];

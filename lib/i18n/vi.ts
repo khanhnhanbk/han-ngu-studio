@@ -18,6 +18,7 @@ export const vi = {
     pinyin: "Chuyển Pinyin",
     hanviet: "Hán Việt",
     anki: "Tạo thẻ Anki",
+    quiz: "Trắc nghiệm",
     comprehensibleInput: "Sắp xếp câu N+1",
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
@@ -44,7 +45,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Bảy công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Tám công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -88,6 +89,12 @@ export const vi = {
           "Từ danh sách từ vựng: Pinyin, nghĩa, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
+      quiz: {
+        title: "Trắc nghiệm từ vựng",
+        description:
+          "Từ danh sách từ vựng, tự tạo câu hỏi trắc nghiệm: chọn nghĩa, Pinyin, âm Hán Việt hoặc chữ Hán đúng. Làm bài ngay và ôn lại câu sai.",
+        cta: "Làm trắc nghiệm",
+      },
     },
   },
   roadmap: {
@@ -125,9 +132,16 @@ export const vi = {
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
       },
       {
-        status: "idea",
-        title: "Bài tập điền khuyết",
-        description: "Tự sinh bài tập điền từ vào chỗ trống từ câu có sẵn, luyện từ vựng trong ngữ cảnh.",
+        status: "next",
+        title: "Điền từ và sắp xếp câu",
+        description:
+          "Thêm vào Trắc nghiệm: điền từ vào chỗ trống và sắp xếp lại câu từ câu ví dụ có sẵn; in đề kèm đáp án hoặc tải TSV.",
+      },
+      {
+        status: "planned",
+        title: "214 bộ thủ",
+        description:
+          "Tra 214 bộ thủ Khang Hy: tên Hán Việt, nghĩa, số nét, các dạng biến thể và chữ thường gặp có bộ đó.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",
@@ -410,6 +424,58 @@ export const vi = {
     error: "Vui lòng nhập ít nhất một từ.",
     tooMany: "Quá nhiều từ (tối đa 1000 từ).",
     noColumns: "Hãy chọn ít nhất một cột.",
+    loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+  },
+  quiz: {
+    title: "Trắc nghiệm từ vựng",
+    subtitle:
+      "Nhập danh sách từ vựng để tự tạo câu hỏi trắc nghiệm. Làm bài ngay trên trình duyệt, xem kết quả và ôn lại các câu sai.",
+    placeholder: "Mỗi dòng một từ, ví dụ:\n大学\n学习",
+    meaningNote:
+      "Nghĩa mặc định là tiếng Anh (CC-CEDICT). Muốn dùng nghĩa tiếng Việt, ghi nghĩa sau dấu Tab trên cùng dòng, hoặc dán hai cột (từ, nghĩa) từ Excel / Google Sheets.",
+    upload: "Hoặc tải file (.txt, .tsv)",
+    badFile: "Chỉ hỗ trợ file .txt hoặc .tsv.",
+    wordCount: "Số từ",
+    kindsLabel: "Loại câu hỏi",
+    kinds: {
+      hanToMeaning: "Chữ Hán → Nghĩa",
+      meaningToHan: "Nghĩa → Chữ Hán",
+      hanToPinyin: "Chữ Hán → Pinyin",
+      hanToHanviet: "Chữ Hán → Âm Hán Việt",
+    },
+    prompts: {
+      hanToMeaning: "Từ này nghĩa là gì?",
+      meaningToHan: "Từ nào có nghĩa này?",
+      hanToPinyin: "Pinyin đúng của từ này là gì?",
+      hanToHanviet: "Âm Hán Việt của từ này là gì?",
+    },
+    button: "Tạo bài trắc nghiệm",
+    loading: "Đang tạo câu hỏi…",
+    progress: "Câu {n} / {total}",
+    correct: "Đúng rồi!",
+    wrong: "Chưa đúng. Đáp án đúng được tô xanh.",
+    next: "Câu tiếp theo",
+    finish: "Xem kết quả",
+    quit: "Dừng bài",
+    resultTitle: "Kết quả",
+    score: "Bạn trả lời đúng {n} / {total} câu.",
+    perfect: "Không sai câu nào. Rất tốt!",
+    wrongTitle: "Các câu trả lời sai",
+    yourAnswer: "Bạn chọn",
+    rightAnswer: "Đáp án",
+    retryWrong: "Làm lại câu sai",
+    reshuffle: "Trộn lại và làm lại",
+    edit: "Sửa danh sách từ",
+    skippedTitle: "Không tạo được câu hỏi",
+    skippedHint:
+      "Các từ này thiếu dữ liệu (hoặc không có đáp án sai nào khác) cho loại câu hỏi đó. Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
+    duplicates: "Đã bỏ {n} từ trùng lặp.",
+    credits:
+      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: Hán Ngữ Studio.",
+    error: "Vui lòng nhập ít nhất một từ.",
+    noKinds: "Hãy chọn ít nhất một loại câu hỏi.",
+    tooMany: "Quá nhiều từ (tối đa 200 từ).",
+    noQuestions: "Không tạo được câu hỏi nào. Hãy thêm từ hoặc chọn loại câu hỏi khác.",
     loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
   },
   practiceSheet: {
