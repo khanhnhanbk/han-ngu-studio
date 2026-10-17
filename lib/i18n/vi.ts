@@ -4,6 +4,10 @@ export const vi = {
     description:
       "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tra thứ tự nét, tách từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
   },
+  fileInput: {
+    choose: "Chọn file",
+    none: "Chưa chọn file",
+  },
   nav: {
     features: "Tính năng",
     howItWorks: "Cách hoạt động",

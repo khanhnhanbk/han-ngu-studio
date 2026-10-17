@@ -21,7 +21,7 @@ Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **impor
 ### 1. Nhập từ vựng
 
 - Gõ hoặc dán vào ô lớn, **mỗi dòng một từ**; hoặc
-- bấm nút chọn file dưới dòng **Hoặc tải file (.txt)** (file `.txt`, mỗi dòng một từ).
+- bấm nút **Chọn file** dưới dòng **Hoặc tải file (.txt)** (file `.txt`, mỗi dòng một từ).
 
 Dòng **Số từ: … / 1000** cho biết số từ (tối đa 1000). Từ trùng lặp được tự động bỏ.
 

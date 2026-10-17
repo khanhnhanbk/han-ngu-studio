@@ -17,7 +17,7 @@ Dán câu hoặc đoạn văn tiếng Trung: công cụ **tách từ**, ghi **Pi
 ### 1. Nhập văn bản
 
 - **Gõ hoặc dán** vào ô lớn ("Dán văn bản tiếng Trung vào đây…"), có thể nhiều dòng; hoặc
-- bấm nút chọn file dưới dòng **Hoặc tải file (.txt)**.
+- bấm nút **Chọn file** dưới dòng **Hoặc tải file (.txt)**.
 
 Tối đa **5000 ký tự** (đếm ở góc dưới bên trái ô nhập). Hiện công cụ đọc **chữ giản thể**; chữ phồn thể có thể không có âm Hán Việt.
 
