@@ -282,3 +282,32 @@ describe("printText", () => {
     for (const s of ["Đáp án", "旅游", "lǚ yóu", "lǜ yǒu", "Anh ấy là bạn tôi.", "他是朋友。", "A"]) expect(text).toContain(s);
   });
 });
+
+describe("question order", () => {
+  const grouped = buildQuiz(data, WORDS, KINDS, createRng(7), "byKind").questions;
+
+  it("groups questions by type in KINDS order, words in input order", () => {
+    const kindsSeen = grouped.map((q) => q.kind).filter((k, i, all) => i === 0 || all[i - 1] !== k);
+    expect(kindsSeen).toEqual(KINDS.filter((k) => kindsSeen.includes(k)));
+    const inputOrder = WORDS.map((e) => e.word);
+    for (const kind of kindsSeen) {
+      const words = grouped.filter((q) => q.kind === kind).map((q) => q.word);
+      expect(words).toEqual(inputOrder.filter((w) => words.includes(w)));
+    }
+  });
+
+  it("follows KINDS order whatever order the kinds are passed in", () => {
+    const reversed = buildQuiz(data, WORDS, [...KINDS].reverse(), createRng(7), "byKind").questions;
+    expect(reversed.map((q) => q.kind)).toEqual(grouped.map((q) => q.kind));
+  });
+
+  it("keeps the grouped order on reshuffle and the answers right", () => {
+    const again = reshuffle(grouped, createRng(3), "byKind");
+    expect(again.map((q) => [q.kind, q.word])).toEqual(grouped.map((q) => [q.kind, q.word]));
+    again.forEach((q, i) => {
+      const before = grouped[i];
+      if (q.kind === "ordering" && before.kind === "ordering") expect(q.answer).toEqual(before.answer);
+      else if (q.kind !== "ordering" && before.kind !== "ordering") expect(q.options[q.answer]).toBe(before.options[before.answer]);
+    });
+  });
+});

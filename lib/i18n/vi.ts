@@ -444,6 +444,11 @@ export const vi = {
       ordering: "Sắp xếp câu",
     },
     kindsNote: "Điền từ vào câu và Sắp xếp câu dùng câu ví dụ có sẵn; từ chưa có câu ví dụ sẽ được bỏ qua.",
+    orderLabel: "Thứ tự câu hỏi",
+    orders: {
+      random: "Ngẫu nhiên",
+      byKind: "Theo loại câu hỏi",
+    },
     prompts: {
       hanToMeaning: "Từ này nghĩa là gì?",
       meaningToHan: "Từ nào có nghĩa này?",

@@ -19,7 +19,7 @@ import { buildQuiz, isCorrect, MAX_ENTRIES, parseEntries, reshuffle } from "@/li
 import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
-import { KINDS, type Question, type QuizKind, type Response, type Skipped } from "@/lib/quiz/types";
+import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
 import { loadTokenizer } from "@/lib/segment/load";
 import { loadVocab } from "@/lib/vocab/load";
 
@@ -42,6 +42,7 @@ function answerText(q: Question): string {
 export default function QuizPage() {
   const [text, setText] = useState(SAMPLE);
   const [kinds, setKinds] = useState<Set<QuizKind>>(() => new Set(KINDS));
+  const [order, setOrder] = useState<QuizOrder>("random");
   const [phase, setPhase] = useState<Phase>("setup");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [responses, setResponses] = useState<Array<Response | null>>([]);
@@ -91,6 +92,7 @@ export default function QuizPage() {
         parsed.entries,
         picked,
         createRng(randomSeed()),
+        order,
       );
       setSkipped(quiz.skipped);
       setDuplicates(parsed.duplicates);
@@ -236,6 +238,18 @@ export default function QuizPage() {
                     <p className="mt-2 text-xs text-ink-700/70">{dict.quiz.kindsNote}</p>
                   </fieldset>
 
+                  <fieldset className="mt-6 text-sm text-ink-700">
+                    <legend className="font-medium">{dict.quiz.orderLabel}</legend>
+                    <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+                      {ORDERS.map((o) => (
+                        <label key={o} className="flex items-center gap-2">
+                          <input type="radio" name="quiz-order" checked={order === o} onChange={() => setOrder(o)} />
+                          {dict.quiz.orders[o]}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+
                   <div className="mt-6">
                     <button type="button" className="btn-primary" onClick={handleBuild} disabled={loading}>
                       {loading ? dict.quiz.loading : dict.quiz.button}
@@ -342,7 +356,7 @@ export default function QuizPage() {
                       <button
                         type="button"
                         className="btn-primary"
-                        onClick={() => start(reshuffle(wrong, createRng(randomSeed())))}
+                        onClick={() => start(reshuffle(wrong, createRng(randomSeed()), order))}
                       >
                         {dict.quiz.retryWrong}
                       </button>
@@ -350,7 +364,7 @@ export default function QuizPage() {
                     <button
                       type="button"
                       className="btn-secondary"
-                      onClick={() => start(reshuffle(questions, createRng(randomSeed())))}
+                      onClick={() => start(reshuffle(questions, createRng(randomSeed()), order))}
                     >
                       {dict.quiz.reshuffle}
                     </button>

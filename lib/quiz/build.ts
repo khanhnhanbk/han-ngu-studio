@@ -8,7 +8,7 @@ import { segment, type Tokenizer } from "@/lib/segment/tokenizer";
 import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 
 import { shuffle, type Rng } from "./rng";
-import type { ChoiceKind, Question, QuizEntry, QuizKind, Response, Skipped } from "./types";
+import { KINDS, type ChoiceKind, type Question, type QuizEntry, type QuizKind, type QuizOrder, type Response, type Skipped } from "./types";
 
 export type QuizData = {
   tokenizer: Tokenizer;
@@ -200,6 +200,7 @@ export function buildQuiz(
   entries: readonly QuizEntry[],
   kinds: readonly QuizKind[],
   rng: Rng,
+  order: QuizOrder = "random",
 ): { questions: Question[]; skipped: Skipped[] } {
   const own = entries.map((e) => describe(data, e));
   const ownWords = new Set(own.map((i) => i.word));
@@ -210,13 +211,18 @@ export function buildQuiz(
   const questions: Question[] = [];
   const skipped: Skipped[] = [];
 
-  for (const info of own) {
-    for (const kind of kinds) {
-      const q = buildOne(data, kind, info, own, fallback, rng);
-      if (q) questions.push(q);
-      else skipped.push({ word: info.word, kind });
-    }
+  const add = (info: Info, kind: QuizKind) => {
+    const q = buildOne(data, kind, info, own, fallback, rng);
+    if (q) questions.push(q);
+    else skipped.push({ word: info.word, kind });
+  };
+
+  // Grouped: one block per type, words in the order they were typed.
+  if (order === "byKind") {
+    for (const kind of KINDS.filter((k) => kinds.includes(k))) for (const info of own) add(info, kind);
+    return { questions, skipped };
   }
+  for (const info of own) for (const kind of kinds) add(info, kind);
   return { questions: shuffle(questions, rng), skipped };
 }
 
@@ -324,8 +330,9 @@ export function isCorrect(question: Question, response: Response | null): boolea
 }
 
 /** The same questions in a new order, each with its options (or words) reshuffled. */
-export function reshuffle(questions: readonly Question[], rng: Rng): Question[] {
-  return shuffle(questions, rng).map((q) => {
+export function reshuffle(questions: readonly Question[], rng: Rng, order: QuizOrder = "random"): Question[] {
+  // Grouped quizzes keep their question order; only options and words move.
+  return (order === "byKind" ? questions : shuffle(questions, rng)).map((q) => {
     if (q.kind === "ordering") {
       const original = q.answer.join("");
       let tokens = shuffle(q.tokens, rng);
