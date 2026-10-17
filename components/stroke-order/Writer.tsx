@@ -199,15 +199,24 @@ export function Writer({ char, data }: { char: string; data: StrokeData }) {
 
       {mode === "watch" ? (
         <div className="flex flex-col items-center gap-3">
-          <div className="flex flex-wrap justify-center gap-2">
-            <button type="button" className="btn-primary" onClick={() => play(false)}>
+          {/* One line at any width: tighter padding, and the pause button
+              keeps the width of its longer label when it toggles. */}
+          <div className="flex flex-nowrap justify-center gap-2">
+            <button type="button" className="btn-primary whitespace-nowrap px-3" onClick={() => play(false)}>
               {t.play}
             </button>
-            <button type="button" className="btn-secondary" onClick={() => play(true)}>
+            <button type="button" className="btn-secondary whitespace-nowrap px-3" onClick={() => play(true)}>
               {t.loop}
             </button>
-            <button type="button" className="btn-secondary" onClick={togglePause}>
-              {paused ? t.resume : t.pause}
+            <button type="button" className="btn-secondary whitespace-nowrap px-3" onClick={togglePause}>
+              <span className="grid">
+                <span className={`col-start-1 row-start-1 ${paused ? "invisible" : ""}`} aria-hidden={paused}>
+                  {t.pause}
+                </span>
+                <span className={`col-start-1 row-start-1 ${paused ? "" : "invisible"}`} aria-hidden={!paused}>
+                  {t.resume}
+                </span>
+              </span>
             </button>
           </div>
           <label className="flex items-center gap-2 text-sm text-ink-700">
