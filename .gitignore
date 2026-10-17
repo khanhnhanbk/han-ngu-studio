@@ -36,3 +36,6 @@ next-env.d.ts
 
 # Local-only fonts for the old Python PDF scripts (not used by the site; KaiTi licence)
 /assets/fonts/
+
+# myADE
+.agent/
