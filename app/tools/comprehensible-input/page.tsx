@@ -17,6 +17,9 @@ const dict = getDictionary("vi").comprehensibleInput;
 
 type Row = OrderedRow & { line: number };
 
+// Long lists are not rendered in full; the TSV download has every row.
+const SHOW_OPTIONS = [50, 100, 200, 500] as const;
+
 export default function ComprehensibleInputPage() {
   const [sentences, setSentences] = useState("");
   const [known, setKnown] = useState("");
@@ -24,6 +27,7 @@ export default function ComprehensibleInputPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [empty, setEmpty] = useState(false);
+  const [limit, setLimit] = useState<number>(100);
 
   async function handleSort() {
     setError(false);
@@ -146,8 +150,25 @@ export default function ComprehensibleInputPage() {
                     </div>
                   )}
 
+                  {rows.length > SHOW_OPTIONS[0] && (
+                    <label className="mt-6 flex items-center gap-2 text-sm text-ink-700">
+                      <span className="font-medium">{dict.showLabel}</span>
+                      <select
+                        value={limit}
+                        onChange={(e) => setLimit(Number(e.target.value))}
+                        className="rounded-lg border border-ink-900/10 px-3 py-2"
+                      >
+                        {SHOW_OPTIONS.map((n) => (
+                          <option key={n} value={n}>
+                            {dict.showOption(n)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
+
                   <ol className="mt-4 space-y-3">
-                    {rows.map((r, i) => (
+                    {rows.slice(0, limit).map((r, i) => (
                       <li
                         key={r.idx}
                         className="rounded-lg border border-ink-900/10 bg-ink-50 p-4"
@@ -200,6 +221,15 @@ export default function ComprehensibleInputPage() {
                       </li>
                     ))}
                   </ol>
+
+                  {rows.length > limit && (
+                    <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-ink-700">
+                      <p>{dict.truncated(limit, rows.length)}</p>
+                      <button type="button" className="btn-secondary" onClick={handleDownload}>
+                        {dict.download}
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

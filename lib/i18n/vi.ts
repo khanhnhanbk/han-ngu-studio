@@ -227,6 +227,10 @@ export const vi = {
     originalLine: (n: number) => `Dòng gốc ${n}`,
     newWords: "Từ mới",
     count: (n: number) => `${n} từ mới`,
+    showLabel: "Hiện",
+    showOption: (n: number) => `${n} câu đầu`,
+    truncated: (shown: number, total: number) =>
+      `Đang hiện ${shown} / ${total} câu đầu tiên. Tải sentence_sorted.tsv để xem toàn bộ danh sách.`,
     stats: {
       title: "Thống kê",
       sentences: "Số câu",
