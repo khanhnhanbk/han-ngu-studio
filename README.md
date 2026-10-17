@@ -15,6 +15,7 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 - ✅ Pinyin converter (`/tools/pinyin`, runs in the browser)
 - ✅ Hán Việt (`/tools/hanviet`, runs in the browser)
 - ✅ Anki deck generator (`/tools/anki`, TSV export)
+- ✅ N+1 sentence ordering (`/tools/comprehensible-input`)
 - ⏳ Anki images, TTS: see [`docs/plans/2026-10-15-roadmap.md`](docs/plans/2026-10-15-roadmap.md)
 - ⏳ Phase 4 — i18n (EN), SEO, analytics, monetization
 

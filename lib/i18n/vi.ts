@@ -40,7 +40,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Sáu công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Bảy công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -84,6 +84,12 @@ export const vi = {
           "Từ danh sách từ vựng: Pinyin, nghĩa, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
+      comprehensibleInput: {
+        title: "Sắp xếp câu N+1",
+        description:
+          "Sắp xếp kho câu để mỗi câu chỉ có một từ mới, tạo lộ trình học vừa sức.",
+        cta: "Sắp xếp câu N+1",
+      },
     },
   },
   roadmap: {
@@ -124,11 +130,6 @@ export const vi = {
         status: "idea",
         title: "Bài tập điền khuyết",
         description: "Tự sinh bài tập điền từ vào chỗ trống từ câu có sẵn, luyện từ vựng trong ngữ cảnh.",
-      },
-      {
-        status: "idea",
-        title: "Sắp xếp câu N+1",
-        description: "Sắp xếp kho câu để mỗi câu chỉ có một từ mới, tạo lộ trình học vừa sức.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",

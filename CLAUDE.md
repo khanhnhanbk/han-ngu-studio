@@ -15,7 +15,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
 | Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, data in `public/data/{meanings,sentences,wubi}.json`) |
 | Cloze exercise generator | | Not built |
-| N+1 sentence ordering (one new word per sentence) | | Not built |
+| N+1 sentence ordering (one new word per sentence) | `/tools/comprehensible-input` | Live, client-side |
 
 ## HARD RULES
 
