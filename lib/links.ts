@@ -19,5 +19,5 @@ export const TOOLS: ReadonlyArray<{ id: ToolId; href: string; icon: string }> = 
   { id: "pinyin", href: "/tools/pinyin", icon: "拼" },
   { id: "hanviet", href: "/tools/hanviet", icon: "越" },
   { id: "anki", href: "/tools/anki", icon: "札" },
-  { id: "comprehensibleInput", href: "/tools/comprehensible-input", icon: "序" },
+  { id: "comprehensibleInput", href: "/tools/comprehensible-input", icon: "句" },
 ];
