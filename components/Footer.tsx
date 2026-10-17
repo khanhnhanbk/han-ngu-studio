@@ -28,7 +28,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-bold text-ink-900">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-on-brand hanzi text-lg">
                 汉
               </span>
               <span>Hán Ngữ Studio</span>
@@ -49,7 +49,7 @@ export function Footer() {
                     <a
                       href={link.href}
                       {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-sm text-ink-700/70 transition hover:text-brand-600"
+                      className="text-sm text-ink-700/70 transition hover:text-brand-ink"
                     >
                       {link.label}
                     </a>
@@ -67,7 +67,7 @@ export function Footer() {
               href="https://github.com/Avijit07x/animateicons"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brand-600"
+              className="hover:text-brand-ink"
             >
               {dict.footer.iconCredit}
             </a>

@@ -32,7 +32,7 @@ export function StrokeSteps({
               {step.done.map((d, j) => (
                 <path key={j} d={d} className="fill-ink-500/50" />
               ))}
-              <path d={step.current} className="fill-brand-600" />
+              <path d={step.current} className="fill-brand-ink" />
             </g>
           </svg>
           <span className="text-xs text-ink-500">{i + 1}</span>

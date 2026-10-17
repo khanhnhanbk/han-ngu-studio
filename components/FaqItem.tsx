@@ -16,7 +16,7 @@ export function FaqItem({ question, answer }: { question: string; answer: string
           ref={plus.ref}
           size={18}
           aria-hidden
-          className="shrink-0 text-brand-600 transition group-open:rotate-45"
+          className="shrink-0 text-brand-ink transition group-open:rotate-45"
         />
       </summary>
       <p className="mt-3 text-sm text-ink-700">{answer}</p>

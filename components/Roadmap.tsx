@@ -5,7 +5,7 @@ const dict = getDictionary("vi");
 type Status = keyof typeof dict.roadmap.statuses;
 
 const STATUS_STYLE: Record<Status, string> = {
-  next: "bg-brand-600 text-white",
+  next: "bg-brand-600 text-on-brand",
   planned: "bg-brand-100 text-brand-700",
   idea: "bg-ink-900/5 text-ink-700",
 };

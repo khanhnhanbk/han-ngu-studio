@@ -59,7 +59,7 @@ const DEFAULTS: StoredOptions = {
   boxSize: "medium",
   linesPerChar: 1,
   showStrokeOrder: false,
-  fontId: "wenkai",
+  fontId: "notoSerif",
   localFontName: "",
 };
 

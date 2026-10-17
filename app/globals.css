@@ -13,18 +13,20 @@
  * onto it. <html> gets data-accent and the "dark" class from lib/theme.ts.
  */
 :root {
-  /* Accent: orange (default) — Tailwind orange */
-  --b-50: 255 247 237;
-  --b-100: 255 237 213;
-  --b-200: 254 215 170;
-  --b-300: 253 186 116;
-  --b-400: 251 146 60;
-  --b-500: 249 115 22;
-  --b-600: 234 88 12;
-  --b-700: 194 65 12;
-  --b-800: 154 52 18;
-  --b-900: 124 45 18;
-  --b-950: 67 20 7;
+  /* Accent: gold (default). 600 is #D4AF37; 700 (#8A6D1F) is dark enough
+     for text on white (4.9:1). Gold is too light for white text, so the
+     default accent sets --on-brand to dark ink (see below). */
+  --b-50: 252 248 232;
+  --b-100: 248 239 204;
+  --b-200: 240 225 160;
+  --b-300: 230 207 112;
+  --b-400: 221 190 76;
+  --b-500: 216 182 63;
+  --b-600: 212 175 55;
+  --b-700: 138 109 31;
+  --b-800: 112 88 25;
+  --b-900: 84 66 19;
+  --b-950: 46 36 10;
 
   /* Light mode */
   --page: 255 255 255;
@@ -44,7 +46,26 @@
   --brand-700: var(--b-700);
   --brand-800: var(--b-800);
   --brand-900: var(--b-900);
+  /* Text on a brand-600 fill, brand-coloured text on the page, and the
+     primary button's hover fill. The Ngũ hành accents use white text and
+     their own 600/700; the gold default overrides all three below. */
+  --on-brand: 255 255 255;
+  --brand-ink: var(--brand-600);
+  --brand-hover: var(--brand-700);
   color-scheme: light;
+}
+
+/* Gold default: dark text on gold fills (8.4:1; white would be 2.1:1). */
+:root:not([data-accent]) {
+  --on-brand: 15 23 42;
+}
+
+/* Gold text on a white page is too faint: use the dark gold, and a hover
+   fill that keeps the dark button text readable (#BE9B2D, 6.4:1). Dark mode
+   keeps the bright gold, which reads well on the dark page. */
+:root:not([data-accent]):not(.dark) {
+  --brand-ink: var(--b-700);
+  --brand-hover: 190 155 45;
 }
 
 /* Kim (Metal): white, silver grey — Tailwind zinc */
@@ -92,7 +113,7 @@
   --b-950: 23 37 84;
 }
 
-/* Hỏa (Fire): red — Tailwind red (orange is the default accent) */
+/* Hỏa (Fire): red — Tailwind red */
 :root[data-accent="hoa"] {
   --b-50: 254 242 242;
   --b-100: 254 226 226;
@@ -199,7 +220,7 @@ h4 {
   }
 
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-page dark:hover:bg-brand-500;
+    @apply btn bg-brand-600 text-on-brand shadow-sm hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-page dark:hover:bg-brand-500;
   }
 
   .btn-secondary {
@@ -211,7 +232,7 @@ h4 {
   }
 
   .eyebrow {
-    @apply text-sm font-semibold uppercase tracking-wide text-brand-600;
+    @apply text-sm font-semibold uppercase tracking-wide text-brand-ink;
   }
 
   .card {

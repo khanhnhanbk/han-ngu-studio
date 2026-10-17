@@ -47,9 +47,9 @@ function WordDetails({
       <div className="flex items-start justify-between gap-4">
         <p className="font-semibold text-ink-900">
           {dict.hanviet.details}: <span className="hanzi text-xl">{word.hanzi}</span>{" "}
-          <span className="text-brand-600">{word.hanviet}</span>
+          <span className="text-brand-ink">{word.hanviet}</span>
         </p>
-        <button type="button" className="text-sm text-ink-700 hover:text-brand-600" onClick={onClose}>
+        <button type="button" className="text-sm text-ink-700 hover:text-brand-ink" onClick={onClose}>
           {dict.hanviet.close}
         </button>
       </div>
@@ -67,7 +67,7 @@ function WordDetails({
               <td className="hanzi py-2 pr-4 text-2xl">{row.char}</td>
               <td className="py-2 pr-4">
                 <span className="text-ink-700/70">{word.pinyin[i]}</span>{" "}
-                <span className="font-semibold text-brand-600">
+                <span className="font-semibold text-brand-ink">
                   {row.used.join(" / ") || "—"}
                 </span>
               </td>
@@ -217,7 +217,7 @@ export default function HanvietPage() {
                         }}
                         className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                           view === v
-                            ? "bg-brand-600 text-white"
+                            ? "bg-brand-600 text-on-brand"
                             : "bg-ink-50 text-ink-700 hover:bg-ink-900/5"
                         }`}
                       >
@@ -249,7 +249,7 @@ export default function HanvietPage() {
                                       {w.pinyin.join(" ")}
                                     </span>
                                     <span className="hanzi block text-2xl text-ink-900">{w.hanzi}</span>
-                                    <span className="block text-sm font-medium text-brand-600">
+                                    <span className="block text-sm font-medium text-brand-ink">
                                       {w.hanviet.replace(/_/g, " ")}
                                     </span>
                                   </button>
@@ -281,7 +281,7 @@ export default function HanvietPage() {
                             <dt className="text-sm text-ink-700/70">{dict.hanviet.rowPinyin}</dt>
                             <dd>{line.pinyin}</dd>
                             <dt className="text-sm text-ink-700/70">{dict.hanviet.rowHanviet}</dt>
-                            <dd className="font-medium text-brand-600">{line.hanviet}</dd>
+                            <dd className="font-medium text-brand-ink">{line.hanviet}</dd>
                           </dl>
                         ) : null,
                       )}

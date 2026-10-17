@@ -109,7 +109,8 @@ All copy lives in `lib/i18n/vi.ts`. To add English:
 
 - **Be Vietnam Pro** — UI text (full Vietnamese diacritics).
 - **Noto Sans SC** — Chinese glyphs (`.hanzi` class).
-- **LXGW WenKai TC** — Kai-style glyphs on practice sheets (`--font-kai`).
+- **Noto Serif SC** — default practice-sheet font (Song/printed style, `--font-noto-serif-sc`).
+- **LXGW WenKai TC** — Kai-style practice-sheet font and the fallback for missing glyphs (`--font-kai`).
 
 ## Credits
 

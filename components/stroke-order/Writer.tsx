@@ -149,7 +149,7 @@ export function Writer({ char, data }: { char: string; data: StrokeData }) {
   const tab = (active: boolean) =>
     "rounded-lg px-3 py-1.5 text-sm font-medium transition " +
     (active
-      ? "bg-brand-600 text-white"
+      ? "bg-brand-600 text-on-brand"
       : "text-ink-700 hover:bg-brand-50 hover:text-brand-700");
 
   return (

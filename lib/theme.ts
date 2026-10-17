@@ -1,5 +1,5 @@
 export type Mode = "light" | "dark" | "system";
-/** "default" is the original orange brand; the others follow Ngũ hành. */
+/** "default" is the gold brand (#D4AF37); the others follow Ngũ hành. */
 export type Accent = "default" | "kim" | "moc" | "thuy" | "hoa" | "tho";
 export type Theme = { mode: Mode; accent: Accent };
 
@@ -17,7 +17,7 @@ const LEGACY_ACCENTS: Record<string, Accent> = {
 
 /** Swatch colours for the picker (the accent's 600 shade, as in globals.css). */
 export const ACCENT_SWATCH: Record<Accent, string> = {
-  default: "#ea580c",
+  default: "#d4af37",
   kim: "#52525b",
   moc: "#16a34a",
   thuy: "#2563eb",

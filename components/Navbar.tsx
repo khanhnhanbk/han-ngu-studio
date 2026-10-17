@@ -32,7 +32,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-bold text-ink-900">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white hanzi text-lg">
+          <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-on-brand hanzi text-lg">
             汉
           </span>
           <span>Hán Ngữ Studio</span>
@@ -43,7 +43,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-600"
+              className="whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink"
             >
               {link.label}
             </a>
@@ -60,7 +60,7 @@ export function Navbar() {
               aria-expanded={toolsOpen}
               onClick={() => setToolsOpen((v) => !v)}
               {...chevron.triggerProps}
-              className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-600"
+              className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink"
             >
               {dict.nav.tools}
               <ChevronDownIcon
@@ -83,7 +83,7 @@ export function Navbar() {
                     key={tool.href}
                     href={tool.href}
                     role="menuitem"
-                    className="block whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50 hover:text-brand-600"
+                    className="block whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50 hover:text-brand-ink"
                   >
                     {tool.label}
                   </a>

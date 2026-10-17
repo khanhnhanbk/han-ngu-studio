@@ -42,7 +42,7 @@ function RubyLine({ line }: { line: PinyinLine }) {
             {seg.chars.map((ch, j) => (
               <ruby key={j}>
                 {ch}
-                <rt className="font-sans text-xs text-brand-600">{seg.syllables[j]}</rt>
+                <rt className="font-sans text-xs text-brand-ink">{seg.syllables[j]}</rt>
               </ruby>
             ))}
           </span>
@@ -205,7 +205,7 @@ export default function PinyinPage() {
                         }}
                         className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                           view === v
-                            ? "bg-brand-600 text-white"
+                            ? "bg-brand-600 text-on-brand"
                             : "bg-ink-50 text-ink-700 hover:bg-ink-900/5"
                         }`}
                       >
