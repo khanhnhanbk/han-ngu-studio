@@ -1,11 +1,15 @@
 import { lookupChar, toTone3, type HanvietData } from "@/lib/hanviet/lookup";
 import { convertLine } from "@/lib/pinyin/convert";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
+import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 
 import type { Meanings, Sentences, WubiTable } from "./load";
 import { wubiLine } from "./wubi";
 
-/** Columns in anki_desk.py's order, so existing note types still line up. */
+/**
+ * Columns in anki_desk.py's order, so existing note types still line up.
+ * The HSK columns come last for the same reason.
+ */
 export const COLUMNS = [
   "word",
   "pinyin",
@@ -15,6 +19,8 @@ export const COLUMNS = [
   "sentence_meaning",
   "wubi",
   "hanviet",
+  "hsk_level",
+  "meaning_vi",
 ] as const;
 
 export type Column = (typeof COLUMNS)[number];
@@ -26,6 +32,7 @@ export type DeckData = {
   meanings: Meanings;
   sentences: Sentences;
   wubi: WubiTable;
+  vocab: VocabData;
 };
 
 export const MAX_WORDS = 1000;
@@ -66,11 +73,14 @@ export function buildRow(data: DeckData, word: string): DeckRow {
   const syllableOpts = { toneStyle: "mark", spacing: "syllable" } as const;
   const id = Object.hasOwn(data.sentences.index, word) ? data.sentences.index[word] : undefined;
   const [sentence, vi, en] = id === undefined ? ["", "", ""] : data.sentences.rows[id];
+  // Syllables separated by spaces, as get_pinyin_line produced ("dà xué").
+  const pinyin = convertLine(data.tokenizer, word, syllableOpts).text;
+  // The word's own reading picks the HSK entry (好 hǎo, not hào).
+  const hsk = vocabFor(data.vocab, word, pinyin);
 
   return {
     word,
-    // Syllables separated by spaces, as get_pinyin_line produced ("dà xué").
-    pinyin: convertLine(data.tokenizer, word, syllableOpts).text,
+    pinyin,
     meaning: Object.hasOwn(data.meanings, word) ? data.meanings[word] : "",
     sentence,
     // Generated from the whole sentence (owner decision): the sheet's own
@@ -82,6 +92,8 @@ export function buildRow(data: DeckData, word: string): DeckRow {
     sentence_meaning: vi || en,
     wubi: wubiLine(data.wubi, word),
     hanviet: hanvietLine(data, word),
+    hsk_level: hsk?.level ?? "",
+    meaning_vi: hsk?.meaning ?? "",
   };
 }
 
@@ -94,6 +106,7 @@ export function missing(rows: readonly DeckRow[]) {
   return {
     meaning: rows.filter((r) => !r.meaning).map((r) => r.word),
     sentence: rows.filter((r) => !r.sentence).map((r) => r.word),
+    vocab: rows.filter((r) => !r.hsk_level).map((r) => r.word),
   };
 }
 

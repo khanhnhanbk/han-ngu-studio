@@ -13,7 +13,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Word segmentation | `/tools/segment` | Live, client-side (`lib/segment/`, word list in `public/data/word_list.txt`) |
 | Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
 | Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
-| Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, data in `public/data/{meanings,sentences,wubi}.json`) |
+| Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt, HSK level, Vietnamese meaning) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, `lib/vocab/`, data in `public/data/{meanings,sentences,wubi,vocab}.json`) |
 | Vocabulary quiz (meaning, Pinyin, Hán Việt, cloze, sentence ordering) → play, print, TSV | `/tools/quiz` | Live, client-side (`lib/quiz/`, sentences from `public/data/sentences.json`) |
 | 214 Kangxi radicals (search, variants, example characters) | `/tools/radicals` | Live, client-side (`lib/radicals/`, data in `public/data/radicals.json`) |
 | N+1 sentence ordering (one new word per sentence) | `/tools/comprehensible-input` | Live, client-side |
@@ -70,7 +70,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 ## Data sources and credits
 
-- Meanings: CC-CEDICT (CC BY-SA 4.0). Wubi 86: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`). Example sentences: owner's own data.
+- Meanings: CC-CEDICT (CC BY-SA 4.0) for English. HSK 3.0 levels and Vietnamese meanings: owner's own data (`assets/dictionary/vocab_hsk_vi.csv` → `public/data/vocab.json`, looked up with `lib/vocab/`), credited as "Hán Ngữ Studio (danh sách từ vựng HSK 3.0)". Wubi 86: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`). Example sentences: owner's own data.
 - Sheet fonts: LXGW WenKai TC, Ma Shan Zheng, Noto Serif SC, Noto Sans SC (SIL OFL), self-hosted by `next/font/google` (`app/layout.tsx`, `app/tools/practice-sheet/fonts.ts`). User-uploaded fonts are loaded with `FontFace` in the browser only.
 - Stroke order: Hanzi Writer 3.7.3 (MIT) for animation/quiz, with `charDataLoader` reading our own files (never its CDN). Characters passed between pages go in the URL hash (`#c=`, `#chars=…&strokes=1`), never the query string, so they are not sent to the server.
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.

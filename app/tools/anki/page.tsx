@@ -19,6 +19,7 @@ import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer } from "@/lib/segment/load";
+import { loadVocab } from "@/lib/vocab/load";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
@@ -30,7 +31,7 @@ const dict = getDictionary("vi");
 const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 
 // Wider inputs for the long text columns.
-const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning"]);
+const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning", "meaning_vi"]);
 
 export default function AnkiPage() {
   const [text, setText] = useState(SAMPLE);
@@ -73,14 +74,15 @@ export default function AnkiPage() {
     }
     setLoading(true);
     try {
-      const [tokenizer, hanviet, meanings, sentences, wubi] = await Promise.all([
+      const [tokenizer, hanviet, meanings, sentences, wubi, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
         loadSentences(),
         loadWubi(),
+        loadVocab(),
       ]);
-      setRows(buildDeck({ tokenizer, hanviet, meanings, sentences, wubi }, parsed.words));
+      setRows(buildDeck({ tokenizer, hanviet, meanings, sentences, wubi, vocab }, parsed.words));
       setDuplicates(parsed.duplicates);
     } catch {
       setError(dict.anki.loadFailed);
@@ -214,7 +216,10 @@ export default function AnkiPage() {
                     </div>
                   )}
 
-                  {(notFound.meaning.length > 0 || notFound.sentence.length > 0 || duplicates > 0) && (
+                  {(notFound.meaning.length > 0 ||
+                    notFound.sentence.length > 0 ||
+                    notFound.vocab.length > 0 ||
+                    duplicates > 0) && (
                     <div className="mt-6 rounded-lg border border-brand-200 bg-brand-50 p-4 text-sm text-ink-700">
                       <p className="font-semibold text-ink-900">{dict.anki.missingTitle}</p>
                       {notFound.meaning.length > 0 && (
@@ -226,6 +231,11 @@ export default function AnkiPage() {
                         <p className="mt-1">
                           {dict.anki.missingSentence}:{" "}
                           <span className="hanzi">{notFound.sentence.join("、")}</span>
+                        </p>
+                      )}
+                      {notFound.vocab.length > 0 && (
+                        <p className="mt-1">
+                          {dict.anki.missingVocab}: <span className="hanzi">{notFound.vocab.join("、")}</span>
                         </p>
                       )}
                       {duplicates > 0 && (

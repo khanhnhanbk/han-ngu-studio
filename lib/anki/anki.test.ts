@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
+import type { VocabData } from "@/lib/vocab/lookup";
 
 import golden from "./__golden__/deck.json";
 import { buildRow, COLUMNS, missing, parseWords, toTsv, type DeckData } from "./buildDeck";
@@ -20,6 +21,7 @@ const data: DeckData = {
   meanings: json<Meanings>("meanings.json"),
   sentences: json<Sentences>("sentences.json"),
   wubi: json<WubiTable>("wubi.json"),
+  vocab: json<VocabData>("vocab.json"),
 };
 
 describe("buildRow (golden: anki_desk.py logic with owner fixes, pywubi 0.3.0)", () => {
@@ -64,6 +66,13 @@ describe("buildRow formats", () => {
   it("joins several Hán Việt readings with /", () => {
     expect(buildRow(data, "当").hanviet).toBe("đương/đang");
   });
+
+  it("adds the HSK level and Vietnamese meaning for the word's own reading", () => {
+    expect(buildRow(data, "大学")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "đại học, trường đại học" });
+    // 好 alone reads hǎo, so hào's level-4 meaning is left out.
+    expect(buildRow(data, "好")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "tốt; rất" });
+    expect(buildRow(data, "髮")).toMatchObject({ hsk_level: "", meaning_vi: "" });
+  });
 });
 
 describe("wubiLine", () => {
@@ -82,9 +91,9 @@ describe("parseWords", () => {
 });
 
 describe("missing", () => {
-  it("lists words with no meaning or no sentence", () => {
+  it("lists words with no meaning, no sentence or no HSK entry", () => {
     const rows = ["大学", "髮"].map((w) => buildRow(data, w));
-    expect(missing(rows)).toEqual({ meaning: ["髮"], sentence: ["髮"] });
+    expect(missing(rows)).toEqual({ meaning: ["髮"], sentence: ["髮"], vocab: ["髮"] });
   });
 });
 
@@ -103,7 +112,7 @@ describe("toTsv", () => {
     ]);
   });
 
-  it("keeps anki_desk.py's column order", () => {
+  it("keeps anki_desk.py's column order, with the HSK columns last", () => {
     expect(COLUMNS).toEqual([
       "word",
       "pinyin",
@@ -113,6 +122,8 @@ describe("toTsv", () => {
       "sentence_meaning",
       "wubi",
       "hanviet",
+      "hsk_level",
+      "meaning_vi",
     ]);
   });
 });

@@ -1,87 +1,91 @@
-# New defaults: gold accent (#D4AF37) and Noto Serif SC on the practice sheet
+# HSK 3.0 level and Vietnamese meaning (vocab_hsk_vi.csv) in Anki and the quiz
 
 ## Context
 
-The owner wants two new defaults:
-1. The default accent colour becomes **#D4AF37** (metallic gold) instead of orange.
-2. The practice sheet's default character font becomes **Tống thể (chữ in) – Noto Serif SC** instead of LXGW WenKai.
+The owner added `assets/dictionary/vocab_hsk_vi.csv`: 10,925 rows of `level, hanzi, pinyin, meaning` (HSK 3.0 levels
+1–6 and "7-9", Vietnamese meanings). Today the only meanings are CC-CEDICT **English** (`public/data/meanings.json`).
+The owner wants:
+- **Anki**: two new fields, the HSK level and the Vietnamese meaning.
+- **Trắc nghiệm**: use the Vietnamese meaning.
 
-Decisions (asked):
-- **Exact gold with dark text.** Buttons, the logo and selected tabs are filled with exactly #D4AF37 and use dark text.
-  White on #D4AF37 is only 2.1:1; dark ink (#0F172A) on it is 8.4:1. The other accents (Kim, Mộc, Thủy, Hỏa, Thổ)
-  keep white text and look exactly as before.
-- **Font: practice sheet only.** Characters elsewhere stay in Noto Sans SC. Anyone with a saved font choice keeps it
-  (localStorage wins over the default).
+Decisions (asked): only Anki and the quiz change. The level is written "HSK 1" … "HSK 7-9". Credit: "Hán Ngữ Studio,
+theo danh sách từ vựng HSK 3.0".
 
-A second readability problem: `text-brand-600` is used as text colour on the page about 15 times (eyebrows, links,
-Hán Việt readings). Gold text on white is also 2.1:1, so the default accent needs a darker gold for text.
+Data facts that shape the design:
+- 129 words appear more than once, for different levels or senses (多 1 "nhiều" / 2 "bao nhiêu"), or different
+  readings (好 hǎo 1 "tốt", hǎo 2 "rất", hào 4 "thích, ưa"; 干 gān / gàn).
+- 44 words have an optional 儿, written `好玩{儿}`.
+- No empty meanings. All levels are in {1, 2, 3, 4, 5, 6, 7-9}.
 
-## 1. Theme tokens (`app/globals.css`, `tailwind.config.ts`)
+## 1. Data build (`scripts/build-data.mjs` → `public/data/vocab.json`)
 
-Default accent palette `--b-*` (light), replacing Tailwind orange; 600 is the requested colour:
+- `buildVocab()`: read the CSV with the existing `readCsv` (it handles BOM and quoted fields). Output
+  `{ word: [[level, pinyin, meaning], …] }` with entries in file order (lowest level first).
+- `{儿}`: a key for the plain form (`好玩`) and for the 儿 form (`好玩儿`), each added only when no row already has
+  that exact word (an exact row always wins).
+- Throw on an unknown level or an empty hanzi or meaning. Log the size; expect about 0.6 MB, under the 1.5 MB per-file
+  rule. Commit the output.
 
-| step | RGB | hex | role |
-|---|---|---|---|
-| 50 | 252 248 232 | #FCF8E8 | tinted panels |
-| 100 | 248 239 204 | #F8EFCC | |
-| 200 | 240 225 160 | #F0E1A0 | borders |
-| 300 | 230 207 112 | #E6CF70 | grid lines |
-| 400 | 221 190 76 | #DDBE4C | focus rings, highlight |
-| 500 | 216 182 63 | #D8B63F | borders, dark-mode hover |
-| **600** | **212 175 55** | **#D4AF37** | fills (buttons, logo) |
-| 700 | 138 109 31 | #8A6D1F | text on tints (4.9:1 on white) |
-| 800 | 112 88 25 | #705819 | |
-| 900 | 84 66 19 | #544213 | |
-| 950 | 46 36 10 | #2E240A | dark-mode tints |
+## 2. Lookup (`lib/vocab/`)
 
-Three new semantic tokens, so the gold-specific needs don't change the other accents:
-- `--on-brand`: text on a `brand-600` fill. `:root` = white (255 255 255); default accent
-  (`:root:not([data-accent])`) = ink 15 23 42. Tailwind colour `on-brand`.
-- `--brand-ink`: brand-coloured text on the page. `:root` = `var(--brand-600)` (other accents unchanged);
-  default accent in light mode (`:root:not([data-accent]):not(.dark)`) = `var(--b-700)`. In dark mode, gold on the
-  dark page is already readable. Tailwind colour `brand-ink`.
-- `--brand-hover`: primary-button hover fill. `:root` = `var(--brand-700)`; default accent in light mode =
-  190 155 45 (#BE9B2D, 6.4:1 with dark text; #8A6D1F would be only 3.6:1). Tailwind colour `brand-hover`.
-  The dark-mode hover (`dark:hover:bg-brand-500`) stays.
+- `load.ts`: `loadVocab()`, memoised like `loadMeanings` (`lib/anki/load.ts`).
+- `lookup.ts`: `vocabFor(data, word, pinyin?) → { level: string; meaning: string } | null`.
+  - Entries for the word. If `pinyin` is given, keep the entries whose Pinyin matches it after normalising: NFC,
+    lower case, no spaces or apostrophes, and erhua `wánr` treated the same as `wán er`. If none match, keep all entries
+    (no guessing which reading was meant, but the data is still shown).
+  - `level`: the lowest level among the kept entries ("HSK 1"; "7-9" sorts last).
+  - `meaning`: distinct meanings in file order, joined with "; " (老 "già" listed twice → once).
+- Tests `lib/vocab/vocab.test.ts`, against the real `public/data/vocab.json`:
+  - 好 with hǎo → "HSK 1", "tốt; rất". With hào → "HSK 4", "thích, ưa (…)".
+  - 好玩 and 好玩儿 both found.
+  - A word not in the list → null.
+  - 7-9 counts as the highest level.
 
-Update the comments ("orange (default)" → gold; the Hỏa comment).
+## 3. Anki (`lib/anki/buildDeck.ts`, `app/tools/anki/page.tsx`)
 
-## 2. Use the tokens (mechanical)
+- `COLUMNS` gets `hsk_level` and `meaning_vi` **at the end**, so note types built for the current 8 columns still line
+  up (the comment there already says column order matters). They are ticked by default like the other columns.
+- `DeckData` gets `vocab`. `buildRow` sets
+  `hsk_level` / `meaning_vi = vocabFor(data.vocab, word, row.pinyin)` (the row's own Pinyin, so 好 gets hǎo's level and
+  meanings), or "" when the word is not in the list.
+- `missing()` adds `vocab`: words not in the list. The page shows "Chưa có trong danh sách HSK: …" in the existing
+  "Không tìm thấy" box.
+- `lib/i18n/vi.ts`: `anki.columns.hsk_level` "Cấp HSK", `meaning_vi` "Nghĩa tiếng Việt", `missingVocab`. Credits add
+  "Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0)". The `meaning_vi` input is wide (`WIDE`).
+- Tests (`lib/anki/anki.test.ts`): update the `COLUMNS` assertion. 大学 and 好 rows get the expected level and
+  meaning. A word outside the list gets empty fields and appears in `missing().vocab`. The golden test is unaffected
+  (it checks fields one by one).
 
-- `text-white` on a `bg-brand-600` fill → `text-on-brand`: `.btn-primary` (`app/globals.css`), the Navbar and Footer
-  logo squares, the HowItWorks step numbers, the Roadmap "next" badge, selected toggles in `app/tools/hanviet/page.tsx`
-  and `app/tools/pinyin/page.tsx`, and the Writer tab (`components/stroke-order/Writer.tsx`). Find them all with
-  `git grep "bg-brand-600"`.
-- `.btn-primary` hover `hover:bg-brand-700` → `hover:bg-brand-hover`.
-- Solid text `text-brand-600` / `text-brand-500` → `text-brand-ink` (`git grep -n "text-brand-[56]00\b"`). Leave
-  faded decorative ones (`text-brand-500/40` in Hero) and `text-brand-700` on tints (700 is now dark gold).
-- Not touched: the CTA section (white text on a dark panel), Hanzi Writer colours (`--brand-400/600` for
-  strokes; gold strokes on white are decorative), and the practice sheet's own "orange" grid colour option
-  (`lib/practiceSheet.ts`; a print colour choice, not the theme).
+## 4. Quiz (`lib/quiz/build.ts`, `app/tools/quiz/page.tsx`)
 
-## 3. Theme picker and docs
+- `QuizData` gets `vocab`. Meaning priority in `describe()`: the user's Tab meaning, then the HSK Vietnamese meaning
+  (`vocabFor(…, pinyin)`, shortened with the existing `shortMeaning`), then CC-CEDICT English.
+- Replace the `userMeaning` flag with `lang: "vi" | "en"` (user and HSK = "vi", CC-CEDICT = "en"). Wrong options for
+  Chữ Hán → Nghĩa come only from the same language, so English never gives the answer away among Vietnamese options.
+- Fallback pool: the first 300 HSK words (lowest levels) **plus** the current 300 most frequent CC-CEDICT words,
+  deduplicated, so both languages have enough wrong options.
+- Text: `quiz.meaningNote` → "Nghĩa mặc định là tiếng Việt theo danh sách từ vựng HSK 3.0; từ không có trong danh sách
+  dùng nghĩa tiếng Anh (CC-CEDICT). Muốn dùng nghĩa riêng, ghi sau dấu Tab…". Credits add the HSK list.
+- Tests (`lib/quiz/build.test.ts`): right answers now expect the Vietnamese meaning (朋友 → its HSK meaning). Same-
+  language wrong options. The "cross-reference only" skip test moves to a word that is not in the HSK list (行 now
+  has a Vietnamese meaning). A user Tab meaning still wins.
 
-- `lib/theme.ts`: `ACCENT_SWATCH.default = "#d4af37"`; comment "original orange brand" → gold. Keep the legacy
-  `orange → default` mapping (old saved values still load).
-- `lib/i18n/vi.ts`: `accentHints.default` "Mặc định – cam" → "Mặc định – vàng kim".
-- `userguide/README.md`: the **Mặc định** row "Cam (màu gốc của trang)" → "Vàng kim (màu gốc của trang)".
-- `lib/theme.test.ts`: update only if it asserts the swatch.
+## 5. Docs
 
-## 4. Practice sheet default font
-
-- `app/tools/practice-sheet/page.tsx`: `DEFAULTS.fontId` `"wenkai"` → `"notoSerif"`. The fallback stack in
-  `lib/sheetFonts.ts` (Kai fonts for glyphs Noto Serif SC lacks) stays as is.
-- `userguide/practice-sheet.md`: mark **Tống thể (chữ in) – Noto Serif SC** as the default instead of WenKai.
-- Check `lib/sheetFonts.test.ts` / `lib/practiceSheet.test.ts` for an assertion on the default.
+- `userguide/anki.md`: the two new columns in the column table (example 大学), the note-type tip lists 10 fields, and a
+  note that a note type with only 8 fields should untick the two new columns (or get two more fields). Add a "Lỗi thường
+  gặp" row for that and a data-source line.
+- `userguide/quiz.md`: Vietnamese meanings by default (example table: 大学 → đại học), the English fallback, data source.
+- `CLAUDE.md` data sources: the HSK list (source file, build output, credit). The Anki tools-table row mentions HSK level
+  and Vietnamese meaning.
 
 ## Verification
 
-- `pnpm run lint`, `pnpm test`, `pnpm run build`.
-- Browser (Playwright in the scratchpad) with a fresh profile (no saved theme):
-  - The computed background of `.btn-primary` is rgb(212, 175, 55), its text is dark, and contrast is ≥ 4.5 (also on
-    hover). Eyebrow and link text uses #8A6D1F.
-  - Screenshots of the landing page, /tools/quiz and /tools/stroke-order in light and dark mode.
-  - Switch to Hỏa and Thủy: buttons are red/blue with white text, as before.
-  - /tools/practice-sheet (fresh profile): the font picker shows Tống thể – Noto Serif SC, and the sheet renders
-    in it. With a saved `wenkai` choice in localStorage, WenKai is still used.
-- Commit on main: `feat(theme): gold default accent and Noto Serif SC sheet font`. Ask before pushing.
+- `pnpm build:data`: only `vocab.json` is new; the other data files are unchanged (`git status public/data`).
+- `pnpm test`, `pnpm run lint`, `pnpm run build`.
+- Browser (Playwright in the scratchpad):
+  - /tools/anki with 大学, 好, 好玩儿 and one non-HSK word: the preview shows the "Cấp HSK" and "Nghĩa tiếng Việt"
+    columns, the downloaded TSV has 10 columns, and the non-HSK word is listed under "Chưa có trong danh sách HSK".
+  - /tools/quiz with the sample: Chữ Hán → Nghĩa options are Vietnamese.
+  - No external requests.
+- Commit on main: `feat(vocab): HSK 3.0 level and Vietnamese meaning in Anki and the quiz`. Ask before pushing.
