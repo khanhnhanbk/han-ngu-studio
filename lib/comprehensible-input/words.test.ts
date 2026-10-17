@@ -27,19 +27,25 @@ describe("extractWords", () => {
 });
 
 describe("pyWordMatch", () => {
-  it("accepts letters, digits, underscore, marks", () => {
-    for (const s of ["a", "7", "_", "é", "é", "٣", "Ⅷ", "²", "中"]) expect(pyWordMatch(s)).toBe(true);
+  it("accepts letters, digits, underscore", () => {
+    for (const s of ["a", "7", "_", "\u00e9", "٣", "Ⅷ", "²", "中"]) expect(pyWordMatch(s)).toBe(true);
   });
-  it("rejects punctuation, spaces and empty", () => {
-    for (const s of ["，", ".", " ", "", "a b"]) expect(pyWordMatch(s)).toBe(false);
+  it("rejects punctuation, spaces, empty and combining marks (not isalnum in Python)", () => {
+    for (const s of ["，", ".", " ", "", "a b", "e\u0301", "\u0301"]) expect(pyWordMatch(s)).toBe(false);
   });
 });
 
 describe("parseSentences", () => {
   it("skips blank lines but keeps original line numbers", () => {
     expect(parseSentences("我爱\n\n  \r\n学习\r\n")).toEqual([
-      { idx: 1, text: "我爱" },
-      { idx: 4, text: "学习" },
+      { idx: 0, text: "我爱" },
+      { idx: 3, text: "学习" },
+    ]);
+  });
+  it("treats a lone \\r as a line break (Python universal newlines)", () => {
+    expect(parseSentences("我\r爱")).toEqual([
+      { idx: 0, text: "我" },
+      { idx: 1, text: "爱" },
     ]);
   });
 });

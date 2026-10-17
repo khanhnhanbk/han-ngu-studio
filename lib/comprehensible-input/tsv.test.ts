@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { toTsv, TSV_FILENAME } from "./tsv";
 
-const row = (sentence: string, newWords: string[] | string = "", unknownCount = 0) => ({
+const row = (sentence: string, newWords: string[] | string = "", unknownCount = 0, idx = 0) => ({
+  idx,
   sentence,
   newWords,
   unknownCount,
@@ -16,8 +17,8 @@ describe("toTsv", () => {
   });
 
   it("leaves normal fields unquoted with \\n endings", () => {
-    const out = toTsv([row("我爱你", ["爱", "你"], 2), row("你好")]);
-    expect(out).toContain("\n0\t我爱你\t爱 你\t2\n");
+    const out = toTsv([row("我爱你", ["爱", "你"], 2, 7), row("你好", "", 0, 2)]);
+    expect(out).toBe("\uFEFFidx\tsentence\tnew_words\tunknown_count\n7\t我爱你\t爱,你\t2\n2\t你好\t\t0\n");
     expect(out).not.toContain("\r");
     expect(out.endsWith("\n")).toBe(true);
   });
