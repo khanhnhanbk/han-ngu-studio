@@ -264,4 +264,13 @@ h4 {
   .sheet-page:last-child {
     break-after: auto;
   }
+
+  /* Quiz worksheet: flowing text needs real margins on every page. */
+  @page quiz {
+    margin: 15mm;
+  }
+
+  .quiz-print {
+    page: quiz;
+  }
 }

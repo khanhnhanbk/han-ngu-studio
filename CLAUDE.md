@@ -14,9 +14,8 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
 | Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
 | Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, data in `public/data/{meanings,sentences,wubi}.json`) |
-| Vocabulary quiz (multiple choice: meaning, Pinyin, Hán Việt) | `/tools/quiz` | Live, client-side (`lib/quiz/`) |
+| Vocabulary quiz (meaning, Pinyin, Hán Việt, cloze, sentence ordering) → play, print, TSV | `/tools/quiz` | Live, client-side (`lib/quiz/`, sentences from `public/data/sentences.json`) |
 | 214 Kangxi radicals (search, variants, example characters) | `/tools/radicals` | Live, client-side (`lib/radicals/`, data in `public/data/radicals.json`) |
-| Cloze exercise generator | | Not built (phase 7b, `docs/plans/2026-10-17-phase-7-quiz.md`) |
 | N+1 sentence ordering (one new word per sentence) | `/tools/comprehensible-input` | Live, client-side |
 
 ## HARD RULES

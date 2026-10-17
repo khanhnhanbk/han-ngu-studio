@@ -1,12 +1,12 @@
 "use client";
 
 import { getDictionary } from "@/lib/i18n";
-import type { Question } from "@/lib/quiz/types";
+import type { ChoiceQuestion } from "@/lib/quiz/types";
 
 const dict = getDictionary("vi");
 
 /** Kinds whose prompt is a Chinese word (the rest show a meaning). */
-const HAN_PROMPT = new Set<Question["kind"]>(["hanToMeaning", "hanToPinyin", "hanToHanviet"]);
+const HAN_PROMPT = new Set<ChoiceQuestion["kind"]>(["hanToMeaning", "hanToPinyin", "hanToHanviet"]);
 
 /**
  * One multiple-choice question. Once an option is chosen the answer is
@@ -17,23 +17,32 @@ export function QuestionCard({
   chosen,
   onChoose,
 }: {
-  question: Question;
+  question: ChoiceQuestion;
   chosen: number | null;
   onChoose: (index: number) => void;
 }) {
   const answered = chosen !== null;
-  const hanOptions = question.kind === "meaningToHan";
+  const hanOptions = question.kind === "meaningToHan" || question.kind === "cloze";
 
   return (
     <div>
       <p className="text-sm font-medium text-ink-700">{dict.quiz.prompts[question.kind]}</p>
       <p
         className={`mt-3 text-center text-ink-900 ${
-          HAN_PROMPT.has(question.kind) ? "hanzi text-5xl font-semibold" : "text-xl font-medium"
+          HAN_PROMPT.has(question.kind)
+            ? "hanzi text-5xl font-semibold"
+            : question.kind === "cloze"
+              ? "hanzi text-3xl"
+              : "text-xl font-medium"
         }`}
       >
         {question.prompt}
       </p>
+      {question.hint && (
+        <p className="mt-2 text-center text-sm text-ink-700">
+          {dict.quiz.hintLabel}: {question.hint}
+        </p>
+      )}
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {question.options.map((option, i) => {
