@@ -1,5 +1,6 @@
 import { getDictionary } from "@/lib/i18n";
 import { TOOLS } from "@/lib/links";
+import { ToolCard } from "./ToolCard";
 
 const dict = getDictionary("vi");
 
@@ -19,17 +20,14 @@ export function Features() {
           {TOOLS.map((tool) => {
             const item = dict.features.items[tool.id];
             return (
-              <a key={tool.id} href={tool.href} className="card group flex flex-col">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-lg hanzi text-brand-700">
-                  {tool.icon}
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-ink-900">{item.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-ink-700">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-600 group-hover:text-brand-700">
-                  {item.cta}
-                  <span aria-hidden>→</span>
-                </span>
-              </a>
+              <ToolCard
+                key={tool.id}
+                id={tool.id}
+                href={tool.href}
+                title={item.title}
+                description={item.description}
+                cta={item.cta}
+              />
             );
           })}
         </div>

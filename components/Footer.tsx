@@ -62,7 +62,15 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink-900/5 pt-6 sm:flex-row">
           <p className="text-xs text-ink-700/60">
-            © {year} Hán Ngữ Studio. {dict.footer.rights}
+            © {year} Hán Ngữ Studio. {dict.footer.rights}{" "}
+            <a
+              href="https://github.com/Avijit07x/animateicons"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-600"
+            >
+              {dict.footer.iconCredit}
+            </a>
           </p>
           <div className="flex items-center gap-2 text-xs text-ink-700/60">
             <span>{dict.footer.languageLabel}:</span>

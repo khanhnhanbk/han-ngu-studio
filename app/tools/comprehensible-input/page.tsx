@@ -12,6 +12,8 @@ import { extractWords, parseKnownWords, parseSentences } from "@/lib/comprehensi
 import { downloadText } from "@/lib/download";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer, loadWordListLines } from "@/lib/segment/load";
+import { DownloadIcon } from "@/components/icons/download";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi").comprehensibleInput;
 
@@ -116,9 +118,9 @@ export default function ComprehensibleInputPage() {
                   {loading ? dict.loading : dict.button}
                 </button>
                 {rows.length > 0 && (
-                  <button type="button" className="btn-secondary" onClick={handleDownload}>
+                  <IconButton icon={DownloadIcon} className="btn-secondary" onClick={handleDownload}>
                     {dict.download}
-                  </button>
+                  </IconButton>
                 )}
               </div>
 
@@ -225,9 +227,9 @@ export default function ComprehensibleInputPage() {
                   {rows.length > limit && (
                     <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-ink-700">
                       <p>{dict.truncated(limit, rows.length)}</p>
-                      <button type="button" className="btn-secondary" onClick={handleDownload}>
+                      <IconButton icon={DownloadIcon} className="btn-secondary" onClick={handleDownload}>
                         {dict.download}
-                      </button>
+                      </IconButton>
                     </div>
                   )}
                 </div>

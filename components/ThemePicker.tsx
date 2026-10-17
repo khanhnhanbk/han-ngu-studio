@@ -14,24 +14,17 @@ import {
   type Theme,
 } from "@/lib/theme";
 
-const dict = getDictionary("vi");
+import { PaletteIcon } from "./icons/palette";
+import { useIconTrigger } from "./icons/trigger";
 
-function PaletteIcon() {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8}>
-      <path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.9 1.4-1.9-.3-1 .4-2.1 1.5-2.1H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10Z" />
-      <circle cx="7.5" cy="11" r="1.2" fill="currentColor" />
-      <circle cx="10.5" cy="7" r="1.2" fill="currentColor" />
-      <circle cx="15" cy="7.5" r="1.2" fill="currentColor" />
-    </svg>
-  );
-}
+const dict = getDictionary("vi");
 
 /** Theme settings (mode + accent); `inline` renders the panel without a toggle button. */
 export function ThemePicker({ inline = false }: { inline?: boolean }) {
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const palette = useIconTrigger();
 
   // The init script already applied the saved theme; sync state with it.
   useEffect(() => setTheme(readTheme()), []);
@@ -132,9 +125,10 @@ export function ThemePicker({ inline = false }: { inline?: boolean }) {
         aria-label={dict.theme.button}
         title={dict.theme.button}
         onClick={() => setOpen((v) => !v)}
+        {...palette.triggerProps}
         className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-ink-700 transition hover:text-brand-600"
       >
-        <PaletteIcon />
+        <PaletteIcon ref={palette.ref} size={20} aria-hidden />
         <span className="hidden xl:inline">{dict.theme.button}</span>
       </button>
       {open && (

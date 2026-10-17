@@ -5,6 +5,10 @@ import { useState } from "react";
 import { getDictionary } from "@/lib/i18n";
 import { TOOLS } from "@/lib/links";
 
+import { ChevronDownIcon } from "./icons/chevron-down";
+import { MenuIcon } from "./icons/menu";
+import { useIconTrigger } from "./icons/trigger";
+import { XIcon } from "./icons/x";
 import { ThemePicker } from "./ThemePicker";
 
 const dict = getDictionary("vi");
@@ -12,6 +16,8 @@ const dict = getDictionary("vi");
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const chevron = useIconTrigger();
+  const menu = useIconTrigger();
 
   const links = [
     { href: "/#features", label: dict.nav.features },
@@ -53,12 +59,16 @@ export function Navbar() {
               aria-haspopup="menu"
               aria-expanded={toolsOpen}
               onClick={() => setToolsOpen((v) => !v)}
+              {...chevron.triggerProps}
               className="flex items-center gap-1 whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-600"
             >
               {dict.nav.tools}
-              <span aria-hidden className="text-xs">
-                ▾
-              </span>
+              <ChevronDownIcon
+                ref={chevron.ref}
+                size={14}
+                aria-hidden
+                className={`transition-transform ${toolsOpen ? "rotate-180" : ""}`}
+              />
             </button>
             {/* pt-2 bridges the gap so hover isn't lost moving into the panel */}
             <div
@@ -94,9 +104,15 @@ export function Navbar() {
           type="button"
           aria-label="Menu"
           className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10 lg:hidden"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
+          {...menu.triggerProps}
         >
-          <span className="text-xl">{open ? "✕" : "☰"}</span>
+          {open ? (
+            <XIcon ref={menu.ref} size={20} aria-hidden />
+          ) : (
+            <MenuIcon ref={menu.ref} size={20} aria-hidden />
+          )}
         </button>
       </div>
 

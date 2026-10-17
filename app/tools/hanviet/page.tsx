@@ -16,6 +16,10 @@ import {
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
+import { CheckIcon } from "@/components/icons/check";
+import { CopyIcon } from "@/components/icons/copy";
+import { DownloadIcon } from "@/components/icons/download";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -301,27 +305,27 @@ export default function HanvietPage() {
 
                   {view !== "words" && (
                     <div className="mt-4 flex flex-wrap gap-3">
-                      <button type="button" className="btn-secondary" onClick={handleCopy}>
+                      <IconButton icon={copied ? CheckIcon : CopyIcon} className="btn-secondary" onClick={handleCopy}>
                         {copied ? dict.hanviet.copied : dict.hanviet.copy}
-                      </button>
+                      </IconButton>
                       {view === "text" ? (
-                        <button
-                          type="button"
+                        <IconButton
+                          icon={DownloadIcon}
                           className="btn-secondary"
                           onClick={() => downloadText(plain, "hanviet.txt")}
                         >
                           {dict.hanviet.downloadTxt}
-                        </button>
+                        </IconButton>
                       ) : (
-                        <button
-                          type="button"
+                        <IconButton
+                          icon={DownloadIcon}
                           className="btn-secondary"
                           onClick={() =>
                             downloadText(tsv, "hanviet.tsv", "text/tab-separated-values")
                           }
                         >
                           {dict.hanviet.downloadTsv}
-                        </button>
+                        </IconButton>
                       )}
                     </div>
                   )}

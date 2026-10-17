@@ -1,5 +1,8 @@
 import { getDictionary } from "@/lib/i18n";
 import { TOOLS } from "@/lib/links";
+import { CheckPoint } from "./CheckPoint";
+import { ArrowRightIcon } from "./icons/arrow-right";
+import { IconLink } from "./icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -15,22 +18,14 @@ export function ForTeachers() {
           <p className="mt-4 text-lg text-ink-700">
             {dict.forTeachers.subtitle}
           </p>
-          <a href={TOOLS[0].href} className="btn-primary mt-8">
+          <IconLink href={TOOLS[0].href} icon={ArrowRightIcon} iconAfter className="btn-primary mt-8">
             {dict.forTeachers.cta}
-          </a>
+          </IconLink>
         </div>
 
         <ul className="grid gap-4">
           {dict.forTeachers.points.map((point) => (
-            <li
-              key={point}
-              className="flex items-start gap-3 rounded-xl border border-ink-900/10 bg-surface p-4 shadow-sm"
-            >
-              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-100 text-sm text-brand-700">
-                ✓
-              </span>
-              <span className="text-sm text-ink-700">{point}</span>
-            </li>
+            <CheckPoint key={point}>{point}</CheckPoint>
           ))}
         </ul>
       </div>

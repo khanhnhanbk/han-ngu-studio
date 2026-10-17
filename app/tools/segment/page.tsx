@@ -8,6 +8,10 @@ import { downloadText } from "@/lib/download";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer } from "@/lib/segment/load";
 import { joinTokens, segment } from "@/lib/segment/tokenizer";
+import { CheckIcon } from "@/components/icons/check";
+import { CopyIcon } from "@/components/icons/copy";
+import { DownloadIcon } from "@/components/icons/download";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -103,20 +107,20 @@ export default function SegmentPage() {
                     {result}
                   </div>
                   <div className="mt-4 flex flex-wrap gap-3">
-                    <button
-                      type="button"
+                    <IconButton
+                      icon={copied ? CheckIcon : CopyIcon}
                       className="btn-secondary"
                       onClick={handleCopy}
                     >
                       {copied ? dict.segment.copied : dict.segment.copy}
-                    </button>
-                    <button
-                      type="button"
+                    </IconButton>
+                    <IconButton
+                      icon={DownloadIcon}
                       className="btn-secondary"
                       onClick={handleDownload}
                     >
                       {dict.segment.download}
-                    </button>
+                    </IconButton>
                   </div>
                 </div>
               )}
