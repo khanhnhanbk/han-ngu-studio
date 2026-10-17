@@ -7,6 +7,8 @@ import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { pinyin } from "pinyin-pro";
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "assets/dictionary");
 const OUT = join(ROOT, "public/data");
@@ -230,6 +232,80 @@ function buildStrokes() {
   );
 }
 
+/**
+ * Hán Việt for a lone character, chosen like the Hán Việt tool does
+ * (lookupChar in lib/hanviet/lookup.ts): the reading for its pinyin-pro
+ * Pinyin, else the "*" entry, else the first entry; readings joined by "/".
+ */
+function hanvietOfChar(hanviet, char) {
+  const entries = hanviet[char];
+  if (!entries) return "";
+  const tone3 = pinyin(char, { toneType: "num" }).replace(/ü/g, "u:").replace(/0$/, "5");
+  const hit = entries.find(([p]) => p === tone3) ?? entries.find(([p]) => p === "*") ?? entries[0];
+  return hit[1].join("/");
+}
+
+// Example characters shown per radical, most frequent first.
+const RADICAL_EXAMPLES = 12;
+
+/**
+ * radicals.json: the 214 Kangxi radicals from radicals.tsv (names and
+ * meanings curated by hand), each with up to 12 frequent characters filed
+ * under it, and all of them in `members` for search. A character's radical
+ * is the first value of its Unihan kRSUnicode ("149'.7": radical 149,
+ * simplified form, 7 more strokes).
+ */
+function buildRadicals(hanviet) {
+  const radicals = readCsv("radicals.tsv", "\t").map((r) => ({
+    no: Number(r.no),
+    radical: r.radical,
+    variants: r.variants ? r.variants.split(" ") : [],
+    strokes: Number(r.strokes),
+    name: r.name,
+    meaning: r.meaning,
+    pinyin: r.pinyin,
+    count: 0,
+    chars: [],
+    members: "",
+  }));
+  radicals.forEach((r, i) => {
+    const kangxi = String.fromCodePoint(0x2f00 + i).normalize("NFKC");
+    if (r.no !== i + 1 || r.radical !== kangxi || !r.name || !r.meaning || !r.pinyin) {
+      throw new Error(`radicals.tsv row ${i + 1} is wrong: ${JSON.stringify(r)}`);
+    }
+  });
+  if (radicals.length !== 214) throw new Error(`radicals.tsv has ${radicals.length} rows`);
+
+  // "#" lines are the file's source note; the first other line is the header.
+  const radicalOf = new Map();
+  const lines = readFileSync(join(SRC, "unihan_radicals.tsv"), "utf-8").split("\n");
+  for (const line of lines.filter((l) => l && !l.startsWith("#")).slice(1)) {
+    const [char, rs] = line.split("\t");
+    radicalOf.set(char, Number.parseInt(rs.split(" ")[0], 10));
+  }
+
+  // Simplified characters by frequency (highest of their rows).
+  const freq = new Map();
+  for (const row of readCsv("char_hanviet.csv")) {
+    const char = row.simp_char.trim();
+    const f = Number(row.frequency) || 0;
+    if (Array.from(char).length === 1 && f >= (freq.get(char) ?? -1)) freq.set(char, f);
+  }
+  const byFreq = [...freq.keys()].sort((a, b) => freq.get(b) - freq.get(a) || a.codePointAt(0) - b.codePointAt(0));
+
+  const forms = radicals.map((r) => new Set([r.radical, ...r.variants]));
+  for (const char of byFreq) {
+    const no = radicalOf.get(char);
+    if (!no) continue;
+    const r = radicals[no - 1];
+    if (forms[no - 1].has(char)) continue;
+    r.count++;
+    r.members += char;
+    if (r.chars.length < RADICAL_EXAMPLES) r.chars.push([char, hanvietOfChar(hanviet, char)]);
+  }
+  return radicals;
+}
+
 function write(name, data, summary) {
   const json = JSON.stringify(data);
   writeFileSync(join(OUT, name), json);
@@ -249,3 +325,5 @@ write(
   `${sentences.rows.length} sentences, ${Object.keys(sentences.index).length} words`,
 );
 buildStrokes();
+const radicals = buildRadicals(hanviet);
+write("radicals.json", radicals, `${radicals.length} radicals`);
