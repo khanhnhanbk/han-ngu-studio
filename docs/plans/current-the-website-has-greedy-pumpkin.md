@@ -1,45 +1,37 @@
-# Fix fonts in the quiz worksheet PDF ("In đề / lưu PDF")
+# Quiz: choose the question order (random or grouped by type)
 
 ## Context
 
-On `/tools/quiz`, printing or saving the worksheet as PDF shows Pinyin with broken tone-marked letters (ǎ, ǐ, ǚ… in a different font) and Vietnamese text (options, Hán Việt) in the wrong font.
+`/tools/quiz` always shuffles every question together (`buildQuiz` ends with `shuffle(questions, rng)` in `lib/quiz/build.ts`). Teachers want a second option: questions **grouped by type**, like a printed test with sections (all "Chữ Hán → Nghĩa", then all "Chữ Hán → Pinyin", …). Random stays the default.
 
-**Root cause (checked in the build output, `.next/static/css/*.css`):** the fonts are fine. Noto Sans SC and Be Vietnam Pro are free (SIL OFL), self-hosted by `next/font`, and their CSS already includes the `latin-ext` slice (Pinyin tone marks, U+0100–02BA) and the `vietnamese` slice (U+1EA0–1EF9). But Google splits each font into `unicode-range` slices that the browser downloads **only when some visible text needs them**. The worksheet (`components/quiz/PrintSheet.tsx`) is `hidden` on screen (`display:none`, shown only under `print:`), so:
+## Behaviour
 
-- Pinyin options and Vietnamese options in the sheet use `.hanzi` (Noto Sans SC). On screen, `QuestionCard` shows those options *without* `.hanzi`, so Noto Sans SC's latin-ext and vietnamese slices (and the CJK slices for characters that only appear in the sheet) are never downloaded.
-- When `window.print()` runs, Chrome lays out the sheet but **does not wait** for the font files that layout asks for. The missing glyphs fall back to the system `serif` font (Times or DejaVu Serif), so the PDF mixes fonts inside a single word.
+- New setting on the setup screen, **Thứ tự câu hỏi**, with two radios:
+  - **Ngẫu nhiên** (default): what happens today.
+  - **Theo loại câu hỏi**: types follow the `KINDS` order (the same order as the checkboxes). Within each type, words keep the order the user typed them.
+- The answer options (A–D) and the ordering-question tokens are still shuffled in both modes.
+- **Làm lại (đổi thứ tự)** and **Làm lại các câu sai**: in grouped mode the question order stays grouped and only the options and tokens are reshuffled. In random mode nothing changes.
+- The print sheet, answer key and TSV follow `questions`, so they use the chosen order with no extra work.
 
-So we don't need to download a new font. The fix is to **load the needed font slices before printing**.
+## Changes
 
-## Approach
-
-1. **Collect the sheet's text**: add `printText(questions)` to `lib/quiz/export.ts`. It is a pure function that joins every string `PrintSheet` renders (prompts, hints, options, tokens, `end`, answer-key lines, plus the `dict.quiz` labels passed in). Add a small Vitest case in `lib/quiz/export.test.ts` (or the existing test file), e.g. it includes the Pinyin options and the Vietnamese hint.
-
-2. **Font-loading helper**: add `ensurePrintFonts(text)` (client-only, e.g. `lib/quiz/printFonts.ts`). It calls `document.fonts.load()` for each font and weight the sheet uses, with that text, so the browser downloads exactly the matching `unicode-range` slices:
-   - `.hanzi` text: `400 20px <var(--font-hanzi) stack>`
-   - Body/labels: `400 14px` and `700 24px` with `<var(--font-be-vietnam) stack>`
-
-   Read the family stacks from `getComputedStyle(document.documentElement).getPropertyValue("--font-hanzi" / "--font-be-vietnam")` so the hashed fallback names from `next/font` stay correct. Wrap it in try/catch and `Promise.all`, and wait for `document.fonts.ready`.
-
-3. **Wire it into the quiz page** (`app/tools/quiz/page.tsx`):
-   - The print button becomes `async () => { await ensurePrintFonts(text); window.print(); }`. Use a short "busy" state so a double click doesn't print twice; this needs no new UI text.
-   - Add a `useEffect` on `questions` (when `phase !== "setup"`) that calls `ensurePrintFonts` early. Then **Ctrl+P** works too, because `beforeprint` cannot wait for an async call.
-
-4. **Safety net in CSS** (`app/globals.css`): change the last fallback of `--font-hanzi` from `serif` to `sans-serif`. Then a glyph that still goes missing falls back to a sans font like the rest of the sheet, not Times. Also check the `hanzi` family in `tailwind.config.ts`, which ends in `"serif"`, and change it to match.
-
-5. **User guide**: in `userguide/quiz.md`, add an item to "Lỗi thường gặp". If the PDF fonts still look wrong, wait for the page to finish loading and print again, and use Chrome or Edge with "Lưu dưới dạng PDF". Quote the exact button label `dict.quiz.print` from `lib/i18n/vi.ts`.
-
-## Files
-
-- `lib/quiz/export.ts`: `printText()` (and its test)
-- `lib/quiz/printFonts.ts` (new): `ensurePrintFonts()`
-- `app/tools/quiz/page.tsx`: print button and preload effect
-- `app/globals.css`, `tailwind.config.ts`: `sans-serif` as the last fallback
-- `userguide/quiz.md`
+1. **`lib/quiz/types.ts`**: `export const ORDERS = ["random", "byKind"] as const; export type QuizOrder = …`.
+2. **`lib/quiz/build.ts`**:
+   - `buildQuiz(data, entries, kinds, rng, order: QuizOrder = "random")`. For `byKind`, loop `kinds` outside and words inside (today it is the reverse), and skip the final `shuffle`. Random mode keeps its loop and shuffle exactly as they are, so it uses the RNG the same way and existing seeded tests don't change.
+   - `reshuffle(questions, rng, order = "random")`: in `byKind`, keep the question order and only reshuffle options and tokens. Factor out the per-question part that already exists.
+3. **`app/tools/quiz/page.tsx`**: `const [order, setOrder] = useState<QuizOrder>("random")`. Add a radio `fieldset` under the "Loại câu hỏi" fieldset, styled the same way. Pass `order` to `buildQuiz` and to both `reshuffle` calls.
+4. **`lib/i18n/vi.ts`** (`quiz`): `orderLabel: "Thứ tự câu hỏi"`, `orders: { random: "Ngẫu nhiên", byKind: "Theo loại câu hỏi" }`.
+5. **Tests** (`lib/quiz/build.test.ts`):
+   - In `byKind`, kinds appear in contiguous blocks in `KINDS` order and words follow input order.
+   - The default is still random and unchanged (existing tests).
+   - `reshuffle` in `byKind` keeps the question order (`word`/`kind` sequence) and the right answers stay correct.
+6. **User guide** `userguide/quiz.md`: a step for **Thứ tự câu hỏi** using the exact labels, plus a "Lỗi thường gặp" row: "Muốn đề chia theo từng phần" → choose **Theo loại câu hỏi**.
 
 ## Verification
 
-- `pnpm test`, `pnpm run lint`, `pnpm run build` all pass.
-- `pnpm run dev` → `/tools/quiz` → sample words, turn on all question types (including Pinyin and Hán Việt) → start → "In đề" → Save as PDF. In the PDF, Pinyin (nǐ, lǚ…) and Vietnamese (học, người…) should each use one consistent font. Repeat in a fresh incognito window (empty font cache), which is the case that fails today, and also with Ctrl+P.
-- DevTools → Network → Font: before printing, the Noto Sans SC latin-ext and vietnamese `.woff2` files have been fetched.
-- Check dark mode and another accent (the print palette is already forced to light).
+- `pnpm test`, `pnpm run lint`, `pnpm run build`.
+- `pnpm run dev` → `/tools/quiz` → sample words, all types:
+  - **Theo loại câu hỏi** → the questions run type by type, and the print preview and TSV match.
+  - **Làm lại (đổi thứ tự)** keeps the groups and the options change.
+  - **Ngẫu nhiên** is still mixed.
+- Check the new radios in dark mode.

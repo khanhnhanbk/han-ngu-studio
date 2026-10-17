@@ -10,6 +10,10 @@ export const KINDS = [
 export type QuizKind = (typeof KINDS)[number];
 export type ChoiceKind = Exclude<QuizKind, "ordering">;
 
+/** Question order: all mixed, or grouped by type in KINDS order. */
+export const ORDERS = ["random", "byKind"] as const;
+export type QuizOrder = (typeof ORDERS)[number];
+
 /** One line of input: a word, optionally followed by Tab and the user's own meaning. */
 export type QuizEntry = { word: string; meaning?: string };
 

@@ -43,9 +43,16 @@ Mặc định tích cả 6 loại. Bỏ tích loại bạn không muốn luyện
 
 Với **Điền từ vào câu** và **Sắp xếp câu**, từ chưa có câu ví dụ (hoặc câu ví dụ chưa có bản dịch) sẽ được bỏ qua. **Sắp xếp câu** cũng bỏ qua câu quá ngắn (dưới 3 từ) hoặc quá dài (trên 12 từ).
 
+Ở **Thứ tự câu hỏi**, chọn:
+
+- **Ngẫu nhiên** (mặc định): mọi loại câu hỏi trộn lẫn, mỗi lần tạo một khác.
+- **Theo loại câu hỏi**: đề chia thành từng phần, theo thứ tự các loại ở trên (hết **Chữ Hán → Nghĩa** rồi đến **Nghĩa → Chữ Hán**…). Trong mỗi phần, các từ giữ đúng thứ tự bạn nhập. Đề in ra và file TSV cũng theo thứ tự này.
+
+Ở cả hai cách, các đáp án A–D (và các từ của câu sắp xếp) luôn được xáo trộn.
+
 ### 3. Bấm **Tạo bài trắc nghiệm**
 
-Lần đầu tiên, nút hiện **Đang tạo câu hỏi…** vài giây để tải dữ liệu. Các lần sau gần như tức thì. Câu hỏi được xáo trộn ngẫu nhiên, mỗi lần tạo một khác.
+Lần đầu tiên, nút hiện **Đang tạo câu hỏi…** vài giây để tải dữ liệu. Các lần sau gần như tức thì.
 
 ### 4. Làm bài
 
@@ -64,7 +71,7 @@ Lần đầu tiên, nút hiện **Đang tạo câu hỏi…** vài giây để t
 - **Các câu trả lời sai**: mỗi câu ghi **Bạn chọn** và **Đáp án**.
 - Các nút:
   - **Làm lại câu sai**: chỉ làm lại các câu sai, đáp án được xáo lại.
-  - **Trộn lại và làm lại**: làm lại toàn bộ bài theo thứ tự mới.
+  - **Trộn lại và làm lại**: làm lại toàn bộ bài theo thứ tự mới. Nếu đã chọn **Theo loại câu hỏi**, thứ tự câu hỏi giữ nguyên, chỉ các đáp án được xáo lại.
   - **Sửa danh sách từ**: quay lại bước 1 (danh sách từ vẫn còn).
 
 ### 6. In đề hoặc tải file
@@ -95,6 +102,7 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 | Nghĩa tiếng Anh dài hoặc chưa sát | Nghĩa lấy từ CC-CEDICT, mỗi từ chỉ có một mục. Ghi nghĩa tiếng Việt của bạn sau dấu Tab. |
 | Đề in ra bị lẫn thanh menu hoặc nút bấm | Dùng nút **In đề / Lưu PDF** của trang (không dùng ảnh chụp màn hình). Trong hộp thoại in, đặt **Lề** là **Mặc định**. |
 | File PDF bị lỗi phông: Pinyin (lǚ, nǐ…) hoặc chữ tiếng Việt có dấu hiện sang phông khác | Dùng nút **In đề / Lưu PDF** của trang (nút này tải đủ phông trước khi mở hộp thoại in). Nếu vẫn lỗi, đợi trang tải xong rồi bấm lại. Nên dùng Chrome hoặc Edge và chọn **Lưu dưới dạng PDF**. |
+| Muốn đề chia theo từng phần (mỗi loại câu hỏi một phần) | Ở **Thứ tự câu hỏi**, chọn **Theo loại câu hỏi** rồi bấm **Tạo bài trắc nghiệm** lại. |
 | Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 3.800 từ thông dụng; các từ khác sẽ bị bỏ qua ở hai loại câu này. |
 | Một chữ có nhiều cách đọc (好 hǎo / hào) | Pinyin và Hán Việt theo cách đọc phổ biến. Các cách đọc khác của chữ đó không bao giờ được dùng làm đáp án sai. |
 
