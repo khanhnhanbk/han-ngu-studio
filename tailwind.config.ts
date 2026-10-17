@@ -16,12 +16,19 @@ const config: Config = {
       // Colours are CSS variables (RGB channels) set in app/globals.css, so the
       // theme picker can switch accent and dark mode at runtime.
       colors: {
-        brand: Object.fromEntries(
-          [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((n) => [
-            n,
-            `rgb(var(--brand-${n}) / <alpha-value>)`,
-          ]),
-        ),
+        brand: {
+          ...Object.fromEntries(
+            [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((n) => [
+              n,
+              `rgb(var(--brand-${n}) / <alpha-value>)`,
+            ]),
+          ),
+          // Brand-coloured text on the page, and the primary button's hover fill.
+          ink: "rgb(var(--brand-ink) / <alpha-value>)",
+          hover: "rgb(var(--brand-hover) / <alpha-value>)",
+        },
+        // Text on a brand-600 fill (white, or dark ink on the gold default).
+        "on-brand": "rgb(var(--on-brand) / <alpha-value>)",
         ink: Object.fromEntries(
           [50, 500, 700, 800, 900].map((n) => [n, `rgb(var(--ink-${n}) / <alpha-value>)`]),
         ),

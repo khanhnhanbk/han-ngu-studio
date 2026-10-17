@@ -31,7 +31,7 @@ Muốn thử nhanh? Bấm **Dùng văn bản mẫu**.
 | **Màu ô** | Bấm một màu: Đỏ, Cam, Nâu, Xanh lá, Xanh ngọc, Xanh dương, Tím, Hồng, Đen / xám | Đỏ |
 | **Hiện Pinyin** | Tích để in Pinyin của mỗi chữ trên phiếu | Bật |
 | **Bỏ chữ trùng lặp** | Tích để mỗi chữ chỉ xuất hiện một lần | Tắt |
-| **Phông chữ** | Kiểu chữ của ô chữ mẫu và chữ mờ (xem bên dưới) | Khải thư – LXGW WenKai (mặc định) |
+| **Phông chữ** | Kiểu chữ của ô chữ mẫu và chữ mờ (xem bên dưới) | Tống thể (chữ in) – Noto Serif SC (mặc định) |
 | **Hiện thứ tự nét** | Tích để thêm dải ô nhỏ phía trên mỗi chữ (xem bên dưới) | Tắt |
 
 Trang sẽ **nhớ các tùy chọn** của bạn cho lần sau (lưu trên trình duyệt của bạn).
@@ -42,9 +42,9 @@ Chọn trong danh sách **Phông chữ**; ô bên cạnh hiện chữ mẫu vớ
 
 | Lựa chọn | Phù hợp với |
 |---|---|
-| **Khải thư – LXGW WenKai (mặc định)** | Gần với chữ viết tay chuẩn, nên dùng để tập viết |
-| **Bút lông – Ma Shan Zheng** | Kiểu chữ bút lông. Chủ yếu có chữ giản thể; chữ phồn thể thiếu sẽ hiện bằng phông mặc định |
-| **Tống thể (chữ in) – Noto Serif SC** | Kiểu chữ in trong sách báo |
+| **Khải thư – LXGW WenKai** | Gần với chữ viết tay chuẩn, nên dùng để tập viết |
+| **Bút lông – Ma Shan Zheng** | Kiểu chữ bút lông. Chủ yếu có chữ giản thể; chữ phồn thể thiếu sẽ hiện bằng phông Khải thư |
+| **Tống thể (chữ in) – Noto Serif SC (mặc định)** | Kiểu chữ in trong sách báo, nét rõ, dễ nhận mặt chữ |
 | **Hắc thể (không chân) – Noto Sans SC** | Kiểu chữ không chân, nét đều |
 | **Phông có sẵn trên máy…** | Dùng phông đã cài trên máy của bạn |
 | **Tải file phông lên…** | Dùng file phông bạn có (ví dụ phông Khải thư của trường) |
@@ -113,6 +113,6 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
 | "Không tìm thấy phông này trên máy. …" | Kiểm tra lại tên phông (đúng chữ hoa/thường, dấu cách), hoặc bấm **Liệt kê phông trên máy** để chọn từ danh sách. |
 | "Trình duyệt không cho phép đọc danh sách phông. …" | Bạn đã từ chối quyền đọc phông, hoặc trình duyệt không hỗ trợ. Gõ thẳng tên phông. |
 | "Không đọc được file phông này." | File bị hỏng hoặc không phải file phông. Thử file `.ttf` hoặc `.otf` khác. |
-| Một vài chữ trông khác các chữ còn lại | Phông đã chọn không có chữ đó nên trang dùng phông mặc định cho chữ đó (hay gặp với chữ phồn thể). Chọn phông khác. |
+| Một vài chữ trông khác các chữ còn lại | Phông đã chọn không có chữ đó nên trang dùng phông Khải thư cho chữ đó (hay gặp với chữ phồn thể). Chọn phông khác. |
 | Phông tải lên bị mất | Sau khi tải lại trang cần chọn lại file phông. |
 | Phiếu bị lệch hoặc thừa trang trắng | Chọn khổ **A4** và lề **Không**; tỷ lệ (Scale) để **100%** / Mặc định. |

@@ -38,7 +38,7 @@ Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 
    | Lựa chọn | Màu |
    |---|---|
-   | **Mặc định** | Cam (màu gốc của trang) |
+   | **Mặc định** | Vàng kim (màu gốc của trang) |
    | **Kim** | Trắng, xám bạc |
    | **Mộc** | Xanh lá |
    | **Thủy** | Xanh dương, xanh đen |

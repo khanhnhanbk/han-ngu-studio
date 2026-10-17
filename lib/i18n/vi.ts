@@ -333,7 +333,7 @@ export const vi = {
       tho: "Thổ",
     },
     accentHints: {
-      default: "Mặc định – cam",
+      default: "Mặc định – vàng kim",
       kim: "Kim – trắng, xám bạc",
       moc: "Mộc – xanh lá",
       thuy: "Thủy – xanh dương, xanh đen",
@@ -561,9 +561,9 @@ export const vi = {
     font: {
       label: "Phông chữ",
       presets: {
-        wenkai: "Khải thư – LXGW WenKai (mặc định)",
+        wenkai: "Khải thư – LXGW WenKai",
         mashanzheng: "Bút lông – Ma Shan Zheng",
-        notoSerif: "Tống thể (chữ in) – Noto Serif SC",
+        notoSerif: "Tống thể (chữ in) – Noto Serif SC (mặc định)",
         notoSans: "Hắc thể (không chân) – Noto Sans SC",
       },
       local: "Phông có sẵn trên máy…",
@@ -575,7 +575,7 @@ export const vi = {
       listInstalled: "Liệt kê phông trên máy",
       listed: "Đã tìm thấy {count} phông trên máy. Gõ để lọc.",
       listDenied: "Trình duyệt không cho phép đọc danh sách phông. Hãy gõ tên phông.",
-      notFound: "Không tìm thấy phông này trên máy. Phiếu sẽ dùng phông mặc định.",
+      notFound: "Không tìm thấy phông này trên máy. Phiếu sẽ dùng phông Khải thư.",
       uploadHint:
         "Chọn file .ttf, .otf, .woff hoặc .woff2 (tối đa 50 MB). File chỉ được đọc trên trình duyệt, không gửi đi đâu, và cần chọn lại sau khi tải lại trang.",
       uploaded: "Đang dùng: {name}",

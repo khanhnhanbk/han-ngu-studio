@@ -163,7 +163,7 @@ export default function StrokeOrderPage() {
                           {pinyin(current, { multiple: true, type: "array" }).join(", ")}
                         </dd>
                         <dt className="text-ink-500">{t.hanviet}</dt>
-                        <dd className="font-medium text-brand-600">
+                        <dd className="font-medium text-brand-ink">
                           {hanvietReadings(loaded.hanviet, current).join(", ") || "—"}
                         </dd>
                         <dt className="text-ink-500">{t.strokeCount}</dt>
