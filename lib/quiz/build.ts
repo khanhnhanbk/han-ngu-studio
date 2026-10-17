@@ -5,6 +5,7 @@ import type { Meanings, Sentences } from "@/lib/anki/load";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { convertLine } from "@/lib/pinyin/convert";
 import { segment, type Tokenizer } from "@/lib/segment/tokenizer";
+import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 
 import { shuffle, type Rng } from "./rng";
 import type { ChoiceKind, Question, QuizEntry, QuizKind, Response, Skipped } from "./types";
@@ -14,12 +15,16 @@ export type QuizData = {
   hanviet: HanvietData;
   meanings: Meanings;
   sentences: Sentences;
+  vocab: VocabData;
 };
 
 export const MAX_ENTRIES = 200;
 /** The answer plus up to three wrong options. */
 const WRONG_OPTIONS = 3;
-/** Most frequent dictionary words used to fill wrong options when the list is short. */
+/**
+ * Words used to fill wrong options when the list is short: this many of the
+ * lowest-level HSK words and this many of the most frequent dictionary words.
+ */
 const FALLBACK_SIZE = 300;
 const MEANING_MAX = 80;
 
@@ -146,9 +151,10 @@ function makeOptions(
 
 type Info = {
   word: string;
-  /** User meaning, else the short CC-CEDICT meaning, else "". */
+  /** User meaning, else the HSK Vietnamese meaning, else the short CC-CEDICT meaning, else "". */
   meaning: string;
-  userMeaning: boolean;
+  /** Language of `meaning`: the user's own and the HSK list count as Vietnamese. */
+  lang: "vi" | "en";
   syllables: string[];
   pinyin: string;
   hanviet: string;
@@ -156,13 +162,17 @@ type Info = {
 
 function describe(data: QuizData, entry: QuizEntry): Info {
   const syllables = numberSyllables(data, entry.word);
+  const pinyin = syllables.length ? pinyinFrom(syllables) : "";
+  // The word's own reading picks the HSK entry (好 hǎo, not hào).
+  const hsk = vocabFor(data.vocab, entry.word, pinyin);
   const cedict = Object.hasOwn(data.meanings, entry.word) ? shortMeaning(data.meanings[entry.word]) : "";
+  const vi = entry.meaning ?? (hsk ? shortMeaning(hsk.meaning) : "");
   return {
     word: entry.word,
-    meaning: entry.meaning ?? cedict,
-    userMeaning: entry.meaning !== undefined,
+    meaning: vi || cedict,
+    lang: vi ? "vi" : "en",
     syllables,
-    pinyin: syllables.length ? pinyinFrom(syllables) : "",
+    pinyin,
     hanviet: hanvietLine(data, entry.word),
   };
 }
@@ -193,10 +203,9 @@ export function buildQuiz(
 ): { questions: Question[]; skipped: Skipped[] } {
   const own = entries.map((e) => describe(data, e));
   const ownWords = new Set(own.map((i) => i.word));
-  const fallback = Object.keys(data.meanings)
-    .filter((w) => HAN.test(w) && !ownWords.has(w))
-    .slice(0, FALLBACK_SIZE)
-    .map((word) => describe(data, { word }));
+  const pool = (words: string[]) => words.filter((w) => HAN.test(w) && !ownWords.has(w)).slice(0, FALLBACK_SIZE);
+  const fallbackWords = new Set([...pool(Object.keys(data.vocab)), ...pool(Object.keys(data.meanings))]);
+  const fallback = [...fallbackWords].map((word) => describe(data, { word }));
 
   const questions: Question[] = [];
   const skipped: Skipped[] = [];
@@ -234,12 +243,10 @@ function buildOne(
 
   switch (kind) {
     case "hanToMeaning": {
-      // Wrong meanings must come from the same source as the answer: mixing
-      // the user's Vietnamese with CC-CEDICT English would give the answer away.
-      const sameSource = (i: Info) => (i.userMeaning === info.userMeaning ? i.meaning : "");
-      const groups = bySameLength(own, word, sameSource);
-      if (!info.userMeaning) groups.push(...bySameLength(fallback, word, (i) => i.meaning));
-      return make(kind, word, info.meaning, groups);
+      // Wrong meanings must be in the same language as the answer: one English
+      // option among Vietnamese ones (or the reverse) would give it away.
+      const sameLang = (i: Info) => (i.lang === info.lang ? i.meaning : "");
+      return make(kind, word, info.meaning, [...bySameLength(own, word, sameLang), ...bySameLength(fallback, word, sameLang)]);
     }
     case "meaningToHan": {
       // A word with the very same meaning would be a second right answer.

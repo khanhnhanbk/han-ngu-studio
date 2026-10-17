@@ -20,6 +20,7 @@ import { orderedSentence, toTsv } from "@/lib/quiz/export";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
 import { KINDS, type Question, type QuizKind, type Response, type Skipped } from "@/lib/quiz/types";
 import { loadTokenizer } from "@/lib/segment/load";
+import { loadVocab } from "@/lib/vocab/load";
 
 const dict = getDictionary("vi");
 
@@ -76,14 +77,15 @@ export default function QuizPage() {
 
     setLoading(true);
     try {
-      const [tokenizer, hanviet, meanings, sentences] = await Promise.all([
+      const [tokenizer, hanviet, meanings, sentences, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
         loadSentences(),
+        loadVocab(),
       ]);
       const quiz = buildQuiz(
-        { tokenizer, hanviet, meanings, sentences },
+        { tokenizer, hanviet, meanings, sentences, vocab },
         parsed.entries,
         picked,
         createRng(randomSeed()),

@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import type { Meanings, Sentences } from "@/lib/anki/load";
 import type { HanvietData } from "@/lib/hanviet/lookup";
+import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 
 import { BLANK, buildQuiz, isCorrect, parseEntries, reshuffle, shortMeaning, type QuizData } from "./build";
@@ -20,6 +21,7 @@ const data: QuizData = {
   hanviet: json<HanvietData>("hanviet.json"),
   meanings: json<Meanings>("meanings.json"),
   sentences: json<Sentences>("sentences.json"),
+  vocab: json<VocabData>("vocab.json"),
 };
 
 /** The four word-level kinds; cloze and ordering need an example sentence. */
@@ -38,6 +40,10 @@ function findOrder(questions: Question[], word: string): OrderQuestion {
   if (!q || q.kind !== "ordering") throw new Error(`no ordering question for ${word}`);
   return q;
 }
+
+const vocabMeanings = new Set(
+  Object.values(data.vocab).flatMap((entries) => entries.map(([, , m]) => shortMeaning(m))),
+);
 
 const choices = (qs: Question[]) => qs.filter((q): q is ChoiceQuestion => q.kind !== "ordering");
 
@@ -111,9 +117,10 @@ describe("buildQuiz", () => {
     const pick = (q: ChoiceQuestion) => q.options[q.answer];
     expect(pick(find(questions, "hanToPinyin", "大学"))).toBe("dà xué");
     expect(pick(find(questions, "hanToHanviet", "大学"))).toBe("đại học");
-    expect(pick(find(questions, "hanToMeaning", "朋友"))).toBe(shortMeaning(data.meanings["朋友"]));
+    // Vietnamese from the HSK list comes before CC-CEDICT English.
+    expect(pick(find(questions, "hanToMeaning", "朋友"))).toBe("bạn bè, bạn");
     const back = find(questions, "meaningToHan", "电脑");
-    expect(back.prompt).toBe(shortMeaning(data.meanings["电脑"]));
+    expect(back.prompt).toBe(shortMeaning(vocabFor(data.vocab, "电脑")!.meaning));
     expect(pick(back)).toBe("电脑");
   });
 
@@ -132,20 +139,32 @@ describe("buildQuiz", () => {
     }
   });
 
+  it("lets the user's own meaning win over the HSK list", () => {
+    const { questions: qs } = buildQuiz(data, [{ word: "大学", meaning: "trường đại học" }, ...WORDS.slice(1)], ["hanToMeaning"], createRng(3));
+    const q = find(qs, "hanToMeaning", "大学");
+    expect(q.options[q.answer]).toBe("trường đại học");
+  });
+
   it("keeps wrong meanings in the same language as the answer", () => {
-    const entries = [
-      { word: "大学", meaning: "đại học" },
-      { word: "学习", meaning: "học tập" },
-      { word: "朋友", meaning: "bạn bè" },
-    ];
-    const { questions: qs } = buildQuiz(data, entries, ["hanToMeaning"], createRng(3));
-    for (const q of choices(qs)) {
-      expect(q.options.every((o) => ["đại học", "học tập", "bạn bè"].includes(o))).toBe(true);
+    // Every English meaning the pool could offer, to make sure none slips in.
+    const english = new Set(Object.values(data.meanings).map(shortMeaning));
+    for (let seed = 0; seed < 10; seed++) {
+      const { questions: qs } = buildQuiz(data, WORDS, ["hanToMeaning"], createRng(seed));
+      for (const q of choices(qs)) {
+        const wrong = q.options.filter((_, i) => i !== q.answer);
+        expect(wrong.some((o) => english.has(o) && !vocabMeanings.has(o)), q.word).toBe(false);
+      }
     }
+    // A word only in CC-CEDICT gets English options.
+    const en = find(buildQuiz(data, [{ word: "今晚" }, ...WORDS], ["hanToMeaning"], createRng(1)).questions, "hanToMeaning", "今晚");
+    expect(en.options[en.answer]).toBe("tonight");
+    expect(en.options.every((o) => english.has(o))).toBe(true);
   });
 
   it("skips a meaning that is only a cross-reference", () => {
-    const { skipped: sk } = buildQuiz(data, [{ word: "行" }, ...WORDS], ["hanToMeaning", "meaningToHan"], createRng(1));
+    // Without the HSK list, 行's only CC-CEDICT definition is a pointer.
+    const noVocab: QuizData = { ...data, vocab: {} };
+    const { skipped: sk } = buildQuiz(noVocab, [{ word: "行" }, ...WORDS], ["hanToMeaning", "meaningToHan"], createRng(1));
     expect(sk).toEqual([
       { word: "行", kind: "hanToMeaning" },
       { word: "行", kind: "meaningToHan" },

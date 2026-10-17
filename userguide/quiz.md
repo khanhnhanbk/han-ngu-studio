@@ -4,7 +4,7 @@ Nhập danh sách từ vựng, công cụ tự tạo **câu hỏi trắc nghiệ
 
 | Loại câu hỏi | Đề bài | Chọn đáp án (ví dụ với 大学) |
 |---|---|---|
-| **Chữ Hán → Nghĩa** | 大学 | the Great Learning, one of the Four Books in Confucianism; university; college |
+| **Chữ Hán → Nghĩa** | 大学 | đại học, trường đại học |
 | **Nghĩa → Chữ Hán** | nghĩa của từ | 大学 |
 | **Chữ Hán → Pinyin** | 大学 | dà xué (các đáp án sai thường chỉ khác thanh điệu: dà xuě, dà xuè…) |
 | **Chữ Hán → Âm Hán Việt** | 大学 | đại học |
@@ -25,7 +25,7 @@ Bốn loại đầu có 4 đáp án (ít hơn nếu danh sách quá ngắn và k
 
 Dòng **Số từ: … / 200** cho biết số từ (tối đa 200). Từ trùng lặp được tự động bỏ.
 
-**Muốn dùng nghĩa tiếng Việt?** Nghĩa mặc định là tiếng Anh (CC-CEDICT). Để dùng nghĩa của bạn, ghi nghĩa **sau dấu Tab** trên cùng dòng:
+**Nghĩa lấy từ đâu?** Nghĩa mặc định là **tiếng Việt** theo danh sách từ vựng HSK 3.0 (khoảng 10.800 từ). Từ không có trong danh sách dùng nghĩa **tiếng Anh** (CC-CEDICT). Để dùng nghĩa của bạn, ghi nghĩa **sau dấu Tab** trên cùng dòng:
 
 ```
 大学	đại học
@@ -35,7 +35,7 @@ Dòng **Số từ: … / 200** cho biết số từ (tối đa 200). Từ trùng
 
 Cách dễ nhất: soạn hai cột (cột A là từ, cột B là nghĩa) trong Excel hoặc Google Sheets, chọn cả hai cột, sao chép rồi dán vào ô. Hoặc lưu thành file `.tsv` rồi tải lên.
 
-Khi một từ có nghĩa riêng của bạn, các đáp án sai của câu **Chữ Hán → Nghĩa** cũng chỉ lấy từ nghĩa bạn đã ghi (để không lẫn tiếng Việt với tiếng Anh). Vì vậy hãy ghi nghĩa cho **ít nhất 4 từ**.
+Đáp án sai của câu **Chữ Hán → Nghĩa** luôn cùng ngôn ngữ với đáp án đúng: nghĩa tiếng Việt (của bạn hoặc của danh sách HSK) đi với nghĩa tiếng Việt, nghĩa tiếng Anh đi với nghĩa tiếng Anh, để không đoán được đáp án nhờ ngôn ngữ.
 
 ### 2. Chọn **Loại câu hỏi**
 
@@ -91,6 +91,7 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 | "Không tạo được câu hỏi nào…" | Các từ đều thiếu dữ liệu cho loại câu hỏi đã chọn. Thêm từ khác hoặc chọn thêm loại câu hỏi. |
 | "Không tải được dữ liệu…" | Kiểm tra mạng rồi bấm **Tạo bài trắc nghiệm** lần nữa. |
 | Gõ phím Tab trong ô nhập thì con trỏ nhảy ra ngoài | Trình duyệt dùng Tab để chuyển ô. Hãy dán từ Excel / Google Sheets, hoặc soạn trong Notepad rồi dán vào. |
+| Một từ vẫn hiện nghĩa tiếng Anh | Từ đó không có trong danh sách HSK 3.0. Ghi nghĩa tiếng Việt của bạn sau dấu Tab. |
 | Nghĩa tiếng Anh dài hoặc chưa sát | Nghĩa lấy từ CC-CEDICT, mỗi từ chỉ có một mục. Ghi nghĩa tiếng Việt của bạn sau dấu Tab. |
 | Đề in ra bị lẫn thanh menu hoặc nút bấm | Dùng nút **In đề / Lưu PDF** của trang (không dùng ảnh chụp màn hình). Trong hộp thoại in, đặt **Lề** là **Mặc định**. |
 | Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 3.800 từ thông dụng; các từ khác sẽ bị bỏ qua ở hai loại câu này. |
@@ -98,6 +99,7 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 
 ## Nguồn dữ liệu
 
+- Nghĩa tiếng Việt: Hán Ngữ Studio, theo danh sách từ vựng HSK 3.0.
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Pinyin: **pinyin-pro** (MIT), tạo tự động; xem lưu ý trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác).
 - Âm Hán Việt: Hán Ngữ Studio; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).

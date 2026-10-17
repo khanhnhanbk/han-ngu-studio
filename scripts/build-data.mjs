@@ -306,6 +306,41 @@ function buildRadicals(hanviet) {
   return radicals;
 }
 
+const VOCAB_LEVELS = new Set(["1", "2", "3", "4", "5", "6", "7-9"]);
+
+/**
+ * vocab.json: { word: [[level, pinyin, meaning], …] } from vocab_hsk_vi.csv
+ * (HSK 3.0 levels and Vietnamese meanings, Hán Ngữ Studio). Entries keep file
+ * order, lowest level first. A word with an optional 儿 ("好玩{儿}") is
+ * stored under both forms, each only when no row already has that exact word.
+ */
+function buildVocab() {
+  const rows = readCsv("vocab_hsk_vi.csv");
+  const out = {};
+  const add = (word, entry) => {
+    if (!Object.hasOwn(out, word)) out[word] = [];
+    out[word].push(entry);
+  };
+  const optional = [];
+  for (const [i, r] of rows.entries()) {
+    const word = r.hanzi.trim();
+    const entry = [r.level.trim(), r.pinyin.trim(), r.meaning.trim()];
+    if (!VOCAB_LEVELS.has(entry[0]) || !word || !entry[2]) {
+      throw new Error(`vocab_hsk_vi.csv row ${i + 2} is wrong: ${JSON.stringify(r)}`);
+    }
+    if (word.includes("{")) optional.push([word, entry]);
+    else add(word, entry);
+  }
+  const exact = new Set(Object.keys(out));
+  for (const [word, entry] of optional) {
+    if (!/^[^{}]+\{儿\}$/u.test(word)) throw new Error(`unexpected optional part: ${word}`);
+    for (const form of [word.replace("{儿}", ""), word.replace("{儿}", "儿")]) {
+      if (!exact.has(form)) add(form, entry);
+    }
+  }
+  return out;
+}
+
 function write(name, data, summary) {
   const json = JSON.stringify(data);
   writeFileSync(join(OUT, name), json);
@@ -327,3 +362,5 @@ write(
 buildStrokes();
 const radicals = buildRadicals(hanviet);
 write("radicals.json", radicals, `${radicals.length} radicals`);
+const vocab = buildVocab();
+write("vocab.json", vocab, `${Object.keys(vocab).length} words`);

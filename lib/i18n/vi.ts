@@ -87,7 +87,7 @@ export const vi = {
       anki: {
         title: "Tạo bộ thẻ Anki",
         description:
-          "Từ danh sách từ vựng: Pinyin, nghĩa, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
+          "Từ danh sách từ vựng: Pinyin, nghĩa tiếng Việt, cấp HSK, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
       quiz: {
@@ -379,7 +379,7 @@ export const vi = {
   anki: {
     title: "Tạo bộ thẻ Anki",
     subtitle:
-      "Nhập danh sách từ vựng (mỗi dòng một từ) để nhận bảng thẻ Anki: Pinyin, nghĩa, câu ví dụ có Pinyin và nghĩa tiếng Việt, mã Ngũ bút và âm Hán Việt.",
+      "Nhập danh sách từ vựng (mỗi dòng một từ) để nhận bảng thẻ Anki: Pinyin, nghĩa tiếng Anh và tiếng Việt, cấp HSK 3.0, câu ví dụ có Pinyin và nghĩa tiếng Việt, mã Ngũ bút và âm Hán Việt.",
     placeholder: "Mỗi dòng một từ, ví dụ:\n大学\n学习",
     upload: "Hoặc tải file (.txt)",
     badFile: "Chỉ hỗ trợ file .txt.",
@@ -396,6 +396,8 @@ export const vi = {
       sentence_meaning: "Nghĩa của câu",
       wubi: "Ngũ bút",
       hanviet: "Hán Việt",
+      hsk_level: "Cấp HSK",
+      meaning_vi: "Nghĩa tiếng Việt",
     },
     header: "Thêm dòng cấu hình cho Anki (#columns…), dùng cho Anki 2.1.55 trở lên",
     preview: "Xem trước và chỉnh sửa",
@@ -406,6 +408,7 @@ export const vi = {
     missingTitle: "Không tìm thấy",
     missingMeaning: "Chưa có nghĩa",
     missingSentence: "Chưa có câu ví dụ",
+    missingVocab: "Chưa có trong danh sách HSK (không có cấp HSK, nghĩa tiếng Việt)",
     duplicates: "Đã bỏ {n} từ trùng lặp.",
     importTitle: "Cách import vào Anki",
     importSteps: [
@@ -415,7 +418,7 @@ export const vi = {
     ],
     importMore: "Hướng dẫn chi tiết (kể cả AnkiDroid) có trong tài liệu hướng dẫn sử dụng.",
     credits:
-      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Câu ví dụ: Hán Ngữ Studio.",
+      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Câu ví dụ, cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0).",
     error: "Vui lòng nhập ít nhất một từ.",
     tooMany: "Quá nhiều từ (tối đa 1000 từ).",
     noColumns: "Hãy chọn ít nhất một cột.",
@@ -427,7 +430,7 @@ export const vi = {
       "Nhập danh sách từ vựng để tự tạo câu hỏi trắc nghiệm. Làm bài ngay trên trình duyệt, xem kết quả và ôn lại các câu sai.",
     placeholder: "Mỗi dòng một từ, ví dụ:\n大学\n学习",
     meaningNote:
-      "Nghĩa mặc định là tiếng Anh (CC-CEDICT). Muốn dùng nghĩa tiếng Việt, ghi nghĩa sau dấu Tab trên cùng dòng, hoặc dán hai cột (từ, nghĩa) từ Excel / Google Sheets.",
+      "Nghĩa mặc định là tiếng Việt theo danh sách từ vựng HSK 3.0; từ không có trong danh sách dùng nghĩa tiếng Anh (CC-CEDICT). Muốn dùng nghĩa riêng, ghi nghĩa sau dấu Tab trên cùng dòng, hoặc dán hai cột (từ, nghĩa) từ Excel / Google Sheets.",
     upload: "Hoặc tải file (.txt, .tsv)",
     badFile: "Chỉ hỗ trợ file .txt hoặc .tsv.",
     wordCount: "Số từ",
@@ -483,7 +486,7 @@ export const vi = {
       "Các từ này thiếu dữ liệu cho loại câu hỏi đó (chưa có nghĩa, câu ví dụ, hoặc không có đáp án sai nào khác). Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
     duplicates: "Đã bỏ {n} từ trùng lặp.",
     credits:
-      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt và câu ví dụ: Hán Ngữ Studio.",
+      "Nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt và câu ví dụ: Hán Ngữ Studio.",
     error: "Vui lòng nhập ít nhất một từ.",
     noKinds: "Hãy chọn ít nhất một loại câu hỏi.",
     tooMany: "Quá nhiều từ (tối đa 200 từ).",
