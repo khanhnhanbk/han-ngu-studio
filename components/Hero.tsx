@@ -1,5 +1,9 @@
 import { getDictionary } from "@/lib/i18n";
 import { USER_GUIDE_URL } from "@/lib/links";
+import { ArrowDownIcon } from "./icons/arrow-down";
+import { ExternalLinkIcon } from "./icons/external-link";
+import { SparklesIcon } from "./icons/sparkles";
+import { IconLink } from "./icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -31,7 +35,8 @@ export function Hero() {
       />
       <div className="container-page relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
         <div className="animate-fade-up">
-          <span className="inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+            <SparklesIcon size={14} aria-hidden />
             {dict.hero.badge}
           </span>
           <h1 className="mt-5 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
@@ -41,17 +46,19 @@ export function Hero() {
             {dict.hero.subtitle}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#features" className="btn-primary">
+            <IconLink href="#features" icon={ArrowDownIcon} iconAfter className="btn-primary">
               {dict.hero.ctaPrimary}
-            </a>
-            <a
+            </IconLink>
+            <IconLink
               href={USER_GUIDE_URL}
               target="_blank"
               rel="noopener noreferrer"
+              icon={ExternalLinkIcon}
+              iconAfter
               className="btn-secondary"
             >
               {dict.hero.ctaSecondary}
-            </a>
+            </IconLink>
           </div>
           <p className="mt-4 text-sm text-ink-700/70">{dict.hero.trustNote}</p>
         </div>

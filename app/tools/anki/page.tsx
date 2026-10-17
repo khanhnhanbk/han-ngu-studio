@@ -19,6 +19,10 @@ import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer } from "@/lib/segment/load";
+import { CheckIcon } from "@/components/icons/check";
+import { CopyIcon } from "@/components/icons/copy";
+import { DownloadIcon } from "@/components/icons/download";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -204,16 +208,16 @@ export default function AnkiPage() {
                     <p className="mt-4 text-sm text-red-600">{dict.anki.noColumns}</p>
                   ) : (
                     <div className="mt-4 flex flex-wrap gap-3">
-                      <button type="button" className="btn-secondary" onClick={handleCopy}>
+                      <IconButton icon={copied ? CheckIcon : CopyIcon} className="btn-secondary" onClick={handleCopy}>
                         {copied ? dict.anki.copied : dict.anki.copy}
-                      </button>
-                      <button
-                        type="button"
+                      </IconButton>
+                      <IconButton
+                        icon={DownloadIcon}
                         className="btn-primary"
                         onClick={() => downloadText(tsv, "anki_deck.tsv", "text/tab-separated-values")}
                       >
                         {dict.anki.download}
-                      </button>
+                      </IconButton>
                     </div>
                   )}
 

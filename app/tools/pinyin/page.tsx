@@ -15,6 +15,10 @@ import {
 } from "@/lib/pinyin/convert";
 import { loadTokenizer } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
+import { CheckIcon } from "@/components/icons/check";
+import { CopyIcon } from "@/components/icons/copy";
+import { DownloadIcon } from "@/components/icons/download";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -235,27 +239,27 @@ export default function PinyinPage() {
 
                   {view !== "ruby" && (
                     <div className="mt-4 flex flex-wrap gap-3">
-                      <button type="button" className="btn-secondary" onClick={handleCopy}>
+                      <IconButton icon={copied ? CheckIcon : CopyIcon} className="btn-secondary" onClick={handleCopy}>
                         {copied ? dict.pinyin.copied : dict.pinyin.copy}
-                      </button>
+                      </IconButton>
                       {view === "text" ? (
-                        <button
-                          type="button"
+                        <IconButton
+                          icon={DownloadIcon}
                           className="btn-secondary"
                           onClick={() => downloadText(plain, "pinyin.txt")}
                         >
                           {dict.pinyin.downloadTxt}
-                        </button>
+                        </IconButton>
                       ) : (
-                        <button
-                          type="button"
+                        <IconButton
+                          icon={DownloadIcon}
                           className="btn-secondary"
                           onClick={() =>
                             downloadText(tsv, "pinyin.tsv", "text/tab-separated-values")
                           }
                         >
                           {dict.pinyin.downloadTsv}
-                        </button>
+                        </IconButton>
                       )}
                     </div>
                   )}

@@ -25,6 +25,8 @@ import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
 import { sheetFontVariables } from "./fonts";
+import { PrinterIcon } from "@/components/icons/printer";
+import { IconButton } from "@/components/icons/trigger";
 
 const dict = getDictionary("vi");
 
@@ -455,8 +457,8 @@ export default function PracticeSheetPage() {
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <button
-                    type="button"
+                  <IconButton
+                    icon={PrinterIcon}
                     className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                     onClick={handlePrint}
                     disabled={strokesPending}
@@ -464,7 +466,7 @@ export default function PracticeSheetPage() {
                     {strokesPending && strokeState.status === "loading"
                       ? dict.practiceSheet.strokesLoading
                       : dict.practiceSheet.print}
-                  </button>
+                  </IconButton>
                   <button
                     type="button"
                     className="btn-secondary"

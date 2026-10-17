@@ -12,12 +12,12 @@ export type ToolId =
   | "comprehensibleInput";
 
 /** Live tools, in the order the landing page and footer show them. */
-export const TOOLS: ReadonlyArray<{ id: ToolId; href: string; icon: string }> = [
-  { id: "practiceSheet", href: "/tools/practice-sheet", icon: "筆" },
-  { id: "strokeOrder", href: "/tools/stroke-order", icon: "畫" },
-  { id: "segment", href: "/tools/segment", icon: "分" },
-  { id: "pinyin", href: "/tools/pinyin", icon: "拼" },
-  { id: "hanviet", href: "/tools/hanviet", icon: "越" },
-  { id: "anki", href: "/tools/anki", icon: "札" },
-  { id: "comprehensibleInput", href: "/tools/comprehensible-input", icon: "句" },
+export const TOOLS: ReadonlyArray<{ id: ToolId; href: string }> = [
+  { id: "practiceSheet", href: "/tools/practice-sheet" },
+  { id: "strokeOrder", href: "/tools/stroke-order" },
+  { id: "segment", href: "/tools/segment" },
+  { id: "pinyin", href: "/tools/pinyin" },
+  { id: "hanviet", href: "/tools/hanviet" },
+  { id: "anki", href: "/tools/anki" },
+  { id: "comprehensibleInput", href: "/tools/comprehensible-input" },
 ];

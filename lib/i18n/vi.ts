@@ -550,6 +550,7 @@ export const vi = {
       roadmap: "Sắp ra mắt",
     },
     rights: "Bản quyền đã được bảo hộ.",
+    iconCredit: "Biểu tượng động: animateicons (MIT), dựa trên Lucide (ISC).",
     languageLabel: "Ngôn ngữ",
   },
 };
