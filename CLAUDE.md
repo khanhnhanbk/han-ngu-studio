@@ -14,7 +14,9 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Pinyin converter (whole-line context, ruby view, TSV) | `/tools/pinyin` | Live, client-side (`lib/pinyin/`) |
 | Hán Việt (per-word readings, details panel, TSV) | `/tools/hanviet` | Live, client-side (`lib/hanviet/`, data in `public/data/hanviet.json`) |
 | Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, data in `public/data/{meanings,sentences,wubi}.json`) |
-| Cloze exercise generator | | Not built |
+| Vocabulary quiz (multiple choice: meaning, Pinyin, Hán Việt) | `/tools/quiz` | Live, client-side (`lib/quiz/`) |
+| 214 Kangxi radicals (search, variants, example characters) | `/tools/radicals` | Live, client-side (`lib/radicals/`, data in `public/data/radicals.json`) |
+| Cloze exercise generator | | Not built (phase 7b, `docs/plans/2026-10-17-phase-7-quiz.md`) |
 | N+1 sentence ordering (one new word per sentence) | `/tools/comprehensible-input` | Live, client-side |
 
 ## HARD RULES
@@ -73,6 +75,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - Sheet fonts: LXGW WenKai TC, Ma Shan Zheng, Noto Serif SC, Noto Sans SC (SIL OFL), self-hosted by `next/font/google` (`app/layout.tsx`, `app/tools/practice-sheet/fonts.ts`). User-uploaded fonts are loaded with `FontFace` in the browser only.
 - Stroke order: Hanzi Writer 3.7.3 (MIT) for animation/quiz, with `charDataLoader` reading our own files (never its CDN). Characters passed between pages go in the URL hash (`#c=`, `#chars=…&strokes=1`), never the query string, so they are not sent to the server.
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.
+- Radicals: names and meanings in `assets/dictionary/radicals.tsv` are our own curation, checked against PREP's list (prepedu.com) with its typos fixed. Characters per radical come from Unicode Unihan `kRSUnicode` (Unicode License v3, `assets/dictionary/LICENSE-unicode.txt`), extracted once to `assets/dictionary/unihan_radicals.tsv`.
 - Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide

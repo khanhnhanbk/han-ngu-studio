@@ -24,9 +24,10 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Hán Việt** | Tách từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
 | **Tạo thẻ Anki** | Từ danh sách từ vựng, tạo file thẻ Anki: Pinyin, nghĩa, câu ví dụ, Ngũ bút, Hán Việt | [anki.md](anki.md) |
 | **Trắc nghiệm** | Tạo câu hỏi trắc nghiệm từ danh sách từ vựng (nghĩa, Pinyin, Hán Việt, chữ Hán); làm bài và ôn lại câu sai | [quiz.md](quiz.md) |
+| **214 bộ thủ** | Tra 214 bộ thủ theo số nét, tên Hán Việt, nghĩa hoặc chữ; xem dạng khác và chữ thường gặp | [radicals.md](radicals.md) |
 | **Sắp xếp câu N+1** | Sắp xếp câu từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; xem thống kê và tải TSV | [comprehensible-input.md](comprehensible-input.md) |
 
-Các công cụ sắp có: điền từ và sắp xếp câu trong Trắc nghiệm, 214 bộ thủ, ảnh cho thẻ Anki, đọc to (TTS).
+Các công cụ sắp có: điền từ và sắp xếp câu trong Trắc nghiệm, ảnh cho thẻ Anki, đọc to (TTS).
 
 ## Đổi giao diện (sáng / tối, màu sắc)
 

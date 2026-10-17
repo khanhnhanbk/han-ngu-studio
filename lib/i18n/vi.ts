@@ -19,6 +19,7 @@ export const vi = {
     hanviet: "Hán Việt",
     anki: "Tạo thẻ Anki",
     quiz: "Trắc nghiệm",
+    radicals: "214 bộ thủ",
     comprehensibleInput: "Sắp xếp câu N+1",
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
@@ -45,7 +46,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Tám công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Chín công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -95,6 +96,12 @@ export const vi = {
           "Từ danh sách từ vựng, tự tạo câu hỏi trắc nghiệm: chọn nghĩa, Pinyin, âm Hán Việt hoặc chữ Hán đúng. Làm bài ngay và ôn lại câu sai.",
         cta: "Làm trắc nghiệm",
       },
+      radicals: {
+        title: "214 bộ thủ",
+        description:
+          "Tra 214 bộ thủ Khang Hy theo số nét, tên Hán Việt hay nghĩa; xem dạng biến thể và các chữ thường gặp có bộ đó.",
+        cta: "Tra bộ thủ",
+      },
     },
   },
   roadmap: {
@@ -136,12 +143,6 @@ export const vi = {
         title: "Điền từ và sắp xếp câu",
         description:
           "Thêm vào Trắc nghiệm: điền từ vào chỗ trống và sắp xếp lại câu từ câu ví dụ có sẵn; in đề kèm đáp án hoặc tải TSV.",
-      },
-      {
-        status: "planned",
-        title: "214 bộ thủ",
-        description:
-          "Tra 214 bộ thủ Khang Hy: tên Hán Việt, nghĩa, số nét, các dạng biến thể và chữ thường gặp có bộ đó.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",
@@ -477,6 +478,33 @@ export const vi = {
     tooMany: "Quá nhiều từ (tối đa 200 từ).",
     noQuestions: "Không tạo được câu hỏi nào. Hãy thêm từ hoặc chọn loại câu hỏi khác.",
     loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+  },
+  radicals: {
+    title: "214 bộ thủ",
+    subtitle:
+      "Bộ thủ là thành phần dùng để xếp và tra chữ Hán. Tìm theo chữ, tên Hán Việt, nghĩa hoặc số thứ tự; bấm vào một bộ để xem chi tiết.",
+    search: "Tìm bộ thủ",
+    searchPlaceholder: "Ví dụ: thủy, nước, 氵, 说, 85",
+    strokesGroup: "{n} nét",
+    noResults: "Không tìm thấy bộ thủ nào.",
+    resultCount: "{n} bộ thủ",
+    loading: "Đang tải…",
+    loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và tải lại trang.",
+    pick: "Bấm vào một bộ thủ để xem chi tiết.",
+    number: "Bộ số {n}",
+    strokes: "Số nét",
+    pinyin: "Pinyin",
+    meaning: "Nghĩa",
+    variants: "Dạng khác",
+    noVariants: "Không có",
+    examples: "Chữ thường gặp có bộ này",
+    exampleCount: "{shown} / {count} chữ trong dữ liệu",
+    noExamples: "Chưa có chữ nào trong dữ liệu.",
+    strokeOrder: "Xem thứ tự nét",
+    practice: "Tạo phiếu tập viết",
+    close: "Đóng",
+    credits:
+      "Tên và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Chữ thuộc bộ: Unicode Unihan (Unicode License v3). Âm Hán Việt: Hán Ngữ Studio.",
   },
   practiceSheet: {
     title: "Tạo phiếu tập viết chữ Hán",

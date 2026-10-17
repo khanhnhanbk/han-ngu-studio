@@ -8,6 +8,7 @@ import { LayersIcon } from "./icons/layers";
 import { ListOrderedIcon } from "./icons/list-ordered";
 import { PaintbrushIcon } from "./icons/paintbrush";
 import { PencilIcon } from "./icons/pencil";
+import { PuzzleIcon } from "./icons/puzzle";
 import { ScissorsIcon } from "./icons/scissors";
 import { SparklesIcon } from "./icons/sparkles";
 import { useIconTrigger, type AnimatedIcon } from "./icons/trigger";
@@ -20,6 +21,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   hanviet: BookOpenIcon,
   anki: LayersIcon,
   quiz: SparklesIcon,
+  radicals: PuzzleIcon,
   comprehensibleInput: ListOrderedIcon,
 };
 
