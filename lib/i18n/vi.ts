@@ -60,6 +60,12 @@ export const vi = {
           "Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ — dễ tra từ điển và học từ vựng.",
         cta: "Tách từ",
       },
+      comprehensibleInput: {
+        title: "Sắp xếp câu N+1",
+        description:
+          "Sắp xếp câu tiếng Trung từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; tô sáng từ mới và tải TSV.",
+        cta: "Sắp xếp câu",
+      },
       pinyin: {
         title: "Chuyển Pinyin",
         description:
@@ -202,6 +208,28 @@ export const vi = {
           "Hướng dẫn từng bước cho mọi công cụ có trên GitHub — bấm “Hướng dẫn sử dụng” ở đầu trang hoặc cuối trang.",
       },
     ],
+  },
+  comprehensibleInput: {
+    title: "Sắp xếp câu theo N+1",
+    subtitle:
+      "Dán các câu tiếng Trung (mỗi dòng một câu) để sắp xếp từ dễ đến khó: mỗi câu chỉ nên có khoảng một từ mới. Văn bản của bạn chỉ được xử lý trên máy, không gửi đi đâu.",
+    sentencesLabel: "Các câu (mỗi dòng một câu)",
+    sentencesPlaceholder: "Dán các câu tiếng Trung vào đây…",
+    knownLabel: "Từ đã biết (không bắt buộc, mỗi dòng một từ)",
+    knownPlaceholder: "Dán danh sách từ bạn đã biết…",
+    button: "Sắp xếp",
+    loading: "Đang xử lý…",
+    download: "Tải sentence_sorted.tsv",
+    empty: "Vui lòng nhập ít nhất một câu tiếng Trung.",
+    loadFailed:
+      "Không tải được danh sách từ. Vui lòng kiểm tra kết nối mạng rồi bấm Sắp xếp để thử lại.",
+    flagZero: "Không có từ mới",
+    flagMany: "Quá nhiều từ mới",
+    originalLine: (n: number) => `Dòng gốc ${n}`,
+    newWords: "Từ mới",
+    count: (n: number) => `${n} từ mới`,
+    summary: (total: number, newWords: number, flagged: number) =>
+      `${total} câu · ${newWords} từ mới · ${flagged} câu cần chú ý`,
   },
   segment: {
     title: "Tách từ tiếng Trung",
