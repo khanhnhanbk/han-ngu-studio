@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { fold, groupByStrokes, searchRadicals } from "./search";
+import { fold, forScript, groupByStrokes, searchRadicals } from "./search";
 import type { Radical } from "./types";
 
 const radicals = JSON.parse(
@@ -90,5 +90,28 @@ describe("groupByStrokes", () => {
     const groups = groupByStrokes(radicals);
     expect(groups.map(([n]) => n)).toEqual(Array.from({ length: 17 }, (_, i) => i + 1));
     expect(groups.reduce((n, [, list]) => n + list.length, 0)).toBe(214);
+  });
+});
+
+describe("Phồn thể lists", () => {
+  const trad = forScript(radicals, "trad");
+
+  it("file Traditional characters under their own radical", () => {
+    expect(searchRadicals(trad, "頭").map((r) => r.no)).toEqual([181]);
+    expect(searchRadicals(forScript(radicals, "simp"), "头").map((r) => r.no)).toEqual([37]);
+    expect(trad[189].members).toContain("髮");
+    expect(trad[8].chars.map(([c]) => c)).toEqual(expect.arrayContaining(["們", "個"]));
+  });
+
+  it("keep Taiwan forms only", () => {
+    const all = trad.map((r) => r.members).join("");
+    expect(all).toContain("后"); // 皇后
+    expect(all).not.toContain("从"); // Taiwan writes 從
+    expect(all).not.toContain("们");
+    expect(all).not.toContain("麽"); // variant of 麼
+  });
+
+  it("leave Giản thể mode unchanged", () => {
+    expect(forScript(radicals, "simp")).toEqual(radicals);
   });
 });

@@ -6,8 +6,9 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { getDictionary } from "@/lib/i18n";
 import { loadRadicals } from "@/lib/radicals/load";
-import { groupByStrokes, searchRadicals } from "@/lib/radicals/search";
+import { forScript, groupByStrokes, searchRadicals } from "@/lib/radicals/search";
 import type { Radical } from "@/lib/radicals/types";
+import { useConverter } from "@/lib/script/useScript";
 
 const dict = getDictionary("vi");
 const t = dict.radicals;
@@ -90,7 +91,10 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
 }
 
 export default function RadicalsPage() {
-  const [radicals, setRadicals] = useState<Radical[] | null>(null);
+  const [data, setData] = useState<Radical[] | null>(null);
+  const { conv } = useConverter();
+  // Example characters and search use the chosen script's lists.
+  const radicals = useMemo(() => data && forScript(data, conv.script), [data, conv.script]);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<number | null>(null);
@@ -100,14 +104,19 @@ export default function RadicalsPage() {
   useEffect(() => {
     loadRadicals()
       .then((data) => {
-        setRadicals(data);
+        setData(data);
         const no = Number(new URLSearchParams(window.location.hash.slice(1)).get("r"));
         if (Number.isInteger(no) && no >= 1 && no <= data.length) setSelected(no);
       })
       .catch(() => setError(t.loadFailed));
   }, []);
 
-  const results = useMemo(() => (radicals ? searchRadicals(radicals, query) : []), [radicals, query]);
+  // In Phồn thể mode a Simplified query finds its Traditional form too (头 → 頭).
+  const results = useMemo(() => {
+    if (!radicals) return [];
+    const q = conv.script === "trad" && /\p{Script=Han}/u.test(query) ? query + conv.toShown(query) : query;
+    return searchRadicals(radicals, q);
+  }, [radicals, query, conv]);
   const groups = useMemo(() => groupByStrokes(results), [results]);
   const current = radicals && selected ? radicals[selected - 1] : null;
 

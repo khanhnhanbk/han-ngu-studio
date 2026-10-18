@@ -22,6 +22,8 @@ type Props = {
   labels: { name: string; date: string; strokes: string; noStrokes: string };
   /** Stroke data by character; only needed when showStrokeOrder is on. */
   strokes?: Map<string, StrokeData>;
+  /** Phồn thể mode: the Simplified character each Pinyin is read from. */
+  simpOf?: ReadonlyMap<string, string>;
 };
 
 export function SheetPage({
@@ -31,6 +33,7 @@ export function SheetPage({
   pageCount,
   labels,
   strokes,
+  simpOf,
 }: Props) {
   const layout = getLayout(options.boxSize);
   const {
@@ -131,7 +134,7 @@ export function SheetPage({
                   fontSize={pinyinSize}
                   fill="#111"
                 >
-                  {getPinyin(char)}
+                  {getPinyin(simpOf?.get(char) ?? char)}
                 </text>
               )}
               {Array.from({ length: boxesPerRow }, (_, col) => {

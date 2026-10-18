@@ -72,6 +72,10 @@ Trong khung **Câu chuyện ghi nhớ**, viết một câu ngắn ghép các th�
 
 Trang **214 bộ thủ** (nút **Chiết tự**) và trang **Thứ tự nét** (nút **Chiết tự chữ này**) cũng mở thẳng công cụ này.
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu: chữ được phân tích ở dạng phồn thể, dù bạn gõ giản thể (们 → 們: 亻 + 門). Pinyin và Hán Việt lấy theo chữ giản thể tương ứng. Danh sách **Chữ có chứa thành phần** chỉ hiện chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -85,6 +89,8 @@ Trang **214 bộ thủ** (nút **Chiết tự**) và trang **Thứ tự nét** (
 | "Trình duyệt không cho lưu…" | Trình duyệt đang chặn lưu dữ liệu (thường do chế độ ẩn danh). Viết xong hãy bấm **Tải câu chuyện (TSV)**. |
 | "File không có câu chuyện nào hợp lệ." | Chỉ nhập được file do nút **Tải câu chuyện (TSV)** tạo ra (mỗi dòng: một chữ, dấu Tab, câu chuyện). |
 | Chữ trong danh sách "Chữ có chứa…" ghi "—" thay vì âm Hán Việt | Thường là chữ phồn thể hoặc chữ hiếm chưa có trong bảng Hán Việt. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
 
 ## Nguồn dữ liệu
 

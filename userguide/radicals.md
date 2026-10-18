@@ -45,6 +45,10 @@ Bấm vào một bộ thủ. Khung chi tiết hiện ở bên phải (trên đi�
 
 Địa chỉ trang đổi thành `…/tools/radicals#r=85`. Gửi địa chỉ này cho người khác để mở thẳng bộ thủ đó.
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu: các chữ ví dụ và số chữ của mỗi bộ là chữ phồn thể (Đài Loan). Chữ phồn thể có thể thuộc bộ khác chữ giản thể: 頭 thuộc bộ 181 頁, còn 头 thuộc bộ 37 大. Ô tìm kiếm nhận cả hai loại chữ: gõ 头 sẽ tìm ra bộ của 頭. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -53,6 +57,7 @@ Bấm vào một bộ thủ. Khung chi tiết hiện ở bên phải (trên đi�
 | "Không tìm thấy bộ thủ nào." | Thử tên không dấu, một nghĩa khác, hoặc gõ thẳng chữ Hán. Nghĩa chỉ tìm theo đầu từ (`nuoc` tìm được "Nước", `uoc` thì không). |
 | Gõ một chữ Hán nhưng không ra bộ của nó | Chữ đó chưa có trong dữ liệu (khoảng 10.000 chữ giản thể thông dụng). Hãy tìm theo bộ thủ hoặc tên bộ. |
 | Chữ phồn thể (說, 魚) không có trong danh sách chữ | Danh sách chữ ví dụ dùng chữ giản thể. Bộ thủ và dạng khác vẫn ghi cả dạng phồn thể và giản thể (魚 / 鱼). |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
 
 ## Nguồn dữ liệu
 

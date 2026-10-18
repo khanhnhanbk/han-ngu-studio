@@ -52,6 +52,10 @@ Sau khi bấm **Tra**, địa chỉ trang có thêm các chữ bạn tra (phần
 
 Thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arphic Public License), khoảng 9.500 chữ giản thể và phồn thể thông dụng. Hoạt hình và phần tự viết dùng thư viện Hanzi Writer (MIT). Âm Hán Việt lấy từ dữ liệu của trang [Hán Việt](hanviet.md).
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu: chữ được tra ở dạng phồn thể, dù bạn gõ giản thể (学 → 學, 16 nét). Pinyin và Hán Việt giữ nguyên như chữ giản thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -62,3 +66,5 @@ Thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arp
 | "Không tải được dữ liệu. …" | Kiểm tra kết nối mạng rồi bấm **Tra** lại. |
 | Viết đúng mà vẫn bị báo sai | Viết đúng **chiều** của nét (ngang: trái sang phải; sổ: trên xuống dưới) và đúng thứ tự. Viết chậm, nét dài vừa đủ. |
 | Trên điện thoại, kéo ngón tay làm cuộn trang | Đặt ngón tay bắt đầu từ bên trong ô viết. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |

@@ -18,13 +18,16 @@ import type { DecomposeData, PartNode } from "@/lib/decompose/types";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
 import { getDictionary } from "@/lib/i18n";
-import { parseCharacters } from "@/lib/practiceSheet";
+import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
 import { loadRadicals } from "@/lib/radicals/load";
 import type { Radical } from "@/lib/radicals/types";
+import type { ScriptConverter } from "@/lib/script/convert";
+import { useConverter } from "@/lib/script/useScript";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
-const t = getDictionary("vi").decompose;
+const vi = getDictionary("vi");
+const t = vi.decompose;
 
 const SAMPLE = "清意國";
 const MAX_CHARS = 20;
@@ -68,6 +71,12 @@ function writeHash(chars: string[], current: string) {
 export default function DecomposePage() {
   const [input, setInput] = useState(SAMPLE);
   const [chars, setChars] = useState<string[]>([]);
+  // Phồn thể mode: the Simplified character readings are looked up with.
+  const [simpOf, setSimpOf] = useState<ReadonlyMap<string, string>>(new Map());
+  // The text last opened; re-opened once the converter is ready and when the
+  // script switch changes.
+  const [request, setRequest] = useState<{ text: string; pick: string } | null>(null);
+  const { conv, ready, failed } = useConverter();
   const [current, setCurrent] = useState("");
   const [tables, setTables] = useState<Tables | null>(null);
   const [strokes, setStrokes] = useState<Map<string, StrokeData>>(new Map());
@@ -89,17 +98,27 @@ export default function DecomposePage() {
         const params = new URLSearchParams(window.location.hash.slice(1));
         const text = params.get("c") || SAMPLE;
         setInput(text);
-        open(text, params.get("s") ?? "");
+        setRequest({ text, pick: params.get("s") ?? "" });
       })
       .catch(() => setError(t.loadFailed));
   }, []);
 
-  function open(text: string, pick = "") {
+  useEffect(() => {
+    if (tables && ready && request) open(request.text, request.pick, conv);
+  }, [tables, ready, request, conv]);
+
+  function open(text: string, pick: string, conv: ScriptConverter) {
     setError("");
-    const list = parseCharacters(text, true);
+    // Phồn thể mode shows Traditional characters whatever was typed.
+    const { chars: list, simpOf } =
+      conv.script === "trad"
+        ? parseSheetCharacters(conv.toShown(text), conv.toSimp(text), true)
+        : { chars: parseCharacters(text, true), simpOf: new Map<string, string>() };
     if (list.length === 0) return setError(t.error);
     if (list.length > MAX_CHARS) return setError(t.tooMany);
-    const next = list.includes(pick) ? pick : list[0];
+    const shownPick = conv.toShown(pick);
+    const next = list.includes(shownPick) ? shownPick : list[0];
+    setSimpOf(simpOf);
     setChars(list);
     setCurrent(next);
     writeHash(list, next);
@@ -122,7 +141,7 @@ export default function DecomposePage() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    open(input);
+    setRequest({ text: input, pick: "" });
   }
 
   const data = tables?.decompose;
@@ -158,14 +177,22 @@ export default function DecomposePage() {
   }, [tree]);
 
   const reverseIndex = useMemo(() => (data ? buildReverseIndex(data) : null), [data]);
+  // decompose.json keys are in Simplified frequency order; Traditional-only
+  // characters come after them unordered. Phồn thể mode ranks a character
+  // by its Simplified form instead (們 by 们), so 間 and 開 come before 蕑.
+  const rank = useMemo(() => new Map(Object.keys(data ?? {}).map((c, i) => [c, i])), [data]);
   const radicalOf = useMemo(() => radicalNames(tables?.radicals ?? null), [tables]);
 
-  const hanvietOf = (char: string) => allCharReadings(tables?.hanviet ?? null, char).join(", ");
+  // Readings come from the Simplified form (hanviet.json is keyed by
+  // Simplified, and pinyin-pro misreads some Traditional characters).
+  const simpChar = (char: string) => simpOf.get(char) ?? conv.toSimp(char);
+  const hanvietOf = (char: string) => allCharReadings(tables?.hanviet ?? null, simpChar(char)).join(", ");
   const info = (char: string): GlyphInfo => {
-    const py = pinyin(char);
+    const sc = simpChar(char);
+    const py = pinyin(sc);
     return {
       hanviet: hanvietOf(char),
-      pinyin: py === char ? "" : py,
+      pinyin: py === sc ? "" : py,
       radical: radicalOf.get(char) ?? radicalOf.get(char.normalize("NFKC")) ?? "",
     };
   };
@@ -180,8 +207,14 @@ export default function DecomposePage() {
   const colors = tree && strokeData ? strokeColors(tree, strokeData.strokes.length) : [];
   const highlightList = hover ?? selected?.strokes ?? null;
   const highlight = highlightList ? new Set(highlightList) : null;
-  const family =
-    selected && data && reverseIndex ? familyOf(selected.char, reverseIndex, data).filter((m) => m.char !== current) : [];
+  // Phồn thể mode leaves out characters that exist only in Simplified (们, 头).
+  const family = useMemo(() => {
+    if (!selected || !data || !reverseIndex) return [];
+    const members = familyOf(selected.char, reverseIndex, data).filter((m) => m.char !== current);
+    if (conv.script === "simp") return members;
+    const order = (c: string) => rank.get(conv.toSimp(c)) ?? rank.get(c) ?? Infinity;
+    return members.filter((m) => conv.toShown(m.char) === m.char).sort((a, b) => order(a.char) - order(b.char));
+  }, [selected, data, reverseIndex, current, conv, rank]);
 
   const strokeHref = `/tools/stroke-order#${new URLSearchParams({ c: current })}`;
   const sheetHref = `/tools/practice-sheet#${new URLSearchParams({ chars: current, strokes: "1" })}`;
@@ -206,12 +239,14 @@ export default function DecomposePage() {
                     placeholder={t.placeholder}
                     onChange={(e) => setInput(e.target.value)}
                   />
-                  <button type="submit" className="btn-primary shrink-0" disabled={!tables}>
+                  <button type="submit" className="btn-primary shrink-0" disabled={!tables || !ready}>
                     {tables ? t.button : t.loading}
                   </button>
                 </div>
               </label>
               {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+              {!ready && !failed && <p className="mt-3 text-sm text-ink-500">{vi.script.loading}</p>}
+              {failed && <p className="mt-3 text-sm text-red-600">{vi.script.loadFailed}</p>}
 
               {chars.length > 1 && (
                 <div className="mt-4 flex flex-wrap gap-2" role="tablist">
@@ -263,7 +298,7 @@ export default function DecomposePage() {
                         <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                           <dt className="text-ink-500">{t.pinyin}</dt>
                           <dd className="font-medium text-ink-900">
-                            {pinyin(current, { multiple: true, type: "array" }).join(", ")}
+                            {pinyin(simpChar(current), { multiple: true, type: "array" }).join(", ")}
                           </dd>
                           <dt className="text-ink-500">{t.hanviet}</dt>
                           <dd className="font-medium text-brand-ink">{hanvietOf(current) || "—"}</dd>
@@ -331,7 +366,8 @@ export default function DecomposePage() {
                                   <li>
                                     {t.phonetic}: <span className="hanzi text-lg text-ink-900">{etymology.phonetic}</span>{" "}
                                     {hanvietOf(etymology.phonetic)}
-                                    {pinyin(etymology.phonetic) !== etymology.phonetic && ` (${pinyin(etymology.phonetic)})`}
+                                    {pinyin(simpChar(etymology.phonetic)) !== simpChar(etymology.phonetic) &&
+                                      ` (${pinyin(simpChar(etymology.phonetic))})`}
                                   </li>
                                 )}
                               </ul>
@@ -355,7 +391,7 @@ export default function DecomposePage() {
                         key={selected.char}
                         component={selected.char}
                         members={family}
-                        hanviet={(c) => allCharReadings(tables.hanviet, c)[0] ?? ""}
+                        hanviet={(c) => allCharReadings(tables.hanviet, simpChar(c))[0] ?? ""}
                         onOpen={openFromFamily}
                       />
                     </div>

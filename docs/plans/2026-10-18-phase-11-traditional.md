@@ -1,6 +1,6 @@
 # Phase 11: Traditional Chinese (Phồn thể) across all tools
 
-> Status: in progress (started 2026-10-18). 11a and 11b done.
+> Status: done (2026-10-18). 11a, 11b and 11c shipped.
 >
 > Changes made during implementation:
 > - **Giản thể mode does no conversion at all** (`IDENTITY` converter), so every existing result stays byte-for-byte the same. Traditional input typed in Giản thể mode behaves as before.
@@ -8,6 +8,7 @@
 > - opencc-js 1.4.2 (`opencc-js/t2cn` + `opencc-js/cn2t`, both loaded only in Phồn thể mode).
 > - Noto Sans TC lacks Simplified-only glyphs, so Phồn thể mode falls back to Noto Sans SC (`--font-hanzi-sc`).
 > - 11b: a quiz converts its questions once when built (a quiz in progress keeps its script, so ordering answers stay valid). Anki and N+1 re-show their results live when the switch flips. Per-tool helpers: `lib/{anki,quiz,comprehensible-input}/script.ts`.
+> - 11c: radicals' Taiwan lists take each Simplified character's `cn2t` form plus `trad_char` when it is a standard Taiwan form (`toTw(t) === t && toCn(t) === simp`) or the same character used in Taiwan text (it survives `cn2t` in some word-list word: 后, 台; not 从). Decompose families in Phồn thể mode hide Simplified-only characters and are re-ranked by their Simplified form's frequency (Traditional-only keys are unordered in decompose.json). The reverse filter in Giản thể mode was **not** done, to keep existing results unchanged.
 
 ## Context
 

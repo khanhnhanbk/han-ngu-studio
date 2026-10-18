@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { getDictionary } from "@/lib/i18n";
+import { useScript } from "@/lib/script/useScript";
 import {
   LOCAL_FONT_SUGGESTIONS,
   PRESET_FONTS,
@@ -114,6 +115,9 @@ export function FontPicker({
   }
 
   const previewId = fontId === "upload" && !uploadName ? "wenkai" : fontId;
+  const trad = useScript() === "trad";
+  const presetLabel = (id: (typeof PRESET_FONTS)[number]) =>
+    (trad && t.presetsTrad[id as keyof typeof t.presetsTrad]) || t.presets[id];
 
   return (
     <div className="flex flex-col gap-2 sm:col-span-2">
@@ -126,7 +130,7 @@ export function FontPicker({
         >
           {PRESET_FONTS.map((id) => (
             <option key={id} value={id}>
-              {t.presets[id]}
+              {presetLabel(id)}
             </option>
           ))}
           <option value="local">{t.local}</option>
@@ -134,7 +138,7 @@ export function FontPicker({
         </select>
         <div
           className="flex items-center rounded-lg border border-ink-900/10 bg-surface px-3 text-3xl text-ink-900"
-          style={{ fontFamily: fontStack(previewId, localName) }}
+          style={{ fontFamily: fontStack(previewId, localName, trad) }}
           aria-label={t.sample}
         >
           {SAMPLE}

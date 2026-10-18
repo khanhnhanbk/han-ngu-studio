@@ -103,6 +103,32 @@ export function parseCharacters(text: string, dedupe = false): string[] {
   return dedupe ? Array.from(new Set(chars)) : chars;
 }
 
+/**
+ * Characters for the sheet in the chosen script, each with the Simplified
+ * character its Pinyin is read from (們 alone would read "mén", 们 reads
+ * "men"). `shown` and `simp` are the same text in both scripts, with the
+ * same code-point count; Han characters convert to Han characters, so
+ * filtering both keeps them paired. Dedupe keeps the first of each shown
+ * character.
+ */
+export function parseSheetCharacters(
+  shown: string,
+  simp: string,
+  dedupe = false,
+): { chars: string[]; simpOf: Map<string, string> } {
+  const a = Array.from(shown);
+  const b = Array.from(simp);
+  const chars: string[] = [];
+  const simpOf = new Map<string, string>();
+  a.forEach((c, i) => {
+    if (!HAN.test(c)) return;
+    if (dedupe && simpOf.has(c)) return;
+    if (!simpOf.has(c)) simpOf.set(c, HAN.test(b[i] ?? "") ? b[i] : c);
+    chars.push(c);
+  });
+  return { chars, simpOf };
+}
+
 export function paginate<T>(items: T[], perPage = 17): T[][] {
   const pages: T[][] = [];
   for (let i = 0; i < items.length; i += perPage) {

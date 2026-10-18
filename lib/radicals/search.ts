@@ -1,3 +1,5 @@
+import type { Script } from "@/lib/script/preference";
+
 import type { Radical } from "./types";
 
 /** Lower case without Vietnamese or Pinyin tone marks: "Thủy" → "thuy", "shuǐ" → "shui". */
@@ -33,6 +35,16 @@ export function searchRadicals(radicals: readonly Radical[], query: string): Rad
   return radicals.filter((r) =>
     [r.name, r.meaning, r.pinyin].some((field) => fold(field).startsWith(needle) || words(field).some((w) => w.startsWith(needle))),
   );
+}
+
+/**
+ * The radicals with the character lists of the chosen script. A Traditional
+ * character is filed under its own radical (頭 → 181 頁, while 头 → 37 大).
+ * Giản thể mode returns the list unchanged.
+ */
+export function forScript(radicals: readonly Radical[], script: Script): Radical[] {
+  if (script === "simp") return [...radicals];
+  return radicals.map((r) => ({ ...r, count: r.countTrad, chars: r.charsTrad, members: r.membersTrad }));
 }
 
 /** Radicals grouped by stroke count, in order. */

@@ -145,12 +145,6 @@ export const vi = {
         description:
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
       },
-      {
-        status: "planned",
-        title: "Chữ phồn thể",
-        description:
-          "Chuyển toàn bộ công cụ sang chữ phồn thể (Đài Loan): Pinyin, Hán Việt, phiếu tập viết, thẻ Anki và trắc nghiệm đều đúng với chữ phồn thể.",
-      },
     ],
     note: "Lộ trình có thể thay đổi.",
   },
@@ -216,6 +210,11 @@ export const vi = {
         question: "Nghĩa, câu ví dụ và mã Ngũ bút lấy từ đâu?",
         answer:
           "Nghĩa tiếng Anh từ CC-CEDICT, mã Ngũ bút từ pywubi, câu ví dụ và bản dịch do Hán Ngữ Studio biên soạn. Pinyin và Hán Việt được tạo tự động, nên hãy kiểm tra lại các chữ đa âm.",
+      },
+      {
+        question: "Có dùng được chữ phồn thể không?",
+        answer:
+          "Có. Bấm nút 繁 trên thanh menu: mọi công cụ hiện kết quả bằng chữ phồn thể (Đài Loan), dù bạn gõ giản thể hay phồn thể. Pinyin và Hán Việt vẫn đúng như với chữ giản thể. Bấm 简 để quay lại giản thể.",
       },
       {
         question: "Có chế độ tối không?",
@@ -688,6 +687,12 @@ export const vi = {
         mashanzheng: "Bút lông – Ma Shan Zheng",
         notoSerif: "Tống thể (chữ in) – Noto Serif SC (mặc định)",
         notoSans: "Hắc thể (không chân) – Noto Sans SC",
+      },
+      // Phồn thể mode: these presets switch to their TC cut (or have none).
+      presetsTrad: {
+        mashanzheng: "Bút lông – Ma Shan Zheng (chỉ giản thể)",
+        notoSerif: "Tống thể (chữ in) – Noto Serif TC (mặc định)",
+        notoSans: "Hắc thể (không chân) – Noto Sans TC",
       },
       local: "Phông có sẵn trên máy…",
       upload: "Tải file phông lên…",

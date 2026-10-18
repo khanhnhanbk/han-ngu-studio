@@ -10,6 +10,12 @@ describe("quoteFamily", () => {
 });
 
 describe("fontStack", () => {
+  it("uses the TC cut in Phồn thể mode where a preset has one", () => {
+    expect(fontStack("notoSerif", "", true)).toMatch(/^var\(--font-noto-serif-tc\), var\(--font-noto-serif-sc\), var\(--font-kai\)/);
+    expect(fontStack("notoSerif")).toMatch(/^var\(--font-noto-serif-sc\), var\(--font-kai\)/);
+    expect(fontStack("wenkai", "", true)).toBe(fontStack("wenkai"));
+  });
+
   it("puts the preset first and keeps the Kai fallback", () => {
     expect(fontStack("mashanzheng")).toMatch(/^var\(--font-mashanzheng\), var\(--font-kai\)/);
   });

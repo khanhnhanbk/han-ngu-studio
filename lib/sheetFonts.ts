@@ -40,6 +40,14 @@ export const LOCAL_FONT_SUGGESTIONS = [
   "AR PL UKai CN",
 ];
 
+/** Phồn thể mode: presets that have a Traditional (Taiwan) cut of their own. */
+const TRAD_VARS: Partial<Record<PresetFontId, string>> = {
+  notoSerif: "--font-noto-serif-tc",
+};
+
+/** Presets with no Traditional glyphs (shown with the fallback font). */
+export const SIMP_ONLY_FONTS: ReadonlySet<SheetFontId> = new Set(["mashanzheng"]);
+
 // Fallback for glyphs the chosen font lacks (e.g. traditional characters in
 // Ma Shan Zheng): the default Kai font, then system Kai fonts.
 const FALLBACK = 'var(--font-kai), "KaiTi", "STKaiti", var(--font-hanzi), serif';
@@ -49,13 +57,18 @@ export function quoteFamily(name: string): string {
   return `"${name.replace(/[\\"]/g, (c) => `\\${c}`)}"`;
 }
 
-/** font-family stack for the sheet. */
-export function fontStack(id: SheetFontId, localName = ""): string {
+/**
+ * font-family stack for the sheet. In Phồn thể mode a preset with a TC cut
+ * uses it first, with the SC cut behind it for Simplified-only characters.
+ */
+export function fontStack(id: SheetFontId, localName = "", trad = false): string {
   if (id === "local") {
     const name = localName.trim();
     return name ? `${quoteFamily(name)}, ${FALLBACK}` : FALLBACK;
   }
   if (id === "upload") return `${quoteFamily(UPLOAD_FAMILY)}, ${FALLBACK}`;
+  const tc = trad ? TRAD_VARS[id] : undefined;
+  if (tc) return `var(${tc}), var(${PRESET_VARS[id]}), ${FALLBACK}`;
   return `var(${PRESET_VARS[id]}), ${FALLBACK}`;
 }
 

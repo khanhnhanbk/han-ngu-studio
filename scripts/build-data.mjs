@@ -7,6 +7,8 @@ import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import * as cn2t from "opencc-js/cn2t";
+import * as t2cn from "opencc-js/t2cn";
 import { pinyin } from "pinyin-pro";
 
 import { readCsvFrom } from "./lib/csv.mjs";
@@ -390,6 +392,9 @@ function buildRadicals(hanviet) {
     count: 0,
     chars: [],
     members: "",
+    countTrad: 0,
+    charsTrad: [],
+    membersTrad: "",
   }));
   radicals.forEach((r, i) => {
     const kangxi = String.fromCodePoint(0x2f00 + i).normalize("NFKC");
@@ -425,6 +430,47 @@ function buildRadicals(hanviet) {
     r.count++;
     r.members += char;
     if (r.chars.length < RADICAL_EXAMPLES) r.chars.push([char, hanvietOfChar(hanviet, char)]);
+  }
+
+  // Phồn thể list (Taiwan characters): each Simplified character's OpenCC
+  // Taiwan form, plus the file's trad_char when it is a standard Taiwan form
+  // of it (头发 → 髮; variants such as 麽 are left out) or the character
+  // itself, if Taiwan text uses it too: it survives OpenCC in some word of
+  // the word list (皇后 keeps 后, 公里 keeps 里, but 从 always becomes 從). A Traditional character is
+  // filed under its own radical (頭 → 181 頁) with the frequency and Hán
+  // Việt of its most frequent Simplified source.
+  const toTw = cn2t.Converter({ from: "cn", to: "tw" });
+  const toCn = t2cn.Converter({ from: "tw", to: "cn" });
+  const twChars = new Set();
+  for (const line of readFileSync(join(ROOT, "public/data/word_list.txt"), "utf-8").split("\n")) {
+    const word = line.split(/\s/)[0];
+    if (word) for (const ch of toTw(word)) twChars.add(ch);
+  }
+  const tradSource = new Map();
+  for (const row of readCsv("char_hanviet.csv")) {
+    const simp = row.simp_char.trim();
+    const trad = row.trad_char.trim();
+    if (Array.from(simp).length !== 1) continue;
+    const f = Number(row.frequency) || 0;
+    const forms = new Set([toTw(simp)]);
+    if (Array.from(trad).length === 1 && (trad === simp ? twChars.has(trad) : toTw(trad) === trad && toCn(trad) === simp)) forms.add(trad);
+    for (const t of forms) {
+      if (Array.from(t).length !== 1) continue;
+      const prev = tradSource.get(t);
+      if (!prev || f > prev.f) tradSource.set(t, { simp, f });
+    }
+  }
+  const tradByFreq = [...tradSource.keys()].sort(
+    (a, b) => tradSource.get(b).f - tradSource.get(a).f || a.codePointAt(0) - b.codePointAt(0),
+  );
+  for (const char of tradByFreq) {
+    const no = radicalOf.get(char);
+    if (!no) continue;
+    const r = radicals[no - 1];
+    if (forms[no - 1].has(char)) continue;
+    r.countTrad++;
+    r.membersTrad += char;
+    if (r.charsTrad.length < RADICAL_EXAMPLES) r.charsTrad.push([char, hanvietOfChar(hanviet, tradSource.get(char).simp)]);
   }
   return radicals;
 }

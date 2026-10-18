@@ -67,7 +67,7 @@ File phông chỉ được đọc ngay trên trình duyệt, không gửi đi đ
 
 Phông chỉ áp dụng cho chữ mẫu, chữ mờ và chữ gợi ý; dải thứ tự nét được vẽ từ dữ liệu nét nên không đổi theo phông.
 
-Các phông có sẵn (LXGW WenKai, Ma Shan Zheng, Noto Serif SC, Noto Sans SC) dùng giấy phép SIL Open Font License và được tải từ chính trang web này.
+Các phông có sẵn (LXGW WenKai, Ma Shan Zheng, Noto Serif SC/TC, Noto Sans SC/TC) dùng giấy phép SIL Open Font License và được tải từ chính trang web này.
 
 #### Thứ tự nét
 
@@ -99,6 +99,10 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
    - **Đồ họa nền:** bật (Background graphics), nếu không ô và chữ mờ có thể không hiện.
 3. Bấm **Lưu** hoặc **In**.
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu: phiếu in chữ phồn thể (学 → 學), có nét và thứ tự nét của chữ phồn thể; Pinyin vẫn đúng (們 → men). Phông **Tống thể (chữ in) – Noto Serif TC (mặc định)** và **Hắc thể (không chân) – Noto Sans TC** dùng mặt chữ Đài Loan. Phông **Bút lông – Ma Shan Zheng (chỉ giản thể)** không có chữ phồn thể, nên các chữ đó được vẽ bằng phông Khải thư. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -116,3 +120,5 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
 | Một vài chữ trông khác các chữ còn lại | Phông đã chọn không có chữ đó nên trang dùng phông Khải thư cho chữ đó (hay gặp với chữ phồn thể). Chọn phông khác. |
 | Phông tải lên bị mất | Sau khi tải lại trang cần chọn lại file phông. |
 | Phiếu bị lệch hoặc thừa trang trắng | Chọn khổ **A4** và lề **Không**; tỷ lệ (Scale) để **100%** / Mặc định. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |

@@ -14,12 +14,14 @@ import {
   buildPages,
   getLayout,
   parseCharacters,
+  parseSheetCharacters,
   type BoxSizeName,
   type GridColorName,
   type GridType,
   type SheetOptions,
   type TraceShadeName,
 } from "@/lib/practiceSheet";
+import { useConverter } from "@/lib/script/useScript";
 import { fontStack, isSheetFontId, type SheetFontId } from "@/lib/sheetFonts";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
@@ -167,10 +169,18 @@ export default function PracticeSheetPage() {
     localFontName,
   ]);
 
-  const characters = useMemo(
-    () => parseCharacters(text, dedupe),
-    [text, dedupe],
+  const { conv, ready, failed } = useConverter();
+  const trad = conv.script === "trad";
+  // Phồn thể mode: the sheet shows Traditional characters whatever was typed,
+  // with Pinyin read from the Simplified character (simpOf).
+  const sheet = useMemo(
+    () =>
+      trad
+        ? parseSheetCharacters(conv.toShown(text), conv.toSimp(text), dedupe)
+        : { chars: parseCharacters(text, dedupe), simpOf: undefined },
+    [text, dedupe, conv, trad],
   );
+  const characters = sheet.chars;
   const tooMany = characters.length > 300;
   const pages = useMemo(
     () =>
@@ -225,6 +235,7 @@ export default function PracticeSheetPage() {
     fontFamily: fontStack(
       fontId === "upload" && !uploadName ? DEFAULTS.fontId : fontId,
       localFontName,
+      trad,
     ),
   };
 
@@ -481,6 +492,8 @@ export default function PracticeSheetPage() {
                 )}
 
                 {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+                {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+                {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
               </div>
 
               <h2 className="mt-10 text-xl font-semibold text-ink-900">
@@ -497,6 +510,7 @@ export default function PracticeSheetPage() {
                   options={options}
                   pageNumber={i + 1}
                   pageCount={pages.length}
+                  simpOf={sheet.simpOf}
                   labels={{
                     name: dict.practiceSheet.nameLabel,
                     date: dict.practiceSheet.dateLabel,

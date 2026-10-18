@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildPages,
+  parseSheetCharacters,
   getLayout,
   rowHeight,
   stripCellSize,
@@ -65,5 +66,14 @@ describe("stripCellSize", () => {
 
   it("shrinks so every stroke fits on the strip", () => {
     expect(stripCellSize(25, 150, 33)).toBeCloseTo(150 / 33);
+  });
+});
+
+describe("parseSheetCharacters", () => {
+  it("pairs shown characters with their Simplified form for Pinyin", () => {
+    const { chars, simpOf } = parseSheetCharacters("學們, 學!", "学们, 学!", true);
+    expect(chars).toEqual(["學", "們"]);
+    expect(simpOf.get("們")).toBe("们");
+    expect(parseSheetCharacters("學們學", "学们学").chars).toEqual(["學", "們", "學"]);
   });
 });

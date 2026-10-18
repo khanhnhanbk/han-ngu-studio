@@ -28,7 +28,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Chiết tự** | Tách chữ Hán thành các thành phần, tô màu từng phần, xem phần gợi nghĩa / gợi âm và các chữ cùng thành phần; tự viết câu chuyện ghi nhớ (chỉ lưu trên máy) | [decompose.md](decompose.md) |
 | **Sắp xếp câu N+1** | Sắp xếp câu từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; dùng câu của bạn hoặc lấy câu mẫu theo cấp HSK; xem thống kê và tải TSV | [comprehensible-input.md](comprehensible-input.md) |
 
-Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS), chữ phồn thể.
+Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 
 Câu ví dụ (Tạo thẻ Anki, Trắc nghiệm, Sắp xếp câu N+1) lấy từ Hán Ngữ Studio và **Tatoeba** (CC BY 2.0 FR); bản dịch câu Tatoeba do **Google Dịch** tạo sẵn một lần, có nhãn **dịch máy**.
 
@@ -63,7 +63,7 @@ Khi chọn **Phồn thể**:
 - **Kết quả hiện bằng chữ phồn thể**, dù bạn gõ giản thể hay phồn thể. Ví dụ gõ 学习 → kết quả 學習. Ô nhập vẫn giữ nguyên chữ bạn gõ.
 - Pinyin và âm Hán Việt vẫn đúng như với chữ giản thể (我們 → wǒmen, 學習 → học tập).
 - Chỉ đổi **mặt chữ**, không đổi **từ ngữ**: 软件 → 軟件 (không đổi thành 軟體 như cách nói ở Đài Loan).
-- Hiện áp dụng cho **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt**, **Tạo thẻ Anki**, **Trắc nghiệm** và **Sắp xếp câu N+1**.
+- Áp dụng cho mọi công cụ. Ở **Phiếu tập viết**, **Thứ tự nét** và **Chiết tự**, chữ phồn thể có nét và thành phần riêng (學 có 16 nét). Ở **214 bộ thủ**, chữ phồn thể nằm dưới bộ của chính nó (頭 thuộc bộ 181 頁, còn 头 thuộc bộ 37 大).
 
 Khi chọn **Giản thể**, các công cụ hoạt động y như trước, không chuyển đổi gì.
 

@@ -17,4 +17,8 @@ export type Radical = {
   chars: Array<[string, string]>;
   /** Every character filed under it, most frequent first (for search). */
   members: string;
+  /** The same three lists for Taiwan Traditional characters (Phồn thể mode). */
+  countTrad: number;
+  charsTrad: Array<[string, string]>;
+  membersTrad: string;
 };

@@ -1,4 +1,4 @@
-import { Ma_Shan_Zheng, Noto_Serif_SC } from "next/font/google";
+import { Ma_Shan_Zheng, Noto_Serif_SC, Noto_Serif_TC } from "next/font/google";
 
 // Extra sheet fonts, declared here so only the practice-sheet page carries
 // them. LXGW WenKai (--font-kai) and Noto Sans SC (--font-hanzi) come from
@@ -21,5 +21,14 @@ const notoSerifSC = Noto_Serif_SC({
   preload: false,
 });
 
+// Taiwan glyph shapes for the "Noto Serif" preset in Phồn thể mode.
+const notoSerifTC = Noto_Serif_TC({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-noto-serif-tc",
+  display: "swap",
+  preload: false,
+});
+
 /** Class names that define the extra font variables. */
-export const sheetFontVariables = `${maShanZheng.variable} ${notoSerifSC.variable}`;
+export const sheetFontVariables = `${maShanZheng.variable} ${notoSerifSC.variable} ${notoSerifTC.variable}`;

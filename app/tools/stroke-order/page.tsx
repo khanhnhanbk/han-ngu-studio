@@ -10,7 +10,9 @@ import { Writer } from "@/components/stroke-order/Writer";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
 import { getDictionary } from "@/lib/i18n";
-import { parseCharacters } from "@/lib/practiceSheet";
+import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
+import type { ScriptConverter } from "@/lib/script/convert";
+import { useConverter } from "@/lib/script/useScript";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
@@ -22,6 +24,8 @@ const MAX_CHARS = 20;
 
 type Loaded = {
   chars: string[];
+  /** Phồn thể mode: the Simplified character for Pinyin and Hán Việt. */
+  simpOf?: ReadonlyMap<string, string>;
   strokes: Map<string, StrokeData>;
   hanviet: HanvietData | null;
 };
@@ -32,10 +36,18 @@ export default function StrokeOrderPage() {
   const [current, setCurrent] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  // The text last looked up (an object, so looking up the same text again
+  // still runs). Re-run when the script switch changes.
+  const [query, setQuery] = useState<{ text: string } | null>(null);
+  const { conv, ready, failed } = useConverter();
 
-  async function lookup(text: string) {
+  async function lookup(text: string, conv: ScriptConverter) {
     setError("");
-    const chars = parseCharacters(text, true);
+    // Phồn thể mode shows Traditional characters whatever was typed.
+    const { chars, simpOf } =
+      conv.script === "trad"
+        ? parseSheetCharacters(conv.toShown(text), conv.toSimp(text), true)
+        : { chars: parseCharacters(text, true), simpOf: undefined };
     if (chars.length === 0) {
       setError(t.error);
       return;
@@ -51,7 +63,7 @@ export default function StrokeOrderPage() {
         // Hán Việt is extra information; the page still works without it.
         loadHanviet().catch(() => null),
       ]);
-      setLoaded({ chars, strokes, hanviet });
+      setLoaded({ chars, simpOf, strokes, hanviet });
       setCurrent(chars[0]);
       // The hash is never sent to the server, so the text stays on the device.
       window.history.replaceState(
@@ -71,15 +83,21 @@ export default function StrokeOrderPage() {
     const fromHash = new URLSearchParams(window.location.hash.slice(1)).get("c");
     const text = fromHash || SAMPLE;
     setInput(text);
-    void lookup(text);
+    setQuery({ text });
   }, []);
+
+  // Waits for the Phồn thể converter so the first lookup is in the right script.
+  useEffect(() => {
+    if (query && ready) void lookup(query.text, conv);
+  }, [query, conv, ready]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    void lookup(input);
+    setQuery({ text: input });
   }
 
   const data = loaded?.strokes.get(current);
+  const simpCurrent = loaded?.simpOf?.get(current) ?? current;
   const sheetHref =
     loaded &&
     `/tools/practice-sheet#${new URLSearchParams({
@@ -106,12 +124,14 @@ export default function StrokeOrderPage() {
                     placeholder={t.placeholder}
                     onChange={(e) => setInput(e.target.value)}
                   />
-                  <button type="submit" className="btn-primary shrink-0" disabled={loading}>
+                  <button type="submit" className="btn-primary shrink-0" disabled={loading || !ready}>
                     {loading ? t.loading : t.button}
                   </button>
                 </div>
               </label>
               {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+              {!ready && !failed && <p className="mt-3 text-sm text-ink-500">{dict.script.loading}</p>}
+              {failed && <p className="mt-3 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
               {loaded && loaded.chars.length > 1 && (
                 <div className="mt-4 flex flex-wrap gap-2" role="tablist">
@@ -151,11 +171,11 @@ export default function StrokeOrderPage() {
                       <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                         <dt className="text-ink-500">{t.pinyin}</dt>
                         <dd className="font-medium text-ink-900">
-                          {pinyin(current, { multiple: true, type: "array" }).join(", ")}
+                          {pinyin(simpCurrent, { multiple: true, type: "array" }).join(", ")}
                         </dd>
                         <dt className="text-ink-500">{t.hanviet}</dt>
                         <dd className="font-medium text-brand-ink">
-                          {allCharReadings(loaded.hanviet, current).join(", ") || "—"}
+                          {allCharReadings(loaded.hanviet, simpCurrent).join(", ") || "—"}
                         </dd>
                         <dt className="text-ink-500">{t.strokeCount}</dt>
                         <dd className="font-medium text-ink-900">

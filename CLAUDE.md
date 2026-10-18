@@ -6,6 +6,8 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 
 ## Tools
 
+Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`lib/script/`, see Code conventions).
+
 | Tool | Route | Status |
 |---|---|---|
 | Character practice sheet (米字格 grid, Pinyin, Wubi, traceable characters, stroke-order strip) → PDF | `/tools/practice-sheet` | Live, client-side (stroke data in `public/data/strokes/`, `lib/strokes/`) |
@@ -73,12 +75,12 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 ## Data sources and credits
 
 - Meanings: CC-CEDICT (CC BY-SA 4.0) for English. HSK 3.0 levels and Vietnamese meanings: owner's own data (`assets/dictionary/vocab_hsk_vi.csv` → `public/data/vocab.json`, looked up with `lib/vocab/`), credited as "Hán Ngữ Studio (danh sách từ vựng HSK 3.0)". Wubi 86: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`). Example sentences: owner's own data (`sentences.tsv`) plus Tatoeba (CC BY 2.0 FR, `assets/dictionary/100000sentences.csv`), merged by `pnpm build:data` into word-sharded `public/data/examples/` and ranked in the browser (`lib/examples/rank.ts`). Tatoeba translations are Google Translate output, made **once, offline** by `scripts/translate-sentences.mjs` (needs `GOOGLE_TRANSLATE_API_KEY`, resumable) into `assets/dictionary/sentences_tatoeba_mt.tsv`, and flagged as machine-translated in the UI. Never call a translation service at runtime.
-- Sheet fonts: LXGW WenKai TC, Ma Shan Zheng, Noto Serif SC, Noto Sans SC (SIL OFL), self-hosted by `next/font/google` (`app/layout.tsx`, `app/tools/practice-sheet/fonts.ts`). User-uploaded fonts are loaded with `FontFace` in the browser only.
+- Sheet fonts: LXGW WenKai TC, Ma Shan Zheng, Noto Serif SC/TC, Noto Sans SC/TC (SIL OFL), self-hosted by `next/font/google` (`app/layout.tsx`, `app/tools/practice-sheet/fonts.ts`). User-uploaded fonts are loaded with `FontFace` in the browser only.
 - Stroke order: Hanzi Writer 3.7.3 (MIT) for animation/quiz, with `charDataLoader` reading our own files (never its CDN). Characters passed between pages go in the URL hash (`#c=`, `#chars=…&strokes=1`), never the query string, so they are not sent to the server.
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.
 - Radicals: names and meanings in `assets/dictionary/radicals.tsv` are our own curation, checked against PREP's list (prepedu.com) with its typos fixed. Characters per radical come from Unicode Unihan `kRSUnicode` (Unicode License v3, `assets/dictionary/LICENSE-unicode.txt`), extracted once to `assets/dictionary/unihan_radicals.tsv`.
 - Character decomposition: Make Me a Hanzi `dictionary.txt` (LGPL-3.0+, `assets/dictionary/makemeahanzi-dictionary.txt`, licence and pinned commit in `assets/dictionary/LICENSE-makemeahanzi-lgpl.txt`): IDS, etymology (pictophonetic semantic/phonetic parts) and per-stroke `matches`. Built by `pnpm build:data` into `public/data/decompose.json` (keys in frequency order) and the stroke shards.
-- Traditional conversion: OpenCC dictionaries (Apache-2.0) via `opencc-js` 1.4.2 (MIT), lazy-loaded in the browser only in Phồn thể mode (Taiwan characters, `cn`↔`tw`, no vocabulary swaps). Phồn thể glyphs: Noto Sans TC (SIL OFL).
+- Traditional conversion: OpenCC dictionaries (Apache-2.0) via `opencc-js` 1.4.2 (MIT), lazy-loaded in the browser only in Phồn thể mode (Taiwan characters, `cn`↔`tw`, no vocabulary swaps). Phồn thể glyphs: Noto Sans TC / Noto Serif TC (SIL OFL). `radicals.json` also carries Taiwan-character lists (`charsTrad`, `membersTrad`, `countTrad`), built by `pnpm build:data` with opencc-js.
 - Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide
