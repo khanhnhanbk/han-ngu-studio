@@ -16,6 +16,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 | Anki deck generator (Pinyin, meaning, example, Wubi, Hán Việt, HSK level, Vietnamese meaning) → TSV | `/tools/anki` | Live, client-side (`lib/anki/`, `lib/vocab/`, data in `public/data/{meanings,sentences,wubi,vocab}.json`) |
 | Vocabulary quiz (meaning, Pinyin, Hán Việt, cloze, sentence ordering) → play, print, TSV | `/tools/quiz` | Live, client-side (`lib/quiz/`, sentences from `public/data/sentences.json`) |
 | 214 Kangxi radicals (search, variants, example characters) | `/tools/radicals` | Live, client-side (`lib/radicals/`, data in `public/data/radicals.json`) |
+| Character decomposition (component tree coloured on the glyph, semantic/phonetic parts, component families, local mnemonic notes) | `/tools/decompose` | Live, client-side (`lib/decompose/`, data in `public/data/decompose.json`, stroke→component `matches` in `public/data/strokes/`) |
 | N+1 sentence ordering (one new word per sentence) | `/tools/comprehensible-input` | Live, client-side |
 
 ## HARD RULES
@@ -23,7 +24,7 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 1. **Must deploy on the Vercel Free (Hobby) plan.** Top priority. No paid features (Edge Config, KV, Postgres, Blob, etc.).
 2. **NO backend, NO database.** All processing runs in the browser. No API routes, Server Actions, serverless functions or Python runtime for processing logic.
 3. **Correctness over speed.** Never trade accuracy for performance.
-4. **User text is never stored or sent anywhere.** Processing happens on the user's device.
+4. **User text is never stored or sent anywhere.** Processing happens on the user's device. Exception: notes the user deliberately writes (memory stories on `/tools/decompose`) may be kept in that user's own browser (localStorage), never sent anywhere, with TSV export/import.
 5. **Static first.** Data (dictionaries, Sino-Vietnamese readings, Wubi codes) is static JSON in `public/` or imported directly. Split large files and lazy-load them.
 
 ## Commands
@@ -75,6 +76,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - Stroke order: Hanzi Writer 3.7.3 (MIT) for animation/quiz, with `charDataLoader` reading our own files (never its CDN). Characters passed between pages go in the URL hash (`#c=`, `#chars=…&strokes=1`), never the query string, so they are not sent to the server.
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.
 - Radicals: names and meanings in `assets/dictionary/radicals.tsv` are our own curation, checked against PREP's list (prepedu.com) with its typos fixed. Characters per radical come from Unicode Unihan `kRSUnicode` (Unicode License v3, `assets/dictionary/LICENSE-unicode.txt`), extracted once to `assets/dictionary/unihan_radicals.tsv`.
+- Character decomposition: Make Me a Hanzi `dictionary.txt` (LGPL-3.0+, `assets/dictionary/makemeahanzi-dictionary.txt`, licence and pinned commit in `assets/dictionary/LICENSE-makemeahanzi-lgpl.txt`): IDS, etymology (pictophonetic semantic/phonetic parts) and per-stroke `matches`. Built by `pnpm build:data` into `public/data/decompose.json` (keys in frequency order) and the stroke shards.
 - Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide

@@ -191,14 +191,17 @@ const STROKE_SHARD_BITS = 6;
 const MAX_SHARD_BYTES = 1.5 * 1024 * 1024;
 
 /**
- * strokes/<hex>.json: { char: { strokes, medians, radStrokes? } } from
- * hanzi-writer-data 2.0.1 (Arphic Public License, derived from Make Me a
+ * strokes/<hex>.json: { char: { strokes, medians, radStrokes?, matches? } }
+ * from hanzi-writer-data 2.0.1 (Arphic Public License, derived from Make Me a
  * Hanzi; see assets/dictionary/LICENSE-arphic.txt). Each entry is copied
- * unchanged, in the format Hanzi Writer's charDataLoader expects.
+ * unchanged, in the format Hanzi Writer's charDataLoader expects, plus
+ * `matches` from Make Me a Hanzi's dictionary (stroke → component path) when
+ * its stroke count agrees with the stroke data.
  */
-function buildStrokes() {
+function buildStrokes(mmah) {
   const dir = dirname(createRequire(import.meta.url).resolve("hanzi-writer-data/package.json"));
   const shards = new Map();
+  let mismatched = 0;
   for (const file of readdirSync(dir).sort()) {
     if (!file.endsWith(".json") || file === "package.json") continue;
     const char = file.slice(0, -".json".length);
@@ -207,6 +210,9 @@ function buildStrokes() {
     if (!Array.isArray(data.strokes) || !Array.isArray(data.medians)) {
       throw new Error(`bad stroke data: ${file}`);
     }
+    const matches = mmah.get(char)?.matches;
+    if (matches?.length === data.strokes.length) data.matches = matches;
+    else if (matches) mismatched++;
     const key = (char.codePointAt(0) >> STROKE_SHARD_BITS).toString(16);
     if (!shards.has(key)) shards.set(key, {});
     shards.get(key)[char] = data;
@@ -228,8 +234,90 @@ function buildStrokes() {
   }
   console.log(
     `strokes/: ${chars} characters in ${shards.size} shards ` +
-      `(${Math.round(total / 1024)} KB, largest ${Math.round(largest / 1024)} KB)`,
+      `(${Math.round(total / 1024)} KB, largest ${Math.round(largest / 1024)} KB); ` +
+      `component matches skipped for ${mismatched} (stroke count differs)`,
   );
+}
+
+/** Make Me a Hanzi dictionary.txt (LGPL-3.0+): one JSON object per line. */
+function readMakeMeAHanzi() {
+  const out = new Map();
+  const lines = readFileSync(join(SRC, "makemeahanzi-dictionary.txt"), "utf-8").split("\n");
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const entry = JSON.parse(line);
+    out.set(entry.character, entry);
+  }
+  return out;
+}
+
+// IDS operators, keep in sync with ARITY in lib/decompose/ids.ts.
+const IDS_ARITY = { "⿰": 2, "⿱": 2, "⿲": 3, "⿳": 3, "⿴": 2, "⿵": 2, "⿶": 2, "⿷": 2, "⿸": 2, "⿹": 2, "⿺": 2, "⿻": 2 };
+
+/** Throws unless `ids` is one well-formed IDS (same rules as parseIds). */
+function checkIds(ids) {
+  const glyphs = Array.from(ids);
+  let need = 1;
+  for (const g of glyphs) {
+    if (need === 0) throw new Error(`trailing text in IDS ${ids}`);
+    need += (IDS_ARITY[g] ?? 0) - 1;
+  }
+  if (need !== 0) throw new Error(`incomplete IDS ${ids}`);
+}
+
+const ETYMOLOGY_CODE = { pictophonetic: "p", ideographic: "i", pictographic: "g" };
+const MAX_DATA_BYTES = 1.5 * 1024 * 1024;
+
+/**
+ * decompose.json: { char: [ids, radical, type?, semantic?, phonetic?, hint?] }
+ * from Make Me a Hanzi (LGPL-3.0+, assets/dictionary/LICENSE-makemeahanzi-lgpl.txt).
+ * type: p = pictophonetic (hình thanh), i = ideographic (hội ý),
+ * g = pictographic (tượng hình), "" = unknown. Trailing empty fields are dropped.
+ * Keys are ordered by frequency (char_hanviet.csv, most frequent first, then
+ * the rest in file order), so the page lists component families in that
+ * order without shipping a separate frequency table.
+ */
+function buildDecompose(mmah) {
+  const freq = new Map();
+  for (const row of readCsv("char_hanviet.csv")) {
+    const char = row.simp_char.trim();
+    const f = Number(row.frequency) || 0;
+    if (Array.from(char).length === 1 && f >= (freq.get(char) ?? -1)) freq.set(char, f);
+  }
+  const order = [...mmah.keys()];
+  const pos = new Map(order.map((c, i) => [c, i]));
+  order.sort((a, b) => {
+    const fa = freq.get(a) ?? -1;
+    const fb = freq.get(b) ?? -1;
+    return fb - fa || pos.get(a) - pos.get(b);
+  });
+
+  const out = {};
+  let unknown = 0;
+  for (const char of order) {
+    const { decomposition: ids, radical, etymology } = mmah.get(char);
+    checkIds(ids);
+    for (const g of Array.from(ids)) {
+      if (!IDS_ARITY[g] && g !== "？" && !mmah.has(g)) throw new Error(`${char}: unknown component ${g}`);
+    }
+    if (ids.includes("？")) unknown++;
+    const row = [
+      ids,
+      radical ?? "",
+      ETYMOLOGY_CODE[etymology?.type] ?? "",
+      etymology?.semantic ?? "",
+      etymology?.phonetic ?? "",
+      etymology?.hint ?? "",
+    ];
+    while (row.length > 2 && row[row.length - 1] === "") row.pop();
+    out[char] = row;
+  }
+  const covered = [...freq.keys()].filter((c) => mmah.has(c)).length;
+  console.log(
+    `decompose: ${unknown} entries with unknown (？) parts; ` +
+      `covers ${covered} of ${freq.size} characters in char_hanviet.csv`,
+  );
+  return out;
 }
 
 /**
@@ -359,7 +447,11 @@ write(
   sentences,
   `${sentences.rows.length} sentences, ${Object.keys(sentences.index).length} words`,
 );
-buildStrokes();
+const mmah = readMakeMeAHanzi();
+buildStrokes(mmah);
+const decompose = buildDecompose(mmah);
+write("decompose.json", decompose, `${Object.keys(decompose).length} characters`);
+if (Buffer.byteLength(JSON.stringify(decompose)) > MAX_DATA_BYTES) throw new Error("decompose.json is too large");
 const radicals = buildRadicals(hanviet);
 write("radicals.json", radicals, `${radicals.length} radicals`);
 const vocab = buildVocab();

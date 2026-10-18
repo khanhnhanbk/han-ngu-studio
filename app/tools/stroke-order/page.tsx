@@ -8,7 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { StrokeSteps } from "@/components/stroke-order/StrokeSteps";
 import { Writer } from "@/components/stroke-order/Writer";
 import { loadHanviet } from "@/lib/hanviet/load";
-import type { HanvietData } from "@/lib/hanviet/lookup";
+import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
 import { getDictionary } from "@/lib/i18n";
 import { parseCharacters } from "@/lib/practiceSheet";
 import { loadStrokes } from "@/lib/strokes/load";
@@ -25,15 +25,6 @@ type Loaded = {
   strokes: Map<string, StrokeData>;
   hanviet: HanvietData | null;
 };
-
-/** Every Hán Việt reading of a character, in data order, without repeats. */
-function hanvietReadings(data: HanvietData | null, char: string): string[] {
-  const out: string[] = [];
-  for (const [, readings] of data?.[char] ?? []) {
-    for (const r of readings) if (!out.includes(r)) out.push(r);
-  }
-  return out;
-}
 
 export default function StrokeOrderPage() {
   const [input, setInput] = useState(SAMPLE);
@@ -164,7 +155,7 @@ export default function StrokeOrderPage() {
                         </dd>
                         <dt className="text-ink-500">{t.hanviet}</dt>
                         <dd className="font-medium text-brand-ink">
-                          {hanvietReadings(loaded.hanviet, current).join(", ") || "—"}
+                          {allCharReadings(loaded.hanviet, current).join(", ") || "—"}
                         </dd>
                         <dt className="text-ink-500">{t.strokeCount}</dt>
                         <dd className="font-medium text-ink-900">
@@ -181,11 +172,16 @@ export default function StrokeOrderPage() {
                       </>
                     )}
 
-                    {sheetHref && (
-                      <a href={sheetHref} className="btn-secondary mt-6">
-                        {t.toSheet}
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {sheetHref && (
+                        <a href={sheetHref} className="btn-secondary">
+                          {t.toSheet}
+                        </a>
+                      )}
+                      <a href={`/tools/decompose#${new URLSearchParams({ c: current })}`} className="btn-secondary">
+                        {t.toDecompose}
                       </a>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>

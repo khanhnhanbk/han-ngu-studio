@@ -6,6 +6,11 @@ export type StrokeData = {
   medians: number[][][];
   /** Indices of the strokes that belong to the radical, when known. */
   radStrokes?: number[];
+  /**
+   * Per stroke, its path in the character's Make Me a Hanzi decomposition
+   * (null when unassigned). Added by build-data.mjs; Hanzi Writer ignores it.
+   */
+  matches?: Array<number[] | null>;
 };
 
 export type StrokeShard = Record<string, StrokeData>;

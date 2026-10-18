@@ -25,6 +25,15 @@ export function lookupChar(data: HanvietData, char: string, tone3: string): stri
   );
 }
 
+/** Every Hán Việt reading of a character, in data order, without repeats. */
+export function allCharReadings(data: HanvietData | null, char: string): string[] {
+  const out: string[] = [];
+  for (const [, readings] of data?.[char] ?? []) {
+    for (const r of readings) if (!out.includes(r)) out.push(r);
+  }
+  return out;
+}
+
 /**
  * Hán Việt for a word: readings of one character joined by "/", characters
  * joined by "_"; a character with no reading stays as is (trung_quốc).

@@ -42,6 +42,8 @@ Bên cạnh ô viết có **Pinyin**, **Hán Việt**, **Số nét** và mục *
 
 Bấm **Tạo phiếu tập viết với các chữ này**: trang [Phiếu tập viết](practice-sheet.md) mở ra với các chữ vừa tra và đã bật **Hiện thứ tự nét**.
 
+Bấm **Phân tích thành phần** để mở trang [Phân tích chữ](decompose.md) với chữ đang xem: chữ được tô màu theo từng thành phần.
+
 ### Chia sẻ
 
 Sau khi bấm **Tra**, địa chỉ trang có thêm các chữ bạn tra (phần sau dấu `#`). Gửi địa chỉ này cho học viên, họ sẽ mở thẳng các chữ đó. Phần sau dấu `#` không được gửi lên máy chủ.

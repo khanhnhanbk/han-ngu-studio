@@ -11,6 +11,7 @@ import { PencilIcon } from "./icons/pencil";
 import { PuzzleIcon } from "./icons/puzzle";
 import { ScissorsIcon } from "./icons/scissors";
 import { SparklesIcon } from "./icons/sparkles";
+import { SplitIcon } from "./icons/split";
 import { useIconTrigger, type AnimatedIcon } from "./icons/trigger";
 
 const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
@@ -22,6 +23,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   anki: LayersIcon,
   quiz: SparklesIcon,
   radicals: PuzzleIcon,
+  decompose: SplitIcon,
   comprehensibleInput: ListOrderedIcon,
 };
 

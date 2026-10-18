@@ -40,6 +40,7 @@ Bấm vào một bộ thủ. Khung chi tiết hiện ở bên phải (trên đi�
 - **Chữ thường gặp có bộ này**: tối đa 12 chữ thông dụng nhất kèm âm Hán Việt. Dòng nhỏ bên dưới ghi số chữ đang hiện / tổng số chữ có bộ này trong dữ liệu. Bấm vào một chữ để xem thứ tự nét của chữ đó.
 - **Xem thứ tự nét**: mở trang Thứ tự nét với bộ thủ và 6 chữ đầu tiên.
 - **Tạo phiếu tập viết**: mở trang Phiếu tập viết với bộ thủ và 6 chữ đầu tiên, có sẵn dải thứ tự nét.
+- **Phân tích chữ**: mở trang [Phân tích chữ](decompose.md) với bộ thủ và 6 chữ đầu tiên, để xem mỗi chữ gồm những thành phần nào.
 - **Đóng**: đóng khung chi tiết.
 
 Địa chỉ trang đổi thành `…/tools/radicals#r=85`. Gửi địa chỉ này cho người khác để mở thẳng bộ thủ đó.

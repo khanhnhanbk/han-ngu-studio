@@ -11,6 +11,7 @@ export type ToolId =
   | "anki"
   | "quiz"
   | "radicals"
+  | "decompose"
   | "comprehensibleInput";
 
 /** Live tools, in the order the landing page and footer show them. */
@@ -23,5 +24,6 @@ export const TOOLS: ReadonlyArray<{ id: ToolId; href: string }> = [
   { id: "anki", href: "/tools/anki" },
   { id: "quiz", href: "/tools/quiz" },
   { id: "radicals", href: "/tools/radicals" },
+  { id: "decompose", href: "/tools/decompose" },
   { id: "comprehensibleInput", href: "/tools/comprehensible-input" },
 ];

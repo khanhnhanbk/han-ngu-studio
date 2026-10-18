@@ -81,6 +81,9 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
         <a href={sheetHref} className="btn-primary">
           {t.practice}
         </a>
+        <a href={`/tools/decompose#${new URLSearchParams({ c: chars })}`} className="btn-secondary">
+          {t.decompose}
+        </a>
       </div>
     </div>
   );
