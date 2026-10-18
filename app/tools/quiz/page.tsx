@@ -11,7 +11,8 @@ import { Navbar } from "@/components/Navbar";
 import { OrderCard } from "@/components/quiz/OrderCard";
 import { PrintSheet } from "@/components/quiz/PrintSheet";
 import { QuestionCard } from "@/components/quiz/QuestionCard";
-import { loadMeanings, loadSentences } from "@/lib/anki/load";
+import { loadMeanings } from "@/lib/anki/load";
+import { loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
@@ -80,15 +81,15 @@ export default function QuizPage() {
 
     setLoading(true);
     try {
-      const [tokenizer, hanviet, meanings, sentences, vocab] = await Promise.all([
+      const [tokenizer, hanviet, meanings, examples, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
-        loadSentences(),
+        loadExamples(parsed.entries.map((e) => e.word)),
         loadVocab(),
       ]);
       const quiz = buildQuiz(
-        { tokenizer, hanviet, meanings, sentences, vocab },
+        { tokenizer, hanviet, meanings, examples, vocab },
         parsed.entries,
         picked,
         createRng(randomSeed()),

@@ -11,7 +11,7 @@ Nhập danh sách từ vựng, công cụ tự tạo **câu hỏi trắc nghiệ
 | **Điền từ vào câu** | 我在＿＿学习。 (Nghĩa của câu: Tôi đang học đại học.) | 大学 |
 | **Sắp xếp câu** | Nghĩa: Tôi đang học đại học. Các từ: 学习 / 我 / 大学 / 在 。 | 我在大学学习。 |
 
-Bốn loại đầu có 4 đáp án (ít hơn nếu danh sách quá ngắn và không đủ đáp án sai khác nhau). **Điền từ vào câu** và **Sắp xếp câu** dùng câu ví dụ có sẵn của Hán Ngữ Studio (cùng câu ví dụ với công cụ Tạo thẻ Anki).
+Bốn loại đầu có 4 đáp án (ít hơn nếu danh sách quá ngắn và không đủ đáp án sai khác nhau). **Điền từ vào câu** và **Sắp xếp câu** dùng câu ví dụ có sẵn (cùng kho câu với công cụ Tạo thẻ Anki, khoảng 9.600 từ). Mỗi lần bấm **Tạo bài trắc nghiệm**, công cụ chọn ngẫu nhiên một trong 3 câu dễ nhất của từ, nên làm lại đề sẽ gặp câu khác. Nhãn **dịch máy** cạnh **Nghĩa của câu** nghĩa là bản dịch do Google Dịch tạo.
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Trắc nghiệm**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/quiz)
@@ -103,7 +103,8 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 | Đề in ra bị lẫn thanh menu hoặc nút bấm | Dùng nút **In đề / Lưu PDF** của trang (không dùng ảnh chụp màn hình). Trong hộp thoại in, đặt **Lề** là **Mặc định**. |
 | File PDF bị lỗi phông: Pinyin (lǚ, nǐ…) hoặc chữ tiếng Việt có dấu hiện sang phông khác | Dùng nút **In đề / Lưu PDF** của trang (nút này tải đủ phông trước khi mở hộp thoại in). Nếu vẫn lỗi, đợi trang tải xong rồi bấm lại. Nên dùng Chrome hoặc Edge và chọn **Lưu dưới dạng PDF**. |
 | Muốn đề chia theo từng phần (mỗi loại câu hỏi một phần) | Ở **Thứ tự câu hỏi**, chọn **Theo loại câu hỏi** rồi bấm **Tạo bài trắc nghiệm** lại. |
-| Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 3.800 từ thông dụng; các từ khác sẽ bị bỏ qua ở hai loại câu này. |
+| Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 9.600 từ (gần hết danh sách HSK 3.0); từ ngoài danh sách thường bị bỏ qua ở hai loại câu này. |
+| **Nghĩa của câu** chưa sát | Câu có nhãn **dịch máy** được dịch tự động bằng Google Dịch và có thể chưa chính xác. |
 | Một chữ có nhiều cách đọc (好 hǎo / hào) | Pinyin và Hán Việt theo cách đọc phổ biến. Các cách đọc khác của chữ đó không bao giờ được dùng làm đáp án sai. |
 
 ## Nguồn dữ liệu
@@ -112,5 +113,5 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Pinyin: **pinyin-pro** (MIT), tạo tự động; xem lưu ý trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác).
 - Âm Hán Việt: Hán Ngữ Studio; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).
-- Câu ví dụ và bản dịch: Hán Ngữ Studio. Một số câu mới có bản dịch tiếng Anh; khi đó **Nghĩa của câu** hiện tiếng Anh.
+- Câu ví dụ: Hán Ngữ Studio và **Tatoeba** (tatoeba.org, CC BY 2.0 FR). Bản dịch câu Tatoeba: **Google Dịch**, tạo một lần khi xây dựng dữ liệu (nhãn **dịch máy**). Một số câu chỉ có bản dịch tiếng Anh; khi đó **Nghĩa của câu** hiện tiếng Anh.
 - Danh sách từ của bạn chỉ được xử lý trên máy bạn, không gửi đi đâu.

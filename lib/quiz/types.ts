@@ -25,6 +25,8 @@ export type ChoiceQuestion = {
   prompt: string;
   /** Cloze only: the sentence's translation, which settles which option fits. */
   hint?: string;
+  /** Cloze only: the hint is a machine translation. */
+  machine?: true;
   options: string[];
   /** Index of the correct option. */
   answer: number;
@@ -36,6 +38,8 @@ export type OrderQuestion = {
   word: string;
   /** The sentence's translation. */
   hint: string;
+  /** The hint is a machine translation. */
+  machine?: true;
   /** The words in shuffled order (never the original order). */
   tokens: string[];
   /** Trailing punctuation, shown fixed at the end ("。"). */

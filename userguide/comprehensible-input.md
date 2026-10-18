@@ -9,6 +9,8 @@ Khi học bằng câu, mỗi câu chỉ nên có **khoảng một từ mới** (
 
 1. Dán các câu tiếng Trung vào ô **Các câu (mỗi dòng một câu)**.
    - Mỗi dòng là một câu. Dòng trống được bỏ qua.
+   - Chưa có câu? Dùng khung **Lấy câu mẫu** phía trên: chọn **Cấp HSK** (HSK 1 … HSK 7-9) và **Số câu** (50, 100 hoặc 200), rồi bấm **Lấy câu**. Ô **Các câu** được điền các câu ví dụ có sẵn của cấp đó, câu ngắn trước. Bạn vẫn sửa được trước khi sắp xếp.
+   - Tích **Điền vào “Từ đã biết” mọi từ HSK thuộc các cấp thấp hơn** để ô **Từ đã biết** được điền sẵn (ví dụ chọn HSK 3 thì điền mọi từ HSK 1 và HSK 2). Nội dung cũ của ô sẽ bị thay.
 2. (Không bắt buộc) Dán các từ bạn đã biết vào ô **Từ đã biết (không bắt buộc, mỗi dòng một từ)**.
    - Mỗi dòng một từ, ví dụ `我`, `你好`, `知道`. Từ phải viết đúng như trong câu.
 3. Bấm **Sắp xếp**.
@@ -78,4 +80,11 @@ File `sentence_sorted.tsv` có 4 cột, theo đúng thứ tự học:
 | Rất nhiều câu **Quá nhiều từ mới** | Danh sách câu quá ít hoặc quá khó so với từ đã biết. Xem mục "Vì sao có câu Quá nhiều từ mới?" ở trên. |
 | Từ đã biết mà vẫn bị tính là từ mới | Từ trong ô **Từ đã biết** phải giống hệt từ mà công cụ tách ra (xem dòng **Từ mới**). Ví dụ biết `你` và `好` chưa đủ nếu công cụ tách ra từ `你好`. |
 | Một từ bị tách chưa đúng | Công cụ tách từ dựa trên tần suất từ (giống công cụ **Ngắt từ**); với tên riêng hoặc từ hiếm có thể chưa chính xác. |
+| "Không tải được câu mẫu. Vui lòng kiểm tra kết nối mạng và thử lại." | Kiểm tra mạng rồi bấm **Lấy câu** lần nữa. |
+| Bấm **Lấy câu** thì mất các câu đã dán | **Lấy câu** thay toàn bộ nội dung ô **Các câu**. Hãy sao chép câu của bạn ra trước, rồi dán thêm vào sau. |
 | File TSV mở bằng Excel bị lỗi font | Mở bằng Google Sheets, hoặc trong Excel dùng **Data → From Text/CSV** và chọn mã hóa UTF-8. |
+
+## Nguồn dữ liệu
+
+- Câu mẫu: Hán Ngữ Studio và **Tatoeba** (tatoeba.org, giấy phép CC BY 2.0 FR).
+- Câu bạn tự dán chỉ được xử lý trên máy bạn, không gửi đi đâu.

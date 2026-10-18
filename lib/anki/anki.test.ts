@@ -3,34 +3,50 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import { bankFrom } from "@/lib/examples/load";
+import type { ExampleBank, ExampleManifest, ExampleShard } from "@/lib/examples/types";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 import type { VocabData } from "@/lib/vocab/lookup";
 
 import golden from "./__golden__/deck.json";
 import { buildRow, COLUMNS, missing, parseWords, toTsv, type DeckData } from "./buildDeck";
-import type { Meanings, Sentences, WubiTable } from "./load";
+import type { Meanings, WubiTable } from "./load";
 import { wubiLine } from "./wubi";
 
 const dataDir = join(__dirname, "../../public/data");
 const json = <T,>(name: string) => JSON.parse(readFileSync(join(dataDir, name), "utf-8")) as T;
 
+const manifest = json<ExampleManifest>("examples/manifest.json");
+const shards = new Map(Object.keys(manifest.shards).map((n) => [n, json<ExampleShard>(`examples/${n}.json`)]));
+
 const data: DeckData = {
   tokenizer: createTokenizer(readFileSync(join(dataDir, "word_list.txt"), "utf-8").split("\n")),
   hanviet: json<HanvietData>("hanviet.json"),
   meanings: json<Meanings>("meanings.json"),
-  sentences: json<Sentences>("sentences.json"),
+  examples: bankFrom(manifest, shards, Object.keys(manifest.words)),
   wubi: json<WubiTable>("wubi.json"),
   vocab: json<VocabData>("vocab.json"),
+};
+
+/** `data` with the given candidates as the word's only examples. */
+const withExamples = (word: string, list: Array<[string, string, string]>): DeckData => {
+  const examples: ExampleBank = {
+    [word]: list.map(([hanzi, vi, en], order) => ({ hanzi, vi, en, machine: false, order })),
+  };
+  return { ...data, examples };
 };
 
 describe("buildRow (golden: anki_desk.py logic with owner fixes, pywubi 0.3.0)", () => {
   it.each(golden.cases.map((c) => [c.word, c] as const))("%s", (word, c) => {
     const row = buildRow(data, word);
     expect(row.meaning).toBe(c.meaning);
-    expect(row.sentence).toBe(c.sentence);
-    expect(row.sentence_meaning).toBe(c.sentence_meaning);
     expect(row.wubi).toBe(c.wubi);
+    // Phase 10 ranks many candidates instead of taking anki_desk.py's first
+    // match, so the golden sentence is no longer the expected pick. A word
+    // that had a translated example still gets one.
+    if (c.sentence) expect(row.sentence).toContain(word);
+    if (c.sentence_meaning) expect(row.sentence_meaning).not.toBe("");
   });
 });
 
@@ -47,20 +63,27 @@ describe("buildRow formats", () => {
 
   it("generates sentence Pinyin instead of copying the sheet's errors", () => {
     // The sheet has "nǐ ní？".
-    expect(buildRow(data, "呢").sentence_pinyin).toBe("nǐ ne?");
+    expect(buildRow(withExamples("呢", [["你呢？", "Còn bạn?", ""]]), "呢").sentence_pinyin).toBe("nǐ ne?");
   });
 
-  it("uses the rewritten sentence, not the AI refusal row", () => {
-    const row = buildRow(data, "用于");
-    expect(row.sentence).toBe("这笔钱用于买书。");
-    expect(row.sentence_meaning).toBe("Khoản tiền này được dùng để mua sách.");
+  it("puts the easiest example first and several examples on separate lines", () => {
+    const d = withExamples("大学", [
+      ["他在牛津大学修了英语文学。", "", "He read English literature at Oxford."],
+      ["我在大学学习。", "Tôi đang học đại học.", ""],
+    ]);
+    expect(buildRow(d, "大学").sentence).toBe("我在大学学习。");
+    expect(buildRow(d, "大学", 2)).toMatchObject({
+      sentence: "我在大学学习。<br>他在牛津大学修了英语文学。",
+      sentence_meaning: "Tôi đang học đại học.<br>He read English literature at Oxford.",
+    });
+    expect(buildRow(d, "大学", 2).sentence_pinyin.split("<br>")).toHaveLength(2);
   });
 
-  it("falls back to English when the Vietnamese cell holds Hán Việt", () => {
-    // sentences.tsv has "thủ_cơ khả_dĩ phách_chiếu 。"-style text there.
-    const row = buildRow(data, "拍照");
-    expect(row.sentence).toBe("手机可以拍照。");
-    expect(row.sentence_meaning).toBe("Mobile phones can take pictures.");
+  it("marks cards whose example is machine-translated", () => {
+    const d = withExamples("书", [["我有书。", "Tôi có sách.", ""]]);
+    d.examples["书"][0].machine = true;
+    expect(buildRow(d, "书").machineTranslated).toBe(true);
+    expect(buildRow(data, "髮").machineTranslated).toBe(false);
   });
 
   it("joins several Hán Việt readings with /", () => {
@@ -110,6 +133,13 @@ describe("toTsv", () => {
       "#html:false",
       "#columns:word\tpinyin",
     ]);
+  });
+
+  it("writes HTML fields when cards carry several examples", () => {
+    const multi = { ...row, sentence: "a<b<br>c&d" };
+    const out = toTsv([multi], ["sentence"], true, true).split("\n");
+    expect(out[1]).toBe("#html:true");
+    expect(out[3]).toBe("a&lt;b<br>c&amp;d");
   });
 
   it("keeps anki_desk.py's column order, with the HSK columns last", () => {

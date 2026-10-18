@@ -4,14 +4,17 @@ import { useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { BANK_COUNTS, BANK_LEVELS, pickBankSentences, wordsBelow, type BankLevel } from "@/lib/comprehensible-input/bank";
 import { buildFreqRank } from "@/lib/comprehensible-input/freq";
 import { splitHighlight } from "@/lib/comprehensible-input/highlight";
 import { isLongSentence, orderSentences, summarize, type OrderedRow } from "@/lib/comprehensible-input/order";
 import { toTsv, TSV_FILENAME } from "@/lib/comprehensible-input/tsv";
 import { extractWords, parseKnownWords, parseSentences } from "@/lib/comprehensible-input/words";
 import { downloadText } from "@/lib/download";
+import { loadLevelSentences } from "@/lib/examples/load";
 import { getDictionary } from "@/lib/i18n";
 import { loadTokenizer, loadWordListLines } from "@/lib/segment/load";
+import { loadVocab } from "@/lib/vocab/load";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 
@@ -30,6 +33,29 @@ export default function ComprehensibleInputPage() {
   const [error, setError] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [limit, setLimit] = useState<number>(100);
+  const [bankLevel, setBankLevel] = useState<BankLevel>("1");
+  const [bankCount, setBankCount] = useState<number>(100);
+  const [prefillKnown, setPrefillKnown] = useState(false);
+  const [bankLoading, setBankLoading] = useState(false);
+  const [bankError, setBankError] = useState(false);
+
+  async function handleBank() {
+    setBankError(false);
+    setBankLoading(true);
+    try {
+      const [rows, vocab] = await Promise.all([
+        loadLevelSentences(bankLevel),
+        prefillKnown ? loadVocab() : Promise.resolve(null),
+      ]);
+      setSentences(pickBankSentences(rows.map(([hanzi]) => hanzi), bankCount).join("\n"));
+      if (vocab) setKnown(wordsBelow(vocab, bankLevel).join("\n"));
+      setEmpty(false);
+    } catch {
+      setBankError(true);
+    } finally {
+      setBankLoading(false);
+    }
+  }
 
   async function handleSort() {
     setError(false);
@@ -90,7 +116,51 @@ export default function ComprehensibleInputPage() {
             <p className="mt-4 text-lg text-ink-700">{dict.subtitle}</p>
 
             <div className="card mt-8">
-              <label className="block text-sm font-medium text-ink-700" htmlFor="ci-sentences">
+              <fieldset className="rounded-lg border border-ink-900/10 bg-ink-50 p-4 text-sm text-ink-700">
+                <legend className="px-1 font-semibold text-ink-900">{dict.bank.title}</legend>
+                <p>{dict.bank.hint}</p>
+                <div className="mt-3 flex flex-wrap items-end gap-3">
+                  <label className="flex flex-col gap-1">
+                    <span className="font-medium">{dict.bank.level}</span>
+                    <select
+                      value={bankLevel}
+                      onChange={(e) => setBankLevel(e.target.value as BankLevel)}
+                      className="rounded-lg border border-ink-900/10 px-3 py-2"
+                    >
+                      {BANK_LEVELS.map((l) => (
+                        <option key={l} value={l}>
+                          {dict.bank.levelOption(l)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="flex flex-col gap-1">
+                    <span className="font-medium">{dict.bank.count}</span>
+                    <select
+                      value={bankCount}
+                      onChange={(e) => setBankCount(Number(e.target.value))}
+                      className="rounded-lg border border-ink-900/10 px-3 py-2"
+                    >
+                      {BANK_COUNTS.map((n) => (
+                        <option key={n} value={n}>
+                          {n}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <button type="button" className="btn-secondary" onClick={handleBank} disabled={bankLoading}>
+                    {bankLoading ? dict.bank.loading : dict.bank.button}
+                  </button>
+                </div>
+                <label className="mt-3 flex items-center gap-2">
+                  <input type="checkbox" checked={prefillKnown} onChange={(e) => setPrefillKnown(e.target.checked)} />
+                  {dict.bank.prefillKnown}
+                </label>
+                {bankError && <p className="mt-2 text-red-600">{dict.bank.loadFailed}</p>}
+                <p className="mt-2 text-xs text-ink-700/70">{dict.bank.credit}</p>
+              </fieldset>
+
+              <label className="mt-6 block text-sm font-medium text-ink-700" htmlFor="ci-sentences">
                 {dict.sentencesLabel}
               </label>
               <textarea

@@ -9,62 +9,14 @@ import { fileURLToPath } from "node:url";
 
 import { pinyin } from "pinyin-pro";
 
+import { readCsvFrom } from "./lib/csv.mjs";
+import { normalizeSentence, readMachineTranslations, tatoebaRows } from "./lib/sentences.mjs";
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "assets/dictionary");
 const OUT = join(ROOT, "public/data");
 
-/**
- * Minimal CSV/TSV parser with Python csv-module quoting rules: a quote only
- * opens a quoted field at the very start of the field ("" escapes inside);
- * a quote anywhere else is literal text (e.g. `Từ "Chúa" …` in a TSV cell).
- */
-function parseCsv(text, delimiter = ",") {
-  const rows = [];
-  let row = [];
-  let field = "";
-  let quoted = false;
-  let fieldHadQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (quoted) {
-      if (ch === '"' && text[i + 1] === '"') {
-        field += '"';
-        i++;
-      } else if (ch === '"') {
-        quoted = false;
-      } else {
-        field += ch;
-      }
-    } else if (ch === '"' && field === "" && !fieldHadQuotes) {
-      quoted = true;
-      fieldHadQuotes = true;
-    } else if (ch === delimiter) {
-      row.push(field);
-      field = "";
-      fieldHadQuotes = false;
-    } else if (ch === "\n" || ch === "\r") {
-      if (ch === "\r" && text[i + 1] === "\n") i++;
-      row.push(field);
-      rows.push(row);
-      row = [];
-      field = "";
-      fieldHadQuotes = false;
-    } else {
-      field += ch;
-    }
-  }
-  if (field || row.length) {
-    row.push(field);
-    rows.push(row);
-  }
-  return rows.filter((r) => r.some((f) => f !== ""));
-}
-
-function readCsv(name, delimiter = ",") {
-  const text = readFileSync(join(SRC, name), "utf-8").replace(/^\uFEFF/, "");
-  const [header, ...rows] = parseCsv(text, delimiter);
-  return rows.map((r) => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ""])));
-}
+const readCsv = (name, delimiter = ",") => readCsvFrom(SRC, name, delimiter);
 
 /**
  * Parse a Python list literal such as "['lưỡng', 'lượng']" (never eval).
@@ -144,27 +96,110 @@ const HANVIET_NOT_TRANSLATION = /\S_\S|\s。$/;
 // normalize_new_word_tokens in anki_desk.py.
 const NEW_WORD_SPLIT = /[\s,，。！？、;；:：]+/;
 
+// An old sheet row with English words in the sentence ("中国 popular 运动")
+// is a generation error. Short Latin runs (T恤, IT, AI) are real Chinese.
+const LATIN_WORD = /[A-Za-z]{3,}/;
+// Bit flags in an example row.
+const MACHINE_TRANSLATED = 1;
+const MAX_EXAMPLE_SHARD_BYTES = 1024 * 1024;
+
 /**
- * sentences.json: { rows: [[hanzi, vi, en]], index: { token: rowIndex } }.
- * A token points to the first row (file order) listing it in NewWord, like
- * anki_desk.py's scan, which stops looking for a word after its first match.
- * Rows that are no word's first match are left out.
+ * examples/<shard>.json: { rows: [[hanzi, vi, en, flags]], index: { word: rowIds } }
+ * and examples/manifest.json: { shards: { name: level }, words: { word: shard } }.
+ *
+ * Every candidate sentence per word, from sentences.tsv (hand-checked
+ * translations) and the Tatoeba file (CC BY 2.0 FR; translations by Google
+ * Translate from translate-sentences.mjs, flagged MACHINE_TRANSLATED). The
+ * browser ranks them (lib/examples/rank.ts); here they keep file order, old
+ * sheet first. A sentence in both files keeps the hand-checked translation.
+ * Words are sharded by their lowest HSK level (vocab.json), "other" for words
+ * outside the list, and a shard over MAX_EXAMPLE_SHARD_BYTES is split.
  */
-function buildSentences() {
-  const rows = [];
-  const index = {};
+function buildExamples(vocab) {
+  const sentences = new Map(); // hanzi → [hanzi, vi, en, flags]
+  const byWord = new Map(); // word → Set(hanzi)
+  const add = (word, hanzi) => {
+    if (!byWord.has(word)) byWord.set(word, new Set());
+    byWord.get(word).add(hanzi);
+  };
+  let skipped = 0;
   for (const r of readCsv("sentences.tsv", "\t")) {
-    const fresh = (r.NewWord ?? "")
-      .split(NEW_WORD_SPLIT)
-      .map((t) => t.trim())
-      .filter((t) => t && !Object.hasOwn(index, t));
-    if (fresh.length === 0) continue;
-    const id = rows.length;
-    const vi = r.Vietnamese ?? "";
-    rows.push([r.Hanzi ?? "", HANVIET_NOT_TRANSLATION.test(vi) ? "" : vi, r.English ?? ""]);
-    for (const t of fresh) index[t] = id;
+    const hanzi = normalizeSentence(r.Hanzi ?? "");
+    const words = (r.NewWord ?? "").split(NEW_WORD_SPLIT).map((t) => t.trim()).filter((t) => t && hanzi.includes(t));
+    if (!hanzi || LATIN_WORD.test(hanzi) || words.length === 0) {
+      skipped++;
+      continue;
+    }
+    if (!sentences.has(hanzi)) {
+      const vi = r.Vietnamese ?? "";
+      sentences.set(hanzi, [hanzi, HANVIET_NOT_TRANSLATION.test(vi) ? "" : vi.trim(), (r.English ?? "").trim(), 0]);
+    }
+    for (const w of words) add(w, hanzi);
   }
-  return { rows, index };
+  const mt = readMachineTranslations(SRC);
+  let untranslated = 0;
+  for (const r of tatoebaRows(readCsv)) {
+    if (!sentences.has(r.hanzi)) {
+      const t = mt.get(r.hanzi);
+      if (!t) untranslated++;
+      sentences.set(r.hanzi, t ? [r.hanzi, t.vi, t.en, MACHINE_TRANSLATED] : [r.hanzi, "", "", 0]);
+    }
+    add(r.word, r.hanzi);
+  }
+
+  // "7-9" parses as 7, after 6.
+  const levelOf = (word) =>
+    Object.hasOwn(vocab, word)
+      ? vocab[word].reduce((a, [l]) => (Number.parseInt(l, 10) < Number.parseInt(a, 10) ? l : a), vocab[word][0][0])
+      : "other";
+  const groups = new Map();
+  for (const word of byWord.keys()) {
+    const level = levelOf(word);
+    if (!groups.has(level)) groups.set(level, []);
+    groups.get(level).push(word);
+  }
+
+  const outDir = join(OUT, "examples");
+  rmSync(outDir, { recursive: true, force: true });
+  mkdirSync(outDir);
+  const manifest = { shards: {}, words: {} };
+  const sizes = [];
+  const levels = [...VOCAB_LEVELS, "other"].filter((l) => groups.has(l));
+  for (const level of levels) {
+    const parts = [];
+    let part = null;
+    for (const word of groups.get(level)) {
+      if (!part) part = { rows: [], index: {}, ids: new Map(), bytes: 0 };
+      part.index[word] = [...byWord.get(word)].map((hanzi) => {
+        if (!part.ids.has(hanzi)) {
+          part.ids.set(hanzi, part.rows.length);
+          part.rows.push(sentences.get(hanzi));
+          part.bytes += Buffer.byteLength(JSON.stringify(sentences.get(hanzi)));
+        }
+        return part.ids.get(hanzi);
+      });
+      if (part.bytes > MAX_EXAMPLE_SHARD_BYTES * 0.9) {
+        parts.push(part);
+        part = null;
+      }
+    }
+    if (part) parts.push(part);
+    for (const [i, p] of parts.entries()) {
+      const name = parts.length === 1 ? level : `${level}.${i}`;
+      const json = JSON.stringify({ rows: p.rows, index: p.index });
+      const bytes = Buffer.byteLength(json);
+      if (bytes > MAX_EXAMPLE_SHARD_BYTES) throw new Error(`examples/${name}.json is ${bytes} bytes`);
+      writeFileSync(join(outDir, `${name}.json`), json);
+      manifest.shards[name] = level;
+      for (const word of Object.keys(p.index)) manifest.words[word] = name;
+      sizes.push(`${name} ${Math.round(bytes / 1024)} KB`);
+    }
+  }
+  writeFileSync(join(outDir, "manifest.json"), JSON.stringify(manifest));
+  console.log(
+    `examples/: ${sentences.size} sentences for ${byWord.size} words (${sizes.join(", ")}); ` +
+      `${untranslated} Tatoeba sentences not translated yet, ${skipped} sheet rows skipped`,
+  );
 }
 
 // pywubi's RE_HANS: only these characters get a Wubi code.
@@ -441,12 +476,6 @@ const meanings = buildMeanings();
 write("meanings.json", meanings, `${Object.keys(meanings).length} words`);
 const wubi = buildWubi();
 write("wubi.json", wubi, `${Object.keys(wubi).length} characters`);
-const sentences = buildSentences();
-write(
-  "sentences.json",
-  sentences,
-  `${sentences.rows.length} sentences, ${Object.keys(sentences.index).length} words`,
-);
 const mmah = readMakeMeAHanzi();
 buildStrokes(mmah);
 const decompose = buildDecompose(mmah);
@@ -456,3 +485,4 @@ const radicals = buildRadicals(hanviet);
 write("radicals.json", radicals, `${radicals.length} radicals`);
 const vocab = buildVocab();
 write("vocab.json", vocab, `${Object.keys(vocab).length} words`);
+buildExamples(vocab);

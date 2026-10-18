@@ -7,14 +7,18 @@ import { Navbar } from "@/components/Navbar";
 import {
   buildDeck,
   COLUMNS,
+  EXAMPLE_COUNTS,
+  EXAMPLE_SEPARATOR,
   MAX_WORDS,
   missing,
   parseWords,
   toTsv,
   type Column,
   type DeckRow,
+  type ExampleCount,
 } from "@/lib/anki/buildDeck";
-import { loadMeanings, loadSentences, loadWubi } from "@/lib/anki/load";
+import { loadMeanings, loadWubi } from "@/lib/anki/load";
+import { loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
@@ -32,6 +36,8 @@ const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 
 // Wider inputs for the long text columns.
 const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning", "meaning_vi"]);
+// Columns holding one line per example when a card has several.
+const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_pinyin", "sentence_meaning"]);
 
 export default function AnkiPage() {
   const [text, setText] = useState(SAMPLE);
@@ -39,6 +45,9 @@ export default function AnkiPage() {
   const [duplicates, setDuplicates] = useState(0);
   const [picked, setPicked] = useState<Set<Column>>(() => new Set(COLUMNS));
   const [header, setHeader] = useState(true);
+  const [exampleCount, setExampleCount] = useState<ExampleCount>(1);
+  // The count the shown rows were built with: it decides the TSV format.
+  const [builtCount, setBuiltCount] = useState<ExampleCount>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
@@ -47,7 +56,7 @@ export default function AnkiPage() {
   const tooMany = words.length > MAX_WORDS;
 
   const columns = useMemo(() => COLUMNS.filter((c) => picked.has(c)), [picked]);
-  const tsv = useMemo(() => toTsv(rows, columns, header), [rows, columns, header]);
+  const tsv = useMemo(() => toTsv(rows, columns, header, builtCount > 1), [rows, columns, header, builtCount]);
   const notFound = useMemo(() => missing(rows), [rows]);
 
   async function handleFile(file: File | undefined) {
@@ -74,15 +83,16 @@ export default function AnkiPage() {
     }
     setLoading(true);
     try {
-      const [tokenizer, hanviet, meanings, sentences, wubi, vocab] = await Promise.all([
+      const [tokenizer, hanviet, meanings, examples, wubi, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
-        loadSentences(),
+        loadExamples(parsed.words),
         loadWubi(),
         loadVocab(),
       ]);
-      setRows(buildDeck({ tokenizer, hanviet, meanings, sentences, wubi, vocab }, parsed.words));
+      setRows(buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, parsed.words, exampleCount));
+      setBuiltCount(exampleCount);
       setDuplicates(parsed.duplicates);
     } catch {
       setError(dict.anki.loadFailed);
@@ -137,6 +147,20 @@ export default function AnkiPage() {
 
               <div className="mt-4 grid gap-4 text-sm text-ink-700 sm:grid-cols-3">
                 <FileInput label={dict.anki.upload} accept=".txt" onFile={handleFile} />
+                <label className="flex flex-col gap-1">
+                  <span className="font-medium">{dict.anki.exampleCount}</span>
+                  <select
+                    value={exampleCount}
+                    onChange={(e) => setExampleCount(Number(e.target.value) as ExampleCount)}
+                    className="rounded-lg border border-ink-900/10 px-3 py-2"
+                  >
+                    {EXAMPLE_COUNTS.map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
@@ -181,18 +205,33 @@ export default function AnkiPage() {
                       <tbody>
                         {rows.map((row, i) => (
                           <tr key={row.word} className="border-t border-ink-900/5">
-                            {columns.map((c) => (
-                              <td key={c} className="px-1 py-1">
-                                <input
-                                  value={row[c]}
-                                  onChange={(e) => editCell(i, c, e.target.value)}
-                                  aria-label={`${row.word} – ${dict.anki.columns[c]}`}
-                                  className={`rounded border border-transparent bg-transparent px-1 py-1 hover:border-ink-900/10 focus:border-brand-500 focus:outline-none ${
-                                    WIDE.has(c) ? "w-72" : "w-28"
-                                  } ${c === "word" || c === "sentence" ? "hanzi" : ""}`}
-                                />
-                              </td>
-                            ))}
+                            {columns.map((c) => {
+                              const cellClass = `rounded border border-transparent bg-transparent px-1 py-1 hover:border-ink-900/10 focus:border-brand-500 focus:outline-none ${
+                                WIDE.has(c) ? "w-72" : "w-28"
+                              } ${c === "word" || c === "sentence" ? "hanzi" : ""}`;
+                              const label = `${row.word} – ${dict.anki.columns[c]}`;
+                              return (
+                                <td key={c} className="px-1 py-1 align-top">
+                                  {builtCount > 1 && EXAMPLE_COLUMNS.has(c) ? (
+                                    // One example per line; saved with EXAMPLE_SEPARATOR.
+                                    <textarea
+                                      value={row[c].split(EXAMPLE_SEPARATOR).join("\n")}
+                                      rows={builtCount}
+                                      onChange={(e) => editCell(i, c, e.target.value.replace(/\r?\n/g, EXAMPLE_SEPARATOR))}
+                                      aria-label={label}
+                                      className={`${cellClass} resize-y`}
+                                    />
+                                  ) : (
+                                    <input value={row[c]} onChange={(e) => editCell(i, c, e.target.value)} aria-label={label} className={cellClass} />
+                                  )}
+                                  {c === "sentence_meaning" && row.machineTranslated && (
+                                    <span className="ml-1 inline-block rounded-full bg-ink-900/5 px-2 py-0.5 text-xs text-ink-700">
+                                      {dict.anki.machineTag}
+                                    </span>
+                                  )}
+                                </td>
+                              );
+                            })}
                           </tr>
                         ))}
                       </tbody>

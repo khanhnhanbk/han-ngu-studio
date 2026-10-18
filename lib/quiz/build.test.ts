@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import type { Meanings, Sentences } from "@/lib/anki/load";
+import type { Meanings } from "@/lib/anki/load";
+import { bankFrom } from "@/lib/examples/load";
+import type { Example, ExampleManifest, ExampleShard } from "@/lib/examples/types";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
@@ -16,11 +18,18 @@ import { KINDS, type ChoiceKind, type ChoiceQuestion, type OrderQuestion, type Q
 const dataDir = join(__dirname, "../../public/data");
 const json = <T,>(name: string) => JSON.parse(readFileSync(join(dataDir, name), "utf-8")) as T;
 
+const manifest = json<ExampleManifest>("examples/manifest.json");
+const shards = new Map(Object.keys(manifest.shards).map((n) => [n, json<ExampleShard>(`examples/${n}.json`)]));
+
+/** Hand-checked example candidates, in file order. */
+const examples = (...rows: Array<[string, string]>): Example[] =>
+  rows.map(([hanzi, vi], order) => ({ hanzi, vi, en: "", machine: false, order }));
+
 const data: QuizData = {
   tokenizer: createTokenizer(readFileSync(join(dataDir, "word_list.txt"), "utf-8").split("\n")),
   hanviet: json<HanvietData>("hanviet.json"),
   meanings: json<Meanings>("meanings.json"),
-  sentences: json<Sentences>("sentences.json"),
+  examples: bankFrom(manifest, shards, Object.keys(manifest.words)),
   vocab: json<VocabData>("vocab.json"),
 };
 
@@ -178,8 +187,19 @@ describe("buildQuiz", () => {
   });
 });
 
+// Fixed sentences for the words the cloze and ordering tests look at, so they
+// do not depend on which of the bank's sentences ranks first.
+const fixed: QuizData = {
+  ...data,
+  examples: {
+    ...data.examples,
+    朋友: examples(["他是我的朋友。", "Anh ấy là bạn tôi."]),
+    大学: examples(["我在大学学习。", "Tôi đang học đại học."]),
+  },
+};
+
 describe("cloze", () => {
-  const { questions } = buildQuiz(data, WORDS, ["cloze"], createRng(11));
+  const { questions } = buildQuiz(fixed, WORDS, ["cloze"], createRng(11));
 
   it("blanks the word in its example sentence and gives the translation", () => {
     const q = find(questions, "cloze", "朋友");
@@ -196,7 +216,7 @@ describe("cloze", () => {
 
   it("blanks a word with a character outside the BMP intact", () => {
     // 𠮷 (U+20BB7) is a surrogate pair in JavaScript strings.
-    const astral: QuizData = { ...data, sentences: { rows: [["𠮷野家很好。", "Yoshinoya rất ngon.", ""]], index: { 𠮷野家: 0 } } };
+    const astral: QuizData = { ...data, examples: { 𠮷野家: examples(["𠮷野家很好。", "Yoshinoya rất ngon."]) } };
     const q = find(buildQuiz(astral, [{ word: "𠮷野家" }], ["cloze"], createRng(1)).questions, "cloze", "𠮷野家");
     expect(q.prompt).toBe(`${BLANK}很好。`);
     expect(Array.from(q.prompt)).not.toContain("\uD842");
@@ -206,10 +226,34 @@ describe("cloze", () => {
     const { skipped } = buildQuiz(data, [{ word: "abc" }, ...WORDS], ["cloze"], createRng(1));
     expect(skipped).toEqual([{ word: "abc", kind: "cloze" }]);
   });
+
+  it("varies the sentence between runs, among the easiest few", () => {
+    const many: QuizData = {
+      ...data,
+      examples: {
+        书: examples(["我有书。", "Tôi có sách."], ["他有书。", "Anh ấy có sách."], ["你有书。", "Bạn có sách."], ["汤姆在图书馆借了一本很难的书。", "x"]),
+      },
+    };
+    const prompts = new Set(
+      [1, 2, 3, 4, 5, 6, 7, 8].map((seed) => find(buildQuiz(many, [{ word: "书" }], ["cloze"], createRng(seed)).questions, "cloze", "书").prompt),
+    );
+    expect(prompts.size).toBeGreaterThan(1);
+    expect([...prompts].some((p) => p.includes("汤姆"))).toBe(false);
+  });
+
+  it("skips untranslated sentences and marks machine-translated hints", () => {
+    const mt: QuizData = {
+      ...data,
+      examples: { 书: [{ hanzi: "我有书。", vi: "", en: "", machine: false, order: 0 }, { hanzi: "他有书。", vi: "Anh ấy có sách.", en: "", machine: true, order: 1 }] },
+    };
+    const q = find(buildQuiz(mt, [{ word: "书" }], ["cloze"], createRng(1)).questions, "cloze", "书");
+    expect(q.prompt).toBe(`他有${BLANK}。`);
+    expect(q.machine).toBe(true);
+  });
 });
 
 describe("ordering", () => {
-  const { questions, skipped } = buildQuiz(data, WORDS, ["ordering"], createRng(5));
+  const { questions, skipped } = buildQuiz(fixed, WORDS, ["ordering"], createRng(5));
 
   it("shuffles the words and keeps the end punctuation apart", () => {
     const q = findOrder(questions, "朋友");
@@ -220,7 +264,7 @@ describe("ordering", () => {
   });
 
   it("skips sentences too short to reorder", () => {
-    const short: QuizData = { ...data, sentences: { rows: [["谢谢你。", "Cảm ơn bạn.", ""]], index: { 谢谢: 0 } } };
+    const short: QuizData = { ...data, examples: { 谢谢: examples(["谢谢你。", "Cảm ơn bạn."]) } };
     // 谢谢 / 你 + 。: two words are not an exercise.
     expect(buildQuiz(short, [{ word: "谢谢" }], ["ordering"], createRng(1)).skipped).toEqual([
       { word: "谢谢", kind: "ordering" },

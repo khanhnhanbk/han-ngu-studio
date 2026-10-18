@@ -70,7 +70,7 @@ export const vi = {
       comprehensibleInput: {
         title: "Sắp xếp câu N+1",
         description:
-          "Sắp xếp câu tiếng Trung từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; tô sáng từ mới và tải TSV.",
+          "Sắp xếp câu tiếng Trung từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; dùng câu của bạn hoặc lấy câu mẫu theo cấp HSK, tô sáng từ mới và tải TSV.",
         cta: "Sắp xếp câu",
       },
       pinyin: {
@@ -88,13 +88,13 @@ export const vi = {
       anki: {
         title: "Tạo bộ thẻ Anki",
         description:
-          "Từ danh sách từ vựng: Pinyin, nghĩa tiếng Việt, cấp HSK, câu ví dụ có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
+          "Từ danh sách từ vựng: Pinyin, nghĩa tiếng Việt, cấp HSK, tới 3 câu ví dụ dễ hiểu có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
       quiz: {
         title: "Trắc nghiệm từ vựng",
         description:
-          "Từ danh sách từ vựng, tự tạo câu hỏi: chọn nghĩa, Pinyin, âm Hán Việt, điền từ vào câu, sắp xếp câu. Làm bài ngay hoặc in đề kèm đáp án.",
+          "Từ danh sách từ vựng, tự tạo câu hỏi: chọn nghĩa, Pinyin, âm Hán Việt, điền từ vào câu, sắp xếp câu (câu ví dụ thay đổi mỗi lần tạo đề). Làm bài ngay hoặc in đề kèm đáp án.",
         cta: "Làm trắc nghiệm",
       },
       radicals: {
@@ -144,6 +144,12 @@ export const vi = {
         title: "Âm thanh cho thẻ Anki",
         description:
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
+      },
+      {
+        status: "planned",
+        title: "Chữ phồn thể",
+        description:
+          "Chuyển toàn bộ công cụ sang chữ phồn thể (Đài Loan): Pinyin, Hán Việt, phiếu tập viết, thẻ Anki và trắc nghiệm đều đúng với chữ phồn thể.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",
@@ -233,6 +239,18 @@ export const vi = {
     knownPlaceholder: "Dán danh sách từ bạn đã biết…",
     button: "Sắp xếp",
     loading: "Đang xử lý…",
+    bank: {
+      title: "Lấy câu mẫu",
+      hint: "Chưa có câu? Lấy các câu ví dụ có sẵn theo cấp HSK (câu ngắn trước), rồi bấm Sắp xếp.",
+      level: "Cấp HSK",
+      levelOption: (level: string) => `HSK ${level}`,
+      count: "Số câu",
+      prefillKnown: "Điền vào “Từ đã biết” mọi từ HSK thuộc các cấp thấp hơn",
+      button: "Lấy câu",
+      loading: "Đang tải câu…",
+      loadFailed: "Không tải được câu mẫu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+      credit: "Câu mẫu: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR).",
+    },
     download: "Tải sentence_sorted.tsv",
     empty: "Vui lòng nhập ít nhất một câu tiếng Trung.",
     loadFailed:
@@ -391,6 +409,8 @@ export const vi = {
     upload: "Hoặc tải file (.txt)",
     badFile: "Chỉ hỗ trợ file .txt.",
     wordCount: "Số từ",
+    exampleCount: "Số câu ví dụ mỗi thẻ",
+    machineTag: "dịch máy",
     button: "Tạo bộ thẻ",
     loading: "Đang xử lý…",
     columnsLabel: "Cột xuất ra",
@@ -425,7 +445,7 @@ export const vi = {
     ],
     importMore: "Hướng dẫn chi tiết (kể cả AnkiDroid) có trong tài liệu hướng dẫn sử dụng.",
     credits:
-      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Câu ví dụ, cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0).",
+      "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); câu đánh dấu “dịch máy” được dịch bằng Google Dịch.",
     error: "Vui lòng nhập ít nhất một từ.",
     tooMany: "Quá nhiều từ (tối đa 1000 từ).",
     noColumns: "Hãy chọn ít nhất một cột.",
@@ -465,6 +485,7 @@ export const vi = {
       ordering: "Bấm các từ theo đúng thứ tự để tạo thành câu",
     },
     hintLabel: "Nghĩa của câu",
+    machineTag: "dịch máy",
     orderPlaceholder: "Bấm các từ bên dưới…",
     orderUndo: "Bấm một từ đã chọn để bỏ ra.",
     check: "Kiểm tra",
@@ -498,7 +519,7 @@ export const vi = {
       "Các từ này thiếu dữ liệu cho loại câu hỏi đó (chưa có nghĩa, câu ví dụ, hoặc không có đáp án sai nào khác). Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
     duplicates: "Đã bỏ {n} từ trùng lặp.",
     credits:
-      "Nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt và câu ví dụ: Hán Ngữ Studio.",
+      "Nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: Hán Ngữ Studio. Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); nghĩa đánh dấu “dịch máy” được dịch bằng Google Dịch.",
     error: "Vui lòng nhập ít nhất một từ.",
     noKinds: "Hãy chọn ít nhất một loại câu hỏi.",
     tooMany: "Quá nhiều từ (tối đa 200 từ).",

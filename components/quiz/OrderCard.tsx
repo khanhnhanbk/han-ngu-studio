@@ -31,7 +31,10 @@ export function OrderCard({
   return (
     <div>
       <p className="text-sm font-medium text-ink-700">{dict.quiz.prompts.ordering}</p>
-      <p className="mt-3 text-center text-lg text-ink-900">{question.hint}</p>
+      <p className="mt-3 text-center text-lg text-ink-900">
+        {question.hint}
+        {question.machine && <span className="ml-2 inline-block rounded-full bg-ink-900/5 px-2 py-0.5 text-xs text-ink-700">{dict.quiz.machineTag}</span>}
+      </p>
 
       <div
         className={`mt-6 flex min-h-16 flex-wrap items-center gap-2 rounded-xl border-2 border-dashed p-3 ${

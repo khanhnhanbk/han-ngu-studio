@@ -41,6 +41,7 @@ export function QuestionCard({
       {question.hint && (
         <p className="mt-2 text-center text-sm text-ink-700">
           {dict.quiz.hintLabel}: {question.hint}
+          {question.machine && <span className="ml-2 inline-block rounded-full bg-ink-900/5 px-2 py-0.5 text-xs text-ink-700">{dict.quiz.machineTag}</span>}
         </p>
       )}
 

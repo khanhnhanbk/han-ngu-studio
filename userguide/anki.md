@@ -29,9 +29,13 @@ Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **impor
 
 Dòng **Số từ: … / 1000** cho biết số từ (tối đa 1000). Từ trùng lặp được tự động bỏ.
 
+Ô **Số câu ví dụ mỗi thẻ** (1, 2 hoặc 3; mặc định 1): mỗi thẻ có bấy nhiêu câu ví dụ. Có khoảng 9.600 từ (gần hết danh sách HSK 3.0) có câu ví dụ, nhiều từ có tới 15 câu. Công cụ chọn **câu dễ nhất**: ít từ khó hơn cấp HSK của từ đang học nhất, rồi đến câu ngắn hơn. Với 2–3 câu, mỗi câu nằm trên một dòng riêng trong cùng một ô của Anki.
+
 ### 2. Bấm **Tạo bộ thẻ**
 
-Lần đầu tiên, nút hiện **Đang xử lý…** vài giây để tải dữ liệu (khoảng 3 MB). Các lần sau gần như tức thì.
+Lần đầu tiên, nút hiện **Đang xử lý…** vài giây để tải dữ liệu (khoảng 3–5 MB, câu ví dụ chỉ tải phần chứa từ của bạn). Các lần sau gần như tức thì.
+
+Nếu đổi **Số câu ví dụ mỗi thẻ** sau khi đã tạo, hãy bấm **Tạo bộ thẻ** lại (nội dung đã sửa trong bảng sẽ mất).
 
 ### 3. Chọn cột
 
@@ -41,7 +45,9 @@ Lần đầu tiên, nút hiện **Đang xử lý…** vài giây để tải d�
 
 ### 4. Xem trước và chỉnh sửa
 
-Bảng **Xem trước và chỉnh sửa** hiện tất cả thẻ. **Bấm vào ô bất kỳ để sửa** (ví dụ rút gọn nghĩa, đổi câu ví dụ). Nội dung đã sửa sẽ có trong file tải về.
+Bảng **Xem trước và chỉnh sửa** hiện tất cả thẻ. **Bấm vào ô bất kỳ để sửa** (ví dụ rút gọn nghĩa, đổi câu ví dụ). Nội dung đã sửa sẽ có trong file tải về. Khi có 2–3 câu ví dụ, ba ô câu ví dụ có nhiều dòng: mỗi dòng là một câu, hãy giữ các dòng khớp nhau giữa **Câu ví dụ**, **Pinyin của câu** và **Nghĩa của câu**.
+
+Nhãn **dịch máy** cạnh ô **Nghĩa của câu**: bản dịch của câu này do Google Dịch tạo, chưa được người kiểm tra. Hãy đọc lại trước khi học.
 
 Trên điện thoại, kéo ngang bảng để xem các cột bên phải.
 
@@ -82,7 +88,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Mã Ngũ bút (bản 86): **pywubi** (giấy phép MIT).
 - Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio, theo danh sách từ vựng HSK 3.0.
-- Câu ví dụ và bản dịch tiếng Việt: Hán Ngữ Studio. Một số câu hiện mới có bản dịch tiếng Anh; khi đó cột **Nghĩa của câu** hiện tiếng Anh. Bạn có thể sửa sang tiếng Việt ngay trong bảng trước khi tải.
+- Câu ví dụ: Hán Ngữ Studio và **Tatoeba** (tatoeba.org, giấy phép CC BY 2.0 FR). Bản dịch của câu Tatoeba do **Google Dịch** tạo một lần khi xây dựng dữ liệu (nhãn **dịch máy**); trang web không gửi gì cho Google. Một số câu chỉ có bản dịch tiếng Anh; khi đó cột **Nghĩa của câu** hiện tiếng Anh. Bạn có thể sửa sang tiếng Việt ngay trong bảng trước khi tải.
 - Pinyin và Hán Việt được tạo tự động; xem lưu ý độ chính xác trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác) và [hanviet.md](hanviet.md#cách-đọc-kết-quả).
 
 ## Lỗi thường gặp
@@ -96,4 +102,6 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | Loại ghi chú cũ chỉ có 8 trường (trước khi có cột HSK) | Hai cột mới nằm ở cuối nên 8 cột đầu vẫn khớp. Bỏ tích **Cấp HSK** và **Nghĩa tiếng Việt**, hoặc thêm hai trường `hsk_level`, `meaning_vi` vào cuối loại ghi chú. |
 | Anki báo lỗi số cột / thẻ bị lệch trường | Kiểm tra **Field mapping** khi import; loại ghi chú phải có đủ số trường bằng số cột đã chọn. |
 | Các dòng `#separator…` thành thẻ | Anki của bạn cũ hơn 2.1.55: bỏ tích **Thêm dòng cấu hình cho Anki** rồi tải lại. |
+| Ô câu ví dụ trong Anki hiện chữ `<br>` | File được tạo với 2–3 câu ví dụ nên dùng HTML. Giữ ô **Thêm dòng cấu hình cho Anki** (dòng `#html:true`), hoặc khi import tích **Allow HTML in fields**. |
+| Bản dịch câu ví dụ chưa sát nghĩa | Câu có nhãn **dịch máy** được dịch tự động và có thể chưa chính xác. Sửa ngay trong bảng trước khi tải. |
 | Chữ Hán bị lỗi khi mở bằng Excel | Mở bằng Dữ liệu → Từ văn bản/CSV, chọn mã hóa **UTF-8**, dấu phân cách **Tab**. |

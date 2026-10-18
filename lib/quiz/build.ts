@@ -1,20 +1,23 @@
 import { convert, pinyin } from "pinyin-pro";
 
 import { hanvietLine } from "@/lib/anki/buildDeck";
-import type { Meanings, Sentences } from "@/lib/anki/load";
+import type { Meanings } from "@/lib/anki/load";
+import { rankExamples } from "@/lib/examples/rank";
+import type { ExampleBank } from "@/lib/examples/types";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { convertLine } from "@/lib/pinyin/convert";
 import { segment, type Tokenizer } from "@/lib/segment/tokenizer";
 import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
 
 import { shuffle, type Rng } from "./rng";
-import { KINDS, type ChoiceKind, type Question, type QuizEntry, type QuizKind, type QuizOrder, type Response, type Skipped } from "./types";
+import { KINDS, type ChoiceKind, type OrderQuestion, type Question, type QuizEntry, type QuizKind, type QuizOrder, type Response, type Skipped } from "./types";
 
 export type QuizData = {
   tokenizer: Tokenizer;
   hanviet: HanvietData;
   meanings: Meanings;
-  sentences: Sentences;
+  /** Candidate example sentences per word (lib/examples). */
+  examples: ExampleBank;
   vocab: VocabData;
 };
 
@@ -34,6 +37,8 @@ export const BLANK = "＿＿";
 /** Longer sentences make the ordering exercise a chore. */
 const MAX_ORDER_TOKENS = 12;
 const PUNCT = /^[\p{P}\s]+$/u;
+/** A quiz picks among this many of the easiest sentences, so reruns differ. */
+const SENTENCE_CHOICES = 3;
 
 /**
  * One entry per line: "word" or "word<Tab>meaning". Blank lines are dropped;
@@ -281,7 +286,7 @@ function buildOne(
       return make(kind, word, info.hanviet, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)]);
     }
     case "cloze": {
-      const s = sentenceFor(data, word);
+      const s = pickSentence(sentencesFor(data, word), rng);
       if (!s) return null;
       // Blank the first occurrence. indexOf is safe for astral characters:
       // a well-formed word cannot match half of a surrogate pair.
@@ -289,35 +294,51 @@ function buildOne(
       const prompt = s.text.slice(0, at) + BLANK + s.text.slice(at + word.length);
       // A word already in the sentence makes an odd wrong option.
       const pick = (i: Info) => (s.text.includes(i.word) ? "" : i.word);
-      return make(kind, prompt, word, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)], s.hint);
+      const q = make(kind, prompt, word, [...bySameLength(own, word, pick), ...bySameLength(fallback, word, pick)], s.hint);
+      return q && s.machine ? { ...q, machine: true } : q;
     }
     case "ordering": {
-      const s = sentenceFor(data, word);
+      const usable = sentencesFor(data, word).flatMap((s) => {
+        const words = [...segment(data.tokenizer, s.text)[0]];
+        let end = "";
+        while (words.length && PUNCT.test(words[words.length - 1])) end = words.pop() + end;
+        if (words.length < 3 || words.length > MAX_ORDER_TOKENS) return [];
+        return [{ ...s, words, end }];
+      });
+      const s = pickSentence(usable, rng);
       if (!s) return null;
-      const words = [...segment(data.tokenizer, s.text)[0]];
-      let end = "";
-      while (words.length && PUNCT.test(words[words.length - 1])) end = words.pop() + end;
-      if (words.length < 3 || words.length > MAX_ORDER_TOKENS) return null;
+      const { words, end } = s;
       const original = words.join("");
       let tokens = words;
       for (let i = 0; i < 10 && tokens.join("") === original; i++) tokens = shuffle(words, rng);
       // Every order reads the same (e.g. 哈哈哈): nothing to practise.
       if (tokens.join("") === original) return null;
-      return { kind, word, hint: s.hint, tokens, end, answer: words };
+      const q: OrderQuestion = { kind, word, hint: s.hint, tokens, end, answer: words };
+      return s.machine ? { ...q, machine: true } : q;
     }
   }
 }
 
+type UsableSentence = { text: string; hint: string; machine: boolean };
+
 /**
- * The word's example sentence and its translation (Vietnamese, else English).
- * Null when there is none, the sentence lacks the word, or it has no
- * translation: without one, more than one option could fit the blank.
+ * The word's example sentences, easiest first (lib/examples/rank.ts), with
+ * their translation (Vietnamese, else English). Sentences that lack the word
+ * or have no translation are left out: without one, more than one option
+ * could fit the blank.
  */
-function sentenceFor(data: QuizData, word: string): { text: string; hint: string } | null {
-  if (!Object.hasOwn(data.sentences.index, word)) return null;
-  const [text, vi, en] = data.sentences.rows[data.sentences.index[word]];
-  const hint = vi || en;
-  return text.includes(word) && hint ? { text, hint } : null;
+function sentencesFor(data: QuizData, word: string): UsableSentence[] {
+  if (!Object.hasOwn(data.examples, word)) return [];
+  return rankExamples(data, word, data.examples[word]).flatMap((ex) => {
+    const hint = ex.vi || ex.en;
+    return ex.hanzi.includes(word) && hint ? [{ text: ex.hanzi, hint, machine: ex.machine }] : [];
+  });
+}
+
+/** One of the first SENTENCE_CHOICES sentences, at random; null when there is none. */
+function pickSentence<T>(ranked: readonly T[], rng: Rng): T | null {
+  const top = ranked.slice(0, SENTENCE_CHOICES);
+  return top.length ? top[Math.floor(rng() * top.length)] : null;
 }
 
 export function isCorrect(question: Question, response: Response | null): boolean {
