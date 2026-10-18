@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
 import { getDictionary } from "@/lib/i18n";
 import {
@@ -15,7 +16,7 @@ import {
 } from "@/lib/pinyin/convert";
 import { createAligner, type ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
-import { loadTokenizer } from "@/lib/segment/load";
+import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
@@ -132,6 +133,7 @@ export default function PinyinPage() {
     }
     setLoading(true);
     try {
+      if (!(await confirmDownload(TOKENIZER_FILES))) return setError(dict.download.declined);
       setTokenizer(await loadTokenizer());
       setSubmitted(text);
     } catch {

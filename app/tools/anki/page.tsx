@@ -17,15 +17,16 @@ import {
   type DeckRow,
   type ExampleCount,
 } from "@/lib/anki/buildDeck";
-import { loadMeanings, loadWubi, type WubiTable } from "@/lib/anki/load";
+import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE, type WubiTable } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
-import { loadExamples } from "@/lib/examples/load";
+import { confirmDownload } from "@/lib/data/budget";
+import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
-import { loadHanviet } from "@/lib/hanviet/load";
+import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { useConverter } from "@/lib/script/useScript";
-import { loadTokenizer } from "@/lib/segment/load";
-import { loadVocab } from "@/lib/vocab/load";
+import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
+import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
@@ -95,6 +96,8 @@ export default function AnkiPage() {
     setLoading(true);
     try {
       const words = simpWords(conv, parsed.words);
+      const files = [...TOKENIZER_FILES, HANVIET_FILE, MEANINGS_FILE, WUBI_FILE, VOCAB_FILE, ...(await exampleFiles(words))];
+      if (!(await confirmDownload(files))) return setError(dict.download.declined);
       const [tokenizer, hanviet, meanings, examples, wubi, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),

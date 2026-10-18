@@ -7,13 +7,14 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { StrokeSteps } from "@/components/stroke-order/StrokeSteps";
 import { Writer } from "@/components/stroke-order/Writer";
-import { loadHanviet } from "@/lib/hanviet/load";
+import { confirmDownload } from "@/lib/data/budget";
+import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
 import { getDictionary } from "@/lib/i18n";
 import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
 import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
-import { loadStrokes } from "@/lib/strokes/load";
+import { loadStrokes, strokeFiles } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
 const dict = getDictionary("vi");
@@ -58,6 +59,7 @@ export default function StrokeOrderPage() {
     }
     setLoading(true);
     try {
+      if (!(await confirmDownload([...strokeFiles(chars), HANVIET_FILE]))) return setError(dict.download.declined);
       const [strokes, hanviet] = await Promise.all([
         loadStrokes(chars),
         // Hán Việt is extra information; the page still works without it.

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
@@ -17,13 +17,21 @@ function fromShard(char: string): StrokeData | undefined {
 }
 
 describe("shardKey", () => {
-  it("groups 64 code points per shard", () => {
-    expect(shardKey("一")).toBe((0x4e00 >> 6).toString(16));
-    expect(shardKey("字")).toBe((0x5b57 >> 6).toString(16));
+  it("groups 8 code points per shard", () => {
+    expect(shardKey("一")).toBe((0x4e00 >> 3).toString(16));
+    expect(shardKey("例")).toBe("9f1");
   });
 
   it("uses the full code point outside the BMP", () => {
-    expect(shardKey("𠀀")).toBe((0x20000 >> 6).toString(16));
+    expect(shardKey("𠀀")).toBe((0x20000 >> 3).toString(16));
+  });
+
+  it("matches the shipped file of every character", () => {
+    const dir = join(root, "public/data/strokes");
+    for (const file of readdirSync(dir)) {
+      const shard = JSON.parse(readFileSync(join(dir, file), "utf-8")) as StrokeShard;
+      for (const char of Object.keys(shard)) expect(`${shardKey(char)}.json`).toBe(file);
+    }
   });
 });
 

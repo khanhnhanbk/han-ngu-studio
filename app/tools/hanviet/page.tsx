@@ -4,8 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
-import { loadHanviet } from "@/lib/hanviet/load";
+import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import {
   allReadings,
@@ -17,7 +18,7 @@ import {
 import { getDictionary } from "@/lib/i18n";
 import { createAligner, type ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
-import { loadTokenizer } from "@/lib/segment/load";
+import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
@@ -174,6 +175,7 @@ export default function HanvietPage() {
     }
     setLoading(true);
     try {
+      if (!(await confirmDownload([...TOKENIZER_FILES, HANVIET_FILE]))) return setError(dict.download.declined);
       const [tokenizer, data] = await Promise.all([loadTokenizer(), loadHanviet()]);
       setLoaded({ tokenizer, data });
       setSubmitted(text);

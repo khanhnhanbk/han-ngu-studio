@@ -2,10 +2,11 @@
 // Run by hand after changing the source data: `pnpm build:data`.
 // Output is committed; nothing here runs at deploy time or in the browser.
 
-import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
 
 import * as cn2t from "opencc-js/cn2t";
 import * as t2cn from "opencc-js/t2cn";
@@ -221,10 +222,11 @@ function buildWubi() {
   return out;
 }
 
-// Stroke shards group 64 consecutive code points (codepoint >> 6), so a page
-// fetches only the few small files its characters fall in. Must match
+// Stroke shards group 8 consecutive code points (codepoint >> 3), about 11 KB
+// each, so a page fetches little more than its own characters (64-point
+// shards cost ~1.9 MB for 20 characters of ordinary text). Must match
 // shardKey() in lib/strokes/load.ts.
-const STROKE_SHARD_BITS = 6;
+const STROKE_SHARD_BITS = 3;
 const MAX_SHARD_BYTES = 1.5 * 1024 * 1024;
 
 /**
@@ -532,3 +534,29 @@ write("radicals.json", radicals, `${radicals.length} radicals`);
 const vocab = buildVocab();
 write("vocab.json", vocab, `${Object.keys(vocab).length} words`);
 buildExamples(vocab);
+
+/**
+ * sizes.json: { "/data/…": gzip bytes } for every data file, plus the OpenCC
+ * chunks, so lib/data/budget.ts can tell how much an action would download
+ * before it starts. Written last, after every other file.
+ */
+function buildSizes() {
+  const sizes = {};
+  const walk = (dir, prefix) => {
+    for (const name of readdirSync(dir).sort()) {
+      const path = join(dir, name);
+      if (statSync(path).isDirectory()) walk(path, `${prefix}${name}/`);
+      else if (`${prefix}${name}` !== "/data/sizes.json") sizes[`${prefix}${name}`] = gzipSync(readFileSync(path)).length;
+    }
+  };
+  walk(OUT, "/data/");
+  // The bundles lib/script/convert.ts imports (the package hides package.json).
+  for (const name of ["t2cn", "cn2t"]) {
+    const file = join(ROOT, "node_modules/opencc-js/dist/esm", `${name}.js`);
+    sizes[`opencc:${name}`] = gzipSync(readFileSync(file)).length;
+  }
+  return sizes;
+}
+
+const sizes = buildSizes();
+write("sizes.json", sizes, `${Object.keys(sizes).length} files`);

@@ -23,7 +23,8 @@ import {
 } from "@/lib/practiceSheet";
 import { useConverter } from "@/lib/script/useScript";
 import { fontStack, isSheetFontId, type SheetFontId } from "@/lib/sheetFonts";
-import { loadStrokes } from "@/lib/strokes/load";
+import { confirmDownload, downloadSize, formatBytes } from "@/lib/data/budget";
+import { loadStrokes, strokeFiles } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
 import { sheetFontVariables } from "./fonts";
@@ -67,7 +68,9 @@ const DEFAULTS: StoredOptions = {
 
 type StrokeState =
   | { status: "idle" | "loading" | "error" }
-  | { status: "ready"; data: Map<string, StrokeData> };
+  | { status: "ready"; data: Map<string, StrokeData> }
+  // The user chose "Để sau" in the download prompt; bytes is for the notice.
+  | { status: "declined"; bytes: number };
 
 export default function PracticeSheetPage() {
   const [text, setText] = useState(SAMPLE);
@@ -90,6 +93,10 @@ export default function PracticeSheetPage() {
   const [strokeState, setStrokeState] = useState<StrokeState>({
     status: "idle",
   });
+  // After "Để sau" the sheet stops asking until the user loads the data
+  // with the notice's button (strokesAllowed) or turns the option off and on.
+  const [strokesDeclined, setStrokesDeclined] = useState(false);
+  const [strokesAllowed, setStrokesAllowed] = useState(false);
   const [error, setError] = useState("");
 
   // Hydrate persisted options on mount (SSR-safe), then apply
@@ -182,6 +189,8 @@ export default function PracticeSheetPage() {
   );
   const characters = sheet.chars;
   const tooMany = characters.length > 300;
+  // Without the data the sheet is laid out (and prints) without the strip.
+  const withStrokes = showStrokeOrder && strokeState.status !== "declined";
   const pages = useMemo(
     () =>
       tooMany
@@ -190,36 +199,62 @@ export default function PracticeSheetPage() {
             characters,
             linesPerChar,
             layout.rowsPerPage,
-            showStrokeOrder,
+            withStrokes,
           ),
-    [characters, linesPerChar, layout.rowsPerPage, tooMany, showStrokeOrder],
+    [characters, linesPerChar, layout.rowsPerPage, tooMany, withStrokes],
   );
 
+  useEffect(() => {
+    if (!showStrokeOrder) {
+      setStrokesDeclined(false);
+      setStrokesAllowed(false);
+    }
+  }, [showStrokeOrder]);
+
   // Fetch stroke data for the characters on the sheet (only the shards
-  // they fall in; each shard is fetched once per visit).
+  // they fall in; each shard is fetched once per visit). Waits until typing
+  // pauses, and asks first when the download is large (lib/data/budget.ts).
   useEffect(() => {
     if (!showStrokeOrder || tooMany || characters.length === 0) {
       setStrokeState({ status: "idle" });
       return;
     }
     let cancelled = false;
+    const files = strokeFiles(characters);
+    // Declined: stay without strokes, only keep the notice's size current.
+    if (strokesDeclined && !strokesAllowed) {
+      void downloadSize(files).then((bytes) => !cancelled && setStrokeState({ status: "declined", bytes }));
+      return () => {
+        cancelled = true;
+      };
+    }
     setStrokeState((s) => (s.status === "ready" ? s : { status: "loading" }));
-    loadStrokes(characters).then(
-      (data) => {
+    const timer = window.setTimeout(async () => {
+      try {
+        const ok = strokesAllowed || (await confirmDownload(files));
+        if (!ok) {
+          const bytes = await downloadSize(files);
+          if (!cancelled) {
+            setStrokesDeclined(true);
+            setStrokeState({ status: "declined", bytes });
+          }
+          return;
+        }
+        const data = await loadStrokes(characters);
         if (!cancelled) setStrokeState({ status: "ready", data });
-      },
-      () => {
+      } catch {
         if (!cancelled) setStrokeState({ status: "error" });
-      },
-    );
+      }
+    }, 400);
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
-  }, [showStrokeOrder, characters, tooMany]);
+  }, [showStrokeOrder, characters, tooMany, strokesAllowed, strokesDeclined]);
 
   // Hold printing until the strips can be drawn.
   const strokesPending =
-    showStrokeOrder &&
+    withStrokes &&
     characters.length > 0 &&
     !tooMany &&
     strokeState.status !== "ready";
@@ -231,7 +266,7 @@ export default function PracticeSheetPage() {
     traceShade,
     boxSize,
     linesPerChar,
-    showStrokeOrder,
+    showStrokeOrder: withStrokes,
     fontFamily: fontStack(
       fontId === "upload" && !uploadName ? DEFAULTS.fontId : fontId,
       localFontName,
@@ -484,6 +519,14 @@ export default function PracticeSheetPage() {
                   <p className="mt-1 text-xs text-ink-500">
                     {dict.practiceSheet.strokesCredit}
                   </p>
+                )}
+                {strokeState.status === "declined" && (
+                  <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-ink-700">
+                    <p>{dict.download.strokesDeclined.replace("{size}", formatBytes(strokeState.bytes))}</p>
+                    <button type="button" className="btn-secondary px-3 py-2" onClick={() => setStrokesAllowed(true)}>
+                      {dict.download.strokesLoad}
+                    </button>
+                  </div>
                 )}
                 {strokeState.status === "error" && (
                   <p className="mt-4 text-sm text-red-600">

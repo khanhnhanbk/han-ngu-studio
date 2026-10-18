@@ -11,11 +11,12 @@ import { showRow, simpKnown } from "@/lib/comprehensible-input/script";
 import { toTsv, TSV_FILENAME } from "@/lib/comprehensible-input/tsv";
 import { extractWords, parseKnownWords, parseSentences } from "@/lib/comprehensible-input/words";
 import { downloadText } from "@/lib/download";
-import { loadLevelSentences } from "@/lib/examples/load";
+import { confirmDownload } from "@/lib/data/budget";
+import { levelFiles, loadLevelSentences } from "@/lib/examples/load";
 import { getDictionary } from "@/lib/i18n";
 import { useConverter } from "@/lib/script/useScript";
-import { loadTokenizer, loadWordListLines } from "@/lib/segment/load";
-import { loadVocab } from "@/lib/vocab/load";
+import { loadTokenizer, loadWordListLines, TOKENIZER_FILES } from "@/lib/segment/load";
+import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 
@@ -47,11 +48,17 @@ export default function ComprehensibleInputPage() {
   const [prefillKnown, setPrefillKnown] = useState(false);
   const [bankLoading, setBankLoading] = useState(false);
   const [bankError, setBankError] = useState(false);
+  // The user chose "Để sau" in the download prompt (bank or sort).
+  const [bankDeclined, setBankDeclined] = useState(false);
+  const [declined, setDeclined] = useState(false);
 
   async function handleBank() {
     setBankError(false);
+    setBankDeclined(false);
     setBankLoading(true);
     try {
+      const files = [...(await levelFiles(bankLevel)), ...(prefillKnown ? [VOCAB_FILE] : [])];
+      if (!(await confirmDownload(files))) return setBankDeclined(true);
       const [rows, vocab] = await Promise.all([
         loadLevelSentences(bankLevel),
         prefillKnown ? loadVocab() : Promise.resolve(null),
@@ -68,6 +75,7 @@ export default function ComprehensibleInputPage() {
 
   async function handleSort() {
     setError(false);
+    setDeclined(false);
     setEmpty(false);
     const parsed = parseSentences(sentences);
     if (parsed.length === 0) {
@@ -77,6 +85,7 @@ export default function ComprehensibleInputPage() {
     }
     setLoading(true);
     try {
+      if (!(await confirmDownload(TOKENIZER_FILES))) return setDeclined(true);
       const [tokenizer, lines] = await Promise.all([loadTokenizer(), loadWordListLines()]);
       // Sorted on Simplified text (the word list is Simplified).
       const inputs = parsed.map((s) => {
@@ -167,6 +176,7 @@ export default function ComprehensibleInputPage() {
                   {dict.bank.prefillKnown}
                 </label>
                 {bankError && <p className="mt-2 text-red-600">{dict.bank.loadFailed}</p>}
+                {bankDeclined && <p className="mt-2 text-ink-500">{vi.download.declined}</p>}
                 <p className="mt-2 text-xs text-ink-700/70">{dict.bank.credit}</p>
               </fieldset>
 
@@ -209,6 +219,7 @@ export default function ComprehensibleInputPage() {
 
               {empty && <p className="mt-4 text-sm text-red-600">{dict.empty}</p>}
               {error && <p className="mt-4 text-sm text-red-600">{dict.loadFailed}</p>}
+              {declined && <p className="mt-4 text-sm text-ink-500">{vi.download.declined}</p>}
 
               {rows.length > 0 && (
                 <div className="mt-6">

@@ -1,13 +1,20 @@
+import { markLoaded } from "@/lib/data/loaded";
+
 import type { StrokeData, StrokeShard } from "./types";
 
 // Must match STROKE_SHARD_BITS in scripts/build-data.mjs.
-const SHARD_BITS = 6;
+const SHARD_BITS = 3;
 
 /** Shard file name (without .json) holding a character's stroke data. */
 export function shardKey(char: string): string {
   const cp = char.codePointAt(0);
   if (cp === undefined) throw new Error("empty character");
   return (cp >> SHARD_BITS).toString(16);
+}
+
+/** Site paths of the shards `chars` need (for lib/data/budget.ts). */
+export function strokeFiles(chars: Iterable<string>): string[] {
+  return Array.from(new Set(Array.from(chars, (c) => `/data/strokes/${shardKey(c)}.json`)));
 }
 
 const pending = new Map<string, Promise<StrokeShard>>();
@@ -20,6 +27,10 @@ function loadShard(key: string): Promise<StrokeShard> {
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<StrokeShard>;
+      })
+      .then((shard) => {
+        markLoaded(`/data/strokes/${key}.json`);
+        return shard;
       })
       .catch((err: unknown) => {
         pending.delete(key);

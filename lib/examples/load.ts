@@ -2,12 +2,15 @@ import { memoJson } from "@/lib/fetchJson";
 
 import { MACHINE_TRANSLATED, type Example, type ExampleBank, type ExampleManifest, type ExampleRow, type ExampleShard } from "./types";
 
-export const loadManifest = memoJson<ExampleManifest>("/data/examples/manifest.json");
+const MANIFEST_FILE = "/data/examples/manifest.json";
+const shardFile = (name: string) => `/data/examples/${name}.json`;
+
+export const loadManifest = memoJson<ExampleManifest>(MANIFEST_FILE);
 
 const shardLoaders = new Map<string, () => Promise<ExampleShard>>();
 
 function loadShard(name: string): Promise<ExampleShard> {
-  if (!shardLoaders.has(name)) shardLoaders.set(name, memoJson<ExampleShard>(`/data/examples/${name}.json`));
+  if (!shardLoaders.has(name)) shardLoaders.set(name, memoJson<ExampleShard>(shardFile(name)));
   return shardLoaders.get(name)!();
 }
 
@@ -38,6 +41,20 @@ export async function loadExamples(words: readonly string[]): Promise<ExampleBan
   for (const w of words) if (Object.hasOwn(manifest.words, w)) names.add(manifest.words[w]);
   const shards = new Map(await Promise.all([...names].map(async (n) => [n, await loadShard(n)] as const)));
   return bankFrom(manifest, shards, words);
+}
+
+/** Files loadExamples(words) downloads (for lib/data/budget.ts). */
+export async function exampleFiles(words: readonly string[]): Promise<string[]> {
+  const manifest = await loadManifest();
+  const names = new Set<string>();
+  for (const w of words) if (Object.hasOwn(manifest.words, w)) names.add(manifest.words[w]);
+  return [MANIFEST_FILE, ...[...names].map(shardFile)];
+}
+
+/** Files loadLevelSentences(level) downloads. */
+export async function levelFiles(level: string): Promise<string[]> {
+  const manifest = await loadManifest();
+  return [MANIFEST_FILE, ...Object.keys(manifest.shards).filter((n) => manifest.shards[n] === level).map(shardFile)];
 }
 
 /** Every sentence listed under the words of one HSK level ("1" … "7-9"), once each. */

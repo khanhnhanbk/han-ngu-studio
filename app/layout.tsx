@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
+import { DownloadPrompt } from "@/components/DownloadPrompt";
 import { getDictionary } from "@/lib/i18n";
 import { SCRIPT_INIT_SCRIPT } from "@/lib/script/preference";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
@@ -72,7 +73,10 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_INIT_SCRIPT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <DownloadPrompt />
+      </body>
     </html>
   );
 }

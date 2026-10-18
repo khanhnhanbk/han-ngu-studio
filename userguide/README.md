@@ -56,7 +56,7 @@ Trang mặc định dùng **chữ giản thể** (Trung Quốc đại lục). N�
 
 1. Trên thanh menu, bấm **繁** (bên trái nút **Giao diện**). Bấm **简** để quay lại giản thể.
    - Trên điện thoại: bấm **☰**, mục **Loại chữ** → **Phồn thể** / **Giản thể**.
-2. Lần đầu chọn Phồn thể, trang tải bộ chuyển đổi (khoảng 1 MB, dòng "Đang tải bộ chuyển đổi Phồn thể…"). Các lần sau dùng ngay.
+2. Lần đầu chọn Phồn thể, trang tải bộ chuyển đổi (khoảng 0,5 MB, dòng "Đang tải bộ chuyển đổi Phồn thể…"). Các lần sau dùng ngay.
 
 Khi chọn **Phồn thể**:
 
@@ -71,6 +71,10 @@ Lựa chọn được lưu trên trình duyệt của bạn. Bộ chuyển đổ
 
 ## Mẹo chung
 
-- Lần đầu dùng **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt** hoặc **Sắp xếp câu N+1**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.
+- Lần đầu dùng **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt** hoặc **Sắp xếp câu N+1**, trang sẽ tải một từ điển nhỏ (khoảng 0,5 MB). Các lần sau dùng ngay, không cần tải lại.
+- Mỗi công cụ chỉ tải dữ liệu khi bạn bấm nút hoặc nhập chữ. Nếu một thao tác cần tải **hơn 2 MB** (ví dụ lần đầu tạo thẻ Anki cho từ của mọi cấp HSK), trang hỏi **Tải dữ liệu?** trước:
+  - **Tải xuống**: tải ngay. Dữ liệu được trình duyệt lưu lại, lần sau không hỏi nữa.
+  - **Để sau**: không tải; trang hiện "Chưa tải dữ liệu. Bấm lại nút khi bạn muốn tải."
+  - Đánh dấu **Không hỏi lại trên máy này** rồi bấm **Tải xuống** để không bao giờ hỏi nữa. Muốn được hỏi lại: xóa dữ liệu trang web trong cài đặt trình duyệt (việc này cũng xóa câu chuyện ghi nhớ ở **Chiết tự**, hãy tải file TSV trước).
 - Nút **Sao chép** chép kết quả vào bộ nhớ tạm; dán vào Word, Google Docs, Zalo… bằng `Ctrl + V` (máy tính) hoặc nhấn giữ → Dán (điện thoại).
 - File tải về (`.txt`, `.tsv`) nằm trong thư mục **Tải xuống / Downloads** của máy.

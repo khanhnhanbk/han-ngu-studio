@@ -365,6 +365,16 @@ export const vi = {
       tho: "Thổ – vàng, nâu đất",
     },
   },
+  download: {
+    title: "Tải dữ liệu?",
+    body: "Công cụ cần tải khoảng {size} dữ liệu. Dữ liệu chỉ tải một lần và được trình duyệt lưu lại; văn bản của bạn không gửi đi đâu.",
+    confirm: "Tải xuống",
+    cancel: "Để sau",
+    dontAsk: "Không hỏi lại trên máy này",
+    declined: "Chưa tải dữ liệu. Bấm lại nút khi bạn muốn tải.",
+    strokesDeclined: "Chưa tải dữ liệu thứ tự nét (khoảng {size}).",
+    strokesLoad: "Tải dữ liệu thứ tự nét",
+  },
   script: {
     label: "Loại chữ",
     simp: "Giản thể",

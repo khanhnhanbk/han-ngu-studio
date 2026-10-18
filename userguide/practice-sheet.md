@@ -81,6 +81,8 @@ Khi tích **Hiện thứ tự nét**, phía trên hàng đầu tiên của mỗi
 
 Muốn xem hoạt hình hoặc tự viết thử trước khi in, dùng trang [Tra thứ tự nét](stroke-order.md); nút **Tạo phiếu tập viết với các chữ này** ở đó mở trang này với các chữ đã tra và đã bật **Hiện thứ tự nét**.
 
+Dữ liệu thứ tự nét được tải khi bạn nhập chữ (chờ bạn ngừng gõ một chút), chỉ cho các chữ trên phiếu: 20 chữ khoảng 0,1 MB, 300 chữ dưới 2 MB. Nếu trang hỏi **Tải dữ liệu?** và bạn chọn **Để sau**, phiếu không có dải thứ tự nét (vẫn in được) và hiện "Chưa tải dữ liệu thứ tự nét (khoảng … MB)." kèm nút **Tải dữ liệu thứ tự nét** để tải khi cần.
+
 Lần đầu bật, trang tải dữ liệu nét chữ (chỉ phần cần cho các chữ bạn nhập). Trong lúc tải, nút in hiện "Đang tải dữ liệu nét…" và chưa bấm được.
 
 Dữ liệu thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arphic Public License), có khoảng 9.500 chữ giản thể và phồn thể thông dụng.
@@ -122,3 +124,4 @@ Bấm **繁** trên thanh menu: phiếu in chữ phồn thể (学 → 學), có
 | Phiếu bị lệch hoặc thừa trang trắng | Chọn khổ **A4** và lề **Không**; tỷ lệ (Scale) để **100%** / Mặc định. |
 | Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
 | Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
+| Phiếu không có dải thứ tự nét dù đã tích **Hiện thứ tự nét** | Bạn đã chọn **Để sau** khi trang hỏi tải dữ liệu. Bấm **Tải dữ liệu thứ tự nét**, hoặc bỏ tích rồi tích lại **Hiện thứ tự nét**. |

@@ -11,10 +11,11 @@ import { Navbar } from "@/components/Navbar";
 import { OrderCard } from "@/components/quiz/OrderCard";
 import { PrintSheet } from "@/components/quiz/PrintSheet";
 import { QuestionCard } from "@/components/quiz/QuestionCard";
-import { loadMeanings } from "@/lib/anki/load";
-import { loadExamples } from "@/lib/examples/load";
+import { loadMeanings, MEANINGS_FILE } from "@/lib/anki/load";
+import { confirmDownload } from "@/lib/data/budget";
+import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
-import { loadHanviet } from "@/lib/hanviet/load";
+import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { buildQuiz, isCorrect, MAX_ENTRIES, parseEntries, reshuffle } from "@/lib/quiz/build";
 import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
@@ -23,8 +24,8 @@ import { createRng, randomSeed } from "@/lib/quiz/rng";
 import { showQuestion, showSkipped, simpEntries } from "@/lib/quiz/script";
 import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
 import { useConverter } from "@/lib/script/useScript";
-import { loadTokenizer } from "@/lib/segment/load";
-import { loadVocab } from "@/lib/vocab/load";
+import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
+import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
 const dict = getDictionary("vi");
 
@@ -87,11 +88,14 @@ export default function QuizPage() {
       // Built from Simplified data, then shown in the chosen script. A quiz in
       // progress keeps its script, so answers already given stay valid.
       const entries = simpEntries(conv, parsed.entries);
+      const words = entries.map((e) => e.word);
+      const files = [...TOKENIZER_FILES, HANVIET_FILE, MEANINGS_FILE, VOCAB_FILE, ...(await exampleFiles(words))];
+      if (!(await confirmDownload(files))) return setError(dict.download.declined);
       const [tokenizer, hanviet, meanings, examples, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
-        loadExamples(entries.map((e) => e.word)),
+        loadExamples(words),
         loadVocab(),
       ]);
       const quiz = buildQuiz(

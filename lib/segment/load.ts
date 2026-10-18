@@ -1,6 +1,11 @@
+import { markLoaded } from "@/lib/data/loaded";
+
 import { createTokenizer, type Tokenizer } from "./tokenizer";
 
 const WORD_LIST_URL = "/data/word_list.txt";
+
+/** Files loadTokenizer / loadWordListLines download (for lib/data/budget.ts). */
+export const TOKENIZER_FILES = [WORD_LIST_URL];
 
 let pendingLines: Promise<string[]> | null = null;
 let pending: Promise<Tokenizer> | null = null;
@@ -12,6 +17,10 @@ export function loadWordListLines(): Promise<string[]> {
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.text();
+      })
+      .then((text) => {
+        markLoaded(WORD_LIST_URL);
+        return text;
       })
       .then((text) => text.split("\n"))
       .catch((err: unknown) => {

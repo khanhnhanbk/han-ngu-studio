@@ -1,19 +1,8 @@
+import { memoJson } from "@/lib/fetchJson";
+
 import type { DecomposeData } from "./types";
 
-let pending: Promise<DecomposeData> | null = null;
+export const DECOMPOSE_FILE = "/data/decompose.json";
 
 /** Fetch the decomposition table once (memoised; retried after a failure). */
-export function loadDecompose(): Promise<DecomposeData> {
-  if (!pending) {
-    pending = fetch("/data/decompose.json")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<DecomposeData>;
-      })
-      .catch((err: unknown) => {
-        pending = null;
-        throw err;
-      });
-  }
-  return pending;
-}
+export const loadDecompose = memoJson<DecomposeData>(DECOMPOSE_FILE);
