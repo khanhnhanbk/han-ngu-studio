@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
@@ -310,7 +311,9 @@ export default function AnkiPage() {
                         <li key={step}>{step}</li>
                       ))}
                     </ol>
-                    <p className="mt-2">{dict.anki.importMore}</p>
+                    <Link href="/tools/anki/huong-dan" className="mt-2 inline-block font-medium text-brand-ink underline">
+                      {dict.anki.guideLink}
+                    </Link>
                   </div>
                 </div>
               )}

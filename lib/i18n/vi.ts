@@ -461,13 +461,105 @@ export const vi = {
       "Mở Anki trên máy tính, chọn File → Import (Nhập) và chọn file vừa tải.",
       "Chọn Loại ghi chú (Note type) và Bộ thẻ (Deck), kiểm tra các cột khớp với trường, rồi bấm Import.",
     ],
-    importMore: "Hướng dẫn chi tiết (kể cả AnkiDroid) có trong tài liệu hướng dẫn sử dụng.",
+    guideLink: "Hướng dẫn dùng với Anki và mẫu thẻ có sẵn →",
     credits:
       "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); câu đánh dấu “dịch máy” được dịch bằng Google Dịch.",
     error: "Vui lòng nhập ít nhất một từ.",
     tooMany: "Quá nhiều từ (tối đa 1000 từ).",
     noColumns: "Hãy chọn ít nhất một cột.",
     loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+  },
+  ankiGuide: {
+    metaTitle: "Hướng dẫn dùng Anki và mẫu thẻ – Hán Ngữ Studio",
+    metaDescription:
+      "Cách tạo loại ghi chú, dán mẫu thẻ có sẵn (nhận diện, nhớ chữ, câu ví dụ, gõ chữ) và import bộ thẻ từ Hán Ngữ Studio vào Anki.",
+    backToTool: "← Quay lại Tạo thẻ Anki",
+    title: "Dùng bộ thẻ với Anki",
+    subtitle:
+      "Làm một lần: tạo loại ghi chú, dán mẫu thẻ có sẵn. Từ đó, mỗi lần tải file .tsv chỉ cần import là có thẻ đẹp để học.",
+    whatTitle: "Anki là gì?",
+    what:
+      "Anki là ứng dụng thẻ ghi nhớ miễn phí, dùng phương pháp lặp lại ngắt quãng: thẻ bạn nhớ tốt sẽ lâu mới hỏi lại, thẻ bạn hay quên sẽ được hỏi lại sớm. Mỗi ngày chỉ cần ôn những thẻ đến hạn.",
+    install: "Cài đặt:",
+    installLinks: [
+      { label: "Anki cho máy tính (miễn phí)", href: "https://apps.ankiweb.net/" },
+      { label: "AnkiDroid cho Android (miễn phí)", href: "https://play.google.com/store/apps/details?id=com.ichi2.anki" },
+      { label: "AnkiMobile cho iPhone (trả phí)", href: "https://apps.apple.com/app/ankimobile-flashcards/id373493387" },
+    ],
+    sync: "Tạo tài khoản AnkiWeb (miễn phí) để đồng bộ thẻ giữa máy tính và điện thoại.",
+    step1Title: "Bước 1: Tạo loại ghi chú “Hán Ngữ Studio”",
+    step1: [
+      "Mở Anki trên máy tính, chọn Tools → Manage Note Types (Công cụ → Quản lý loại ghi chú).",
+      "Bấm Add, chọn “Add: Basic”, đặt tên là Hán Ngữ Studio.",
+      "Chọn loại ghi chú vừa tạo, bấm Fields. Đổi tên hai trường Front, Back thành word, pinyin, rồi bấm Add để thêm các trường còn lại theo đúng thứ tự và đúng tên dưới đây.",
+    ],
+    fieldsLabel: "10 trường, theo thứ tự:",
+    copyFields: "Sao chép danh sách trường",
+    fieldsNote:
+      "Tên trường phải giống hệt tên cột trong file .tsv (chữ thường, có dấu gạch dưới), để Anki tự ghép cột vào trường khi import.",
+    step2Title: "Bước 2: Dán mẫu thẻ",
+    step2: [
+      "Vẫn trong Manage Note Types, chọn Hán Ngữ Studio rồi bấm Cards.",
+      "Chọn một mẫu ở phần Mẫu thẻ gợi ý bên dưới. Dán Mặt trước vào Front Template, Mặt sau vào Back Template, và Kiểu dáng chung vào Styling.",
+      "Muốn thêm mẫu khác: bấm Options → Add Card Type (Thêm loại thẻ), đặt tên rồi dán mặt trước, mặt sau của mẫu đó. Kiểu dáng chung dùng cho mọi mẫu, chỉ dán một lần.",
+    ],
+    step2Note:
+      "Mỗi mẫu tạo một thẻ cho mỗi từ: chọn 3 mẫu thì 100 từ thành 300 thẻ. Hãy bắt đầu với Nhận diện, thêm mẫu khác khi đã quen.",
+    step3Title: "Bước 3: Import file .tsv",
+    step3: [
+      "Ở trang Tạo thẻ Anki, giữ ô “Thêm dòng cấu hình cho Anki (#columns…)” và bấm Tải .tsv.",
+      "Trong Anki chọn File → Import và chọn file anki_deck.tsv.",
+      "Notetype: chọn Hán Ngữ Studio. Deck: chọn hoặc tạo bộ thẻ. Các cột tự khớp với trường cùng tên; kiểm tra lại rồi bấm Import.",
+    ],
+    step3Phone:
+      "Trên điện thoại: import trên máy tính rồi đồng bộ qua AnkiWeb là dễ nhất. Với AnkiDroid cũng có thể mở file .tsv bằng menu ⋮ → Import, sau khi đã có loại ghi chú Hán Ngữ Studio (đồng bộ từ máy tính).",
+    toTool: "Mở công cụ Tạo thẻ Anki",
+    templatesTitle: "Mẫu thẻ gợi ý",
+    templatesIntro:
+      "Bốn mẫu dùng chung 10 trường ở trên. Xem trước bên dưới là thẻ thật cho từ 学习; bấm Mặt sau để xem đáp án.",
+    templates: {
+      recognize: {
+        name: "Nhận diện",
+        purpose: "Nhìn chữ Hán, nhớ cách đọc và nghĩa. Mẫu cơ bản nên dùng đầu tiên.",
+      },
+      recall: {
+        name: "Nhớ chữ",
+        purpose: "Nhìn nghĩa (và âm Hán Việt), nhớ lại chữ Hán. Tự viết ra giấy rồi lật thẻ để so.",
+      },
+      sentence: {
+        name: "Câu ví dụ",
+        purpose: "Đọc hiểu cả câu có chứa từ. Từ không có câu ví dụ thì không có thẻ này.",
+      },
+      type: {
+        name: "Gõ chữ",
+        purpose: "Nhìn nghĩa và Pinyin, gõ lại từ bằng bàn phím tiếng Trung; Anki tô đúng sai từng chữ.",
+      },
+    },
+    preview: "Xem trước",
+    front: "Mặt trước",
+    back: "Mặt sau",
+    night: "Chế độ tối",
+    frontCode: "Mặt trước (Front Template)",
+    backCode: "Mặt sau (Back Template)",
+    cssTitle: "Kiểu dáng chung (Styling)",
+    cssIntro: "Dán một lần vào ô Styling; dùng cho cả bốn mẫu.",
+    copy: "Sao chép",
+    copied: "Đã sao chép",
+    tipsTitle: "Mẹo học",
+    tips: [
+      "Mỗi ngày học 10–20 thẻ mới là vừa: Options của bộ thẻ → New cards/day.",
+      "Mẫu Gõ chữ cần bàn phím tiếng Trung (Pinyin) trên máy; trên điện thoại hãy bật bàn phím tiếng Trung.",
+      "Không cần một mẫu nào nữa: vào Cards, chọn mẫu đó rồi Options → Remove Card Type. Anki sẽ xóa các thẻ của mẫu đó.",
+      "Có thể sửa mẫu theo ý (đổi màu, cỡ chữ, bỏ dòng Ngũ bút…): các thẻ đã có cập nhật ngay.",
+    ],
+    errorsTitle: "Lỗi thường gặp",
+    errors: [
+      ["Cột không tự khớp với trường", "Anki cũ hơn 2.1.55 không đọc dòng #columns: ghép cột bằng tay theo thứ tự trường, hoặc bỏ tích ô cấu hình trên trang Tạo thẻ Anki. Kiểm tra tên trường có đúng chữ thường và dấu gạch dưới."],
+      ["Báo “First field matched” khi import lại", "Từ đã có trong bộ thẻ. Chọn Update (cập nhật) để thay nội dung mới, giữ tiến độ học."],
+      ["Một số từ không có thẻ Câu ví dụ", "Bình thường: từ đó chưa có câu ví dụ, nên Anki không tạo thẻ rỗng."],
+      ["Chữ Hán trên thẻ không phải kiểu chữ Khải", "Máy chưa cài phông LXGW WenKai hoặc KaiTi; Anki dùng phông khác. Có thể cài phông LXGW WenKai (miễn phí) hoặc sửa dòng font-family trong Styling."],
+      ["Thẻ hiện {{…}} hoặc báo lỗi mẫu", "Tên trường trong mẫu không khớp tên trường của loại ghi chú. Đổi tên trường cho đúng danh sách ở Bước 1."],
+    ],
   },
   quiz: {
     title: "Trắc nghiệm từ vựng",

@@ -71,6 +71,8 @@ Bấm **繁** trên thanh menu trước khi bấm **Tạo bộ thẻ**: cột **
 
 ## Import vào Anki trên máy tính
 
+> **Mới dùng Anki?** Trang [Dùng bộ thẻ với Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan) (nút **Hướng dẫn dùng với Anki và mẫu thẻ có sẵn →** ở trang Tạo thẻ Anki) hướng dẫn từng bước và có 4 mẫu thẻ dán sẵn: **Nhận diện**, **Nhớ chữ**, **Câu ví dụ**, **Gõ chữ**, kèm xem trước.
+
 1. Mở Anki, bấm **File → Import** (Tệp → Nhập) và chọn `anki_deck.tsv`.
 2. Trong cửa sổ import:
    - **Field separator** (Dấu phân cách): **Tab** (tự nhận nếu bật dòng cấu hình).
@@ -79,7 +81,7 @@ Bấm **繁** trên thanh menu trước khi bấm **Tạo bộ thẻ**: cột **
    - **Field mapping**: kiểm tra mỗi cột (word, pinyin, meaning…) khớp với một trường.
 3. Bấm **Import**.
 
-**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 10 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi`. Sau đó sửa Cards (mặt trước / mặt sau) theo ý bạn. Các lần import sau chỉ cần chọn loại ghi chú này.
+**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 10 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi`. Sau đó vào Cards và dán mẫu thẻ có sẵn ở [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan#mau-the). Vì tên trường giống hệt tên cột, Anki 2.1.55 trở lên tự ghép cột vào trường khi import. Các lần import sau chỉ cần chọn loại ghi chú này.
 
 ## Import vào AnkiDroid (Android)
 
