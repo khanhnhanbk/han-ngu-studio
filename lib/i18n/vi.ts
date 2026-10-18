@@ -2,7 +2,7 @@ export const vi = {
   meta: {
     title: "Hán Ngữ Studio — Tạo tài liệu học tiếng Trung trong vài giây",
     description:
-      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tra thứ tự nét, tách từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
+      "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tra thứ tự nét, chiết tự, ngắt từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
   },
   fileInput: {
     choose: "Chọn file",
@@ -14,13 +14,13 @@ export const vi = {
     forTeachers: "Cho giáo viên",
     roadmap: "Sắp ra mắt",
     tools: "Công cụ",
-    segment: "Tách từ",
+    segment: "Ngắt từ",
     pinyin: "Chuyển Pinyin",
     hanviet: "Hán Việt",
     anki: "Tạo thẻ Anki",
     quiz: "Trắc nghiệm",
     radicals: "214 bộ thủ",
-    decompose: "Phân tích chữ",
+    decompose: "Chiết tự",
     comprehensibleInput: "Sắp xếp câu N+1",
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
@@ -62,10 +62,10 @@ export const vi = {
         cta: "Tra thứ tự nét",
       },
       segment: {
-        title: "Tách từ",
+        title: "Ngắt từ",
         description:
-          "Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ — dễ tra từ điển và học từ vựng.",
-        cta: "Tách từ",
+          "Ngắt câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ — dễ tra từ điển và học từ vựng.",
+        cta: "Ngắt từ",
       },
       comprehensibleInput: {
         title: "Sắp xếp câu N+1",
@@ -104,10 +104,10 @@ export const vi = {
         cta: "Tra bộ thủ",
       },
       decompose: {
-        title: "Phân tích chữ",
+        title: "Chiết tự",
         description:
-          "Tách chữ Hán thành từng thành phần, tô màu từng phần trên chữ, xem phần nào gợi nghĩa, phần nào gợi âm và các chữ cùng thành phần. Tự viết câu chuyện ghi nhớ cho từng chữ.",
-        cta: "Phân tích chữ",
+          "Chiết tự: tách một chữ Hán thành từng thành phần, tô màu từng phần trên chữ, xem phần nào gợi nghĩa, phần nào gợi âm và các chữ cùng thành phần. Tự viết câu chuyện ghi nhớ cho từng chữ.",
+        cta: "Chiết tự",
       },
     },
   },
@@ -158,7 +158,7 @@ export const vi = {
       },
       {
         title: "Chọn công cụ",
-        description: "Phiếu tập viết, tách từ, Pinyin, Hán Việt hoặc thẻ Anki.",
+        description: "Phiếu tập viết, chiết tự, ngắt từ, Pinyin, Hán Việt hoặc thẻ Anki.",
       },
       {
         title: "Tải xuống",
@@ -199,7 +199,7 @@ export const vi = {
       {
         question: "File tải về dùng được ở đâu?",
         answer:
-          "Phiếu tập viết in ra giấy hoặc lưu PDF. Tách từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file TSV để import vào Anki.",
+          "Phiếu tập viết in ra giấy hoặc lưu PDF. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file TSV để import vào Anki.",
       },
       {
         question: "Dữ liệu của tôi có được lưu lại không?",
@@ -274,11 +274,11 @@ export const vi = {
     },
   },
   segment: {
-    title: "Tách từ tiếng Trung",
+    title: "Ngắt từ tiếng Trung",
     subtitle:
       "Dán câu hoặc đoạn văn tiếng Trung, công cụ sẽ tách thành các từ riêng biệt, có khoảng trắng giữa các từ.",
     placeholder: "Dán văn bản tiếng Trung vào đây…",
-    button: "Tách từ",
+    button: "Ngắt từ",
     loading: "Đang xử lý…",
     copy: "Sao chép",
     copied: "Đã sao chép",
@@ -351,7 +351,7 @@ export const vi = {
   hanviet: {
     title: "Chuyển chữ Hán sang Hán Việt",
     subtitle:
-      "Dán câu hoặc đoạn văn tiếng Trung: công cụ tách từ, ghi Pinyin và âm Hán Việt cho từng từ. Âm được chọn theo cách đọc của chữ trong câu.",
+      "Dán câu hoặc đoạn văn tiếng Trung: công cụ ngắt từ, ghi Pinyin và âm Hán Việt cho từng từ. Âm được chọn theo cách đọc của chữ trong câu.",
     placeholder: "Dán văn bản tiếng Trung vào đây…",
     upload: "Hoặc tải file (.txt)",
     badFile: "Chỉ hỗ trợ file .txt.",
@@ -369,7 +369,7 @@ export const vi = {
     anyPinyin: "mọi cách đọc",
     noReading: "Không có trong dữ liệu Hán Việt",
     close: "Đóng",
-    rowSegmented: "Tách từ",
+    rowSegmented: "Ngắt từ",
     rowPinyin: "Pinyin",
     rowHanviet: "Hán Việt",
     copy: "Sao chép",
@@ -377,7 +377,7 @@ export const vi = {
     downloadTxt: "Tải .txt",
     downloadTsv: "Tải .tsv",
     tsvHint:
-      "Cột: câu gốc, tách từ, Pinyin, Hán Việt. Mở được bằng Excel, Google Sheets hoặc import vào Anki.",
+      "Cột: câu gốc, ngắt từ, Pinyin, Hán Việt. Mở được bằng Excel, Google Sheets hoặc import vào Anki.",
     note: "Chữ có nhiều âm Hán Việt được ghi cách nhau bằng dấu “/” (ví dụ 当 → đương/đang). Âm trong từ ghép nối bằng “_”.",
     error: "Vui lòng nhập văn bản tiếng Trung.",
     tooLong: "Văn bản quá dài (tối đa 5000 ký tự).",
@@ -528,18 +528,18 @@ export const vi = {
     noExamples: "Chưa có chữ nào trong dữ liệu.",
     strokeOrder: "Xem thứ tự nét",
     practice: "Tạo phiếu tập viết",
-    decompose: "Phân tích chữ",
+    decompose: "Chiết tự",
     close: "Đóng",
     credits:
       "Tên và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Chữ thuộc bộ: Unicode Unihan (Unicode License v3). Âm Hán Việt: Hán Ngữ Studio.",
   },
   decompose: {
-    title: "Phân tích chữ Hán",
+    title: "Chiết tự chữ Hán",
     subtitle:
       "Tách chữ Hán thành các thành phần (không chỉ bộ thủ), xem phần nào gợi nghĩa, phần nào gợi âm, các chữ có cùng thành phần, rồi tự viết câu chuyện để nhớ chữ.",
     inputLabel: "Chữ Hán cần phân tích (tối đa 20 chữ)",
     placeholder: "Ví dụ: 清意國",
-    button: "Phân tích",
+    button: "Chiết tự",
     loading: "Đang tải…",
     error: "Vui lòng nhập ít nhất một chữ Hán.",
     tooMany: "Quá nhiều chữ (tối đa 20 chữ khác nhau).",
@@ -726,7 +726,7 @@ export const vi = {
     stepsHint: "Nét màu là nét mới viết ở bước đó.",
     stroke: "Nét",
     toSheet: "Tạo phiếu tập viết với các chữ này",
-    toDecompose: "Phân tích thành phần",
+    toDecompose: "Chiết tự chữ này",
     noData: "Chưa có dữ liệu thứ tự nét cho chữ này.",
     error: "Vui lòng nhập ít nhất một chữ Hán.",
     tooMany: "Quá nhiều chữ (tối đa 20 chữ khác nhau).",

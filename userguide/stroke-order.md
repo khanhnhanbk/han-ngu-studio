@@ -42,7 +42,7 @@ Bên cạnh ô viết có **Pinyin**, **Hán Việt**, **Số nét** và mục *
 
 Bấm **Tạo phiếu tập viết với các chữ này**: trang [Phiếu tập viết](practice-sheet.md) mở ra với các chữ vừa tra và đã bật **Hiện thứ tự nét**.
 
-Bấm **Phân tích thành phần** để mở trang [Phân tích chữ](decompose.md) với chữ đang xem: chữ được tô màu theo từng thành phần.
+Bấm **Chiết tự chữ này** để mở trang [Chiết tự](decompose.md) với chữ đang xem: chữ được tô màu theo từng thành phần.
 
 ### Chia sẻ
 

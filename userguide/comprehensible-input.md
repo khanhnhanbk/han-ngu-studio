@@ -77,5 +77,5 @@ File `sentence_sorted.tsv` có 4 cột, theo đúng thứ tự học:
 | "Không tải được danh sách từ. Vui lòng kiểm tra kết nối mạng rồi bấm Sắp xếp để thử lại." | Kiểm tra mạng rồi bấm **Sắp xếp** lần nữa. |
 | Rất nhiều câu **Quá nhiều từ mới** | Danh sách câu quá ít hoặc quá khó so với từ đã biết. Xem mục "Vì sao có câu Quá nhiều từ mới?" ở trên. |
 | Từ đã biết mà vẫn bị tính là từ mới | Từ trong ô **Từ đã biết** phải giống hệt từ mà công cụ tách ra (xem dòng **Từ mới**). Ví dụ biết `你` và `好` chưa đủ nếu công cụ tách ra từ `你好`. |
-| Một từ bị tách chưa đúng | Công cụ tách từ dựa trên tần suất từ (giống công cụ **Tách từ**); với tên riêng hoặc từ hiếm có thể chưa chính xác. |
+| Một từ bị tách chưa đúng | Công cụ tách từ dựa trên tần suất từ (giống công cụ **Ngắt từ**); với tên riêng hoặc từ hiếm có thể chưa chính xác. |
 | File TSV mở bằng Excel bị lỗi font | Mở bằng Google Sheets, hoặc trong Excel dùng **Data → From Text/CSV** và chọn mã hóa UTF-8. |

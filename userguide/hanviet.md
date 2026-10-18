@@ -1,8 +1,8 @@
 # Chuyển chữ Hán sang Hán Việt
 
-Dán câu hoặc đoạn văn tiếng Trung: công cụ **tách từ**, ghi **Pinyin** và **âm Hán Việt** cho từng từ. Ví dụ:
+Dán câu hoặc đoạn văn tiếng Trung: công cụ **ngắt từ**, ghi **Pinyin** và **âm Hán Việt** cho từng từ. Ví dụ:
 
-| Tách từ | 我 | 喜欢 | 学习 | 中文 |
+| Ngắt từ | 我 | 喜欢 | 学习 | 中文 |
 |---|---|---|---|---|
 | Pinyin | wǒ | xǐhuan | xuéxí | zhōngwén |
 | Hán Việt | ngã | hỷ_hoan | học_tập | trung_văn |
@@ -32,8 +32,8 @@ Bấm một trong ba thẻ phía trên kết quả:
 | Thẻ | Nội dung | Nút |
 |---|---|---|
 | **Theo từ** | Mỗi từ là một ô: Pinyin ở trên, chữ Hán ở giữa, Hán Việt ở dưới. **Bấm vào một ô** để mở bảng **Chi tiết** | (chỉ xem) |
-| **Văn bản** | Mỗi câu ba dòng: **Tách từ**, **Pinyin**, **Hán Việt** | **Sao chép**, **Tải .txt** (`hanviet.txt`) |
-| **Bảng TSV** | Mỗi câu một hàng, 4 cột: câu gốc, tách từ, Pinyin, Hán Việt (có hàng tiêu đề) | **Sao chép**, **Tải .tsv** (`hanviet.tsv`) |
+| **Văn bản** | Mỗi câu ba dòng: **Ngắt từ**, **Pinyin**, **Hán Việt** | **Sao chép**, **Tải .txt** (`hanviet.txt`) |
+| **Bảng TSV** | Mỗi câu một hàng, 4 cột: câu gốc, ngắt từ, Pinyin, Hán Việt (có hàng tiêu đề) | **Sao chép**, **Tải .tsv** (`hanviet.tsv`) |
 
 ### 4. Xem chi tiết một từ
 

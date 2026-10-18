@@ -1,4 +1,4 @@
-# Phân tích chữ
+# Chiết tự
 
 Tách một chữ Hán thành **các thành phần** (không chỉ bộ thủ) theo cách "chiết tự": mỗi thành phần được tô một màu ngay trên chữ, có tên Hán Việt, Pinyin và tên bộ thủ (nếu là bộ thủ). Công cụ còn cho biết phần nào **gợi nghĩa**, phần nào **gợi âm**, liệt kê **các chữ có cùng thành phần**, và cho bạn tự viết **câu chuyện ghi nhớ** cho từng chữ.
 
@@ -10,14 +10,14 @@ Ví dụ với 清 (thanh, trong):
 | **Cách tạo chữ** | **Hình thanh**: 氵 gợi nghĩa (nước), 青 gợi âm (thanh) |
 | **Chữ có chứa thành phần 青** | 情 tình, 请 thỉnh, 精 tinh, 晴 tình, 睛 tình… |
 
-**Mở công cụ:** trang chủ → **Công cụ ▾** → **Phân tích chữ**
+**Mở công cụ:** trang chủ → **Công cụ ▾** → **Chiết tự**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/decompose)
 
 ## Các bước
 
 ### 1. Nhập chữ
 
-Gõ hoặc dán chữ Hán vào ô **Chữ Hán cần phân tích (tối đa 20 chữ)** rồi bấm **Phân tích**. Nếu nhập nhiều chữ, mỗi chữ hiện thành một ô ở dưới; bấm vào ô để xem chữ đó.
+Gõ hoặc dán chữ Hán vào ô **Chữ Hán cần phân tích (tối đa 20 chữ)** rồi bấm **Chiết tự**. Nếu nhập nhiều chữ, mỗi chữ hiện thành một ô ở dưới; bấm vào ô để xem chữ đó.
 
 ### 2. Xem chữ tô màu và thông tin chung
 
@@ -55,7 +55,7 @@ Bấm vào một thành phần ở bước 3. Khung **Chữ có chứa thành ph
 - Nhãn **âm** ở góc: trong chữ đó, thành phần này là **phần gợi âm**. Đây là cách nhanh để học cả một "họ" chữ đọc gần giống nhau (青 → 清 情 晴 请 睛).
 - Lúc mới mở, công cụ tự chọn phần gợi âm (nếu có), không thì chọn thành phần đầu tiên.
 - Bấm **Xem tất cả** để hiện hết danh sách (tối đa 300 chữ), **Thu gọn** để quay lại.
-- Bấm vào một chữ trong danh sách để phân tích chữ đó. Chữ được thêm vào hàng ô ở trên, nên bạn có thể quay lại chữ cũ.
+- Bấm vào một chữ trong danh sách để chiết tự chữ đó. Chữ được thêm vào hàng ô ở trên, nên bạn có thể quay lại chữ cũ.
 
 ### 6. Viết câu chuyện ghi nhớ
 
@@ -70,7 +70,7 @@ Trong khung **Câu chuyện ghi nhớ**, viết một câu ngắn ghép các th�
 
 Địa chỉ trang đổi thành `…/tools/decompose#c=清晴&s=晴` (`c`: các chữ, `s`: chữ đang xem). Gửi địa chỉ này cho người khác để mở đúng các chữ đó. Câu chuyện ghi nhớ **không** nằm trong địa chỉ.
 
-Trang **214 bộ thủ** (nút **Phân tích chữ**) và trang **Thứ tự nét** (nút **Phân tích thành phần**) cũng mở thẳng công cụ này.
+Trang **214 bộ thủ** (nút **Chiết tự**) và trang **Thứ tự nét** (nút **Chiết tự chữ này**) cũng mở thẳng công cụ này.
 
 ## Lỗi thường gặp
 
