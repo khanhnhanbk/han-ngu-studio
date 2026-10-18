@@ -71,6 +71,10 @@ File `sentence_sorted.tsv` có 4 cột, theo đúng thứ tự học:
 | `new_words` | Các từ mới, cách nhau bằng dấu phẩy `,` |
 | `unknown_count` | Số từ mới |
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu: kết quả, từ mới được tô màu và file TSV hiện bằng chữ phồn thể. Câu và **Từ đã biết** có thể gõ bằng giản thể hoặc phồn thể (我們 và 我们 là một từ). Câu lấy bằng **Lấy câu** vẫn là giản thể trong ô nhập; kết quả sau khi **Sắp xếp** sẽ là phồn thể. Đổi **简 / 繁** sau khi sắp xếp thì kết quả đổi theo ngay. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -83,6 +87,8 @@ File `sentence_sorted.tsv` có 4 cột, theo đúng thứ tự học:
 | "Không tải được câu mẫu. Vui lòng kiểm tra kết nối mạng và thử lại." | Kiểm tra mạng rồi bấm **Lấy câu** lần nữa. |
 | Bấm **Lấy câu** thì mất các câu đã dán | **Lấy câu** thay toàn bộ nội dung ô **Các câu**. Hãy sao chép câu của bạn ra trước, rồi dán thêm vào sau. |
 | File TSV mở bằng Excel bị lỗi font | Mở bằng Google Sheets, hoặc trong Excel dùng **Data → From Text/CSV** và chọn mã hóa UTF-8. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy sửa tay trước khi dùng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
 
 ## Nguồn dữ liệu
 

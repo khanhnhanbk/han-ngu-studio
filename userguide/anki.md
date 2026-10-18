@@ -63,6 +63,12 @@ Nếu có, khung **Không tìm thấy** liệt kê:
 - **Tải .tsv**: lưu file `anki_deck.tsv` vào thư mục Tải xuống.
 - **Sao chép**: chép toàn bộ nội dung (dán vào Excel / Google Sheets nếu muốn chỉnh tiếp).
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu trước khi bấm **Tạo bộ thẻ**: cột **Từ vựng** và **Câu ví dụ** hiện bằng chữ phồn thể (学习 → 學習), cột **Ngũ bút** dùng mã của chữ phồn thể (學 → wfqb). Bạn có thể gõ từ bằng giản thể hoặc phồn thể; 學習 và 学习 tính là một từ. Nghĩa, Pinyin, Hán Việt và cấp HSK giữ nguyên.
+
+Đổi **简 / 繁** sau khi tạo bộ thẻ thì bảng hiện lại theo loại chữ mới, **mất các chỉnh sửa** bạn đã gõ trong bảng. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Import vào Anki trên máy tính
 
 1. Mở Anki, bấm **File → Import** (Tệp → Nhập) và chọn `anki_deck.tsv`.
@@ -105,3 +111,5 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | Ô câu ví dụ trong Anki hiện chữ `<br>` | File được tạo với 2–3 câu ví dụ nên dùng HTML. Giữ ô **Thêm dòng cấu hình cho Anki** (dòng `#html:true`), hoặc khi import tích **Allow HTML in fields**. |
 | Bản dịch câu ví dụ chưa sát nghĩa | Câu có nhãn **dịch máy** được dịch tự động và có thể chưa chính xác. Sửa ngay trong bảng trước khi tải. |
 | Chữ Hán bị lỗi khi mở bằng Excel | Mở bằng Dữ liệu → Từ văn bản/CSV, chọn mã hóa **UTF-8**, dấu phân cách **Tab**. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy sửa tay trước khi dùng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |

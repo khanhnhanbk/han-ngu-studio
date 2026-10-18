@@ -1,12 +1,13 @@
 # Phase 11: Traditional Chinese (Phồn thể) across all tools
 
-> Status: in progress (started 2026-10-18). 11a done.
+> Status: in progress (started 2026-10-18). 11a and 11b done.
 >
 > Changes made during implementation:
 > - **Giản thể mode does no conversion at all** (`IDENTITY` converter), so every existing result stays byte-for-byte the same. Traditional input typed in Giản thể mode behaves as before.
 > - `t2cn` is not a no-op on Simplified text: 57 characters in `word_list.txt` change (著→着, 么→幺, 乾→干). `toSimp` therefore converts only text that contains a Traditional character outside `SHARED_CHARS` (rebuilt from the word list by a test).
 > - opencc-js 1.4.2 (`opencc-js/t2cn` + `opencc-js/cn2t`, both loaded only in Phồn thể mode).
 > - Noto Sans TC lacks Simplified-only glyphs, so Phồn thể mode falls back to Noto Sans SC (`--font-hanzi-sc`).
+> - 11b: a quiz converts its questions once when built (a quiz in progress keeps its script, so ordering answers stay valid). Anki and N+1 re-show their results live when the switch flips. Per-tool helpers: `lib/{anki,quiz,comprehensible-input}/script.ts`.
 
 ## Context
 

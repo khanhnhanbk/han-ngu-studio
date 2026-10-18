@@ -20,7 +20,9 @@ import { buildQuiz, isCorrect, MAX_ENTRIES, parseEntries, reshuffle } from "@/li
 import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
+import { showQuestion, showSkipped, simpEntries } from "@/lib/quiz/script";
 import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer } from "@/lib/segment/load";
 import { loadVocab } from "@/lib/vocab/load";
 
@@ -53,6 +55,7 @@ export default function QuizPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [printing, setPrinting] = useState(false);
+  const { conv, ready, failed } = useConverter();
 
   const { entries } = useMemo(() => parseEntries(text), [text]);
   const tooMany = entries.length > MAX_ENTRIES;
@@ -81,24 +84,27 @@ export default function QuizPage() {
 
     setLoading(true);
     try {
+      // Built from Simplified data, then shown in the chosen script. A quiz in
+      // progress keeps its script, so answers already given stay valid.
+      const entries = simpEntries(conv, parsed.entries);
       const [tokenizer, hanviet, meanings, examples, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
-        loadExamples(parsed.entries.map((e) => e.word)),
+        loadExamples(entries.map((e) => e.word)),
         loadVocab(),
       ]);
       const quiz = buildQuiz(
         { tokenizer, hanviet, meanings, examples, vocab },
-        parsed.entries,
+        entries,
         picked,
         createRng(randomSeed()),
         order,
       );
-      setSkipped(quiz.skipped);
-      setDuplicates(parsed.duplicates);
+      setSkipped(quiz.skipped.map((x) => showSkipped(x, conv)));
+      setDuplicates(parsed.duplicates + parsed.entries.length - entries.length);
       if (quiz.questions.length === 0) setError(dict.quiz.noQuestions);
-      else start(quiz.questions);
+      else start(quiz.questions.map((q) => showQuestion(q, conv)));
     } catch {
       setError(dict.quiz.loadFailed);
     } finally {
@@ -252,10 +258,13 @@ export default function QuizPage() {
                   </fieldset>
 
                   <div className="mt-6">
-                    <button type="button" className="btn-primary" onClick={handleBuild} disabled={loading}>
+                    <button type="button" className="btn-primary" onClick={handleBuild} disabled={loading || !ready}>
                       {loading ? dict.quiz.loading : dict.quiz.button}
                     </button>
                   </div>
+
+                  {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+                  {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
                   {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
                   <p className="mt-6 text-xs text-ink-700/70">{dict.quiz.credits}</p>

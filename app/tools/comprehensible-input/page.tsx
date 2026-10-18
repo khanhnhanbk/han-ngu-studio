@@ -1,26 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { BANK_COUNTS, BANK_LEVELS, pickBankSentences, wordsBelow, type BankLevel } from "@/lib/comprehensible-input/bank";
 import { buildFreqRank } from "@/lib/comprehensible-input/freq";
-import { splitHighlight } from "@/lib/comprehensible-input/highlight";
 import { isLongSentence, orderSentences, summarize, type OrderedRow } from "@/lib/comprehensible-input/order";
+import { showRow, simpKnown } from "@/lib/comprehensible-input/script";
 import { toTsv, TSV_FILENAME } from "@/lib/comprehensible-input/tsv";
 import { extractWords, parseKnownWords, parseSentences } from "@/lib/comprehensible-input/words";
 import { downloadText } from "@/lib/download";
 import { loadLevelSentences } from "@/lib/examples/load";
 import { getDictionary } from "@/lib/i18n";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, loadWordListLines } from "@/lib/segment/load";
 import { loadVocab } from "@/lib/vocab/load";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 
-const dict = getDictionary("vi").comprehensibleInput;
+const vi = getDictionary("vi");
+const dict = vi.comprehensibleInput;
 
-type Row = OrderedRow & { line: number };
+/** A sorted row (Simplified) with its input line and the sentence as typed. */
+type Row = OrderedRow & { line: number; source: string };
 
 // Long lists are not rendered in full; the TSV download has every row.
 const SHOW_OPTIONS = [50, 100, 200, 500] as const;
@@ -28,7 +31,13 @@ const SHOW_OPTIONS = [50, 100, 200, 500] as const;
 export default function ComprehensibleInputPage() {
   const [sentences, setSentences] = useState("");
   const [known, setKnown] = useState("");
-  const [rows, setRows] = useState<Row[]>([]);
+  const [sorted, setSorted] = useState<Row[]>([]);
+  const { conv, ready, failed } = useConverter();
+  // Shown in the chosen script; follows the switch without sorting again.
+  const rows = useMemo(
+    () => sorted.map((r) => ({ ...showRow(r, r.source, conv), line: r.line })),
+    [sorted, conv],
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [empty, setEmpty] = useState(false);
@@ -62,21 +71,22 @@ export default function ComprehensibleInputPage() {
     setEmpty(false);
     const parsed = parseSentences(sentences);
     if (parsed.length === 0) {
-      setRows([]);
+      setSorted([]);
       setEmpty(true);
       return;
     }
     setLoading(true);
     try {
       const [tokenizer, lines] = await Promise.all([loadTokenizer(), loadWordListLines()]);
-      const inputs = parsed.map((s) => ({
-        text: s.text,
-        words: [...extractWords(tokenizer, s.text)],
-      }));
-      const ordered = orderSentences(inputs, parseKnownWords(known), buildFreqRank(lines));
-      setRows(ordered.map((r) => ({ ...r, line: parsed[r.idx].idx })));
+      // Sorted on Simplified text (the word list is Simplified).
+      const inputs = parsed.map((s) => {
+        const text = conv.toSimp(s.text);
+        return { text, words: [...extractWords(tokenizer, text)] };
+      });
+      const ordered = orderSentences(inputs, simpKnown(conv, parseKnownWords(known)), buildFreqRank(lines));
+      setSorted(ordered.map((r) => ({ ...r, line: parsed[r.idx].idx, source: parsed[r.idx].text })));
     } catch {
-      setRows([]);
+      setSorted([]);
       setError(true);
     } finally {
       setLoading(false);
@@ -184,7 +194,7 @@ export default function ComprehensibleInputPage() {
               />
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button type="button" className="btn-primary" onClick={handleSort} disabled={loading}>
+                <button type="button" className="btn-primary" onClick={handleSort} disabled={loading || !ready}>
                   {loading ? dict.loading : dict.button}
                 </button>
                 {rows.length > 0 && (
@@ -193,6 +203,9 @@ export default function ComprehensibleInputPage() {
                   </IconButton>
                 )}
               </div>
+
+              {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{vi.script.loading}</p>}
+              {failed && <p className="mt-4 text-sm text-red-600">{vi.script.loadFailed}</p>}
 
               {empty && <p className="mt-4 text-sm text-red-600">{dict.empty}</p>}
               {error && <p className="mt-4 text-sm text-red-600">{dict.loadFailed}</p>}
@@ -275,7 +288,7 @@ export default function ComprehensibleInputPage() {
                           )}
                         </div>
                         <p className="hanzi mt-2 text-lg text-ink-900">
-                          {splitHighlight(r.text, r.newWords).map((part, k) =>
+                          {r.parts.map((part, k) =>
                             part.highlighted ? (
                               <mark key={k} className="rounded bg-brand-500/30 px-0.5 text-ink-900">
                                 {part.text}

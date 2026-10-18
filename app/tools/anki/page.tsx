@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -17,11 +17,13 @@ import {
   type DeckRow,
   type ExampleCount,
 } from "@/lib/anki/buildDeck";
-import { loadMeanings, loadWubi } from "@/lib/anki/load";
+import { loadMeanings, loadWubi, type WubiTable } from "@/lib/anki/load";
+import { showRow, simpWords } from "@/lib/anki/script";
 import { loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer } from "@/lib/segment/load";
 import { loadVocab } from "@/lib/vocab/load";
 import { CheckIcon } from "@/components/icons/check";
@@ -42,6 +44,9 @@ const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_piny
 export default function AnkiPage() {
   const [text, setText] = useState(SAMPLE);
   const [rows, setRows] = useState<DeckRow[]>([]);
+  // The deck as built (Simplified), re-shown when the script switch changes.
+  const [built, setBuilt] = useState<{ rows: DeckRow[]; wubi: WubiTable } | null>(null);
+  const { conv, ready, failed } = useConverter();
   const [duplicates, setDuplicates] = useState(0);
   const [picked, setPicked] = useState<Set<Column>>(() => new Set(COLUMNS));
   const [header, setHeader] = useState(true);
@@ -58,6 +63,12 @@ export default function AnkiPage() {
   const columns = useMemo(() => COLUMNS.filter((c) => picked.has(c)), [picked]);
   const tsv = useMemo(() => toTsv(rows, columns, header, builtCount > 1), [rows, columns, header, builtCount]);
   const notFound = useMemo(() => missing(rows), [rows]);
+
+  // Edits made in the table are kept until the deck is rebuilt or the
+  // script changes (then the cells are shown again from the built deck).
+  useEffect(() => {
+    if (built) setRows(built.rows.map((r) => showRow(r, conv, built.wubi)));
+  }, [built, conv]);
 
   async function handleFile(file: File | undefined) {
     setError("");
@@ -83,17 +94,18 @@ export default function AnkiPage() {
     }
     setLoading(true);
     try {
+      const words = simpWords(conv, parsed.words);
       const [tokenizer, hanviet, meanings, examples, wubi, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
         loadMeanings(),
-        loadExamples(parsed.words),
+        loadExamples(words),
         loadWubi(),
         loadVocab(),
       ]);
-      setRows(buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, parsed.words, exampleCount));
+      setBuilt({ rows: buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, words, exampleCount), wubi });
       setBuiltCount(exampleCount);
-      setDuplicates(parsed.duplicates);
+      setDuplicates(parsed.duplicates + parsed.words.length - words.length);
     } catch {
       setError(dict.anki.loadFailed);
     } finally {
@@ -164,10 +176,13 @@ export default function AnkiPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button type="button" className="btn-primary" onClick={handleBuild} disabled={loading}>
+                <button type="button" className="btn-primary" onClick={handleBuild} disabled={loading || !ready}>
                   {loading ? dict.anki.loading : dict.anki.button}
                 </button>
               </div>
+
+              {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+              {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
               {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 

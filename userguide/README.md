@@ -63,7 +63,7 @@ Khi chọn **Phồn thể**:
 - **Kết quả hiện bằng chữ phồn thể**, dù bạn gõ giản thể hay phồn thể. Ví dụ gõ 学习 → kết quả 學習. Ô nhập vẫn giữ nguyên chữ bạn gõ.
 - Pinyin và âm Hán Việt vẫn đúng như với chữ giản thể (我們 → wǒmen, 學習 → học tập).
 - Chỉ đổi **mặt chữ**, không đổi **từ ngữ**: 软件 → 軟件 (không đổi thành 軟體 như cách nói ở Đài Loan).
-- Hiện áp dụng cho **Ngắt từ**, **Chuyển Pinyin** và **Hán Việt**.
+- Hiện áp dụng cho **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt**, **Tạo thẻ Anki**, **Trắc nghiệm** và **Sắp xếp câu N+1**.
 
 Khi chọn **Giản thể**, các công cụ hoạt động y như trước, không chuyển đổi gì.
 

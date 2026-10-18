@@ -87,6 +87,10 @@ Mỗi lần bấm **Tạo bài trắc nghiệm** hay **Trộn lại và làm l�
 
 Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi nào. Lý do: thiếu dữ liệu (ví dụ từ không có trong từ điển, nghĩa trong từ điển chỉ là "xem từ khác", hoặc chưa có câu ví dụ), hoặc không tìm được đáp án sai nào khác đáp án đúng. Công cụ **không tự đoán** dữ liệu còn thiếu. Với nghĩa, bạn có thể tự ghi nghĩa sau dấu Tab.
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu trước khi bấm **Tạo bài trắc nghiệm**: chữ Hán trong câu hỏi, đáp án, đề in và file `.tsv` là chữ phồn thể. Bạn có thể gõ từ bằng giản thể hoặc phồn thể. Bài đang làm giữ nguyên loại chữ; muốn đổi, hãy đổi **简 / 繁** rồi tạo bài mới. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -106,6 +110,8 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 | Muốn câu điền từ cho chính các từ khó | Câu ví dụ có sẵn cho khoảng 9.600 từ (gần hết danh sách HSK 3.0); từ ngoài danh sách thường bị bỏ qua ở hai loại câu này. |
 | **Nghĩa của câu** chưa sát | Câu có nhãn **dịch máy** được dịch tự động bằng Google Dịch và có thể chưa chính xác. |
 | Một chữ có nhiều cách đọc (好 hǎo / hào) | Pinyin và Hán Việt theo cách đọc phổ biến. Các cách đọc khác của chữ đó không bao giờ được dùng làm đáp án sai. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy sửa tay trước khi dùng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
 
 ## Nguồn dữ liệu
 

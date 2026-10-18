@@ -4,7 +4,11 @@ import * as cn2t from "opencc-js/cn2t";
 import * as t2cn from "opencc-js/t2cn";
 import { describe, expect, it } from "vitest";
 
+import { showRow as showAnkiRow, simpWords } from "@/lib/anki/script";
+import { showRow as showN1Row, simpKnown } from "@/lib/comprehensible-input/script";
 import { convertText } from "@/lib/pinyin/convert";
+import { isCorrect } from "@/lib/quiz/build";
+import { showQuestion, simpEntries } from "@/lib/quiz/script";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 
 import {
@@ -101,5 +105,47 @@ describe("createAligner", () => {
 
   it("returns an unknown token as is", () => {
     expect(createAligner("ab", "AB")("z")).toBe("z");
+  });
+});
+
+describe("tool helpers", () => {
+  const blankRow = {
+    word: "学习", pinyin: "xué xí", meaning: "to learn", sentence: "我学习<br>头发很长",
+    sentence_pinyin: "", sentence_meaning: "", wubi: "ip nu", hanviet: "học tập",
+    hsk_level: "1", meaning_vi: "học", machineTranslated: false,
+  };
+
+  it("anki: words in Simplified, rows shown in the chosen script", () => {
+    expect(simpWords(conv, ["學習", "学习", "朋友"])).toEqual(["学习", "朋友"]);
+    expect(showAnkiRow(blankRow, IDENTITY, {})).toBe(blankRow);
+    const shown = showAnkiRow(blankRow, conv, { 學: "wfqb", 習: "nrd" });
+    expect(shown).toMatchObject({ word: "學習", sentence: "我學習<br>頭髮很長", wubi: "wfqb nrd", hanviet: "học tập" });
+  });
+
+  it("quiz: ordering words keep their in-sentence form and still check", () => {
+    const q = { kind: "ordering", word: "头发", hint: "Tóc anh ấy dài.", tokens: ["很", "长", "头发", "他"], end: "。", answer: ["他", "头发", "很", "长"] } as const;
+    const shown = showQuestion({ ...q, tokens: [...q.tokens], answer: [...q.answer] }, conv);
+    expect(shown).toMatchObject({ word: "頭髮", answer: ["他", "頭髮", "很", "長"], tokens: ["很", "長", "頭髮", "他"], end: "。", hint: q.hint });
+    expect(isCorrect(shown, ["他", "頭髮", "很", "長"])).toBe(true);
+    expect(simpEntries(conv, [{ word: "學習" }, { word: "学习", meaning: "x" }])).toEqual([{ word: "学习" }]);
+  });
+
+  it("quiz: only Chinese prompts and options are converted", () => {
+    const choice = { kind: "meaningToHan", word: "学习", prompt: "học", options: ["学习", "朋友"], answer: 0 } as const;
+    expect(showQuestion({ ...choice, options: [...choice.options] }, conv)).toMatchObject({ prompt: "học", options: ["學習", "朋友"] });
+  });
+
+  it("N+1: highlight follows the shown sentence", () => {
+    const row = { text: "他头发很长", idx: 0, newWords: ["头发"], newCount: 1 };
+    const shown = showN1Row(row, "他頭髮很長", conv);
+    expect(shown.text).toBe("他頭髮很長");
+    expect(shown.newWords).toEqual(["頭髮"]);
+    expect(shown.parts).toEqual([
+      { text: "他", highlighted: false },
+      { text: "頭髮", highlighted: true },
+      { text: "很長", highlighted: false },
+    ]);
+    expect(showN1Row(row, row.text, IDENTITY).text).toBe("他头发很长");
+    expect([...simpKnown(conv, new Set(["我們"]))]).toEqual(["我们"]);
   });
 });
