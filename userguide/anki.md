@@ -1,6 +1,6 @@
 # Tạo bộ thẻ Anki
 
-Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **import vào Anki**. Mỗi từ có:
+Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **import vào Anki**: tải file **.apkg** (mở là nhập xong, có thể kèm **ảnh**) hoặc file **.tsv**. Mỗi từ có:
 
 | Cột | Ví dụ (大学) |
 |---|---|
@@ -51,6 +51,13 @@ Nhãn **dịch máy** cạnh ô **Nghĩa của câu**: bản dịch của câu n
 
 Trên điện thoại, kéo ngang bảng để xem các cột bên phải.
 
+**Thêm ảnh cho thẻ** (cột **Ảnh**, đầu bảng): mỗi thẻ có thể có một ảnh, chỉ có trong file **.apkg**.
+- Bấm **Thêm ảnh** để chọn ảnh trên máy; hoặc
+- bấm vào ô rồi dán ảnh đã chép (`Ctrl + V`, ví dụ ảnh chụp màn hình); hoặc
+- kéo thả file ảnh vào ô.
+
+Bấm **×** cạnh ảnh để bỏ ảnh. Ảnh JPG, PNG, WebP, GIF đều được; ảnh lớn được tự thu nhỏ (cạnh dài nhất 1024 px) để bộ thẻ nhẹ. Ảnh chỉ nằm trên máy bạn, không gửi đi đâu. Ảnh giữ nguyên khi bạn đổi **简 / 繁** hoặc bấm **Tạo bộ thẻ** lại với cùng từ, nhưng mất khi tải lại trang.
+
 ### 5. Kiểm tra mục **Không tìm thấy**
 
 Nếu có, khung **Không tìm thấy** liệt kê:
@@ -60,6 +67,14 @@ Nếu có, khung **Không tìm thấy** liệt kê:
 
 ### 6. Tải file
 
+**Cách dễ nhất: file .apkg** (khung **Tải bộ thẻ .apkg (có ảnh)**):
+1. Đặt **Tên bộ thẻ** (mặc định "Hán Ngữ Studio"; có thể dùng `::` để tạo bộ con, ví dụ `HSK 1::Bài 1`).
+2. Bấm **Tải bộ thẻ .apkg**. Nút hiện **Đang tạo bộ thẻ…** trong giây lát (lần đầu tải thêm khoảng 0,3 MB).
+3. Mở file `.apkg` bằng Anki: trên máy tính bấm đúp vào file (hoặc **File → Import**); trên AnkiDroid và AnkiMobile (iPhone) mở file bằng ứng dụng Anki. Không cần chọn cột hay loại ghi chú.
+
+File .apkg tạo loại ghi chú **Hán Ngữ Studio**: mặt trước là chữ Hán, mặt sau có Pinyin, Hán Việt, nghĩa, ảnh, câu ví dụ, cấp HSK và Ngũ bút (cột nào bạn bỏ tích sẽ để trống). Tải lại bộ thẻ có cùng từ rồi nhập lại thì Anki **cập nhật** thẻ cũ (giữ tiến độ học), không tạo thẻ trùng. Lưu ý: khi cập nhật, ảnh trong Anki được thay bằng ảnh của lần tải mới; nếu lần này không gắn ảnh thì ảnh cũ trên thẻ bị xóa.
+
+**File .tsv** (không có ảnh, chọn được cột và loại ghi chú của riêng bạn):
 - **Tải .tsv**: lưu file `anki_deck.tsv` vào thư mục Tải xuống.
 - **Sao chép**: chép toàn bộ nội dung (dán vào Excel / Google Sheets nếu muốn chỉnh tiếp).
 
@@ -82,6 +97,8 @@ Bấm **繁** trên thanh menu trước khi bấm **Tạo bộ thẻ**: cột **
 **Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 10 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi`. Sau đó sửa Cards (mặt trước / mặt sau) theo ý bạn. Các lần import sau chỉ cần chọn loại ghi chú này.
 
 ## Import vào AnkiDroid (Android)
+
+Với file **.apkg**: tải file trên điện thoại rồi mở bằng AnkiDroid (hoặc AnkiDroid → menu **⋮** → **Import** → chọn file). Với file **.tsv**:
 
 1. Chép `anki_deck.tsv` vào điện thoại (hoặc tải trực tiếp trên điện thoại).
 2. Mở AnkiDroid → menu **⋮** → **Import** → chọn file.
@@ -113,3 +130,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | Chữ Hán bị lỗi khi mở bằng Excel | Mở bằng Dữ liệu → Từ văn bản/CSV, chọn mã hóa **UTF-8**, dấu phân cách **Tab**. |
 | Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy sửa tay trước khi dùng. |
 | Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
+| "Không đọc được ảnh này. Hãy dùng ảnh JPG, PNG, WebP hoặc GIF." | File không phải ảnh, hoặc trình duyệt không mở được định dạng này (ví dụ HEIC từ iPhone). Hãy chụp màn hình ảnh đó hoặc đổi sang JPG. |
+| "Không tạo được file .apkg. Vui lòng thử lại." | Kiểm tra mạng (lần đầu cần tải bộ tạo file khoảng 0,3 MB) rồi bấm lại. |
+| Ảnh trên thẻ biến mất sau khi nhập lại | Lần tải mới không gắn ảnh cho thẻ đó, nên Anki thay ảnh cũ bằng ô trống. Gắn lại ảnh rồi tải lại file .apkg. |
+| "Bộ thẻ khá lớn…" | Tổng ảnh hơn 50 MB; điện thoại nhập chậm. Bớt ảnh hoặc chia thành nhiều bộ thẻ. |

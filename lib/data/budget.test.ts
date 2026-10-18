@@ -28,6 +28,8 @@ describe("formatBytes", () => {
     expect(formatBytes(THRESHOLD)).toBe("2,0 MB");
     expect(formatBytes(2.44 * 1024 * 1024)).toBe("2,4 MB");
     expect(formatBytes(15.6 * 1024 * 1024)).toBe("15,6 MB");
+    expect(formatBytes(350 * 1024)).toBe("350 KB");
+    expect(formatBytes(10)).toBe("1 KB");
   });
 });
 

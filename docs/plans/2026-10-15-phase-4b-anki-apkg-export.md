@@ -1,5 +1,7 @@
 # Phase 4b: `.apkg` export with media (~800 LOC)
 
+> Status: done (2026-10-18). Images come only from the user (pick, paste or drop per card, resized to ≤ 1024 px JPEG when large); no image search. sql.js 1.14.2 with its wasm vendored in `public/vendor/`, fflate instead of jszip. One card type (Nhận diện), stable note-type id, deck id from the deck name and GUID from the word, so re-importing updates notes. Verified by importing with the official `anki` Python package (26.09.3): a second import of the same file adds nothing, and an edited export updates the existing notes.
+
 **Depends on:** Phase 3 (deck data). Phase 4a is optional, as a source of images.
 
 ## Context

@@ -1,5 +1,7 @@
 # Phase 4a: Image picker + AnkiConnect push (~800 LOC)
 
+> Status: replaced (2026-10-18). The owner declined image search (sending words to Openverse/Wikimedia) and chose `.apkg` delivery over AnkiConnect. Manual per-card images shipped with Phase 4b instead.
+
 **Depends on:** Phase 3 (Anki deck generator).
 
 ## Context

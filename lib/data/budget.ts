@@ -21,8 +21,9 @@ export function pendingBytes(sizes: Sizes, keys: Iterable<string>, available: (k
   return bytes;
 }
 
-/** "2,4 MB", as the prompt shows it. */
+/** "2,4 MB" (or "350 KB" below 1 MB), as the pages show sizes. */
 export function formatBytes(bytes: number): string {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
   const mb = bytes / (1024 * 1024);
   return `${mb.toLocaleString("vi-VN", { maximumFractionDigits: 1, minimumFractionDigits: mb < 10 ? 1 : 0 })} MB`;
 }

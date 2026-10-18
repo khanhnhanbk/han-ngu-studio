@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -17,11 +17,14 @@ import {
   type DeckRow,
   type ExampleCount,
 } from "@/lib/anki/buildDeck";
+import { DEFAULT_DECK_NAME } from "@/lib/anki/apkg";
+import { exportApkg, prepareImage, type CardImage } from "@/lib/anki/exportApkg";
 import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE, type WubiTable } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
 import { confirmDownload } from "@/lib/data/budget";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
-import { downloadText } from "@/lib/download";
+import { formatBytes } from "@/lib/data/budget";
+import { downloadBlob, downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { getDictionary } from "@/lib/i18n";
 import { useConverter } from "@/lib/script/useScript";
@@ -31,6 +34,7 @@ import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
+import { ImageCell } from "@/components/anki/ImageCell";
 import { FileInput } from "@/components/FileInput";
 
 const dict = getDictionary("vi");
@@ -41,6 +45,11 @@ const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning", "meaning_vi"]);
 // Columns holding one line per example when a card has several.
 const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_pinyin", "sentence_meaning"]);
+// Above this, importing the .apkg on a phone gets slow.
+const LARGE_APKG = 50 * 1024 * 1024;
+
+/** A file name for the deck, without characters file systems reject. */
+const deckFileName = (name: string) => `${name.replace(/[\\/:*?"<>|]+/g, "_").trim() || "anki_deck"}.apkg`;
 
 export default function AnkiPage() {
   const [text, setText] = useState(SAMPLE);
@@ -48,6 +57,13 @@ export default function AnkiPage() {
   // The deck as built (Simplified), re-shown when the script switch changes.
   const [built, setBuilt] = useState<{ rows: DeckRow[]; wubi: WubiTable } | null>(null);
   const { conv, ready, failed } = useConverter();
+  // Card images, keyed by the word as built (Simplified), so they survive a
+  // script switch and a rebuild that keeps the word. Only in the .apkg.
+  const [images, setImages] = useState<Map<string, CardImage>>(() => new Map());
+  const [imageError, setImageError] = useState("");
+  const [deckName, setDeckName] = useState(DEFAULT_DECK_NAME);
+  const [apkgBusy, setApkgBusy] = useState(false);
+  const [apkgError, setApkgError] = useState("");
   const [duplicates, setDuplicates] = useState(0);
   const [picked, setPicked] = useState<Set<Column>>(() => new Set(COLUMNS));
   const [header, setHeader] = useState(true);
@@ -64,6 +80,59 @@ export default function AnkiPage() {
   const columns = useMemo(() => COLUMNS.filter((c) => picked.has(c)), [picked]);
   const tsv = useMemo(() => toTsv(rows, columns, header, builtCount > 1), [rows, columns, header, builtCount]);
   const notFound = useMemo(() => missing(rows), [rows]);
+
+  const imageKey = (i: number) => built?.rows[i]?.word ?? rows[i]?.word ?? "";
+  const cardImages = new Map<number, CardImage>();
+  rows.forEach((_, i) => {
+    const image = images.get(imageKey(i));
+    if (image) cardImages.set(i, image);
+  });
+  const imageBytes = [...cardImages.values()].reduce((n, img) => n + img.data.length, 0);
+
+  // Free the preview URLs when the page goes away.
+  const imagesRef = useRef(images);
+  imagesRef.current = images;
+  useEffect(() => () => imagesRef.current.forEach((img) => URL.revokeObjectURL(img.url)), []);
+
+  async function attachImage(i: number, file: File) {
+    setImageError("");
+    try {
+      const image = await prepareImage(file);
+      const key = imageKey(i);
+      setImages((prev) => {
+        const next = new Map(prev);
+        const old = next.get(key);
+        if (old) URL.revokeObjectURL(old.url);
+        next.set(key, image);
+        return next;
+      });
+    } catch {
+      setImageError(dict.anki.imageBad);
+    }
+  }
+
+  function removeImage(i: number) {
+    const key = imageKey(i);
+    setImages((prev) => {
+      const next = new Map(prev);
+      const old = next.get(key);
+      if (old) URL.revokeObjectURL(old.url);
+      next.delete(key);
+      return next;
+    });
+  }
+
+  async function handleApkg() {
+    setApkgError("");
+    setApkgBusy(true);
+    try {
+      downloadBlob(await exportApkg(rows, columns, cardImages, deckName), deckFileName(deckName));
+    } catch {
+      setApkgError(dict.anki.apkgFailed);
+    } finally {
+      setApkgBusy(false);
+    }
+  }
 
   // Edits made in the table are kept until the deck is rebuilt or the
   // script changes (then the cells are shown again from the built deck).
@@ -213,6 +282,8 @@ export default function AnkiPage() {
                     <table className="min-w-full text-left text-sm">
                       <thead className="bg-ink-50 text-ink-700">
                         <tr>
+                          {/* First, so it is visible without scrolling the wide table. */}
+                          <th className="whitespace-nowrap px-2 py-2 font-medium">{dict.anki.imageColumn}</th>
                           {columns.map((c) => (
                             <th key={c} className="whitespace-nowrap px-2 py-2 font-medium">
                               {dict.anki.columns[c]}
@@ -223,6 +294,14 @@ export default function AnkiPage() {
                       <tbody>
                         {rows.map((row, i) => (
                           <tr key={row.word} className="border-t border-ink-900/5">
+                            <td className="px-1 py-1 align-top">
+                              <ImageCell
+                                word={row.word}
+                                image={cardImages.get(i)}
+                                onImage={(file) => void attachImage(i, file)}
+                                onRemove={() => removeImage(i)}
+                              />
+                            </td>
                             {columns.map((c) => {
                               const cellClass = `rounded border border-transparent bg-transparent px-1 py-1 hover:border-ink-900/10 focus:border-brand-500 focus:outline-none ${
                                 WIDE.has(c) ? "w-72" : "w-28"
@@ -274,6 +353,36 @@ export default function AnkiPage() {
                       </IconButton>
                     </div>
                   )}
+
+                  <p className="mt-2 text-xs text-ink-700/70">{dict.anki.imageHint}</p>
+                  {imageError && <p className="mt-2 text-sm text-red-600">{imageError}</p>}
+
+                  <div className="mt-6 rounded-lg border border-ink-900/10 p-4 text-sm text-ink-700">
+                    <p className="font-semibold text-ink-900">{dict.anki.apkgTitle}</p>
+                    <p className="mt-1">{dict.anki.apkgHint}</p>
+                    <div className="mt-3 flex flex-wrap items-end gap-3">
+                      <label className="flex flex-col gap-1">
+                        <span className="font-medium">{dict.anki.deckName}</span>
+                        <input
+                          value={deckName}
+                          onChange={(e) => setDeckName(e.target.value)}
+                          className="w-64 max-w-full rounded-lg border border-ink-900/10 px-3 py-2"
+                        />
+                      </label>
+                      <IconButton icon={DownloadIcon} className="btn-primary" onClick={handleApkg} disabled={apkgBusy}>
+                        {apkgBusy ? dict.anki.apkgBuilding : dict.anki.apkgButton}
+                      </IconButton>
+                    </div>
+                    {cardImages.size > 0 && (
+                      <p className="mt-2 text-xs text-ink-700/70">
+                        {dict.anki.apkgImages.replace("{n}", String(cardImages.size))} · {formatBytes(imageBytes)}
+                      </p>
+                    )}
+                    {imageBytes > LARGE_APKG && (
+                      <p className="mt-2 text-red-600">{dict.anki.apkgLarge.replace("{size}", formatBytes(imageBytes))}</p>
+                    )}
+                    {apkgError && <p className="mt-2 text-red-600">{apkgError}</p>}
+                  </div>
 
                   {(notFound.meaning.length > 0 ||
                     notFound.sentence.length > 0 ||

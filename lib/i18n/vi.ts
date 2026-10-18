@@ -88,7 +88,7 @@ export const vi = {
       anki: {
         title: "Tạo bộ thẻ Anki",
         description:
-          "Từ danh sách từ vựng: Pinyin, nghĩa tiếng Việt, cấp HSK, tới 3 câu ví dụ dễ hiểu có bản dịch, mã Ngũ bút và Hán Việt. Sửa trực tiếp rồi tải file TSV.",
+          "Từ danh sách từ vựng: Pinyin, nghĩa tiếng Việt, cấp HSK, tới 3 câu ví dụ dễ hiểu có bản dịch, mã Ngũ bút và Hán Việt. Thêm ảnh, sửa trực tiếp rồi tải bộ thẻ .apkg (mở là nhập xong) hoặc file TSV.",
         cta: "Tạo bộ thẻ Anki",
       },
       quiz: {
@@ -121,18 +121,6 @@ export const vi = {
       idea: "Ý tưởng",
     },
     items: [
-      {
-        status: "next",
-        title: "Ảnh minh họa cho thẻ Anki",
-        description:
-          "Tìm ảnh có giấy phép mở cho từng từ vựng, chọn ảnh ưng ý và thêm thẳng vào bộ thẻ Anki của bạn.",
-      },
-      {
-        status: "next",
-        title: "Tải bộ thẻ Anki (.apkg)",
-        description:
-          "Một file duy nhất đã kèm ảnh: nhập bằng một chạm trên Anki máy tính, AnkiDroid và iPhone, không cần cài thêm gì.",
-      },
       {
         status: "planned",
         title: "Nghe phát âm",
@@ -199,7 +187,7 @@ export const vi = {
       {
         question: "File tải về dùng được ở đâu?",
         answer:
-          "Phiếu tập viết in ra giấy hoặc lưu PDF. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file TSV để import vào Anki.",
+          "Phiếu tập viết in ra giấy hoặc lưu PDF. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file .apkg (mở bằng Anki trên máy tính, AnkiDroid, iPhone là nhập xong, có thể kèm ảnh) hoặc file TSV.",
       },
       {
         question: "Dữ liệu của tôi có được lưu lại không?",
@@ -462,6 +450,20 @@ export const vi = {
       "Chọn Loại ghi chú (Note type) và Bộ thẻ (Deck), kiểm tra các cột khớp với trường, rồi bấm Import.",
     ],
     importMore: "Hướng dẫn chi tiết (kể cả AnkiDroid) có trong tài liệu hướng dẫn sử dụng.",
+    imageColumn: "Ảnh",
+    imagePick: "Thêm ảnh",
+    imageCellLabel: "Ảnh cho {word}: bấm để chọn ảnh, hoặc dán (Ctrl+V) hay kéo thả ảnh vào đây",
+    imageRemove: "Xóa ảnh",
+    imageBad: "Không đọc được ảnh này. Hãy dùng ảnh JPG, PNG, WebP hoặc GIF.",
+    imageHint: "Ảnh chỉ có trong file .apkg (file TSV không chứa ảnh). Bấm Thêm ảnh, hoặc bấm vào ô rồi dán ảnh (Ctrl+V), hoặc kéo thả ảnh vào ô. Ảnh không gửi đi đâu.",
+    apkgTitle: "Tải bộ thẻ .apkg (có ảnh)",
+    apkgHint: "Mở file .apkg bằng Anki trên máy tính, AnkiDroid hoặc AnkiMobile (iPhone) là nhập xong, không cần chọn cột. Tải lại bộ thẻ có cùng từ sẽ cập nhật thẻ cũ, không tạo thẻ trùng.",
+    deckName: "Tên bộ thẻ",
+    apkgButton: "Tải bộ thẻ .apkg",
+    apkgBuilding: "Đang tạo bộ thẻ…",
+    apkgFailed: "Không tạo được file .apkg. Vui lòng thử lại.",
+    apkgLarge: "Bộ thẻ khá lớn ({size}); điện thoại có thể nhập chậm. Hãy bớt ảnh hoặc chia thành nhiều bộ.",
+    apkgImages: "{n} thẻ có ảnh",
     credits:
       "Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Mã Ngũ bút: pywubi (MIT). Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio (danh sách từ vựng HSK 3.0). Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); câu đánh dấu “dịch máy” được dịch bằng Google Dịch.",
     error: "Vui lòng nhập ít nhất một từ.",
