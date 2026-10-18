@@ -2,40 +2,41 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { TOOL_GROUPS } from "@/lib/links";
 
 import { ChevronDownIcon } from "./icons/chevron-down";
 import { MenuIcon } from "./icons/menu";
 import { useIconTrigger } from "./icons/trigger";
 import { XIcon } from "./icons/x";
+import { LanguageSwitch } from "./LanguageSwitch";
 import { ScriptSwitch } from "./ScriptSwitch";
 import { ThemePicker } from "./ThemePicker";
 
-const dict = getDictionary("vi");
-
 export function Navbar() {
+  const dict = useDictionary();
+  const href = useHref();
   const [open, setOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const chevron = useIconTrigger();
   const menu = useIconTrigger();
 
   const links = [
-    { href: "/#how-it-works", label: dict.nav.howItWorks },
-    { href: "/#for-teachers", label: dict.nav.forTeachers },
-    { href: "/#roadmap", label: dict.nav.roadmap },
+    { href: href("/#how-it-works"), label: dict.nav.howItWorks },
+    { href: href("/#for-teachers"), label: dict.nav.forTeachers },
+    { href: href("/#roadmap"), label: dict.nav.roadmap },
   ];
 
   const groups = TOOL_GROUPS.map((g) => ({
     id: g.id,
     ...dict.nav.groups[g.id],
-    tools: g.tools.map((tool) => ({ href: tool.href, label: dict.nav[tool.id], hint: dict.nav.hints[tool.id] })),
+    tools: g.tools.map((tool) => ({ href: href(tool.href), label: dict.nav[tool.id], hint: dict.nav.hints[tool.id] })),
   }));
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-bold text-ink-900">
+        <Link href={href("/")} className="flex items-center gap-2 whitespace-nowrap font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-on-brand hanzi text-lg">
             汉
           </span>
@@ -108,9 +109,10 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <LanguageSwitch />
           <ScriptSwitch />
           <ThemePicker />
-          <Link href="/#cta" className="btn-primary whitespace-nowrap">
+          <Link href={href("/#cta")} className="btn-primary whitespace-nowrap">
             {dict.nav.cta}
           </Link>
         </div>
@@ -163,6 +165,12 @@ export function Navbar() {
               </div>
             ))}
             <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
+              {dict.language.label}
+            </p>
+            <div className="px-3 py-2">
+              <LanguageSwitch inline />
+            </div>
+            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
               {dict.script.label}
             </p>
             <div className="px-3 py-2">
@@ -175,7 +183,7 @@ export function Navbar() {
               <ThemePicker inline />
             </div>
             <Link
-              href="/#cta"
+              href={href("/#cta")}
               onClick={() => setOpen(false)}
               className="btn-primary mt-2"
             >

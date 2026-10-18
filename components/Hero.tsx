@@ -1,11 +1,11 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
+
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { USER_GUIDE_URL } from "@/lib/links";
 import { ArrowDownIcon } from "./icons/arrow-down";
 import { ExternalLinkIcon } from "./icons/external-link";
 import { SparklesIcon } from "./icons/sparkles";
 import { IconLink } from "./icons/trigger";
-
-const dict = getDictionary("vi");
 
 // Sample mizige cells for the hero mockup
 const cells = ["永", "和", "九", "年", "岁", "在"];
@@ -27,6 +27,7 @@ function MizigeCell({ char }: { char: string }) {
 }
 
 export function Hero() {
+  const dict = useDictionary();
   return (
     <section className="relative overflow-hidden">
       <div
@@ -67,7 +68,7 @@ export function Hero() {
         <div className="animate-fade-up rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-lg">
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm font-semibold text-ink-900">
-              Phiếu tập viết
+              {dict.hero.mockupTitle}
             </span>
             <span className="rounded-md bg-brand-50 px-2 py-1 text-xs font-medium text-brand-700">
               ㅁ 米字格

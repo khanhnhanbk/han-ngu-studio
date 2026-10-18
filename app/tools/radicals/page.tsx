@@ -4,23 +4,23 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { loadRadicals } from "@/lib/radicals/load";
 import { forScript, groupByStrokes, searchRadicals } from "@/lib/radicals/search";
 import type { Radical } from "@/lib/radicals/types";
 import { useConverter } from "@/lib/script/useScript";
 
-const dict = getDictionary("vi");
-const t = dict.radicals;
-
 /** Characters sent to the stroke-order page and the practice sheet. */
 const LINKED_EXAMPLES = 6;
 
 function Details({ radical, onClose }: { radical: Radical; onClose: () => void }) {
+  const dict = useDictionary();
+  const t = dict.radicals;
+  const href = useHref();
   const chars = [radical.radical, ...radical.chars.slice(0, LINKED_EXAMPLES).map(([c]) => c)].join("");
   // Characters travel in the hash, which is never sent to the server.
-  const strokeHref = `/tools/stroke-order#${new URLSearchParams({ c: chars })}`;
-  const sheetHref = `/tools/practice-sheet#${new URLSearchParams({ chars, strokes: "1" })}`;
+  const strokeHref = href(`/tools/stroke-order#${new URLSearchParams({ c: chars })}`);
+  const sheetHref = href(`/tools/practice-sheet#${new URLSearchParams({ chars, strokes: "1" })}`);
 
   return (
     <div className="card">
@@ -58,7 +58,7 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
             {radical.chars.map(([char, hv]) => (
               <li key={char}>
                 <a
-                  href={`/tools/stroke-order#${new URLSearchParams({ c: char })}`}
+                  href={href(`/tools/stroke-order#${new URLSearchParams({ c: char })}`)}
                   className="flex flex-col items-center rounded-lg border border-ink-900/10 px-1 py-2 hover:border-brand-500 hover:bg-brand-50"
                 >
                   <span className="hanzi text-2xl text-ink-900">{char}</span>
@@ -82,7 +82,7 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
         <a href={sheetHref} className="btn-primary">
           {t.practice}
         </a>
-        <a href={`/tools/decompose#${new URLSearchParams({ c: chars })}`} className="btn-secondary">
+        <a href={href(`/tools/decompose#${new URLSearchParams({ c: chars })}`)} className="btn-secondary">
           {t.decompose}
         </a>
       </div>
@@ -91,6 +91,8 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
 }
 
 export default function RadicalsPage() {
+  const dict = useDictionary();
+  const t = dict.radicals;
   const [data, setData] = useState<Radical[] | null>(null);
   const { conv } = useConverter();
   // Example characters and search use the chosen script's lists.
@@ -109,7 +111,7 @@ export default function RadicalsPage() {
         if (Number.isInteger(no) && no >= 1 && no <= data.length) setSelected(no);
       })
       .catch(() => setError(t.loadFailed));
-  }, []);
+  }, [t]);
 
   // In Phồn thể mode a Simplified query finds its Traditional form too (头 → 頭).
   const results = useMemo(() => {

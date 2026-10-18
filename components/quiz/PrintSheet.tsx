@@ -1,14 +1,15 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
+
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { LETTERS, orderedSentence } from "@/lib/quiz/export";
 import type { Question } from "@/lib/quiz/types";
-
-const dict = getDictionary("vi");
 
 /**
  * The worksheet window.print() puts on paper: numbered questions, then the
  * answer key on a new page. Hidden on screen.
  */
 export function PrintSheet({ questions }: { questions: readonly Question[] }) {
+  const dict = useDictionary();
   return (
     <div className="quiz-print hidden text-ink-900 print:block">
       <h1 className="text-2xl font-bold">{dict.quiz.printTitle}</h1>

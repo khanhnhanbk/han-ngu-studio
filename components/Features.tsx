@@ -1,10 +1,12 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
+
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { TOOL_GROUPS } from "@/lib/links";
 import { ToolCard } from "./ToolCard";
 
-const dict = getDictionary("vi");
-
 export function Features() {
+  const dict = useDictionary();
+  const href = useHref();
   return (
     <section id="features" className="section">
       <div className="container-page">
@@ -30,7 +32,7 @@ export function Features() {
                   <ToolCard
                     key={tool.id}
                     id={tool.id}
-                    href={tool.href}
+                    href={href(tool.href)}
                     title={item.title}
                     description={item.description}
                     cta={item.cta}

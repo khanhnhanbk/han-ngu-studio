@@ -2,12 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { CARD_CSS, renderCard, SAMPLE_ROW, type CardTemplate } from "@/lib/anki/templates";
 
 import { CodeBlock } from "./CopyButton";
-
-const t = getDictionary("vi").ankiGuide;
 
 // Preview only: the site's own fonts as the last fallbacks, so Chinese shows
 // in a Kai style even without KaiTi installed (in Anki the card uses the
@@ -24,6 +22,7 @@ hr { border: 0; border-top: 1px solid #d6d3d1; margin: 16px 0; }`;
  * site's fonts still apply), and the front and back templates to copy.
  */
 export function TemplateCard({ template }: { template: CardTemplate }) {
+  const t = useDictionary().ankiGuide;
   const [side, setSide] = useState<"front" | "back">("front");
   const [night, setNight] = useState(false);
   const host = useRef<HTMLDivElement>(null);

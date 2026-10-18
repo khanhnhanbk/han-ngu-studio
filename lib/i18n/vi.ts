@@ -53,6 +53,7 @@ export const vi = {
     ctaSecondary: "Hướng dẫn sử dụng",
     trustNote: "Được tạo cho người Việt — không cần biết tiếng Anh",
     mockupLabels: ["Pinyin", "Chữ mẫu", "Chữ mờ"],
+    mockupTitle: "Phiếu tập viết",
   },
   problem: {
     title: "Soạn tài liệu học tiếng Trung rất tốn thời gian",
@@ -167,6 +168,7 @@ export const vi = {
     note: "Lộ trình có thể thay đổi.",
   },
   howItWorks: {
+    eyebrow: "Cách hoạt động",
     title: "Chỉ với ba bước",
     subtitle: "Không cần tài khoản, không cần cài đặt gì.",
     steps: [
@@ -185,6 +187,7 @@ export const vi = {
     ],
   },
   forTeachers: {
+    eyebrow: "Giáo viên",
     title: "Dành riêng cho giáo viên",
     subtitle:
       "Tiết kiệm hàng giờ chuẩn bị cho mỗi buổi lên lớp, cả lớp học đều được lợi.",
@@ -197,6 +200,7 @@ export const vi = {
     cta: "Tạo phiếu tập viết",
   },
   faq: {
+    eyebrow: "Giải đáp",
     title: "Câu hỏi thường gặp",
     items: [
       {
@@ -553,6 +557,8 @@ export const vi = {
         purpose: "Nhìn nghĩa và Pinyin, gõ lại từ bằng bàn phím tiếng Trung; Anki tô đúng sai từng chữ.",
       },
     },
+    // Labels written into the card templates themselves.
+    cardLabels: { hanviet: "Hán Việt", wubi: "Ngũ bút" },
     preview: "Xem trước",
     front: "Mặt trước",
     back: "Mặt sau",
@@ -910,6 +916,11 @@ export const vi = {
     iconCredit: "Biểu tượng động: animateicons (MIT), dựa trên Lucide (ISC).",
     scriptCredit: "Chuyển giản thể / phồn thể: OpenCC (Apache-2.0) qua opencc-js (MIT).",
     languageLabel: "Ngôn ngữ",
+  },
+  language: {
+    label: "Ngôn ngữ",
+    vi: "Tiếng Việt",
+    en: "English",
   },
 };
 

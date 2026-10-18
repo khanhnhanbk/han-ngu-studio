@@ -1,8 +1,9 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
 
-const dict = getDictionary("vi");
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 export function Problem() {
+  const dict = useDictionary();
   return (
     <section className="border-y border-ink-900/5 bg-ink-50">
       <div className="container-page section">

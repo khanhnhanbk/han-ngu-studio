@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { createAligner } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
@@ -16,12 +16,11 @@ import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 
-const dict = getDictionary("vi");
-
 const SAMPLE = "我喜欢学习中文。";
 const MAX_LENGTH = 5000;
 
 export default function SegmentPage() {
+  const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
   const [tokenizer, setTokenizer] = useState<Tokenizer | null>(null);
   const [submitted, setSubmitted] = useState("");

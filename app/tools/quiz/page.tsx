@@ -16,7 +16,7 @@ import { confirmDownload } from "@/lib/data/budget";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { buildQuiz, isCorrect, MAX_ENTRIES, parseEntries, reshuffle } from "@/lib/quiz/build";
 import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
@@ -26,8 +26,6 @@ import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Respo
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
-
-const dict = getDictionary("vi");
 
 const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑\n老师\n医生\n苹果";
 
@@ -44,6 +42,7 @@ function answerText(q: Question): string {
 }
 
 export default function QuizPage() {
+  const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
   const [kinds, setKinds] = useState<Set<QuizKind>>(() => new Set(KINDS));
   const [order, setOrder] = useState<QuizOrder>("random");
@@ -171,7 +170,7 @@ export default function QuizPage() {
         dict.quiz.answerKey,
         ...Object.values(dict.quiz.prompts),
       ]),
-    [questions],
+    [questions, dict],
   );
 
   // Fetch the worksheet's fonts as soon as there is a quiz, so Ctrl+P prints

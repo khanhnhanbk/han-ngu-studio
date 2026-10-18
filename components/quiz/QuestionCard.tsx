@@ -1,9 +1,7 @@
 "use client";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import type { ChoiceQuestion } from "@/lib/quiz/types";
-
-const dict = getDictionary("vi");
 
 /** Kinds whose prompt is a Chinese word (the rest show a meaning). */
 const HAN_PROMPT = new Set<ChoiceQuestion["kind"]>(["hanToMeaning", "hanToPinyin", "hanToHanviet"]);
@@ -21,6 +19,7 @@ export function QuestionCard({
   chosen: number | null;
   onChoose: (index: number) => void;
 }) {
+  const dict = useDictionary();
   const answered = chosen !== null;
   const hanOptions = question.kind === "meaningToHan" || question.kind === "cloze";
 

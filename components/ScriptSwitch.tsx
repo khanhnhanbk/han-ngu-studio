@@ -1,15 +1,14 @@
 "use client";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { SCRIPTS, saveScript } from "@/lib/script/preference";
 import { useScript } from "@/lib/script/useScript";
-
-const dict = getDictionary("vi");
 
 const GLYPH = { simp: "简", trad: "繁" } as const;
 
 /** Giản thể / Phồn thể segmented control; the choice applies to every tool. */
 export function ScriptSwitch({ inline = false }: { inline?: boolean }) {
+  const dict = useDictionary();
   const script = useScript();
 
   return (

@@ -5,12 +5,11 @@ import { useEffect, useState } from "react";
 import { FileInput } from "@/components/FileInput";
 import { notesToTsv, parseNotesTsv, readNotes, withNote, writeNotes, type Notes } from "@/lib/decompose/notes";
 import { downloadText } from "@/lib/download";
-import { getDictionary } from "@/lib/i18n";
-
-const t = getDictionary("vi").decompose;
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 /** The learner's memory story for one character, kept in this browser only. */
 export function NotesBox({ char }: { char: string }) {
+  const t = useDictionary().decompose;
   const [notes, setNotes] = useState<Notes>({});
   const [status, setStatus] = useState("");
 

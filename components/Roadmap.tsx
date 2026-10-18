@@ -1,8 +1,9 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
 
-const dict = getDictionary("vi");
+import type { Dictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 
-type Status = keyof typeof dict.roadmap.statuses;
+type Status = keyof Dictionary["roadmap"]["statuses"];
 
 const STATUS_STYLE: Record<Status, string> = {
   next: "bg-brand-600 text-on-brand",
@@ -12,6 +13,7 @@ const STATUS_STYLE: Record<Status, string> = {
 
 /** What's coming, in the order of docs/plans/2026-10-15-roadmap.md. */
 export function Roadmap() {
+  const dict = useDictionary();
   return (
     <section id="roadmap" className="border-y border-ink-900/5 bg-ink-50">
       <div className="container-page section">

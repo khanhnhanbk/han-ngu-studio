@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { useScript } from "@/lib/script/useScript";
 import {
   LOCAL_FONT_SUGGESTIONS,
@@ -13,9 +13,6 @@ import {
   type SheetFontId,
 } from "@/lib/sheetFonts";
 import { FileInput } from "../FileInput";
-
-const dict = getDictionary("vi");
-const t = dict.practiceSheet.font;
 
 const MAX_UPLOAD_BYTES = 50 * 1024 * 1024;
 const SAMPLE = "永字學习书";
@@ -59,6 +56,7 @@ export function FontPicker({
   uploadName,
   onUploadName,
 }: Props) {
+  const t = useDictionary().practiceSheet.font;
   const [installed, setInstalled] = useState<string[]>([]);
   const [listError, setListError] = useState("");
   const [uploadError, setUploadError] = useState("");

@@ -63,9 +63,13 @@ const EXAMPLE = `{{#sentence}}
 </div>
 {{/sentence}}`;
 
-const EXTRA = `<div class="extra">{{hsk_level}}{{#wubi}} · Ngũ bút: {{wubi}}{{/wubi}}</div>`;
+/** Words written into the templates, in the page's language. */
+export type CardLabels = { hanviet: string; wubi: string };
 
-export const CARD_TEMPLATES: readonly CardTemplate[] = [
+/** The four suggested card types, with their labels in one language. */
+export function cardTemplates(labels: CardLabels = { hanviet: "Hán Việt", wubi: "Ngũ bút" }): readonly CardTemplate[] {
+  const EXTRA = `<div class="extra">{{hsk_level}}{{#wubi}} · ${labels.wubi}: {{wubi}}{{/wubi}}</div>`;
+  return [
   {
     // Hán → nghĩa: the basic card.
     id: "recognize",
@@ -83,7 +87,7 @@ ${EXTRA}`,
     // Nghĩa → Hán: recall the character from its meaning.
     id: "recall",
     front: `${MEANING}
-{{#hanviet}}<div class="hint">Hán Việt: {{hanviet}}</div>{{/hanviet}}`,
+{{#hanviet}}<div class="hint">${labels.hanviet}: {{hanviet}}</div>{{/hanviet}}`,
     back: `{{FrontSide}}
 <hr id="answer">
 <div class="hanzi">{{word}}</div>
@@ -118,7 +122,11 @@ ${EXTRA}`,
 <div class="hanviet">{{hanviet}}</div>
 ${EXAMPLE}`,
   },
-];
+  ];
+}
+
+/** The Vietnamese templates (the default labels). */
+export const CARD_TEMPLATES = cardTemplates();
 
 /** A real row from /tools/anki (学习, one example), for the previews. */
 export const SAMPLE_ROW: Record<Column, string> = {

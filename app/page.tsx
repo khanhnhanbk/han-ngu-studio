@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Problem } from "@/components/Problem";
@@ -8,6 +10,9 @@ import { ForTeachers } from "@/components/ForTeachers";
 import { FAQ } from "@/components/FAQ";
 import { CTASection } from "@/components/CTASection";
 import { Footer } from "@/components/Footer";
+import { alternates } from "@/lib/i18n/metadata";
+
+export const metadata: Metadata = { alternates: alternates("vi", "/") };
 
 export default function HomePage() {
   return (

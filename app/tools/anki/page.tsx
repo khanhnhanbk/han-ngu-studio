@@ -24,7 +24,7 @@ import { confirmDownload } from "@/lib/data/budget";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
@@ -34,8 +34,6 @@ import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 import { FileInput } from "@/components/FileInput";
 
-const dict = getDictionary("vi");
-
 const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 
 // Wider inputs for the long text columns.
@@ -44,6 +42,8 @@ const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_piny
 const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_pinyin", "sentence_meaning"]);
 
 export default function AnkiPage() {
+  const dict = useDictionary();
+  const href = useHref();
   const [text, setText] = useState(SAMPLE);
   const [rows, setRows] = useState<DeckRow[]>([]);
   // The deck as built (Simplified), re-shown when the script switch changes.
@@ -311,7 +311,7 @@ export default function AnkiPage() {
                         <li key={step}>{step}</li>
                       ))}
                     </ol>
-                    <Link href="/tools/anki/huong-dan" className="mt-2 inline-block font-medium text-brand-ink underline">
+                    <Link href={href("/tools/anki/huong-dan")} className="mt-2 inline-block font-medium text-brand-ink underline">
                       {dict.anki.guideLink}
                     </Link>
                   </div>

@@ -1,13 +1,14 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
 
-const dict = getDictionary("vi");
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 export function HowItWorks() {
+  const dict = useDictionary();
   return (
     <section id="how-it-works" className="border-y border-ink-900/5 bg-ink-50">
       <div className="container-page section">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Cách hoạt động</p>
+          <p className="eyebrow">{dict.howItWorks.eyebrow}</p>
           <h2 className="mt-3 text-3xl font-bold text-ink-900 sm:text-4xl">
             {dict.howItWorks.title}
           </h2>

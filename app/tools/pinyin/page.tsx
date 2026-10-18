@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import {
   convertText,
   toTsv,
@@ -23,8 +23,6 @@ import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 import { FileInput } from "@/components/FileInput";
-
-const dict = getDictionary("vi");
 
 const SAMPLE = "我去银行取钱，然后行走回家。\n他长大了，头发很长。";
 const MAX_LENGTH = 5000;
@@ -80,6 +78,7 @@ function showLines(lines: PinyinLine[], conv: ScriptConverter, text: string): Pi
 }
 
 export default function PinyinPage() {
+  const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
   const [toneStyle, setToneStyle] = useState<ToneStyle>("mark");
   const [spacing, setSpacing] = useState<Spacing>("word");

@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { FontPicker } from "@/components/practice-sheet/FontPicker";
 import { SheetPage } from "@/components/practice-sheet/SheetPage";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import {
   BOX_SIZES,
   GRID_COLORS,
@@ -31,8 +31,6 @@ import { sheetFontVariables } from "./fonts";
 import { PrinterIcon } from "@/components/icons/printer";
 import { IconButton } from "@/components/icons/trigger";
 import { FileInput } from "@/components/FileInput";
-
-const dict = getDictionary("vi");
 
 const SAMPLE = "永和九年岁在癸丑暮春之初";
 
@@ -73,6 +71,7 @@ type StrokeState =
   | { status: "declined"; bytes: number };
 
 export default function PracticeSheetPage() {
+  const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
   const [gridType, setGridType] = useState<GridType>(DEFAULTS.gridType);
   const [traceCount, setTraceCount] = useState(DEFAULTS.traceCount);

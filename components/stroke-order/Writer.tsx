@@ -3,10 +3,8 @@
 import type HanziWriter from "hanzi-writer";
 import { useEffect, useRef, useState } from "react";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import type { StrokeData } from "@/lib/strokes/types";
-
-const dict = getDictionary("vi");
 
 type Mode = "watch" | "quiz";
 
@@ -36,6 +34,7 @@ const QUIZ_START: QuizState = { correct: 0, mistakes: 0, done: false };
 
 /** Animated stroke order and a "write it yourself" quiz (Hanzi Writer). */
 export function Writer({ char, data }: { char: string; data: StrokeData }) {
+  const dict = useDictionary();
   const box = useRef<HTMLDivElement>(null);
   const target = useRef<HTMLDivElement>(null);
   const writerRef = useRef<HanziWriter | null>(null);

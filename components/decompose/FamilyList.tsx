@@ -3,9 +3,7 @@
 import { useState } from "react";
 
 import type { FamilyMember } from "@/lib/decompose/family";
-import { getDictionary } from "@/lib/i18n";
-
-const t = getDictionary("vi").decompose;
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 /** Members shown before "Xem tất cả". */
 const PREVIEW = 24;
@@ -24,6 +22,7 @@ export function FamilyList({
   hanviet: (char: string) => string;
   onOpen: (char: string) => void;
 }) {
+  const t = useDictionary().decompose;
   const [all, setAll] = useState(false);
   const shown = members.slice(0, all ? MAX_SHOWN : PREVIEW);
   const anyPhonetic = members.some((m) => m.phonetic);

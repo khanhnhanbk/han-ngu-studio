@@ -1,24 +1,28 @@
-import { getDictionary } from "@/lib/i18n";
+"use client";
+
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { REPO_URL, TOOL_GROUPS, USER_GUIDE_URL } from "@/lib/links";
 
-const dict = getDictionary("vi");
+import { LanguageSwitch } from "./LanguageSwitch";
 
 export function Footer() {
+  const dict = useDictionary();
+  const href = useHref();
   const year = new Date().getFullYear();
 
   // One column per tool group, then resources.
   const columns = [
     ...TOOL_GROUPS.map((group) => ({
       title: dict.nav.groups[group.id].title,
-      links: group.tools.map((tool) => ({ label: dict.nav[tool.id], href: tool.href, external: false })),
+      links: group.tools.map((tool) => ({ label: dict.nav[tool.id], href: href(tool.href), external: false })),
     })),
     {
       title: dict.footer.columns.resources,
       links: [
         { label: dict.footer.links.guide, href: USER_GUIDE_URL, external: true },
         { label: dict.footer.links.source, href: REPO_URL, external: true },
-        { label: dict.footer.links.faq, href: "/#faq", external: false },
-        { label: dict.footer.links.roadmap, href: "/#roadmap", external: false },
+        { label: dict.footer.links.faq, href: href("/#faq"), external: false },
+        { label: dict.footer.links.roadmap, href: href("/#roadmap"), external: false },
       ],
     },
   ];
@@ -83,12 +87,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-2 text-xs text-ink-700/60">
             <span>{dict.footer.languageLabel}:</span>
-            <span className="rounded-md bg-ink-50 px-2 py-1 font-semibold text-ink-900">
-              VI
-            </span>
-            <span className="cursor-not-allowed rounded-md px-2 py-1 opacity-50">
-              EN
-            </span>
+            <LanguageSwitch />
           </div>
         </div>
       </div>

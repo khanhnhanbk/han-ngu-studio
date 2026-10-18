@@ -5,12 +5,11 @@ import { useState } from "react";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { IconButton } from "@/components/icons/trigger";
-import { getDictionary } from "@/lib/i18n";
-
-const t = getDictionary("vi").ankiGuide;
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 /** Copy `text` to the clipboard; the label confirms for a moment. */
-export function CopyButton({ text, label = t.copy }: { text: string; label?: string }) {
+export function CopyButton({ text, label }: { text: string; label?: string }) {
+  const t = useDictionary().ankiGuide;
   const [copied, setCopied] = useState(false);
   return (
     <IconButton
@@ -22,7 +21,7 @@ export function CopyButton({ text, label = t.copy }: { text: string; label?: str
         setTimeout(() => setCopied(false), 2000);
       }}
     >
-      {copied ? t.copied : label}
+      {copied ? t.copied : (label ?? t.copy)}
     </IconButton>
   );
 }

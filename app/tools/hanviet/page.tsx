@@ -15,7 +15,7 @@ import {
   type HanvietLine,
   type HanvietWord,
 } from "@/lib/hanviet/sentence";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { createAligner, type ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
@@ -25,8 +25,6 @@ import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 import { FileInput } from "@/components/FileInput";
-
-const dict = getDictionary("vi");
 
 const SAMPLE = "我喜欢学习中文。\n越南和中国是邻国。";
 const MAX_LENGTH = 5000;
@@ -64,6 +62,7 @@ function WordDetails({
   word: HanWord;
   onClose: () => void;
 }) {
+  const dict = useDictionary();
   const rows = allReadings(data, word.chars, word.tone3);
   return (
     <div className="mt-4 rounded-lg border border-brand-200 bg-surface p-4">
@@ -119,6 +118,7 @@ function WordDetails({
 }
 
 export default function HanvietPage() {
+  const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
   const [view, setView] = useState<View>("words");
   const [loaded, setLoaded] = useState<{ tokenizer: Tokenizer; data: HanvietData } | null>(null);

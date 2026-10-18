@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { useIconTrigger } from "./icons/trigger";
 import { UploadIcon } from "./icons/upload";
-
-const dict = getDictionary("vi");
 
 /**
  * Styled file picker. The native input stays in the DOM (visually hidden,
@@ -24,6 +22,7 @@ export function FileInput({
   /** Hide the chosen file name when the caller already shows it. */
   showName?: boolean;
 }) {
+  const dict = useDictionary();
   const [name, setName] = useState("");
   const upload = useIconTrigger();
 

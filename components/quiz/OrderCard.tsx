@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { isCorrect } from "@/lib/quiz/build";
 import { orderedSentence } from "@/lib/quiz/export";
 import type { OrderQuestion } from "@/lib/quiz/types";
-
-const dict = getDictionary("vi");
 
 /**
  * Sentence ordering: tap the shuffled words to build the sentence, tap a
@@ -22,6 +20,7 @@ export function OrderCard({
   response: string[] | null;
   onSubmit: (tokens: string[]) => void;
 }) {
+  const dict = useDictionary();
   // Indices into question.tokens, in the order the learner placed them.
   const [placed, setPlaced] = useState<number[]>([]);
   const answered = response !== null;

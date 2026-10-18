@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import {
   ACCENT_SWATCH,
   ACCENTS,
@@ -17,10 +17,9 @@ import {
 import { PaletteIcon } from "./icons/palette";
 import { useIconTrigger } from "./icons/trigger";
 
-const dict = getDictionary("vi");
-
 /** Theme settings (mode + accent); `inline` renders the panel without a toggle button. */
 export function ThemePicker({ inline = false }: { inline?: boolean }) {
+  const dict = useDictionary();
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

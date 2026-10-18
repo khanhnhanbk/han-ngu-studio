@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC, Noto_Sans_TC } from "next
 import "./globals.css";
 import { DownloadPrompt } from "@/components/DownloadPrompt";
 import { getDictionary } from "@/lib/i18n";
+import { LANG_INIT_SCRIPT } from "@/lib/i18n/locale";
 import { SCRIPT_INIT_SCRIPT } from "@/lib/script/preference";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
@@ -72,6 +73,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_INIT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: LANG_INIT_SCRIPT }} />
       </head>
       <body>
         {children}

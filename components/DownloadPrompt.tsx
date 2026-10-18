@@ -3,12 +3,11 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { currentDownload, formatBytes, subscribeDownload } from "@/lib/data/budget";
-import { getDictionary } from "@/lib/i18n";
-
-const t = getDictionary("vi").download;
+import { useDictionary } from "@/lib/i18n/useLocale";
 
 /** Asks before a tool downloads more than lib/data/budget.ts THRESHOLD. */
 export function DownloadPrompt() {
+  const t = useDictionary().download;
   const request = useSyncExternalStore(subscribeDownload, currentDownload, () => null);
   const [dontAsk, setDontAsk] = useState(false);
   const confirmRef = useRef<HTMLButtonElement>(null);

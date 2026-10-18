@@ -13,15 +13,12 @@ import { extractWords, parseKnownWords, parseSentences } from "@/lib/comprehensi
 import { downloadText } from "@/lib/download";
 import { confirmDownload } from "@/lib/data/budget";
 import { levelFiles, loadLevelSentences } from "@/lib/examples/load";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, loadWordListLines, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
-
-const vi = getDictionary("vi");
-const dict = vi.comprehensibleInput;
 
 /** A sorted row (Simplified) with its input line and the sentence as typed. */
 type Row = OrderedRow & { line: number; source: string };
@@ -30,6 +27,8 @@ type Row = OrderedRow & { line: number; source: string };
 const SHOW_OPTIONS = [50, 100, 200, 500] as const;
 
 export default function ComprehensibleInputPage() {
+  const vi = useDictionary();
+  const dict = vi.comprehensibleInput;
   const [sentences, setSentences] = useState("");
   const [known, setKnown] = useState("");
   const [sorted, setSorted] = useState<Row[]>([]);

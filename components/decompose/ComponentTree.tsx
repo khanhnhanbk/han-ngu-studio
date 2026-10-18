@@ -3,13 +3,11 @@
 import { useState } from "react";
 
 import type { PartNode } from "@/lib/decompose/types";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary } from "@/lib/i18n/useLocale";
 import { strokeTransform } from "@/lib/strokes/render";
 import type { StrokeData } from "@/lib/strokes/types";
 
 import { partColor } from "./colors";
-
-const t = getDictionary("vi").decompose;
 
 /** What the tree shows next to a glyph. */
 export type GlyphInfo = {
@@ -69,6 +67,7 @@ function CharRow({
   depth: number;
   props: Props;
 }) {
+  const t = useDictionary().decompose;
   const role = depth === 0 ? props.roles.get(node.char) : undefined;
   const [open, setOpen] = useState(depth < OPEN_DEPTH && role !== "phonetic");
   const { hanviet, pinyin, radical } = props.info(node.char);
@@ -138,6 +137,7 @@ function CharRow({
 }
 
 function PartBlock({ node, path, depth, props }: { node: PartNode; path: string; depth: number; props: Props }) {
+  const t = useDictionary().decompose;
   if (node.kind === "char") return <CharRow node={node} path={path} depth={depth} props={props} />;
   if (node.kind === "unknown") {
     return (
@@ -167,6 +167,7 @@ function PartBlock({ node, path, depth, props }: { node: PartNode; path: string;
 
 /** The parts of a character, recursively; the root itself is not repeated. */
 export function ComponentTree({ tree, ...props }: Props & { tree: PartNode }) {
+  const t = useDictionary().decompose;
   if (tree.kind !== "char" || !tree.parts) return <p className="text-sm text-ink-700">{t.basicPart}</p>;
   return <PartBlock node={tree.parts} path="r" depth={0} props={props} />;
 }

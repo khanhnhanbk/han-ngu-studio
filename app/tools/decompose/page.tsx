@@ -17,7 +17,7 @@ import { buildTree, strokeColors, treeGlyphs } from "@/lib/decompose/tree";
 import type { DecomposeData, PartNode } from "@/lib/decompose/types";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
 import { loadRadicals } from "@/lib/radicals/load";
 import type { Radical } from "@/lib/radicals/types";
@@ -25,9 +25,6 @@ import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
-
-const vi = getDictionary("vi");
-const t = vi.decompose;
 
 const SAMPLE = "清意國";
 const MAX_CHARS = 20;
@@ -69,6 +66,9 @@ function writeHash(chars: string[], current: string) {
 }
 
 export default function DecomposePage() {
+  const vi = useDictionary();
+  const t = vi.decompose;
+  const href = useHref();
   const [input, setInput] = useState(SAMPLE);
   const [chars, setChars] = useState<string[]>([]);
   // Phồn thể mode: the Simplified character readings are looked up with.
@@ -101,10 +101,11 @@ export default function DecomposePage() {
         setRequest({ text, pick: params.get("s") ?? "" });
       })
       .catch(() => setError(t.loadFailed));
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (tables && ready && request) open(request.text, request.pick, conv);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- open() only reads its arguments and stable tables
   }, [tables, ready, request, conv]);
 
   function open(text: string, pick: string, conv: ScriptConverter) {
@@ -216,8 +217,8 @@ export default function DecomposePage() {
     return members.filter((m) => conv.toShown(m.char) === m.char).sort((a, b) => order(a.char) - order(b.char));
   }, [selected, data, reverseIndex, current, conv, rank]);
 
-  const strokeHref = `/tools/stroke-order#${new URLSearchParams({ c: current })}`;
-  const sheetHref = `/tools/practice-sheet#${new URLSearchParams({ chars: current, strokes: "1" })}`;
+  const strokeHref = href(`/tools/stroke-order#${new URLSearchParams({ c: current })}`);
+  const sheetHref = href(`/tools/practice-sheet#${new URLSearchParams({ chars: current, strokes: "1" })}`);
   const radical = entry?.[1] ?? "";
 
   return (

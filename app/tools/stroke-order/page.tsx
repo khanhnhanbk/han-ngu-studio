@@ -10,15 +10,12 @@ import { Writer } from "@/components/stroke-order/Writer";
 import { confirmDownload } from "@/lib/data/budget";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
-import { getDictionary } from "@/lib/i18n";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
 import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadStrokes, strokeFiles } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
-
-const dict = getDictionary("vi");
-const t = dict.strokeOrder;
 
 const SAMPLE = "永字学写";
 const MAX_CHARS = 20;
@@ -32,6 +29,9 @@ type Loaded = {
 };
 
 export default function StrokeOrderPage() {
+  const dict = useDictionary();
+  const t = dict.strokeOrder;
+  const href = useHref();
   const [input, setInput] = useState(SAMPLE);
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [current, setCurrent] = useState("");
@@ -91,6 +91,7 @@ export default function StrokeOrderPage() {
   // Waits for the Phồn thể converter so the first lookup is in the right script.
   useEffect(() => {
     if (query && ready) void lookup(query.text, conv);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- lookup() only reads its arguments
   }, [query, conv, ready]);
 
   function handleSubmit(e: FormEvent) {
@@ -102,10 +103,10 @@ export default function StrokeOrderPage() {
   const simpCurrent = loaded?.simpOf?.get(current) ?? current;
   const sheetHref =
     loaded &&
-    `/tools/practice-sheet#${new URLSearchParams({
+    href(`/tools/practice-sheet#${new URLSearchParams({
       chars: loaded.chars.join(""),
       strokes: "1",
-    })}`;
+    })}`);
 
   return (
     <>
@@ -200,7 +201,7 @@ export default function StrokeOrderPage() {
                           {t.toSheet}
                         </a>
                       )}
-                      <a href={`/tools/decompose#${new URLSearchParams({ c: current })}`} className="btn-secondary">
+                      <a href={href(`/tools/decompose#${new URLSearchParams({ c: current })}`)} className="btn-secondary">
                         {t.toDecompose}
                       </a>
                     </div>
