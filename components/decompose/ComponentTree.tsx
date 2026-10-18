@@ -52,7 +52,10 @@ function Glyph({ char, data, color }: { char: string; data: StrokeData | undefin
   );
 }
 
-/** Levels shown open at first; deeper parts open on demand. */
+/**
+ * Levels shown open at first, except the sound part (Gợi âm), which is
+ * learnt as a whole; deeper parts open on demand.
+ */
 const OPEN_DEPTH = 1;
 
 function CharRow({
@@ -66,9 +69,9 @@ function CharRow({
   depth: number;
   props: Props;
 }) {
-  const [open, setOpen] = useState(depth < OPEN_DEPTH);
-  const { hanviet, pinyin, radical } = props.info(node.char);
   const role = depth === 0 ? props.roles.get(node.char) : undefined;
+  const [open, setOpen] = useState(depth < OPEN_DEPTH && role !== "phonetic");
+  const { hanviet, pinyin, radical } = props.info(node.char);
   const selected = props.selectedKey === path;
   const hover = () => props.onHover(node.strokes);
   const leave = () => props.onHover(null);

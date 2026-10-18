@@ -36,7 +36,7 @@ Mục **Các thành phần** cho thấy chữ được ghép thế nào, ví d�
 - Nhãn **Gợi nghĩa** / **Gợi âm** với chữ hình thanh.
 - **Thành phần cơ bản**: phần không tách nhỏ hơn được nữa.
 
-Rê chuột vào một thành phần (trên điện thoại: chạm vào) để **tô sáng các nét của nó** trên chữ lớn. Bấm **Mở rộng** để xem thành phần đó lại gồm những phần nào; **Thu gọn** để ẩn đi.
+Rê chuột vào một thành phần (trên điện thoại: chạm vào) để **tô sáng các nét của nó** trên chữ lớn. Bấm **Mở rộng** để xem thành phần đó lại gồm những phần nào; **Thu gọn** để ẩn đi. Phần **Gợi âm** lúc đầu được thu gọn (thường học cả khối); bấm **Mở rộng** nếu muốn xem nó gồm những phần nào.
 
 ### 4. Đọc cách tạo chữ
 
