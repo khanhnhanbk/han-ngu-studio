@@ -217,6 +217,8 @@ export default function AnkiPage() {
                                     <textarea
                                       value={row[c].split(EXAMPLE_SEPARATOR).join("\n")}
                                       rows={builtCount}
+                                      // No wrapping: line n of each column stays example n.
+                                      wrap="off"
                                       onChange={(e) => editCell(i, c, e.target.value.replace(/\r?\n/g, EXAMPLE_SEPARATOR))}
                                       aria-label={label}
                                       className={`${cellClass} resize-y`}
