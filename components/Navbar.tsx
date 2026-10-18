@@ -20,7 +20,6 @@ export function Navbar() {
   const menu = useIconTrigger();
 
   const links = [
-    { href: "/#features", label: dict.nav.features },
     { href: "/#how-it-works", label: dict.nav.howItWorks },
     { href: "/#for-teachers", label: dict.nav.forTeachers },
     { href: "/#roadmap", label: dict.nav.roadmap },
