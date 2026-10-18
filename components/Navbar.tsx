@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { getDictionary } from "@/lib/i18n";
-import { TOOLS } from "@/lib/links";
+import { TOOL_GROUPS } from "@/lib/links";
 
 import { ChevronDownIcon } from "./icons/chevron-down";
 import { MenuIcon } from "./icons/menu";
@@ -26,7 +26,11 @@ export function Navbar() {
     { href: "/#roadmap", label: dict.nav.roadmap },
   ];
 
-  const tools = TOOLS.map((tool) => ({ href: tool.href, label: dict.nav[tool.id] }));
+  const groups = TOOL_GROUPS.map((g) => ({
+    id: g.id,
+    ...dict.nav.groups[g.id],
+    tools: g.tools.map((tool) => ({ href: tool.href, label: dict.nav[tool.id], hint: dict.nav.hints[tool.id] })),
+  }));
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
@@ -73,20 +77,30 @@ export function Navbar() {
             {/* pt-2 bridges the gap so hover isn't lost moving into the panel */}
             <div
               role="menu"
-              className={`absolute left-0 top-full pt-2 group-hover:block ${
+              className={`absolute left-1/2 top-full -translate-x-1/2 pt-2 group-hover:block ${
                 toolsOpen ? "block" : "hidden"
               }`}
             >
-              <div className="min-w-48 rounded-xl border border-ink-900/10 bg-surface p-2 shadow-lg">
-                {tools.map((tool) => (
-                  <a
-                    key={tool.href}
-                    href={tool.href}
-                    role="menuitem"
-                    className="block whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50 hover:text-brand-ink"
-                  >
-                    {tool.label}
-                  </a>
+              {/* One column per group: what the learner wants to do. */}
+              <div className="grid w-[44rem] grid-cols-3 gap-2 rounded-xl border border-ink-900/10 bg-surface p-3 shadow-lg">
+                {groups.map((group) => (
+                  <div key={group.id} role="group" aria-label={group.title}>
+                    <p className="px-3 pt-1 text-xs font-semibold uppercase tracking-wide text-brand-ink">
+                      {group.title}
+                    </p>
+                    <p className="px-3 pb-1 text-xs text-ink-500">{group.hint}</p>
+                    {group.tools.map((tool) => (
+                      <a
+                        key={tool.href}
+                        href={tool.href}
+                        role="menuitem"
+                        className="block rounded-lg px-3 py-2 hover:bg-ink-50"
+                      >
+                        <span className="block text-sm font-medium text-ink-900">{tool.label}</span>
+                        <span className="block text-xs text-ink-500">{tool.hint}</span>
+                      </a>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>
@@ -130,18 +144,23 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
-            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {dict.nav.tools}
-            </p>
-            {tools.map((tool) => (
-              <a
-                key={tool.href}
-                href={tool.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg py-2 pl-6 pr-3 text-sm font-medium text-ink-700 hover:bg-ink-50"
-              >
-                {tool.label}
-              </a>
+            {groups.map((group) => (
+              <div key={group.id} className="mt-2">
+                <p className="px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
+                  {dict.nav.tools} · {group.title}
+                </p>
+                {group.tools.map((tool) => (
+                  <a
+                    key={tool.href}
+                    href={tool.href}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-lg py-2 pl-6 pr-3 hover:bg-ink-50"
+                  >
+                    <span className="block text-sm font-medium text-ink-700">{tool.label}</span>
+                    <span className="block text-xs text-ink-500">{tool.hint}</span>
+                  </a>
+                ))}
+              </div>
             ))}
             <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
               {dict.script.label}

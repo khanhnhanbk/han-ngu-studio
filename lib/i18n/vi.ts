@@ -25,6 +25,24 @@ export const vi = {
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
     cta: "Dùng thử miễn phí",
+    groups: {
+      chars: { title: "Chữ Hán", hint: "Học từng chữ" },
+      text: { title: "Đọc văn bản", hint: "Dán câu hoặc đoạn văn" },
+      vocab: { title: "Từ vựng & ôn tập", hint: "Từ danh sách từ của bạn" },
+    },
+    // One line under each tool in the menu, so people know what it does.
+    hints: {
+      strokeOrder: "Xem và tập viết từng nét",
+      decompose: "Tách chữ thành thành phần, mẹo nhớ",
+      radicals: "Tra bộ thủ, tên Hán Việt, chữ ví dụ",
+      practiceSheet: "In phiếu ô vuông để luyện viết",
+      pinyin: "Ghi Pinyin cho câu, đoạn văn",
+      hanviet: "Ghi âm Hán Việt cho từng từ",
+      segment: "Tách câu thành từng từ",
+      anki: "Tạo bộ thẻ có nghĩa, câu ví dụ",
+      quiz: "Tạo bài trắc nghiệm, in đề",
+      comprehensibleInput: "Xếp câu từ dễ đến khó",
+    },
   },
   hero: {
     badge: "Miễn phí · Không cần cài đặt",
@@ -880,7 +898,6 @@ export const vi = {
   footer: {
     tagline: "Công cụ học và dạy tiếng Trung cho người Việt.",
     columns: {
-      tools: "Công cụ",
       resources: "Tài nguyên",
     },
     links: {

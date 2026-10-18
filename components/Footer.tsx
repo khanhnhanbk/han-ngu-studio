@@ -1,16 +1,17 @@
 import { getDictionary } from "@/lib/i18n";
-import { REPO_URL, TOOLS, USER_GUIDE_URL } from "@/lib/links";
+import { REPO_URL, TOOL_GROUPS, USER_GUIDE_URL } from "@/lib/links";
 
 const dict = getDictionary("vi");
 
 export function Footer() {
   const year = new Date().getFullYear();
 
+  // One column per tool group, then resources.
   const columns = [
-    {
-      title: dict.footer.columns.tools,
-      links: TOOLS.map((tool) => ({ label: dict.nav[tool.id], href: tool.href, external: false })),
-    },
+    ...TOOL_GROUPS.map((group) => ({
+      title: dict.nav.groups[group.id].title,
+      links: group.tools.map((tool) => ({ label: dict.nav[tool.id], href: tool.href, external: false })),
+    })),
     {
       title: dict.footer.columns.resources,
       links: [
@@ -25,8 +26,8 @@ export function Footer() {
   return (
     <footer className="border-t border-ink-900/5 bg-surface">
       <div className="container-page py-12">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div>
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-5">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <div className="flex items-center gap-2 font-bold text-ink-900">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-on-brand hanzi text-lg">
                 汉

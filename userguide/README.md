@@ -9,9 +9,12 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 ## Mở một công cụ
 
 1. Vào trang chủ https://han-ngu-studio.vercel.app.
-2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**.
-   - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu, các công cụ nằm trong danh sách.
-3. Chọn công cụ bạn cần.
+2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm, mỗi công cụ có một dòng mô tả ngắn:
+   - **Chữ Hán** (học từng chữ): **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
+   - **Đọc văn bản** (dán câu hoặc đoạn văn): **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
+   - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
+   - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Chữ Hán**, **Công cụ · Đọc văn bản**, **Công cụ · Từ vựng & ôn tập**.
+3. Chọn công cụ bạn cần. Trang chủ và chân trang cũng chia công cụ theo 3 nhóm này.
 
 ## Các công cụ hiện có
 

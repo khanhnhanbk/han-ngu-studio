@@ -1,5 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
-import { TOOLS, USER_GUIDE_URL } from "@/lib/links";
+import { PRACTICE_SHEET_HREF, USER_GUIDE_URL } from "@/lib/links";
 
 const dict = getDictionary("vi");
 
@@ -21,7 +21,7 @@ export function CTASection() {
             <h2 className="text-3xl font-bold text-white sm:text-4xl">{dict.cta.title}</h2>
             <p className="mt-4 text-white/80">{dict.cta.subtitle}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <a href={TOOLS[0].href} className="btn bg-white text-slate-900 hover:bg-white/90">
+              <a href={PRACTICE_SHEET_HREF} className="btn bg-white text-slate-900 hover:bg-white/90">
                 {dict.cta.primary}
               </a>
               <a

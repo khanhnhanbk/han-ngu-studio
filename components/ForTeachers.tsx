@@ -1,5 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
-import { TOOLS } from "@/lib/links";
+import { PRACTICE_SHEET_HREF } from "@/lib/links";
 import { CheckPoint } from "./CheckPoint";
 import { ArrowRightIcon } from "./icons/arrow-right";
 import { IconLink } from "./icons/trigger";
@@ -18,7 +18,7 @@ export function ForTeachers() {
           <p className="mt-4 text-lg text-ink-700">
             {dict.forTeachers.subtitle}
           </p>
-          <IconLink href={TOOLS[0].href} icon={ArrowRightIcon} iconAfter className="btn-primary mt-8">
+          <IconLink href={PRACTICE_SHEET_HREF} icon={ArrowRightIcon} iconAfter className="btn-primary mt-8">
             {dict.forTeachers.cta}
           </IconLink>
         </div>

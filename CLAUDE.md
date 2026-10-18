@@ -91,6 +91,6 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 ## Notes
 
-- The landing page shows only what exists: live tools in `Features` (from `TOOLS` in `lib/links.ts`), upcoming work in `Roadmap` (follows `docs/plans/2026-10-15-roadmap.md`). When a phase ships, move it from Roadmap to Features (and the Navbar/Footer get it from `TOOLS`).
+- The landing page shows only what exists: live tools in `Features`, grouped by `TOOL_GROUPS` in `lib/links.ts` (Chữ Hán / Đọc văn bản / Từ vựng & ôn tập; names and one-line menu hints in `nav.groups` / `nav.hints` of `lib/i18n/vi.ts`), upcoming work in `Roadmap` (follows `docs/plans/2026-10-15-roadmap.md`). When a phase ships, move it from Roadmap to Features by adding the tool to a group (the Navbar menu and Footer read the same groups).
 - The old "Get notified" email form, invented testimonials and the "Pro" pricing plan were removed. Do not add sign-up forms that need a backend.
 - Do not invent statistics, reviews or features that do not exist in the UI.
