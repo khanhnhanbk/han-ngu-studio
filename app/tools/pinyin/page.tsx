@@ -13,6 +13,8 @@ import {
   type Spacing,
   type ToneStyle,
 } from "@/lib/pinyin/convert";
+import { createAligner, type ScriptConverter } from "@/lib/script/convert";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
 import { CheckIcon } from "@/components/icons/check";
@@ -54,6 +56,28 @@ function RubyLine({ line }: { line: PinyinLine }) {
   );
 }
 
+/**
+ * Pinyin is read from the Simplified text (pinyin-pro gets 們/行 wrong in
+ * Traditional); the characters are then relabelled in the chosen script.
+ */
+function showLines(lines: PinyinLine[], conv: ScriptConverter, text: string): PinyinLine[] {
+  if (conv.script === "simp") return lines;
+  const shown = conv.toShown(text).split("\n");
+  return lines.map((line, i) => {
+    const source = (shown[i] ?? line.source).replace(/\r$/, "");
+    const take = createAligner(line.source, source);
+    return {
+      ...line,
+      source,
+      segments: line.segments.map((seg) =>
+        seg.kind === "han"
+          ? { ...seg, chars: Array.from(take(seg.chars.join(""))) }
+          : { ...seg, text: take(seg.text) },
+      ),
+    };
+  });
+}
+
 export default function PinyinPage() {
   const [text, setText] = useState(SAMPLE);
   const [toneStyle, setToneStyle] = useState<ToneStyle>("mark");
@@ -64,6 +88,7 @@ export default function PinyinPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const { conv, ready, failed } = useConverter();
 
   // Counted in code points, like the segmentation tool.
   const length = Array.from(text).length;
@@ -73,9 +98,13 @@ export default function PinyinPage() {
   const lines = useMemo(
     () =>
       tokenizer && submitted
-        ? convertText(tokenizer, submitted, { toneStyle, spacing })
+        ? showLines(
+            convertText(tokenizer, conv.toSimp(submitted), { toneStyle, spacing }),
+            conv,
+            submitted,
+          )
         : [],
-    [tokenizer, submitted, toneStyle, spacing],
+    [tokenizer, submitted, toneStyle, spacing, conv],
   );
   const plain = useMemo(() => lines.map((l) => l.text).join("\n"), [lines]);
   const tsv = useMemo(() => toTsv(lines), [lines]);
@@ -182,11 +211,14 @@ export default function PinyinPage() {
                   type="button"
                   className="btn-primary"
                   onClick={handleConvert}
-                  disabled={loading}
+                  disabled={loading || !ready}
                 >
                   {loading ? dict.pinyin.loading : dict.pinyin.button}
                 </button>
               </div>
+
+              {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+              {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
               {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 

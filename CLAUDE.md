@@ -53,6 +53,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - UI text is **Vietnamese** and goes through `lib/i18n` (`getDictionary`). English currently falls back to Vietnamese; add `lib/i18n/en.ts` when translating.
 - Style with Tailwind, matching the existing design. Colours come from theme tokens (CSS variables in `app/globals.css`): `brand-*`, `ink-*`, `surface`, `page`. Never use raw hex or `bg-white` for surfaces; check new UI in dark mode and with another accent (theme picker: `components/ThemePicker.tsx`, `lib/theme.ts`).
 - Exported files (PDF, TSV) are generated on the client.
+- **Giản thể / Phồn thể** (`lib/script/`, switch in the Navbar): pipelines and data stay Simplified. Pages convert at their boundary with `useConverter()`: `conv.toSimp(input)` into the pipeline, `conv.toShown(...)` and `createAligner` for what is shown/exported. In Giản thể mode both are the identity, so existing behaviour never changes. `t2cn` is not a no-op on Simplified text (著, 么, 乾), so `toSimp` only converts text that has non-shared Traditional characters (`SHARED_CHARS`).
 
 ## Folder structure
 
@@ -77,6 +78,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - Stroke data: hanzi-writer-data 2.0.1, derived from Make Me a Hanzi (Arphic Public License, `assets/dictionary/LICENSE-arphic.txt`). Built by `pnpm build:data` from the pinned devDependency into 64-code-point shards `public/data/strokes/<hex>.json`.
 - Radicals: names and meanings in `assets/dictionary/radicals.tsv` are our own curation, checked against PREP's list (prepedu.com) with its typos fixed. Characters per radical come from Unicode Unihan `kRSUnicode` (Unicode License v3, `assets/dictionary/LICENSE-unicode.txt`), extracted once to `assets/dictionary/unihan_radicals.tsv`.
 - Character decomposition: Make Me a Hanzi `dictionary.txt` (LGPL-3.0+, `assets/dictionary/makemeahanzi-dictionary.txt`, licence and pinned commit in `assets/dictionary/LICENSE-makemeahanzi-lgpl.txt`): IDS, etymology (pictophonetic semantic/phonetic parts) and per-stroke `matches`. Built by `pnpm build:data` into `public/data/decompose.json` (keys in frequency order) and the stroke shards.
+- Traditional conversion: OpenCC dictionaries (Apache-2.0) via `opencc-js` 1.4.2 (MIT), lazy-loaded in the browser only in Phồn thể mode (Taiwan characters, `cn`↔`tw`, no vocabulary swaps). Phồn thể glyphs: Noto Sans TC (SIL OFL).
 - Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide

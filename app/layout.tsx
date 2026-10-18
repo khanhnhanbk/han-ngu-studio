@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC } from "next/font/google";
+import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 import { getDictionary } from "@/lib/i18n";
+import { SCRIPT_INIT_SCRIPT } from "@/lib/script/preference";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const beVietnam = Be_Vietnam_Pro({
@@ -16,6 +17,16 @@ const notoSansSC = Noto_Sans_SC({
   weight: ["400", "500", "700"],
   variable: "--font-hanzi",
   display: "swap",
+});
+
+// Taiwan glyph shapes for Phồn thể mode (globals.css swaps --font-hanzi).
+// Only used after the switch, so it is not preloaded.
+const notoSansTC = Noto_Sans_TC({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-hanzi-tc",
+  display: "swap",
+  preload: false,
 });
 
 // Kai-style font for practice sheets. Google serves CJK glyphs in unicode-range
@@ -51,11 +62,15 @@ export default function RootLayout({
     // The init script sets the theme class before React hydrates.
     <html
       lang="vi"
-      className={`${beVietnam.variable} ${notoSansSC.variable} ${kai.variable}`}
+      className={`${beVietnam.variable} ${notoSansSC.variable} ${notoSansTC.variable} ${kai.variable}`}
+      // Noto Sans TC lacks Simplified-only glyphs (欢, 习); Phồn thể mode
+      // falls back to Noto Sans SC through this variable (globals.css).
+      style={{ "--font-hanzi-sc": notoSansSC.style.fontFamily } as React.CSSProperties}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_INIT_SCRIPT }} />
       </head>
       <body>{children}</body>
     </html>

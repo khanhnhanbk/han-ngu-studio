@@ -366,6 +366,15 @@ export const vi = {
       tho: "Thổ – vàng, nâu đất",
     },
   },
+  script: {
+    label: "Loại chữ",
+    simp: "Giản thể",
+    trad: "Phồn thể",
+    simpHint: "Giản thể (chữ Trung Quốc đại lục)",
+    tradHint: "Phồn thể (chữ Đài Loan)",
+    loading: "Đang tải bộ chuyển đổi Phồn thể…",
+    loadFailed: "Không tải được bộ chuyển đổi Phồn thể. Vui lòng kiểm tra kết nối mạng và thử lại.",
+  },
   hanviet: {
     title: "Chuyển chữ Hán sang Hán Việt",
     subtitle:
@@ -775,6 +784,7 @@ export const vi = {
     },
     rights: "Bản quyền đã được bảo hộ.",
     iconCredit: "Biểu tượng động: animateicons (MIT), dựa trên Lucide (ISC).",
+    scriptCredit: "Chuyển giản thể / phồn thể: OpenCC (Apache-2.0) qua opencc-js (MIT).",
     languageLabel: "Ngôn ngữ",
   },
 };

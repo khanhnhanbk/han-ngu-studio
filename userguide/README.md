@@ -50,6 +50,25 @@ Câu ví dụ (Tạo thẻ Anki, Trắc nghiệm, Sắp xếp câu N+1) lấy t�
 
 Lựa chọn được lưu trên trình duyệt của bạn và giữ nguyên cho lần sau. Phiếu tập viết luôn in ra nền trắng, kể cả khi dùng chế độ Tối.
 
+## Giản thể / Phồn thể
+
+Trang mặc định dùng **chữ giản thể** (Trung Quốc đại lục). Nếu bạn học **chữ phồn thể** (Đài Loan, thi TOCFL):
+
+1. Trên thanh menu, bấm **繁** (bên trái nút **Giao diện**). Bấm **简** để quay lại giản thể.
+   - Trên điện thoại: bấm **☰**, mục **Loại chữ** → **Phồn thể** / **Giản thể**.
+2. Lần đầu chọn Phồn thể, trang tải bộ chuyển đổi (khoảng 1 MB, dòng "Đang tải bộ chuyển đổi Phồn thể…"). Các lần sau dùng ngay.
+
+Khi chọn **Phồn thể**:
+
+- **Kết quả hiện bằng chữ phồn thể**, dù bạn gõ giản thể hay phồn thể. Ví dụ gõ 学习 → kết quả 學習. Ô nhập vẫn giữ nguyên chữ bạn gõ.
+- Pinyin và âm Hán Việt vẫn đúng như với chữ giản thể (我們 → wǒmen, 學習 → học tập).
+- Chỉ đổi **mặt chữ**, không đổi **từ ngữ**: 软件 → 軟件 (không đổi thành 軟體 như cách nói ở Đài Loan).
+- Hiện áp dụng cho **Ngắt từ**, **Chuyển Pinyin** và **Hán Việt**.
+
+Khi chọn **Giản thể**, các công cụ hoạt động y như trước, không chuyển đổi gì.
+
+Lựa chọn được lưu trên trình duyệt của bạn. Bộ chuyển đổi: OpenCC (Apache-2.0) qua opencc-js (MIT), chạy ngay trên máy, không gửi văn bản đi đâu.
+
 ## Mẹo chung
 
 - Lần đầu dùng **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt** hoặc **Sắp xếp câu N+1**, trang sẽ tải một từ điển nhỏ (khoảng 1 MB). Các lần sau dùng ngay, không cần tải lại.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -11,9 +11,12 @@ import {
   allReadings,
   analyzeText,
   toTsv,
+  type HanvietLine,
   type HanvietWord,
 } from "@/lib/hanviet/sentence";
 import { getDictionary } from "@/lib/i18n";
+import { createAligner, type ScriptConverter } from "@/lib/script/convert";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer } from "@/lib/segment/load";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
 import { CheckIcon } from "@/components/icons/check";
@@ -31,6 +34,25 @@ type View = "words" | "text" | "tsv";
 type HanWord = Extract<HanvietWord, { kind: "han" }>;
 
 const VIEWS: View[] = ["words", "text", "tsv"];
+
+/**
+ * Readings are looked up on the Simplified text (hanviet.json is keyed by
+ * Simplified). Shown text (`source`, `hanzi`, `segmented`) is relabelled in
+ * the chosen script; `chars` stays Simplified for the details lookup.
+ */
+function showLines(lines: HanvietLine[], conv: ScriptConverter, text: string): HanvietLine[] {
+  if (conv.script === "simp") return lines;
+  const shown = conv.toShown(text).split("\n");
+  return lines.map((line, i) => {
+    const source = (shown[i] ?? line.source).replace(/\r$/, "");
+    const take = createAligner(line.source, source);
+    const words: HanvietWord[] = line.words.map((w) =>
+      w.kind === "han" ? { ...w, hanzi: take(w.hanzi) } : { ...w, text: take(w.text) },
+    );
+    const segmented = words.map((w) => (w.kind === "han" ? w.hanzi : w.text)).join(" ");
+    return { ...line, source, words, segmented };
+  });
+}
 
 function WordDetails({
   data,
@@ -64,7 +86,7 @@ function WordDetails({
         <tbody>
           {rows.map((row, i) => (
             <tr key={i} className="border-t border-ink-900/5 align-top">
-              <td className="hanzi py-2 pr-4 text-2xl">{row.char}</td>
+              <td className="hanzi py-2 pr-4 text-2xl">{Array.from(word.hanzi)[i] ?? row.char}</td>
               <td className="py-2 pr-4">
                 <span className="text-ink-700/70">{word.pinyin[i]}</span>{" "}
                 <span className="font-semibold text-brand-ink">
@@ -104,14 +126,20 @@ export default function HanvietPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const { conv, ready, failed } = useConverter();
+  // The words are rebuilt when the script changes; drop the stale selection.
+  useEffect(() => setSelected(null), [conv]);
 
   // Counted in code points, like the other text tools.
   const length = Array.from(text).length;
   const tooLong = length > MAX_LENGTH;
 
   const lines = useMemo(
-    () => (loaded && submitted ? analyzeText(loaded.tokenizer, loaded.data, submitted) : []),
-    [loaded, submitted],
+    () =>
+      loaded && submitted
+        ? showLines(analyzeText(loaded.tokenizer, loaded.data, conv.toSimp(submitted)), conv, submitted)
+        : [],
+    [loaded, submitted, conv],
   );
   const plain = useMemo(
     () =>
@@ -194,11 +222,14 @@ export default function HanvietPage() {
                   type="button"
                   className="btn-primary"
                   onClick={handleConvert}
-                  disabled={loading}
+                  disabled={loading || !ready}
                 >
                   {loading ? dict.hanviet.loading : dict.hanviet.button}
                 </button>
               </div>
+
+              {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+              {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
               {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 

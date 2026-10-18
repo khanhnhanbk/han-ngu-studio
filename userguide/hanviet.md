@@ -54,6 +54,10 @@ Bấm **Đóng** để ẩn bảng.
 
 **Mở file .tsv:** xem hướng dẫn trong [pinyin.md](pinyin.md#4-chọn-kiểu-kết-quả) (Excel: mã hóa UTF-8; Google Sheets: dấu phân cách Tab).
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Âm Hán Việt được tra như với chữ giản thể (學習中文 → học tập trung văn); bảng âm của từng chữ cũng hiện chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -62,4 +66,6 @@ Bấm **Đóng** để ẩn bảng.
 | "Văn bản quá dài (tối đa 5000 ký tự)." | Chia văn bản thành nhiều phần. |
 | "Chỉ hỗ trợ file .txt." | Lưu file Word thành **Plain Text (.txt)**, mã hóa **UTF-8**. |
 | "Không tải được dữ liệu…" | Kiểm tra mạng rồi bấm **Chuyển Hán Việt** lần nữa. |
-| Một chữ hiện nguyên chữ Hán, không có âm | Chữ đó (thường là chữ phồn thể hoặc chữ hiếm) chưa có trong dữ liệu. |
+| Một chữ hiện nguyên chữ Hán, không có âm | Chữ đó (thường là chữ hiếm) chưa có trong dữ liệu. Nếu bạn gõ chữ phồn thể ở chế độ **Giản thể**, hãy bấm **繁** trên thanh menu. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |

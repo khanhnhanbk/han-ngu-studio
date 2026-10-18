@@ -7,6 +7,12 @@
   --font-hanzi: "Noto Sans SC", "KaiTi", sans-serif;
 }
 
+/* Phồn thể mode (lib/script): Taiwan glyph shapes. Beats the next/font
+   class that sets --font-hanzi on <html> (higher specificity). */
+:root[data-script="trad"] {
+  --font-hanzi: var(--font-hanzi-tc), var(--font-hanzi-sc), "PMingLiU", sans-serif;
+}
+
 /*
  * Theme colours as RGB channels (used by tailwind.config.ts).
  * Each accent sets a raw palette --b-*; light and dark mode map --brand-*

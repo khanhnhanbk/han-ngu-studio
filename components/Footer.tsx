@@ -70,6 +70,14 @@ export function Footer() {
               className="hover:text-brand-ink"
             >
               {dict.footer.iconCredit}
+            </a>{" "}
+            <a
+              href="https://github.com/nk2028/opencc-js"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-ink"
+            >
+              {dict.footer.scriptCredit}
             </a>
           </p>
           <div className="flex items-center gap-2 text-xs text-ink-700/60">

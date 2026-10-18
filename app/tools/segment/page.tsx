@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { downloadText } from "@/lib/download";
 import { getDictionary } from "@/lib/i18n";
+import { createAligner } from "@/lib/script/convert";
+import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer } from "@/lib/segment/load";
-import { joinTokens, segment } from "@/lib/segment/tokenizer";
+import { joinTokens, segment, type Tokenizer } from "@/lib/segment/tokenizer";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
@@ -20,7 +22,9 @@ const MAX_LENGTH = 5000;
 
 export default function SegmentPage() {
   const [text, setText] = useState(SAMPLE);
-  const [result, setResult] = useState("");
+  const [tokenizer, setTokenizer] = useState<Tokenizer | null>(null);
+  const [submitted, setSubmitted] = useState("");
+  const { conv, ready, failed } = useConverter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
@@ -28,6 +32,16 @@ export default function SegmentPage() {
   // Counted in code points, like the old Python API's limit.
   const length = Array.from(text).length;
   const tooLong = length > MAX_LENGTH;
+
+  // Segment the Simplified text, then show each word in the chosen script
+  // (both are the input itself in Giản thể mode).
+  const result = useMemo(() => {
+    if (!tokenizer || !submitted) return "";
+    const take = createAligner(conv.toSimp(submitted), conv.toShown(submitted));
+    return segment(tokenizer, conv.toSimp(submitted))
+      .map((line) => joinTokens(line.map(take)))
+      .join("\n");
+  }, [tokenizer, submitted, conv]);
 
   async function handleSegment() {
     setError("");
@@ -42,8 +56,8 @@ export default function SegmentPage() {
     }
     setLoading(true);
     try {
-      const tokenizer = await loadTokenizer();
-      setResult(segment(tokenizer, text).map(joinTokens).join("\n"));
+      setTokenizer(await loadTokenizer());
+      setSubmitted(text);
     } catch {
       setError(dict.segment.loadFailed);
     } finally {
@@ -93,11 +107,14 @@ export default function SegmentPage() {
                   type="button"
                   className="btn-primary"
                   onClick={handleSegment}
-                  disabled={loading}
+                  disabled={loading || !ready}
                 >
                   {loading ? dict.segment.loading : dict.segment.button}
                 </button>
               </div>
+
+              {!ready && !failed && <p className="mt-4 text-sm text-ink-500">{dict.script.loading}</p>}
+              {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
               {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 

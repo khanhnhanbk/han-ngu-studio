@@ -58,6 +58,10 @@ Pinyin được tạo tự động và **đúng với hầu hết câu thông d�
 
 Ngoài ra, công cụ áp dụng **biến điệu của 一 và 不** như trong sách giáo khoa: 一起 → **yì**qǐ, 不是 → **bú**shì.
 
+## Chữ phồn thể
+
+Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Pinyin vẫn đọc theo ngữ cảnh như với chữ giản thể (我們去銀行 → wǒmen qù yínháng). Chữ trong **Pinyin trên chữ** và **Bảng TSV** là chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -67,3 +71,5 @@ Ngoài ra, công cụ áp dụng **biến điệu của 一 và 不** như trong
 | "Chỉ hỗ trợ file .txt." | Lưu file Word thành **Plain Text (.txt)**, mã hóa **UTF-8**. |
 | "Không tải được từ điển…" | Kiểm tra mạng rồi bấm **Chuyển Pinyin** lần nữa. |
 | Chữ hiếm hiện nguyên chữ Hán, không có Pinyin | Chữ đó không có trong bộ dữ liệu Pinyin; hãy tra từ điển và sửa tay. |
+| Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
+| Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
