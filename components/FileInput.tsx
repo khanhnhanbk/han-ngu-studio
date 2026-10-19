@@ -12,11 +12,15 @@ import { UploadIcon } from "./icons/upload";
  */
 export function FileInput({
   label,
+  buttonLabel,
   accept,
   onFile,
   showName = true,
 }: {
+  /** Field label above the button (form use). */
   label?: string;
+  /** Text on the button itself (use in a row of action buttons); default "Chọn file". */
+  buttonLabel?: string;
   accept: string;
   onFile: (file: File | undefined) => void;
   /** Hide the chosen file name when the caller already shows it. */
@@ -44,7 +48,7 @@ export function FileInput({
         />
         <span className="btn-secondary shrink-0 cursor-pointer px-3 py-2 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400">
           <UploadIcon ref={upload.ref} size={16} aria-hidden />
-          {dict.fileInput.choose}
+          {buttonLabel ?? dict.fileInput.choose}
         </span>
         {showName && (
           <span className="truncate text-sm text-ink-700/70" title={name || undefined}>

@@ -54,7 +54,7 @@ export function NotesBox({ char }: { char: string }) {
         {status}
       </p>
       <p className="mt-2 text-xs text-ink-500">{t.notesPrivacy}</p>
-      <div className="mt-3 flex flex-wrap items-end gap-3 text-sm text-ink-700">
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-ink-700">
         <button
           type="button"
           className="btn-secondary px-3 py-2"
@@ -63,7 +63,7 @@ export function NotesBox({ char }: { char: string }) {
         >
           {t.exportNotes}
         </button>
-        <FileInput label={t.importNotes} accept=".tsv,.txt" onFile={handleImport} showName={false} />
+        <FileInput buttonLabel={t.importNotes} accept=".tsv,.txt" onFile={handleImport} showName={false} />
       </div>
       <p className="mt-2 text-xs text-ink-500">{t.notesCount.replace("{n}", String(count))}</p>
     </div>
