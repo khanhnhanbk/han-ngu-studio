@@ -17,6 +17,9 @@ credits at `/giay-phep` (English: `/en/giay-phep`).
 | Pronunciation | [audio-cmn](https://github.com/hugolpz/audio-cmn) (Yue Tan, Chen Wang, Hugo Lopez) | CC BY-SA (`assets/dictionary/LICENSE-audio-cmn.txt`) | MP3 files packed unchanged into `public/data/audio/` |
 | Radicals | [Unicode Unihan](https://www.unicode.org/charts/unihan.html) `kRSUnicode` | [Unicode License v3](https://www.unicode.org/license.txt) (`assets/dictionary/LICENSE-unicode.txt`) | Characters per radical |
 | Wubi 86 | [pywubi](https://github.com/mozillazg/pywubi) 0.3.0 | MIT (`assets/dictionary/LICENSE-pywubi.txt`) | `public/data/wubi.json` |
+| Hán Việt readings | [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) by Phong Phan, commit `b9923df` | MIT (`assets/dictionary/LICENSE-hanviet-pinyin-wordlist.txt`) | `assets/dictionary/char_hanviet.csv` (some readings edited) → `public/data/hanviet.json` |
+| Frequency order | [SUBTLEX-CH](https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexch): Cai, Q. & Brysbaert, M. (2010). SUBTLEX-CH: Chinese word and character frequencies based on film subtitles. *PLoS ONE* 5(6): e10729 | No licence stated; offered free with a request to cite | Only the **rank order** is kept: the `frequency` column of `char_hanviet.csv` is a rank (higher = more common), and `word_list.txt` is in frequency order. The frequency figures themselves are not redistributed. |
+| Segmentation word list | CC-CEDICT headwords | CC BY-SA 4.0 | `assets/dictionary/word_list.txt` → `public/data/word_list.txt`, ordered by SUBTLEX-CH word frequency |
 
 Libraries and fonts bundled into the site (licence texts in each package):
 Hanzi Writer 3.7.3 (MIT), pinyin-pro (MIT), opencc-js 1.4.2 (MIT) with OpenCC
@@ -25,7 +28,7 @@ Lucide (ISC); fonts Be Vietnam Pro, Noto Sans/Serif SC/TC, LXGW WenKai TC and
 Ma Shan Zheng (SIL Open Font License 1.1). `pnpm licenses list` prints every
 npm dependency with its licence.
 
-Compiled by Hán Ngữ Studio: Hán Việt readings (`char_hanviet.csv`), radical
-names and meanings (`radicals.tsv`, checked against PREP's list), the
-hand-checked example sentences (`sentences.tsv`) and the segmentation word
-list (`word_list.txt`).
+Compiled by Hán Ngữ Studio: radical names and meanings (`radicals.tsv`,
+checked against PREP's list) and the example sentences with hand-checked
+translations (`sentences.tsv`; about 2.5 % are short everyday sentences that
+also appear on Tatoeba).

@@ -67,4 +67,4 @@ Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tư�
 
 - Tên Hán Việt và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Một số lỗi trong danh sách đó (chữ, tên bộ, Pinyin) đã được sửa.
 - Chữ thuộc mỗi bộ: **Unicode Unihan** (giấy phép Unicode License v3).
-- Âm Hán Việt của chữ ví dụ: Hán Ngữ Studio; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).
+- Âm Hán Việt của chữ ví dụ: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), có chỉnh sửa; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).

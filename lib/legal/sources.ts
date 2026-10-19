@@ -13,6 +13,9 @@ export type SourceId =
   | "audio"
   | "unihan"
   | "wubi"
+  | "hanviet"
+  | "subtlex"
+  | "wordlist"
   | "libraries"
   | "fonts";
 
@@ -36,6 +39,9 @@ export const SOURCES: readonly Source[] = [
   { id: "audio", name: "audio-cmn · Yue Tan, Chen Wang, Hugo Lopez", url: "https://github.com/hugolpz/audio-cmn", license: "CC BY-SA" },
   { id: "unihan", name: "Unicode Unihan", url: "https://www.unicode.org/charts/unihan.html", license: "Unicode License v3", licenseUrl: "https://www.unicode.org/license.txt" },
   { id: "wubi", name: "pywubi 0.3.0", url: "https://github.com/mozillazg/pywubi", license: "MIT" },
+  { id: "hanviet", name: "hanviet-pinyin-wordlist · Phong Phan", url: "https://github.com/ph0ngp/hanviet-pinyin-wordlist", license: "MIT", licenseUrl: "https://github.com/ph0ngp/hanviet-pinyin-wordlist/blob/main/LICENSE" },
+  { id: "subtlex", name: "SUBTLEX-CH · Cai & Brysbaert (2010), PLoS ONE 5(6): e10729", url: "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexch", license: "—" },
+  { id: "wordlist", name: "CC-CEDICT + SUBTLEX-CH", url: "https://cc-cedict.org/", license: "CC BY-SA 4.0", licenseUrl: CC_BY_SA_4 },
   { id: "libraries", name: "Hanzi Writer, pinyin-pro, opencc-js + OpenCC, Next.js, React, animateicons + Lucide", url: "https://github.com/khanhnhanbk/han-ngu-studio/blob/main/THIRD-PARTY-NOTICES.md", license: "MIT · Apache-2.0 · ISC" },
   { id: "fonts", name: "Be Vietnam Pro, Noto Sans/Serif SC/TC, LXGW WenKai TC, Ma Shan Zheng", url: "https://fonts.google.com/", license: "SIL OFL 1.1", licenseUrl: "https://openfontlicense.org/" },
 ];

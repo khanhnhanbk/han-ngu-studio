@@ -33,3 +33,7 @@ Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn th�
 | Một từ bị tách chưa đúng | Công cụ chọn cách tách dựa trên tần suất từ; với tên riêng hoặc từ hiếm có thể chưa chính xác. Hãy sửa tay trong kết quả đã sao chép. |
 | Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
 | Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
+
+## Nguồn dữ liệu
+
+- Danh sách từ: các từ của [CC-CEDICT](https://cc-cedict.org/) (CC BY-SA 4.0), xếp theo tần suất SUBTLEX-CH (Cai & Brysbaert, 2010; chỉ dùng thứ hạng).

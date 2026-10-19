@@ -69,3 +69,9 @@ Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn th�
 | Một chữ hiện nguyên chữ Hán, không có âm | Chữ đó (thường là chữ hiếm) chưa có trong dữ liệu. Nếu bạn gõ chữ phồn thể ở chế độ **Giản thể**, hãy bấm **繁** trên thanh menu. |
 | Chữ phồn thể hiện sai mặt chữ (ví dụ 發 ở chỗ cần 髮) | Một số chữ giản thể ứng với nhiều chữ phồn thể (发 → 發 / 髮); bộ chuyển đổi chọn theo ngữ cảnh và đôi khi chọn nhầm. Hãy gõ thẳng chữ phồn thể đúng. |
 | Đứng mãi ở "Đang tải bộ chuyển đổi Phồn thể…" hoặc báo "Không tải được bộ chuyển đổi Phồn thể…" | Kiểm tra mạng rồi tải lại trang, hoặc bấm **简** để dùng giản thể. |
+
+## Nguồn dữ liệu
+
+- Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ.
+- Thứ tự chữ thường gặp: SUBTLEX-CH (Cai & Brysbaert, 2010), chỉ dùng thứ hạng.
+- Danh sách từ để ngắt từ: các từ của CC-CEDICT (CC BY-SA 4.0), xếp theo tần suất SUBTLEX-CH.

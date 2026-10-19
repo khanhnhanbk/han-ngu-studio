@@ -404,7 +404,7 @@ export const en: Dictionary = {
     tooLong: "The text is too long (5000 characters at most).",
     loadFailed: "Could not load the data. Please check your connection and try again.",
     credits:
-      "HSK levels: HSK 3.0 word list (PRC Ministry of Education, GF 0025-2021; data from ivankra/hsk30, MIT). Vietnamese meanings: the CVDICT dictionary by Phong Phan (CC BY-SA 4.0, machine-translated from CC-CEDICT and reviewed). English meanings: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Hán Việt readings: Hán Ngữ Studio.",
+      "HSK levels: HSK 3.0 word list (PRC Ministry of Education, GF 0025-2021; data from ivankra/hsk30, MIT). Vietnamese meanings: the CVDICT dictionary by Phong Phan (CC BY-SA 4.0, machine-translated from CC-CEDICT and reviewed). English meanings: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited.",
   },
   segment: {
     title: "Chinese word segmentation",
@@ -812,7 +812,7 @@ export const en: Dictionary = {
       "These words lack data for that question type (no meaning, no example sentence, or no other wrong answer). For meanings, you can add your own after a Tab.",
     duplicates: "Removed {n} duplicate words.",
     credits:
-      "HSK levels: HSK 3.0 word list (PRC Ministry of Education, GF 0025-2021; data from ivankra/hsk30, MIT). Vietnamese meanings: the CVDICT dictionary by Phong Phan (CC BY-SA 4.0, machine-translated from CC-CEDICT and reviewed). English meanings: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Hán Việt readings: Hán Ngữ Studio. Example sentences: Hán Ngữ Studio and Tatoeba (CC BY 2.0 FR); meanings marked “machine-translated” were translated with Google Translate.",
+      "HSK levels: HSK 3.0 word list (PRC Ministry of Education, GF 0025-2021; data from ivankra/hsk30, MIT). Vietnamese meanings: the CVDICT dictionary by Phong Phan (CC BY-SA 4.0, machine-translated from CC-CEDICT and reviewed). English meanings: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited. Example sentences: Hán Ngữ Studio and Tatoeba (CC BY 2.0 FR); meanings marked “machine-translated” were translated with Google Translate.",
     error: "Please enter at least one word.",
     noKinds: "Please choose at least one question type.",
     tooMany: "Too many words (200 at most).",
@@ -845,7 +845,7 @@ export const en: Dictionary = {
     decompose: "Break down",
     close: "Close",
     credits:
-      "Radical names and meanings: compiled by Hán Ngữ Studio, checked against PREP’s list (prepedu.com). Characters per radical: Unicode Unihan (Unicode License v3). Hán Việt readings: Hán Ngữ Studio.",
+      "Radical names and meanings: compiled by Hán Ngữ Studio, checked against PREP’s list (prepedu.com). Characters per radical: Unicode Unihan (Unicode License v3). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited.",
   },
   decompose: {
     title: "Character breakdown",
@@ -922,7 +922,7 @@ export const en: Dictionary = {
     strokeOrder: "Stroke order",
     practice: "Make a practice sheet",
     credits:
-      "Components and formation: Make Me a Hanzi (LGPL-3.0). Strokes: Make Me a Hanzi / hanzi-writer-data (Arphic Public License). Radical names and Hán Việt readings: Hán Ngữ Studio. Wubi codes: pywubi (MIT).",
+      "Components and formation: Make Me a Hanzi (LGPL-3.0). Strokes: Make Me a Hanzi / hanzi-writer-data (Arphic Public License). Radical names: Hán Ngữ Studio. Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited. Wubi codes: pywubi (MIT).",
   },
   practiceSheet: {
     title: "Handwriting practice sheet",
@@ -1089,11 +1089,14 @@ export const en: Dictionary = {
       audio: "Word and syllable recordings (unchanged, only repacked).",
       unihan: "The characters under each radical.",
       wubi: "Wubi codes.",
+      hanviet: "Hán Việt readings of characters (some edited).",
+      subtlex: "Order of common characters and words (ranks only; the frequency figures are not redistributed).",
+      wordlist: "Word list for segmentation: CC-CEDICT headwords ordered by SUBTLEX-CH frequency.",
       libraries: "Libraries running in the browser: stroke animation, Pinyin, Simplified / Traditional conversion, icons.",
       fonts: "Interface and practice-sheet fonts.",
     },
     ownTitle: "Compiled by Hán Ngữ Studio",
-    own: "Sino-Vietnamese (Hán Việt) readings, names and meanings of the 214 radicals (checked against PREP's list), the example sentences with hand-checked translations, and the word list used for segmentation.",
+    own: "Names and meanings of the 214 radicals (checked against PREP's list), the example sentences with hand-checked translations, and the edits made to the sources above.",
     noticesLink: "Full list (THIRD-PARTY-NOTICES.md)",
   },
   footer: {

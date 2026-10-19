@@ -120,6 +120,6 @@ Bấm **繁** trên thanh menu trước khi bấm **Tạo bài trắc nghiệm**
 - Nghĩa tiếng Việt: từ điển [CVDICT](https://github.com/ph0ngp/CVDICT) của Phong Phan (CC BY-SA 4.0), dịch máy từ CC-CEDICT và được rà soát lại, nên đôi khi còn chưa tự nhiên.
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Pinyin: **pinyin-pro** (MIT), tạo tự động; xem lưu ý trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác).
-- Âm Hán Việt: Hán Ngữ Studio; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).
+- Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).
 - Câu ví dụ: Hán Ngữ Studio và **Tatoeba** (tatoeba.org, CC BY 2.0 FR). Bản dịch câu Tatoeba: **Google Dịch**, tạo một lần khi xây dựng dữ liệu (nhãn **dịch máy**). Một số câu chỉ có bản dịch tiếng Anh; khi đó **Nghĩa của câu** hiện tiếng Anh.
 - Danh sách từ của bạn chỉ được xử lý trên máy bạn, không gửi đi đâu.

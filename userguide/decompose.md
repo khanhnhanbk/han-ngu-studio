@@ -100,5 +100,5 @@ Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tư�
 
 - Thành phần, cách tạo chữ, phần gợi nghĩa / gợi âm: **Make Me a Hanzi** (giấy phép LGPL-3.0).
 - Nét chữ để tô màu: Make Me a Hanzi / hanzi-writer-data (Arphic Public License).
-- Tên và nghĩa bộ thủ, âm Hán Việt: Hán Ngữ Studio; xem [radicals.md](radicals.md) và [hanviet.md](hanviet.md).
+- Tên và nghĩa bộ thủ: Hán Ngữ Studio. Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ; xem [radicals.md](radicals.md) và [hanviet.md](hanviet.md).
 - Mã Ngũ bút: pywubi (MIT).

@@ -107,4 +107,4 @@ Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tư�
 - Cấp HSK: danh sách từ vựng HSK 3.0 của Bộ Giáo dục Trung Quốc (GF 0025-2021), dữ liệu [ivankra/hsk30](https://github.com/ivankra/hsk30) (MIT).
 - Nghĩa tiếng Việt: từ điển [CVDICT](https://github.com/ph0ngp/CVDICT) của Phong Phan (CC BY-SA 4.0), dịch máy từ CC-CEDICT và được rà soát lại, nên đôi khi còn chưa tự nhiên.
 - Nghĩa tiếng Anh: **CC-CEDICT** (CC BY-SA 4.0).
-- Pinyin: **pinyin-pro** (MIT). Âm Hán Việt: Hán Ngữ Studio.
+- Pinyin: **pinyin-pro** (MIT). Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ.

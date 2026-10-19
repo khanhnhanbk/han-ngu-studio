@@ -403,7 +403,7 @@ export const vi = {
     tooLong: "Văn bản quá dài (tối đa 5000 ký tự).",
     loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
     credits:
-      "Cấp HSK: danh sách từ vựng HSK 3.0 (Bộ Giáo dục Trung Quốc, GF 0025-2021; dữ liệu ivankra/hsk30, MIT). Nghĩa tiếng Việt: từ điển CVDICT của Phong Phan (CC BY-SA 4.0, dịch máy từ CC-CEDICT và rà soát lại). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: Hán Ngữ Studio.",
+      "Cấp HSK: danh sách từ vựng HSK 3.0 (Bộ Giáo dục Trung Quốc, GF 0025-2021; dữ liệu ivankra/hsk30, MIT). Nghĩa tiếng Việt: từ điển CVDICT của Phong Phan (CC BY-SA 4.0, dịch máy từ CC-CEDICT và rà soát lại). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa.",
   },
   segment: {
     title: "Ngắt từ tiếng Trung",
@@ -814,7 +814,7 @@ export const vi = {
       "Các từ này thiếu dữ liệu cho loại câu hỏi đó (chưa có nghĩa, câu ví dụ, hoặc không có đáp án sai nào khác). Với nghĩa, bạn có thể tự thêm nghĩa sau dấu Tab.",
     duplicates: "Đã bỏ {n} từ trùng lặp.",
     credits:
-      "Cấp HSK: danh sách từ vựng HSK 3.0 (Bộ Giáo dục Trung Quốc, GF 0025-2021; dữ liệu ivankra/hsk30, MIT). Nghĩa tiếng Việt: từ điển CVDICT của Phong Phan (CC BY-SA 4.0, dịch máy từ CC-CEDICT và rà soát lại). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: Hán Ngữ Studio. Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); nghĩa đánh dấu “dịch máy” được dịch bằng Google Dịch.",
+      "Cấp HSK: danh sách từ vựng HSK 3.0 (Bộ Giáo dục Trung Quốc, GF 0025-2021; dữ liệu ivankra/hsk30, MIT). Nghĩa tiếng Việt: từ điển CVDICT của Phong Phan (CC BY-SA 4.0, dịch máy từ CC-CEDICT và rà soát lại). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Pinyin: pinyin-pro (MIT). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa. Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); nghĩa đánh dấu “dịch máy” được dịch bằng Google Dịch.",
     error: "Vui lòng nhập ít nhất một từ.",
     noKinds: "Hãy chọn ít nhất một loại câu hỏi.",
     tooMany: "Quá nhiều từ (tối đa 200 từ).",
@@ -847,7 +847,7 @@ export const vi = {
     decompose: "Chiết tự",
     close: "Đóng",
     credits:
-      "Tên và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Chữ thuộc bộ: Unicode Unihan (Unicode License v3). Âm Hán Việt: Hán Ngữ Studio.",
+      "Tên và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Chữ thuộc bộ: Unicode Unihan (Unicode License v3). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa.",
   },
   decompose: {
     title: "Chiết tự chữ Hán",
@@ -924,7 +924,7 @@ export const vi = {
     strokeOrder: "Xem thứ tự nét",
     practice: "Tạo phiếu tập viết",
     credits:
-      "Phân tách thành phần và cách tạo chữ: Make Me a Hanzi (LGPL-3.0). Nét chữ: Make Me a Hanzi / hanzi-writer-data (Arphic Public License). Tên bộ thủ và âm Hán Việt: Hán Ngữ Studio. Mã Ngũ bút: pywubi (MIT).",
+      "Phân tách thành phần và cách tạo chữ: Make Me a Hanzi (LGPL-3.0). Nét chữ: Make Me a Hanzi / hanzi-writer-data (Arphic Public License). Tên bộ thủ: Hán Ngữ Studio. Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa. Mã Ngũ bút: pywubi (MIT).",
   },
   practiceSheet: {
     title: "Tạo phiếu tập viết chữ Hán",
@@ -1095,11 +1095,14 @@ export const vi = {
       audio: "File phát âm từ và âm tiết (giữ nguyên, chỉ đóng gói lại).",
       unihan: "Chữ thuộc mỗi bộ thủ.",
       wubi: "Mã Ngũ bút.",
+      hanviet: "Âm Hán Việt của chữ (có chỉnh sửa một số chữ).",
+      subtlex: "Thứ tự chữ và từ thường gặp (chỉ dùng thứ hạng, không phát hành số liệu tần suất).",
+      wordlist: "Danh sách từ để ngắt từ: các từ của CC-CEDICT, xếp theo tần suất SUBTLEX-CH.",
       libraries: "Thư viện chạy trong trình duyệt: hoạt hình nét chữ, Pinyin, chuyển Giản thể / Phồn thể, biểu tượng.",
       fonts: "Phông chữ giao diện và phiếu tập viết.",
     },
     ownTitle: "Do Hán Ngữ Studio biên soạn",
-    own: "Âm Hán Việt, tên và nghĩa 214 bộ thủ (đối chiếu danh sách của PREP), các câu ví dụ có bản dịch kiểm tra tay và danh sách từ để ngắt từ.",
+    own: "Tên và nghĩa 214 bộ thủ (đối chiếu danh sách của PREP), các câu ví dụ có bản dịch kiểm tra tay, và những chỉnh sửa trên các nguồn ở trên.",
     noticesLink: "Danh sách đầy đủ (THIRD-PARTY-NOTICES.md)",
   },
   footer: {
