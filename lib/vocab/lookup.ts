@@ -1,10 +1,10 @@
-/** { word: [[level, pinyin, meaning], …] } from vocab_hsk_vi.csv (see build-data.mjs). */
+/** { word: [[level, pinyin, meaning], …] } from vocab_hsk30.csv (see build-data.mjs); meaning may be "". */
 export type VocabData = Record<string, Array<[string, string, string]>>;
 
 export type VocabInfo = {
   /** "HSK 1" … "HSK 7-9": the lowest level the word is listed at. */
   level: string;
-  /** Vietnamese meanings, distinct, joined with "; ". */
+  /** Vietnamese meanings (CVDICT), distinct, joined with "; "; "" when there is none. */
   meaning: string;
 };
 
@@ -40,6 +40,6 @@ export function vocabFor(data: VocabData, word: string, pinyin?: string): VocabI
 
   const lowest = entries.reduce((a, b) => (levelRank(b[0]) < levelRank(a[0]) ? b : a))[0];
   const meanings: string[] = [];
-  for (const [, , m] of entries) if (!meanings.includes(m)) meanings.push(m);
+  for (const [, , m] of entries) if (m && !meanings.includes(m)) meanings.push(m);
   return { level: `HSK ${lowest}`, meaning: meanings.join("; ") };
 }

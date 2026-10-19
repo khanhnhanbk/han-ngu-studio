@@ -27,7 +27,7 @@ Mở từ **Đọc hiểu** (nút **→ Trắc nghiệm** trong **Danh sách h�
 
 Dòng **Số từ: … / 200** cho biết số từ (tối đa 200). Từ trùng lặp được tự động bỏ.
 
-**Nghĩa lấy từ đâu?** Nghĩa mặc định là **tiếng Việt** theo danh sách từ vựng HSK 3.0 (khoảng 10.800 từ). Từ không có trong danh sách dùng nghĩa **tiếng Anh** (CC-CEDICT). Để dùng nghĩa của bạn, ghi nghĩa **sau dấu Tab** trên cùng dòng:
+**Nghĩa lấy từ đâu?** Nghĩa mặc định là **tiếng Việt** (từ điển CVDICT) cho các từ trong danh sách từ vựng HSK 3.0 (khoảng 11.000 từ). Từ không có trong danh sách dùng nghĩa **tiếng Anh** (CC-CEDICT). Để dùng nghĩa của bạn, ghi nghĩa **sau dấu Tab** trên cùng dòng:
 
 ```
 大学	đại học
@@ -117,7 +117,7 @@ Bấm **繁** trên thanh menu trước khi bấm **Tạo bài trắc nghiệm**
 
 ## Nguồn dữ liệu
 
-- Nghĩa tiếng Việt: Hán Ngữ Studio, theo danh sách từ vựng HSK 3.0.
+- Nghĩa tiếng Việt: từ điển [CVDICT](https://github.com/ph0ngp/CVDICT) của Phong Phan (CC BY-SA 4.0), dịch máy từ CC-CEDICT và được rà soát lại, nên đôi khi còn chưa tự nhiên.
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Pinyin: **pinyin-pro** (MIT), tạo tự động; xem lưu ý trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác).
 - Âm Hán Việt: Hán Ngữ Studio; xem [hanviet.md](hanviet.md#cách-đọc-kết-quả).

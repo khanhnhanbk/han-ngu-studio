@@ -127,7 +127,7 @@ describe("buildQuiz", () => {
     expect(pick(find(questions, "hanToPinyin", "大学"))).toBe("dà xué");
     expect(pick(find(questions, "hanToHanviet", "大学"))).toBe("đại học");
     // Vietnamese from the HSK list comes before CC-CEDICT English.
-    expect(pick(find(questions, "hanToMeaning", "朋友"))).toBe("bạn bè, bạn");
+    expect(pick(find(questions, "hanToMeaning", "朋友"))).toBe("bạn");
     const back = find(questions, "meaningToHan", "电脑");
     expect(back.prompt).toBe(shortMeaning(vocabFor(data.vocab, "电脑")!.meaning));
     expect(pick(back)).toBe("电脑");

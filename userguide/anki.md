@@ -15,7 +15,7 @@ Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **impor
 | **Cấp HSK** | HSK 1 |
 | **Nghĩa tiếng Việt** | đại học, trường đại học |
 
-**Cấp HSK** và **Nghĩa tiếng Việt** lấy từ danh sách từ vựng HSK 3.0 (khoảng 10.800 từ, cấp 1 đến 7-9). Một từ có trong nhiều cấp thì ghi cấp thấp nhất. Chữ đa âm lấy nghĩa theo cách đọc ở cột Pinyin (好 hǎo: "tốt; rất", không lấy nghĩa của hào).
+**Cấp HSK** và **Nghĩa tiếng Việt** lấy từ danh sách từ vựng HSK 3.0 (khoảng 11.000 từ, cấp 1 đến 7-9) và từ điển CVDICT. Một từ có trong nhiều cấp thì ghi cấp thấp nhất. Chữ đa âm lấy nghĩa theo cách đọc ở cột Pinyin (好 hǎo: "tốt; thích hợp; đúng; …", không lấy nghĩa của hào).
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Tạo thẻ Anki**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/anki)
@@ -97,7 +97,8 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 
 - Nghĩa tiếng Anh: **CC-CEDICT** (giấy phép CC BY-SA 4.0).
 - Mã Ngũ bút (bản 86): **pywubi** (giấy phép MIT).
-- Cấp HSK và nghĩa tiếng Việt: Hán Ngữ Studio, theo danh sách từ vựng HSK 3.0.
+- Cấp HSK: danh sách từ vựng HSK 3.0 của Bộ Giáo dục Trung Quốc (GF 0025-2021), dữ liệu [ivankra/hsk30](https://github.com/ivankra/hsk30) (MIT).
+- Nghĩa tiếng Việt: từ điển [CVDICT](https://github.com/ph0ngp/CVDICT) của Phong Phan (CC BY-SA 4.0), dịch máy từ CC-CEDICT và được rà soát lại, nên đôi khi còn chưa tự nhiên.
 - Câu ví dụ: Hán Ngữ Studio và **Tatoeba** (tatoeba.org, giấy phép CC BY 2.0 FR). Bản dịch của câu Tatoeba do **Google Dịch** tạo một lần khi xây dựng dữ liệu (nhãn **dịch máy**); trang web không gửi gì cho Google. Một số câu chỉ có bản dịch tiếng Anh; khi đó cột **Nghĩa của câu** hiện tiếng Anh. Bạn có thể sửa sang tiếng Việt ngay trong bảng trước khi tải.
 - Pinyin và Hán Việt được tạo tự động; xem lưu ý độ chính xác trong [pinyin.md](pinyin.md#lưu-ý-về-độ-chính-xác) và [hanviet.md](hanviet.md#cách-đọc-kết-quả).
 

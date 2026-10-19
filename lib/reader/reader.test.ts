@@ -40,8 +40,9 @@ describe("analyzeText", () => {
   it("takes HSK levels and Vietnamese meanings from the HSK 3.0 list", () => {
     expect(byText["我们"].level).toBe("1");
     expect(byText["明天"]).toMatchObject({ level: "1", meaningVi: "ngày mai" });
-    // 银行 is not in the HSK 3.0 list we ship: no level, but still read and translated.
-    expect(byText["银行"]).toMatchObject({ level: null, meaningVi: "" });
+    expect(byText["银行"]).toMatchObject({ level: "2", meaningVi: "ngân hàng" });
+    // 取钱 is not on the HSK 3.0 list: no level, but still read and translated.
+    expect(byText["取钱"]).toMatchObject({ level: null, meaningVi: "" });
   });
 
   it("keeps punctuation, spaces and empty lines as plain text", () => {

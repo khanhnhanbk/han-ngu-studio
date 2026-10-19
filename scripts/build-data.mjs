@@ -480,13 +480,15 @@ function buildRadicals(hanviet) {
 const VOCAB_LEVELS = new Set(["1", "2", "3", "4", "5", "6", "7-9"]);
 
 /**
- * vocab.json: { word: [[level, pinyin, meaning], …] } from vocab_hsk_vi.csv
- * (HSK 3.0 levels and Vietnamese meanings, Hán Ngữ Studio). Entries keep file
- * order, lowest level first. A word with an optional 儿 ("好玩{儿}") is
- * stored under both forms, each only when no row already has that exact word.
+ * vocab.json: { word: [[level, pinyin, meaning], …] } from vocab_hsk30.csv
+ * (scripts/build-vocab-source.mjs: HSK 3.0 levels and Pinyin from ivankra/hsk30,
+ * MIT; Vietnamese meanings from CVDICT, CC BY-SA 4.0; the meaning is empty for
+ * the few words CVDICT lacks). Entries keep file order, lowest level first. A
+ * word with an optional 儿 ("好玩{儿}") is stored under both forms, each only
+ * when no row already has that exact word.
  */
 function buildVocab() {
-  const rows = readCsv("vocab_hsk_vi.csv");
+  const rows = readCsv("vocab_hsk30.csv");
   const out = {};
   const add = (word, entry) => {
     if (!Object.hasOwn(out, word)) out[word] = [];
@@ -496,8 +498,8 @@ function buildVocab() {
   for (const [i, r] of rows.entries()) {
     const word = r.hanzi.trim();
     const entry = [r.level.trim(), r.pinyin.trim(), r.meaning.trim()];
-    if (!VOCAB_LEVELS.has(entry[0]) || !word || !entry[2]) {
-      throw new Error(`vocab_hsk_vi.csv row ${i + 2} is wrong: ${JSON.stringify(r)}`);
+    if (!VOCAB_LEVELS.has(entry[0]) || !word || !entry[1]) {
+      throw new Error(`vocab_hsk30.csv row ${i + 2} is wrong: ${JSON.stringify(r)}`);
     }
     if (word.includes("{")) optional.push([word, entry]);
     else add(word, entry);

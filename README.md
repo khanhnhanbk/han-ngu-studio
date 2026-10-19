@@ -17,7 +17,7 @@ Built with **Next.js (App Router) + TypeScript + Tailwind CSS**. Deploys free on
 - ✅ Anki deck generator (`/tools/anki`, TSV export)
 - ✅ N+1 sentence ordering (`/tools/comprehensible-input`)
 - ⏳ Anki images, TTS: see [`docs/plans/2026-10-15-roadmap.md`](docs/plans/2026-10-15-roadmap.md)
-- ⏳ Phase 4 — i18n (EN), SEO, analytics, monetization
+- ✅ English site (`/en`), Traditional characters, reader, pronunciation
 
 ## Screenshots
 
@@ -112,8 +112,7 @@ All copy lives in `lib/i18n/vi.ts`. To add English:
 - **Noto Serif SC** — default practice-sheet font (Song/printed style, `--font-noto-serif-sc`).
 - **LXGW WenKai TC** — Kai-style practice-sheet font and the fallback for missing glyphs (`--font-kai`).
 
-## Credits
+## Licence and credits
 
-- Meanings: [CC-CEDICT](https://cc-cedict.org/) (CC BY-SA 4.0)
-- Wubi 86 codes: pywubi 0.3.0 table (MIT, `assets/dictionary/LICENSE-pywubi.txt`)
-- Example sentences: Hán Ngữ Studio
+- **Code:** [MIT](LICENSE).
+- **Data:** each dataset keeps its own licence (CC-CEDICT and CVDICT: CC BY-SA 4.0; Tatoeba: CC BY 2.0 FR; Make Me a Hanzi: LGPL-3.0+ / Arphic; audio-cmn: CC BY-SA; HSK 3.0 list: MIT…). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and the site page [/giay-phep](https://han-ngu-studio.vercel.app/giay-phep).

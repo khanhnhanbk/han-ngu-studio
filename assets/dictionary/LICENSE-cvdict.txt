@@ -1,0 +1,13 @@
+CVDICT — Từ điển Hán Việt CVDICT (Chinese-Vietnamese dictionary)
+https://github.com/ph0ngp/CVDICT, commit c379d909e308343a247e51619f7839a2060a271c
+Author: Phong Phan. A Vietnamese translation of CC-CEDICT (CC BY-SA 4.0,
+https://www.mdbg.net/chinese/dictionary?page=cc-cedict), made mostly by a
+fine-tuned ChatGPT-4o model and checked by hand; it may still contain errors.
+
+Licence: Creative Commons Attribution-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Used in Hán Ngữ Studio: the Vietnamese meanings in assets/dictionary/vocab_hsk30.csv
+and public/data/vocab.json (scripts/build-vocab-source.mjs). Changes: senses
+limited to the first three per entry, classifier ("LT:") notes removed, joined
+with "; ". These derived files are released under the same CC BY-SA 4.0 licence.

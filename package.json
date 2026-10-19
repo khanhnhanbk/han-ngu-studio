@@ -2,6 +2,7 @@
   "name": "chinese-tools-web",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,8 @@
     "lint": "next lint",
     "test": "vitest run",
     "build:data": "node scripts/build-data.mjs",
-    "build:audio": "node scripts/build-audio.mjs"
+    "build:audio": "node scripts/build-audio.mjs",
+    "build:vocab-source": "node scripts/build-vocab-source.mjs"
   },
   "dependencies": {
     "hanzi-writer": "3.7.3",

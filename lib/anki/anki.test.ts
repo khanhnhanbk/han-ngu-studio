@@ -91,9 +91,9 @@ describe("buildRow formats", () => {
   });
 
   it("adds the HSK level and Vietnamese meaning for the word's own reading", () => {
-    expect(buildRow(data, "大学")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "đại học, trường đại học" });
+    expect(buildRow(data, "大学")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "trường đại học; trường cao đẳng" });
     // 好 alone reads hǎo, so hào's level-4 meaning is left out.
-    expect(buildRow(data, "好")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "tốt; rất" });
+    expect(buildRow(data, "好")).toMatchObject({ hsk_level: "HSK 1", meaning_vi: "tốt; thích hợp; đúng; (trước động từ) dễ" });
     expect(buildRow(data, "髮")).toMatchObject({ hsk_level: "", meaning_vi: "" });
   });
 });
