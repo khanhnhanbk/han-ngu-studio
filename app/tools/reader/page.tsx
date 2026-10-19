@@ -396,16 +396,19 @@ export default function ReaderPage() {
                           {t.filterNew} ({newWords.length})
                         </button>
                       </div>
-                      <label className="flex items-center gap-2 text-ink-700">
-                        {t.sortLabel}
-                        <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)} className="rounded-lg border border-ink-900/10 px-2 py-1.5">
-                          {SORTS.map((s) => (
-                            <option key={s} value={s}>
-                              {t.sorts[s]}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                      {/* The options say what they sort by; the name stays for screen readers. */}
+                      <select
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value as SortKey)}
+                        aria-label={t.sortLabel}
+                        className="rounded-lg border border-ink-900/10 px-2 py-1.5 text-ink-700"
+                      >
+                        {SORTS.map((s) => (
+                          <option key={s} value={s}>
+                            {t.sorts[s]}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   {tableRows.length === 0 ? (

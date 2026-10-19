@@ -60,7 +60,7 @@ Lần đầu, trang tải dữ liệu (khoảng 1,3 MB). Sau đó văn bản hi�
 Mọi từ khác nhau trong văn bản, với Pinyin, Hán Việt, cấp, nghĩa, **Số lần** và ô **Đã biết**.
 
 - **Tất cả / Từ mới**: lọc chỉ các từ mới.
-- **Sắp xếp**: **Thứ tự xuất hiện**, **Số lần xuất hiện**, **Cấp HSK**.
+- Ô chọn bên cạnh sắp xếp bảng theo **Thứ tự xuất hiện**, **Số lần xuất hiện** hoặc **Cấp HSK**.
 - Bấm **Thêm các từ mới vào danh sách học** để thêm mọi từ mới (từ hay gặp nhất trước).
 
 ### 6. **Danh sách học**
