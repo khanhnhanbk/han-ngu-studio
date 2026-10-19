@@ -3,6 +3,7 @@ export const REPO_URL = "https://github.com/khanhnhanbk/han-ngu-studio";
 export const USER_GUIDE_URL = `${REPO_URL}/tree/main/userguide`;
 
 export type ToolId =
+  | "reader"
   | "practiceSheet"
   | "strokeOrder"
   | "segment"
@@ -17,6 +18,7 @@ export type ToolId =
 export type ToolGroupId = "chars" | "text" | "vocab";
 
 const HREF: Record<ToolId, string> = {
+  reader: "/tools/reader",
   practiceSheet: "/tools/practice-sheet",
   strokeOrder: "/tools/stroke-order",
   segment: "/tools/segment",
@@ -37,7 +39,7 @@ const HREF: Record<ToolId, string> = {
 export const TOOL_GROUPS: ReadonlyArray<{ id: ToolGroupId; tools: ReadonlyArray<{ id: ToolId; href: string }> }> = (
   [
     { id: "chars", tools: ["strokeOrder", "decompose", "radicals", "practiceSheet"] },
-    { id: "text", tools: ["pinyin", "hanviet", "segment"] },
+    { id: "text", tools: ["reader", "pinyin", "hanviet", "segment"] },
     { id: "vocab", tools: ["anki", "quiz", "comprehensibleInput"] },
   ] as const
 ).map((g) => ({ id: g.id, tools: g.tools.map((id) => ({ id, href: HREF[id] })) }));

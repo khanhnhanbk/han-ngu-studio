@@ -3,6 +3,7 @@
 import type { ToolId } from "@/lib/links";
 import { ArrowRightIcon } from "./icons/arrow-right";
 import { BookOpenIcon } from "./icons/book-open";
+import { BookOpenTextIcon } from "./icons/book-open-text";
 import { LanguagesIcon } from "./icons/languages";
 import { LayersIcon } from "./icons/layers";
 import { ListOrderedIcon } from "./icons/list-ordered";
@@ -15,6 +16,7 @@ import { SplitIcon } from "./icons/split";
 import { useIconTrigger, type AnimatedIcon } from "./icons/trigger";
 
 const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
+  reader: BookOpenTextIcon,
   practiceSheet: PencilIcon,
   strokeOrder: PaintbrushIcon,
   segment: ScissorsIcon,

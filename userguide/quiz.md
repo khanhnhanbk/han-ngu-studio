@@ -18,6 +18,8 @@ Bốn loại đầu có 4 đáp án (ít hơn nếu danh sách quá ngắn và k
 
 ## Các bước
 
+Mở từ **Đọc hiểu** (nút **→ Trắc nghiệm** trong **Danh sách học**) thì ô nhập đã có sẵn các từ bạn chọn; danh sách được truyền trong địa chỉ trang (phần sau dấu `#`), không gửi lên máy chủ.
+
 ### 1. Nhập từ vựng
 
 - Gõ hoặc dán vào ô lớn, **mỗi dòng một từ**; hoặc

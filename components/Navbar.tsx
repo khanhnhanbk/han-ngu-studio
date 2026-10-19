@@ -24,7 +24,8 @@ export function Navbar() {
   const links = [
     { href: href("/#how-it-works"), label: dict.nav.howItWorks },
     { href: href("/#for-teachers"), label: dict.nav.forTeachers },
-    { href: href("/#roadmap"), label: dict.nav.roadmap },
+    // Hidden on narrow desktops (lg) to make room; still in the footer and the phone menu.
+    { href: href("/#roadmap"), label: dict.nav.roadmap, wideOnly: true },
   ];
 
   const groups = TOOL_GROUPS.map((g) => ({
@@ -48,7 +49,9 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink"
+              className={`whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink ${
+                "wideOnly" in link ? "hidden xl:inline" : ""
+              }`}
             >
               {link.label}
             </a>

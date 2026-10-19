@@ -128,7 +128,7 @@ export function ThemePicker({ inline = false }: { inline?: boolean }) {
         className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-ink-700 transition hover:text-brand-ink"
       >
         <PaletteIcon ref={palette.ref} size={20} aria-hidden />
-        <span className="hidden xl:inline">{dict.theme.button}</span>
+        <span className="hidden 2xl:inline">{dict.theme.button}</span>
       </button>
       {open && (
         <div

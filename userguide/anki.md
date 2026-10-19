@@ -22,6 +22,8 @@ Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **impor
 
 ## Các bước
 
+Mở từ **Đọc hiểu** (nút **→ Tạo thẻ Anki** trong **Danh sách học**) thì ô nhập đã có sẵn các từ bạn chọn; danh sách được truyền trong địa chỉ trang (phần sau dấu `#`), không gửi lên máy chủ.
+
 ### 1. Nhập từ vựng
 
 - Gõ hoặc dán vào ô lớn, **mỗi dòng một từ**; hoặc

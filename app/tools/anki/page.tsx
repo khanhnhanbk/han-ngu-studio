@@ -25,6 +25,7 @@ import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
+import { parseWordsHash } from "@/lib/reader/handoff";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
@@ -45,6 +46,11 @@ export default function AnkiPage() {
   const dict = useDictionary();
   const href = useHref();
   const [text, setText] = useState(SAMPLE);
+  // Words sent from another tool (Đọc hiểu) as #words=…; the hash never leaves the device.
+  useEffect(() => {
+    const words = parseWordsHash(window.location.hash);
+    if (words.length) setText(words.join("\n"));
+  }, []);
   const [rows, setRows] = useState<DeckRow[]>([]);
   // The deck as built (Simplified), re-shown when the script switch changes.
   const [built, setBuilt] = useState<{ rows: DeckRow[]; wubi: WubiTable } | null>(null);

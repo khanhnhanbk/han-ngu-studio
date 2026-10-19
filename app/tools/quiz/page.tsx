@@ -23,6 +23,7 @@ import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
 import { showQuestion, showSkipped, simpEntries } from "@/lib/quiz/script";
 import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
+import { parseWordsHash } from "@/lib/reader/handoff";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
@@ -44,6 +45,11 @@ function answerText(q: Question): string {
 export default function QuizPage() {
   const dict = useDictionary();
   const [text, setText] = useState(SAMPLE);
+  // Words sent from another tool (Đọc hiểu) as #words=…; the hash never leaves the device.
+  useEffect(() => {
+    const words = parseWordsHash(window.location.hash);
+    if (words.length) setText(words.join("\n"));
+  }, []);
   const [kinds, setKinds] = useState<Set<QuizKind>>(() => new Set(KINDS));
   const [order, setOrder] = useState<QuizOrder>("random");
   const [phase, setPhase] = useState<Phase>("setup");
