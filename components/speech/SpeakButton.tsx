@@ -4,18 +4,13 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 
 import { Volume2Icon, type Volume2IconHandle } from "@/components/icons/volume-2";
 import { useDictionary } from "@/lib/i18n/useLocale";
-import {
-  openSpeechSettings,
-  playWord,
-  preloadAudioIndex,
-  SERVER_SPEECH_STATE,
-  speechState,
-  stopSpeech,
-  subscribeSpeech,
-} from "@/lib/speech/player";
+import { playWord, stopSpeech } from "@/lib/speech/player";
+import { openSpeechSettings, SERVER_SPEECH_STATE, speechState, subscribeSpeech } from "@/lib/speech/store";
+import { useSpeechEnabled } from "@/lib/speech/useSpeechEnabled";
 
 /**
- * 🔊 for one word or character (never a sentence). Plays the human recording
+ * 🔊 for one word or character (never a sentence). Shown only after the user
+ * turns pronunciation on (SpeechToggle); nothing loads before the first click. Plays the human recording
  * when there is one, else the device voice; with neither, opens the voice
  * settings with an install guide. A second click stops it.
  */
@@ -39,17 +34,19 @@ export function SpeakButton({
   className?: string;
 }) {
   const t = useDictionary().speech;
+  const enabled = useSpeechEnabled();
   const state = useSyncExternalStore(subscribeSpeech, speechState, () => SERVER_SPEECH_STATE);
   const icon = useRef<Volume2IconHandle>(null);
   const id = `${word}|${tone3?.join(" ") ?? ""}`;
   const active = state.id === id;
   const playing = active && state.status === "playing";
 
-  useEffect(() => preloadAudioIndex(), []);
   useEffect(() => {
     if (playing) icon.current?.startAnimation();
     else icon.current?.stopAnimation();
   }, [playing]);
+
+  if (!enabled) return null;
 
   return (
     <button

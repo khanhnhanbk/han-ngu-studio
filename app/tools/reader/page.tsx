@@ -10,7 +10,7 @@ import { Navbar } from "@/components/Navbar";
 import { LEVEL_STYLE, levelLabel, percent } from "@/components/reader/levels";
 import { WordCard, type CardTarget } from "@/components/reader/WordCard";
 import { SpeakButton } from "@/components/speech/SpeakButton";
-import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
+import { SpeechToggle } from "@/components/speech/SpeechToggle";
 import { loadMeanings, MEANINGS_FILE } from "@/lib/anki/load";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
@@ -319,7 +319,7 @@ export default function ReaderPage() {
                 <div className="card mt-6">
                   <p className="flex flex-wrap items-center justify-between gap-2 text-xs text-ink-500">
                     <span>{t.legend}</span>
-                    <SpeechSettingsLink />
+                    <SpeechToggle />
                   </p>
                   <div className="hanzi mt-4 text-2xl leading-[2.4] text-ink-900">
                     {lines.map((line, i) => (

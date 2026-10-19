@@ -6,13 +6,30 @@
 /** [shard, byte offset, byte length] of one MP3 inside a shard. */
 export type AudioEntry = [number, number, number];
 
+/**
+ * The index entries a lookup needs. Built from the split index files
+ * (index-w-<part>.json for words, index-s.json for syllables): a click
+ * fetches only the part its word falls in.
+ */
 export type AudioIndex = {
-  commit: string;
   /** Simplified word or character → recording (speaker Yue Tan). */
   words: Record<string, AudioEntry>;
   /** Toned syllable, tones 1–4, ü written v ("hang2", "nv3") → recording (speaker Chen Wang). */
   syllables: Record<string, AudioEntry>;
 };
+
+/** Number of word-index files. Must match scripts/build-audio.mjs. */
+export const WORD_PARTS = 32;
+
+/** Which index-w-<part>.json holds a word: FNV-1a over its code points (as the build script). */
+export function wordPart(word: string): number {
+  let h = 0x811c9dc5;
+  for (const ch of word) {
+    h ^= ch.codePointAt(0)!;
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h % WORD_PARTS;
+}
 
 export type Recording = { set: "words" | "syllables"; key: string; entry: AudioEntry };
 export type Sound = { kind: "recording"; recording: Recording } | { kind: "voice"; text: string };

@@ -78,7 +78,7 @@ Bấm **繁** trên thanh menu: chữ được phân tích ở dạng phồn th�
 
 ## Nghe phát âm
 
-Bấm biểu tượng **loa** cạnh Pinyin của chữ đang xem và ở góc mỗi chữ cùng thành phần để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tượng **loa** cạnh Pinyin của chữ đang xem và ở góc mỗi chữ cùng thành phần để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
 
 ## Lỗi thường gặp
 

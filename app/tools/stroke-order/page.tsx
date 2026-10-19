@@ -6,7 +6,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SpeakButton } from "@/components/speech/SpeakButton";
-import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
+import { SpeechToggle } from "@/components/speech/SpeechToggle";
 import { StrokeSteps } from "@/components/stroke-order/StrokeSteps";
 import { Writer } from "@/components/stroke-order/Writer";
 import { confirmDownload } from "@/lib/data/budget";
@@ -217,7 +217,7 @@ export default function StrokeOrderPage() {
             )}
 
             <p className="mt-6 text-xs text-ink-500">
-              {t.credit} {dict.speech.credit} <SpeechSettingsLink />
+              {t.credit} {dict.speech.credit} <SpeechToggle />
             </p>
           </div>
         </section>

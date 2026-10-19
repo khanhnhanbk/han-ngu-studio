@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SpeakButton } from "@/components/speech/SpeakButton";
-import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
+import { SpeechToggle } from "@/components/speech/SpeechToggle";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { loadRadicals } from "@/lib/radicals/load";
 import { forScript, groupByStrokes, searchRadicals } from "@/lib/radicals/search";
@@ -216,7 +216,7 @@ export default function RadicalsPage() {
             )}
 
             <p className="mt-10 text-xs text-ink-700/70">
-              {t.credits} {dict.speech.credit} <SpeechSettingsLink />
+              {t.credits} {dict.speech.credit} <SpeechToggle />
             </p>
           </div>
         </section>

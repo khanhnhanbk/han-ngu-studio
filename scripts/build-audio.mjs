@@ -8,10 +8,11 @@
  * LICENSE-audio-cmn.txt). Run once; the output in public/data/audio/ is
  * committed. Then run `pnpm build:data` so sizes.json lists the shards.
  *
- * Output:
- *   public/data/audio/w-<n>.bin, s-<n>.bin  MP3 files concatenated, ~64 KB each
- *   public/data/audio/index.json            { commit, words: { 学习: [shard, offset, length] },
- *                                             syllables: { hang2: [...] } }
+ * Output (a click fetches one small index part and one ~32 KB shard):
+ *   public/data/audio/w-<n>.bin, s-<n>.bin  MP3 files concatenated, ~32 KB each
+ *   public/data/audio/index-w-<p>.json      { 学习: [shard, offset, length], … } for the words
+ *                                           whose wordPart() is p (32 parts, ~3 KB gzip each)
+ *   public/data/audio/index-s.json          { hang2: [shard, offset, length], … } syllables
  * The MP3 bytes are copied unchanged; the browser slices one file out of a
  * shard and decodes it (lib/speech/audio.ts).
  */
@@ -27,7 +28,19 @@ const COMMIT = "59dbafbda8b172ffc3b8b295cd5938ae1b3de803";
 const FOLDERS = ["24k-abr/hsk", "24k-abr/syllabs"];
 const CACHE = join(ROOT, "node_modules/.cache/audio-cmn");
 const OUT = join(ROOT, "public/data/audio");
-const SHARD_BYTES = 64 * 1024;
+const SHARD_BYTES = 32 * 1024;
+// Must match WORD_PARTS and wordPart() in lib/speech/resolve.ts.
+const WORD_PARTS = 32;
+
+/** FNV-1a over the word's code points, modulo WORD_PARTS. */
+function wordPart(word) {
+  let h = 0x811c9dc5;
+  for (const ch of word) {
+    h ^= ch.codePointAt(0);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h % WORD_PARTS;
+}
 
 const git = (...args) => execFileSync("git", ["-C", CACHE, ...args], { stdio: ["ignore", "ignore", "inherit"] });
 
@@ -94,7 +107,10 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 const words = pack(readFolder(FOLDERS[0], wordKey), "w");
 const syllables = pack(readFolder(FOLDERS[1], syllableKey), "s");
-writeFileSync(join(OUT, "index.json"), JSON.stringify({ commit: COMMIT, words: words.index, syllables: syllables.index }));
+const parts = Array.from({ length: WORD_PARTS }, () => ({}));
+for (const [word, entry] of Object.entries(words.index)) parts[wordPart(word)][word] = entry;
+parts.forEach((part, p) => writeFileSync(join(OUT, `index-w-${p}.json`), JSON.stringify(part)));
+writeFileSync(join(OUT, "index-s.json"), JSON.stringify(syllables.index));
 console.log(
   `audio/: ${Object.keys(words.index).length} words in ${words.shards} shards, ` +
     `${Object.keys(syllables.index).length} syllables in ${syllables.shards} shards (audio-cmn ${COMMIT.slice(0, 7)})`,

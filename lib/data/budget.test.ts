@@ -45,6 +45,7 @@ describe("sizes.json", () => {
     const walk = (dir: string, prefix: string) => {
       for (const name of readdirSync(dir)) {
         const path = join(dir, name);
+        if (`${prefix}${name}` === "/data/audio") continue; // not gated (see build-data.mjs)
         if (statSync(path).isDirectory()) walk(path, `${prefix}${name}/`);
         else if (`${prefix}${name}` !== "/data/sizes.json") files.push(`${prefix}${name}`);
       }

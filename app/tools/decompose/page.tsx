@@ -4,7 +4,7 @@ import { pinyin } from "pinyin-pro";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import { SpeakButton } from "@/components/speech/SpeakButton";
-import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
+import { SpeechToggle } from "@/components/speech/SpeechToggle";
 import { ColoredGlyph } from "@/components/decompose/ColoredGlyph";
 import { ComponentTree, type GlyphInfo, type PartSelection } from "@/components/decompose/ComponentTree";
 import { FamilyList } from "@/components/decompose/FamilyList";
@@ -411,7 +411,7 @@ export default function DecomposePage() {
             )}
 
             <p className="mt-6 text-xs text-ink-500">
-              {t.credits} {vi.speech.credit} <SpeechSettingsLink />
+              {t.credits} {vi.speech.credit} <SpeechToggle />
             </p>
           </div>
         </section>

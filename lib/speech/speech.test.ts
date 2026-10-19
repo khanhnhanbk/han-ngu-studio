@@ -4,11 +4,14 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_SPEECH_PREFS, parseSpeechPrefs } from "./prefs";
-import { resolveSound, syllableKey, syllableSequence, type AudioIndex } from "./resolve";
+import { resolveSound, syllableKey, syllableSequence, WORD_PARTS, wordPart, type AudioEntry, type AudioIndex } from "./resolve";
 import { mandarinRank, pickVoice, rankVoices, type VoiceLike } from "./voices";
 
 const audioDir = join(__dirname, "../../public/data/audio");
-const index = JSON.parse(readFileSync(join(audioDir, "index.json"), "utf-8")) as AudioIndex;
+const readJson = (name: string) => JSON.parse(readFileSync(join(audioDir, name), "utf-8")) as Record<string, AudioEntry>;
+const parts = Array.from({ length: WORD_PARTS }, (_, p) => readJson(`index-w-${p}.json`));
+// The whole index, as the browser would see it word by word.
+const index: AudioIndex = { words: Object.assign({}, ...parts), syllables: readJson("index-s.json") };
 
 const key = (s: ReturnType<typeof resolveSound>) =>
   s.kind === "recording" ? `${s.recording.set}:${s.recording.key}` : `voice:${s.text}`;
@@ -48,6 +51,14 @@ describe("syllableSequence", () => {
     expect(syllableSequence(index, { word: "走吧", tone3: ["zou3", "ba5"] })).toBeNull(); // neutral tone
     expect(syllableSequence(index, { word: "河", tone3: ["he2"] })).toBeNull(); // single characters use resolveSound
     expect(syllableSequence(index, { word: "河内" })).toBeNull();
+  });
+});
+
+describe("split word index", () => {
+  it("puts every word in the part the browser computes for it", () => {
+    parts.forEach((part, p) => {
+      for (const word of Object.keys(part)) expect(wordPart(word)).toBe(p);
+    });
   });
 });
 
@@ -106,7 +117,9 @@ describe("voices", () => {
 describe("speech prefs", () => {
   it("parses with safe defaults", () => {
     expect(parseSpeechPrefs(null)).toEqual(DEFAULT_SPEECH_PREFS);
-    expect(parseSpeechPrefs('{"voiceURI":"x","allowOnline":true,"rate":0.7}')).toEqual({ voiceURI: "x", allowOnline: true, rate: 0.7 });
+    expect(parseSpeechPrefs('{"voiceURI":"x","allowOnline":true,"rate":0.7}')).toEqual({ enabled: false, voiceURI: "x", allowOnline: true, rate: 0.7 });
+    expect(parseSpeechPrefs('{"enabled":true}').enabled).toBe(true);
+    expect(DEFAULT_SPEECH_PREFS.enabled).toBe(false); // off until the user turns it on
     expect(parseSpeechPrefs('{"rate":3,"allowOnline":"yes"}')).toEqual(DEFAULT_SPEECH_PREFS);
   });
 });

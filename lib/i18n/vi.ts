@@ -545,6 +545,18 @@ export const vi = {
     },
     close: "Đóng",
     credit: "Phát âm: audio-cmn (CC BY-SA), giọng Yue Tan và Chen Wang.",
+    enable: "Bật phát âm",
+    enableHint: "(khoảng 30 KB mỗi từ, chỉ tải khi bấm nghe)",
+    disable: "Tắt phát âm",
+    paragraphTitle: "Nghe cả đoạn văn?",
+    paragraphIntro: "Trang chỉ đọc từng từ. Để nghe cả câu hoặc đoạn văn, hãy dùng các công cụ miễn phí sẵn có:",
+    paragraphTools: [
+      ["Microsoft Edge", "bôi đen đoạn văn, bấm chuột phải → Đọc to (Read aloud), có giọng tự nhiên."],
+      ["iPhone, iPad, Mac", "bật Đọc mục được chọn (Speak Selection) trong Trợ năng → Nội dung được đọc, rồi bôi đen và chọn Đọc."],
+      ["Android", "bật Chọn để nói (Select to Speak) trong Hỗ trợ tiếp cận."],
+      ["Google Dịch", "dán đoạn văn rồi bấm biểu tượng loa."],
+    ] as Array<[string, string]>,
+    paragraphNote: "Google Dịch và giọng online của Edge gửi văn bản tới máy chủ của họ; giọng trên máy (iPhone, Mac, Android) thì không. Bạn tự chọn công cụ phù hợp.",
   },
   script: {
     label: "Loại chữ",

@@ -4,13 +4,8 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 import { Volume2Icon } from "@/components/icons/volume-2";
 import { useDictionary } from "@/lib/i18n/useLocale";
-import {
-  closeSpeechSettings,
-  playWord,
-  SERVER_SPEECH_STATE,
-  speechState,
-  subscribeSpeech,
-} from "@/lib/speech/player";
+import { playWord, stopSpeech } from "@/lib/speech/player";
+import { closeSpeechSettings, SERVER_SPEECH_STATE, speechState, subscribeSpeech } from "@/lib/speech/store";
 import { DEFAULT_SPEECH_PREFS, readSpeechPrefs, saveSpeechPrefs, type SpeechPrefs } from "@/lib/speech/prefs";
 import { mandarinRank, rankVoices } from "@/lib/speech/voices";
 
@@ -172,7 +167,33 @@ export function SpeechSettings() {
           <p className="mt-2 text-xs text-ink-500">{t.installNote}</p>
         </div>
 
-        <p className="mt-4 text-xs text-ink-500">{t.credit}</p>
+        <div className="mt-5 border-t border-ink-900/10 pt-4">
+          <p className="text-sm font-medium text-ink-900">{t.paragraphTitle}</p>
+          <p className="mt-1 text-sm text-ink-700">{t.paragraphIntro}</p>
+          <ul className="mt-2 space-y-1 text-sm text-ink-700">
+            {t.paragraphTools.map(([name, how]) => (
+              <li key={name}>
+                <span className="font-medium text-ink-900">{name}</span>: {how}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-ink-500">{t.paragraphNote}</p>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-ink-900/10 pt-4">
+          <p className="text-xs text-ink-500">{t.credit}</p>
+          <button
+            type="button"
+            className="btn-secondary px-3 py-1.5 text-sm"
+            onClick={() => {
+              stopSpeech();
+              update({ enabled: false });
+              closeSpeechSettings();
+            }}
+          >
+            {t.disable}
+          </button>
+        </div>
       </div>
     </div>
   );

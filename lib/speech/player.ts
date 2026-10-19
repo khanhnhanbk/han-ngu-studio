@@ -2,49 +2,39 @@ import { markLoaded } from "@/lib/data/loaded";
 import { memoJson } from "@/lib/fetchJson";
 
 import { readSpeechPrefs } from "./prefs";
-import { resolveSound, syllableSequence, type AudioIndex, type Recording, type SoundRequest } from "./resolve";
+import {
+  resolveSound,
+  syllableSequence,
+  wordPart,
+  type AudioEntry,
+  type AudioIndex,
+  type Recording,
+  type SoundRequest,
+} from "./resolve";
+import { setSpeechState as set } from "./store";
 import { pickVoice } from "./voices";
 
 /**
  * Plays one word at a time: a human recording through an AudioContext, or
- * the device voice as a fallback. A small store tells every 🔊 button which
- * word is loading or playing, and whether the voice settings are open.
+ * the device voice as a fallback. Nothing loads until the first click; then
+ * only the index part the word needs (~3 KB) and one ~32 KB shard.
  */
 
-export const AUDIO_INDEX_FILE = "/data/audio/index.json";
-const loadIndex = memoJson<AudioIndex>(AUDIO_INDEX_FILE);
-let index: AudioIndex | null = null;
-
-/** Fetch the recording index early (~100 KB) so a click can resolve at once. */
-export function preloadAudioIndex(): void {
-  if (!index) loadIndex().then((i) => (index = i), () => undefined);
-}
-
-/* ---------- store ---------- */
-
-export type SpeechState = {
-  /** Id of the button whose word is loading or playing. */
-  id: string | null;
-  status: "idle" | "loading" | "playing";
-  /** Voice settings dialog: closed, or open (because a word had no sound). */
-  settings: "closed" | "open" | "unavailable";
+type Entries = Record<string, AudioEntry>;
+const wordParts = new Map<number, () => Promise<Entries>>();
+const loadWordPart = (part: number) => {
+  if (!wordParts.has(part)) wordParts.set(part, memoJson<Entries>(`/data/audio/index-w-${part}.json`));
+  return wordParts.get(part)!();
 };
+const loadSyllables = memoJson<Entries>("/data/audio/index-s.json");
 
-let state: SpeechState = { id: null, status: "idle", settings: "closed" };
-const listeners = new Set<() => void>();
-const set = (next: Partial<SpeechState>) => {
-  state = { ...state, ...next };
-  for (const l of listeners) l();
-};
-export const subscribeSpeech = (l: () => void) => (listeners.add(l), () => void listeners.delete(l));
-export const speechState = () => state;
-export const SERVER_SPEECH_STATE: SpeechState = state;
-
-export function openSpeechSettings(reason: "open" | "unavailable" = "open") {
-  set({ settings: reason });
-}
-export function closeSpeechSettings() {
-  set({ settings: "closed" });
+/** The index entries for one request; a missing part reads as empty (falls back to the voice). */
+async function indexFor(req: SoundRequest, syllables: boolean): Promise<AudioIndex> {
+  const [w, s] = await Promise.all([
+    loadWordPart(wordPart(req.word)).catch((): Entries => ({})),
+    syllables ? loadSyllables().catch((): Entries => ({})) : Promise.resolve<Entries>({}),
+  ]);
+  return { words: w, syllables: s };
 }
 
 /* ---------- recordings ---------- */
@@ -160,6 +150,23 @@ async function speakWithVoice(id: string, text: string, my: number): Promise<"ok
   return "ok";
 }
 
+function start(actx: AudioContext, buffers: AudioBuffer[], id: string, my: number): void {
+  let at = actx.currentTime + 0.02;
+  buffers.forEach((buffer, i) => {
+    const src = actx.createBufferSource();
+    src.buffer = buffer;
+    src.connect(actx.destination);
+    if (i === buffers.length - 1) {
+      src.onended = () => my === token && set({ id: null, status: "idle" });
+      source = src;
+    }
+    src.start(at);
+    // Chained syllables: the recordings have silence at both ends; overlap them a little.
+    at += Math.max(0.2, buffer.duration - 0.25);
+  });
+  set({ id, status: "playing" });
+}
+
 /**
  * Play a word. Call it straight from the click handler (see audioContext).
  * Resolves "unavailable" when there is neither a recording nor a usable voice.
@@ -168,28 +175,17 @@ export async function playWord(id: string, req: SoundRequest): Promise<"ok" | "u
   stopSpeech();
   const my = token;
   const actx = audioContext();
-  if (!index) {
-    set({ id, status: "loading" });
-    try {
-      index = await loadIndex();
-    } catch {
-      // Offline or blocked: fall through to the device voice.
-    }
-  }
+  const single = Array.from(req.word).length === 1;
+  set({ id, status: "loading" });
+  // Syllables matter for single characters; words need only their index part.
+  const index = await indexFor(req, single);
   if (my !== token) return "ok";
   const sound = resolveSound(index, req);
   if (sound.kind === "recording" && actx) {
-    set({ id, status: "loading" });
     try {
       const buffer = await decode(actx, sound.recording);
       if (my !== token) return "ok";
-      const src = actx.createBufferSource();
-      src.buffer = buffer;
-      src.connect(actx.destination);
-      src.onended = () => my === token && set({ id: null, status: "idle" });
-      source = src;
-      src.start();
-      set({ id, status: "playing" });
+      start(actx, [buffer], id, my);
       return "ok";
     } catch {
       // A shard failed to load or decode: try the device voice instead.
@@ -198,26 +194,14 @@ export async function playWord(id: string, req: SoundRequest): Promise<"ok" | "u
   const spoken = await speakWithVoice(id, req.word, my);
   if (spoken === "ok" || my !== token) return "ok";
   // No device voice: chain the syllable recordings (河内 → hé + nèi).
-  const parts = syllableSequence(index, req);
-  if (!parts || !actx) return "unavailable";
+  if (!actx) return "unavailable";
   try {
     set({ id, status: "loading" });
+    const parts = syllableSequence(await indexFor(req, true), req);
+    if (!parts) throw new Error("no syllables");
     const buffers = await Promise.all(parts.map((p) => decode(actx, p)));
     if (my !== token) return "ok";
-    let at = actx.currentTime + 0.05;
-    buffers.forEach((buffer, i) => {
-      const src = actx.createBufferSource();
-      src.buffer = buffer;
-      src.connect(actx.destination);
-      if (i === buffers.length - 1) {
-        src.onended = () => my === token && set({ id: null, status: "idle" });
-        source = src;
-      }
-      src.start(at);
-      // The recordings have some silence at both ends; overlap them a little.
-      at += Math.max(0.2, buffer.duration - 0.25);
-    });
-    set({ id, status: "playing" });
+    start(actx, buffers, id, my);
     return "ok";
   } catch {
     set({ id: null, status: "idle" });

@@ -1,5 +1,10 @@
 /** Pronunciation preferences (not user text), kept in this browser. */
 export type SpeechPrefs = {
+  /**
+   * Pronunciation is off until the user turns it on (per device): with it
+   * off, no 🔊 buttons show and no audio file is ever fetched.
+   */
+  enabled: boolean;
   /** Device voice the user picked; null = choose the best automatically. */
   voiceURI: string | null;
   /** Allow online voices (they send the clicked word to Google/Microsoft). */
@@ -8,7 +13,7 @@ export type SpeechPrefs = {
   rate: number;
 };
 
-export const DEFAULT_SPEECH_PREFS: SpeechPrefs = { voiceURI: null, allowOnline: false, rate: 0.8 };
+export const DEFAULT_SPEECH_PREFS: SpeechPrefs = { enabled: false, voiceURI: null, allowOnline: false, rate: 0.8 };
 const KEY = "hns-speech";
 export const SPEECH_PREFS_EVENT = "speech-prefs-change";
 
@@ -17,6 +22,7 @@ export function parseSpeechPrefs(raw: string | null): SpeechPrefs {
     const v = JSON.parse(raw ?? "{}") as Partial<SpeechPrefs>;
     const rate = typeof v.rate === "number" && v.rate >= 0.6 && v.rate <= 1 ? v.rate : DEFAULT_SPEECH_PREFS.rate;
     return {
+      enabled: v.enabled === true,
       voiceURI: typeof v.voiceURI === "string" && v.voiceURI ? v.voiceURI : null,
       allowOnline: v.allowOnline === true,
       rate,

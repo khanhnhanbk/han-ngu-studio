@@ -545,6 +545,18 @@ export const en: Dictionary = {
     },
     close: "Close",
     credit: "Pronunciation: audio-cmn (CC BY-SA), speakers Yue Tan and Chen Wang.",
+    enable: "Turn on pronunciation",
+    enableHint: "(about 30 KB per word, loaded only when you listen)",
+    disable: "Turn off pronunciation",
+    paragraphTitle: "Listen to a whole text?",
+    paragraphIntro: "This site reads single words only. To hear a sentence or a whole text, use these free tools:",
+    paragraphTools: [
+      ["Microsoft Edge", "select the text, right-click → Read aloud, with natural voices."],
+      ["iPhone, iPad, Mac", "turn on Speak Selection in Accessibility → Spoken Content, then select text and choose Speak."],
+      ["Android", "turn on Select to Speak in Accessibility."],
+      ["Google Translate", "paste the text and press the speaker icon."],
+    ] as Array<[string, string]>,
+    paragraphNote: "Google Translate and Edge's online voices send the text to their servers; on-device voices (iPhone, Mac, Android) do not. Choose what suits you.",
   },
   script: {
     label: "Script",

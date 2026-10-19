@@ -545,6 +545,8 @@ function buildSizes() {
   const walk = (dir, prefix) => {
     for (const name of readdirSync(dir).sort()) {
       const path = join(dir, name);
+      // Audio is fetched one small shard per click and never gated: keep it out.
+      if (`${prefix}${name}` === "/data/audio") continue;
       if (statSync(path).isDirectory()) walk(path, `${prefix}${name}/`);
       else if (`${prefix}${name}` !== "/data/sizes.json") sizes[`${prefix}${name}`] = gzipSync(readFileSync(path)).length;
     }
