@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 
+import { SpeakButton } from "@/components/speech/SpeakButton";
 import type { FamilyMember } from "@/lib/decompose/family";
 import { useDictionary } from "@/lib/i18n/useLocale";
+import { defaultTone3 } from "@/lib/speech/tone";
 
 /** Members shown before "Xem tất cả". */
 const PREVIEW = 24;
@@ -15,11 +17,14 @@ export function FamilyList({
   component,
   members,
   hanviet,
+  simp,
   onOpen,
 }: {
   component: string;
   members: FamilyMember[];
   hanviet: (char: string) => string;
+  /** Simplified form of a shown character (recordings are keyed that way). */
+  simp: (char: string) => string;
   onOpen: (char: string) => void;
 }) {
   const t = useDictionary().decompose;
@@ -41,7 +46,7 @@ export function FamilyList({
         <>
           <ul className="mt-3 grid grid-cols-[repeat(auto-fill,minmax(4rem,1fr))] gap-2">
             {shown.map((m) => (
-              <li key={m.char}>
+              <li key={m.char} className="relative">
                 <button
                   type="button"
                   onClick={() => onOpen(m.char)}
@@ -55,6 +60,14 @@ export function FamilyList({
                   <span className="hanzi text-2xl text-ink-900">{m.char}</span>
                   <span className="text-xs text-ink-700">{hanviet(m.char) || "—"}</span>
                 </button>
+                {/* Beside the tile, not inside it: a button cannot hold a button. */}
+                <SpeakButton
+                  word={simp(m.char)}
+                  label={m.char}
+                  tone3={defaultTone3(simp(m.char))}
+                  size={12}
+                  className="absolute left-0.5 top-0.5 p-1"
+                />
               </li>
             ))}
           </ul>

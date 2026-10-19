@@ -162,12 +162,6 @@ export const vi = {
       },
       {
         status: "planned",
-        title: "Nghe phát âm",
-        description:
-          "Bấm để nghe từ hoặc cả câu tiếng Trung ngay trên trình duyệt, miễn phí và không gửi dữ liệu đi đâu.",
-      },
-      {
-        status: "planned",
         title: "Âm thanh cho thẻ Anki",
         description:
           "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
@@ -495,6 +489,62 @@ export const vi = {
     declined: "Chưa tải dữ liệu. Bấm lại nút khi bạn muốn tải.",
     strokesDeclined: "Chưa tải dữ liệu thứ tự nét (khoảng {size}).",
     strokesLoad: "Tải dữ liệu thứ tự nét",
+  },
+  speech: {
+    listen: "Nghe {word}",
+    stop: "Dừng",
+    settingsLink: "Giọng đọc",
+    title: "Giọng đọc",
+    howTitle: "Âm thanh lấy từ đâu?",
+    how: "Phần lớn từ và chữ thông dụng (khoảng 8.500 từ HSK và mọi âm tiết) dùng bản ghi giọng người thật, có sẵn trên trang, không cần cài gì. Chỉ khi chưa có bản ghi, trang mới dùng giọng đọc tiếng Trung của máy bạn.",
+    unavailable: "Từ này chưa có bản ghi và máy bạn chưa có giọng đọc tiếng Trung. Hãy cài một giọng miễn phí theo hướng dẫn bên dưới.",
+    deviceVoice: "Giọng của máy (khi không có bản ghi)",
+    autoVoice: "Tự chọn giọng tốt nhất",
+    online: "online",
+    noVoice: "Không tìm thấy giọng tiếng Trung (phổ thông) trên trình duyệt này.",
+    allowOnline: "Cho phép giọng online (Google, Microsoft)",
+    allowOnlineNote: "Giọng online thường hay hơn, nhưng khi bật, trình duyệt sẽ gửi từ bạn bấm nghe tới Google hoặc Microsoft để đọc. Bản ghi giọng người thật không bị ảnh hưởng.",
+    rate: "Tốc độ giọng máy",
+    test: "Thử",
+    testWord: "你好",
+    installTitle: "Cài giọng tiếng Trung miễn phí",
+    installNote: "Tên mục có thể khác một chút tùy phiên bản. Sau khi cài, hãy đóng hẳn và mở lại trình duyệt.",
+    systems: {
+      windows: "Windows",
+      mac: "macOS",
+      ios: "iPhone / iPad",
+      android: "Android",
+      linux: "Linux",
+    },
+    install: {
+      windows: [
+        "Mở Settings (Cài đặt) → Time & language → Speech (Giọng nói).",
+        "Ở Manage voices, bấm Add voices, chọn Chinese (Simplified, China) rồi cài.",
+        "Mở lại trình duyệt và chọn giọng Microsoft (Huihui, Yaoyao hoặc Kangkang) ở trên.",
+      ],
+      mac: [
+        "Mở System Settings → Accessibility → Spoken Content.",
+        "Ở System voice chọn Manage Voices…, mở Chinese (China mainland) và tải Tingting hoặc Lilian (bản Premium hoặc Enhanced nghe tự nhiên hơn).",
+        "Mở lại trình duyệt và chọn giọng đó ở trên.",
+      ],
+      ios: [
+        "Mở Settings → Accessibility → Spoken Content → Voices.",
+        "Chọn Chinese (China mainland) và tải Tingting hoặc Lilian (Enhanced hoặc Premium).",
+        "Mở lại trang này.",
+      ],
+      android: [
+        "Mở Settings và tìm “Text-to-speech” (Chuyển văn bản thành giọng nói).",
+        "Chọn Speech Services by Google → Install voice data → Chinese (Mandarin) và tải về.",
+        "Mở lại trình duyệt.",
+      ],
+      linux: [
+        "Trình duyệt trên Linux thường không có giọng tiếng Trung tốt.",
+        "Bản ghi giọng người thật vẫn dùng được cho phần lớn từ thông dụng.",
+        "Có thể cài speech-dispatcher với một giọng tiếng Trung, nhưng chất lượng thường thấp.",
+      ],
+    },
+    close: "Đóng",
+    credit: "Phát âm: audio-cmn (CC BY-SA), giọng Yue Tan và Chen Wang.",
   },
   script: {
     label: "Loại chữ",

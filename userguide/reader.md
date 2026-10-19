@@ -86,6 +86,10 @@ Danh sách từ đã biết **chỉ lưu trên trình duyệt này**, không g�
 
 Bấm **繁** trên thanh menu: văn bản, thẻ chi tiết, bảng từ và danh sách học hiện bằng chữ phồn thể, dù bạn gõ giản thể hay phồn thể. Từ đã biết được lưu theo chữ giản thể, nên 學習 và 学习 là một từ. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
+## Nghe phát âm
+
+Bấm biểu tượng **loa** trong thẻ chi tiết và cạnh mỗi từ trong **Bảng từ** để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |

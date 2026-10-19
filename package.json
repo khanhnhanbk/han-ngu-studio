@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "build:data": "node scripts/build-data.mjs"
+    "build:data": "node scripts/build-data.mjs",
+    "build:audio": "node scripts/build-audio.mjs"
   },
   "dependencies": {
     "hanzi-writer": "3.7.3",

@@ -27,7 +27,7 @@ Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`li
 1. **Must deploy on the Vercel Free (Hobby) plan.** Top priority. No paid features (Edge Config, KV, Postgres, Blob, etc.).
 2. **NO backend, NO database.** All processing runs in the browser. No API routes, Server Actions, serverless functions or Python runtime for processing logic.
 3. **Correctness over speed.** Never trade accuracy for performance.
-4. **User text is never stored or sent anywhere.** Processing happens on the user's device. Exceptions: notes the user deliberately writes (memory stories on `/tools/decompose`) and the words the user marks as known in Đọc hiểu (`/tools/reader`) may be kept in that user's own browser (localStorage), never sent anywhere, with TSV export/import. The text being read is never stored.
+4. **User text is never stored or sent anywhere.** Processing happens on the user's device. Exceptions: notes the user deliberately writes (memory stories on `/tools/decompose`) and the words the user marks as known in Đọc hiểu (`/tools/reader`) may be kept in that user's own browser (localStorage), never sent anywhere, with TSV export/import. The text being read is never stored. Online browser voices: only if the user explicitly turns them on in Giọng đọc (off by default), their browser sends the single clicked word to that voice provider (Google/Microsoft); never sentences.
 5. **Static first.** Data (dictionaries, Sino-Vietnamese readings, Wubi codes) is static JSON in `public/` or imported directly. Split large files and lazy-load them.
 
 ## Commands
@@ -36,6 +36,7 @@ Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`li
 - `pnpm run build`: production build. **Must succeed before any task counts as done.**
 - `pnpm run lint`: lint (ESLint `next/core-web-vitals` + `next/typescript`). `next build` also lints, so **a lint error fails the Vercel deploy**.
 - `pnpm test`: Vitest (`lib/**/*.test.ts`), including golden tests
+- `pnpm build:audio`: one-off, re-pack the audio-cmn recordings into `public/data/audio/` (`scripts/build-audio.mjs`, pinned commit; then run `pnpm build:data` so `sizes.json` lists them)
 - `pnpm build:data`: rebuild `public/data/*.json` from `assets/dictionary/` (`scripts/build-data.mjs`). Run after changing source data and commit the output.
 
 ## Porting algorithms from Python to TypeScript
@@ -85,6 +86,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - Radicals: names and meanings in `assets/dictionary/radicals.tsv` are our own curation, checked against PREP's list (prepedu.com) with its typos fixed. Characters per radical come from Unicode Unihan `kRSUnicode` (Unicode License v3, `assets/dictionary/LICENSE-unicode.txt`), extracted once to `assets/dictionary/unihan_radicals.tsv`.
 - Character decomposition: Make Me a Hanzi `dictionary.txt` (LGPL-3.0+, `assets/dictionary/makemeahanzi-dictionary.txt`, licence and pinned commit in `assets/dictionary/LICENSE-makemeahanzi-lgpl.txt`): IDS, etymology (pictophonetic semantic/phonetic parts) and per-stroke `matches`. Built by `pnpm build:data` into `public/data/decompose.json` (keys in frequency order) and the stroke shards.
 - Traditional conversion: OpenCC dictionaries (Apache-2.0) via `opencc-js` 1.4.2 (MIT), lazy-loaded in the browser only in Phồn thể mode (Taiwan characters, `cn`↔`tw`, no vocabulary swaps). Phồn thể glyphs: Noto Sans TC / Noto Serif TC (SIL OFL). `radicals.json` also carries Taiwan-character lists (`charsTrad`, `membersTrad`, `countTrad`), built by `pnpm build:data` with opencc-js.
+- Pronunciation: human recordings from audio-cmn (CC BY-SA; words by Yue Tan, syllables by Chen Wang; `assets/dictionary/LICENSE-audio-cmn.txt`), packed into 64 KB shards + `index.json` in `public/data/audio/`. `lib/speech/` picks the sound (`resolveSound`: in-context single character → syllable for that reading; else the word's recording; else device voice via Web Speech, offline voices only unless allowed; last resort the chained syllables). 🔊 buttons (`components/speech/SpeakButton.tsx`) are for words and characters only, never sentences; the settings dialog (`SpeechSettings`) is mounted in the root layout.
 - Keep these credits visible on the pages that use the data and in `userguide/`.
 
 ## User guide

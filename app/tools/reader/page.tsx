@@ -9,6 +9,8 @@ import { IconButton } from "@/components/icons/trigger";
 import { Navbar } from "@/components/Navbar";
 import { LEVEL_STYLE, levelLabel, percent } from "@/components/reader/levels";
 import { WordCard, type CardTarget } from "@/components/reader/WordCard";
+import { SpeakButton } from "@/components/speech/SpeakButton";
+import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
 import { loadMeanings, MEANINGS_FILE } from "@/lib/anki/load";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
@@ -315,7 +317,10 @@ export default function ReaderPage() {
               <div ref={resultRef} className="scroll-mt-24">
                 {/* The text, word by word */}
                 <div className="card mt-6">
-                  <p className="text-xs text-ink-500">{t.legend}</p>
+                  <p className="flex flex-wrap items-center justify-between gap-2 text-xs text-ink-500">
+                    <span>{t.legend}</span>
+                    <SpeechSettingsLink />
+                  </p>
                   <div className="hanzi mt-4 text-2xl leading-[2.4] text-ink-900">
                     {lines.map((line, i) => (
                       <p key={i} className="min-h-[1em]">
@@ -430,7 +435,12 @@ export default function ReaderPage() {
                             const level = r.level ?? "none";
                             return (
                               <tr key={r.text} className="border-t border-ink-900/5 align-top">
-                                <td className="hanzi whitespace-nowrap px-3 py-2 text-lg text-ink-900">{show(r.text)}</td>
+                                <td className="whitespace-nowrap px-2 py-1.5">
+                                  <span className="flex items-center gap-1">
+                                    <span className="hanzi text-lg text-ink-900">{show(r.text)}</span>
+                                    <SpeakButton word={r.text} label={show(r.text)} tone3={r.tone3} contextual size={16} />
+                                  </span>
+                                </td>
                                 <td className="whitespace-nowrap px-3 py-2 text-brand-ink">{r.pinyin}</td>
                                 <td className="whitespace-nowrap px-3 py-2">{r.hanviet}</td>
                                 <td className="whitespace-nowrap px-3 py-2">
@@ -538,7 +548,9 @@ export default function ReaderPage() {
               </div>
             </div>
 
-            <p className="mt-6 text-xs text-ink-500">{t.credits}</p>
+            <p className="mt-6 text-xs text-ink-500">
+              {t.credits} {dict.speech.credit}
+            </p>
           </div>
         </section>
       </main>

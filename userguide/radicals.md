@@ -49,6 +49,10 @@ Bấm vào một bộ thủ. Khung chi tiết hiện ở bên phải (trên đi�
 
 Bấm **繁** trên thanh menu: các chữ ví dụ và số chữ của mỗi bộ là chữ phồn thể (Đài Loan). Chữ phồn thể có thể thuộc bộ khác chữ giản thể: 頭 thuộc bộ 181 頁, còn 头 thuộc bộ 37 大. Ô tìm kiếm nhận cả hai loại chữ: gõ 头 sẽ tìm ra bộ của 頭. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
+## Nghe phát âm
+
+Bấm biểu tượng **loa** ở góc mỗi chữ ví dụ để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |

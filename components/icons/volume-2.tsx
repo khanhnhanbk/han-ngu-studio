@@ -1,0 +1,162 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import type { Variants } from "motion/react";
+import {
+ LazyMotion,
+ domMin,
+ m,
+ useAnimation,
+ useReducedMotion,
+} from "motion/react";
+import {
+ forwardRef,
+ useCallback,
+ useImperativeHandle,
+ useRef,
+ type HTMLAttributes,
+} from "react";
+export interface Volume2IconHandle {
+ startAnimation: () => void;
+ stopAnimation: () => void;
+}
+
+interface Volume2IconProps extends Omit<
+ HTMLAttributes<HTMLDivElement>,
+ | "color"
+ | "onDrag"
+ | "onDragStart"
+ | "onDragEnd"
+ | "onAnimationStart"
+ | "onAnimationEnd"
+ | "onAnimationIteration"
+> {
+ size?: number;
+ duration?: number;
+ isAnimated?: boolean;
+ color?: string;
+}
+
+const Volume2Icon = forwardRef<Volume2IconHandle, Volume2IconProps>(
+ (
+  {
+   onMouseEnter,
+   onMouseLeave,
+   className,
+   size = 24,
+   duration = 1,
+   isAnimated = true,
+   color,
+   ...props
+  },
+  ref,
+ ) => {
+  const controls = useAnimation();
+  const reduced = useReducedMotion();
+  const isControlled = useRef(false);
+
+  useImperativeHandle(ref, () => {
+   isControlled.current = true;
+   return {
+    startAnimation: () =>
+     reduced ? controls.start("normal") : controls.start("animate"),
+    stopAnimation: () => controls.start("normal"),
+   };
+  });
+
+  const handleEnter = useCallback(
+   (e?: React.MouseEvent<HTMLDivElement>) => {
+    if (!isAnimated || reduced) return;
+    if (!isControlled.current) controls.start("animate");
+    else if (e) onMouseEnter?.(e);
+   },
+   [controls, reduced, isAnimated, onMouseEnter],
+  );
+
+  const handleLeave = useCallback(
+   (e?: React.MouseEvent<HTMLDivElement>) => {
+    if (!isControlled.current) controls.start("normal");
+    else if (e) onMouseLeave?.(e);
+   },
+   [controls, onMouseLeave],
+  );
+
+  const speakerVariants: Variants = {
+   normal: { scale: 1 },
+   animate: {
+    scale: [1, 1.1, 0.96, 1],
+    transition: {
+     duration: 0.6 * duration,
+     ease: "easeInOut",
+     times: [0, 0.35, 0.7, 1],
+    },
+   },
+  };
+
+  const waveVariants: Variants = {
+   normal: { x: 0 },
+   animate: {
+    x: [0, 1.5, -0.4, 0],
+    transition: {
+     duration: 0.6 * duration,
+     ease: "easeInOut",
+     times: [0, 0.35, 0.7, 1],
+     delay: 0.1 * duration,
+    },
+   },
+  };
+
+  const outerWaveVariants: Variants = {
+   normal: { x: 0 },
+   animate: {
+    x: [0, 0.9, -0.3, 0],
+    transition: {
+     duration: 0.6 * duration,
+     ease: "easeInOut",
+     times: [0, 0.35, 0.7, 1],
+     delay: 0.2 * duration,
+    },
+   },
+  };
+
+  return (
+   <LazyMotion features={domMin} strict>
+    <m.div
+     className={cn("inline-flex items-center justify-center", className)}
+     onMouseEnter={handleEnter}
+     onMouseLeave={handleLeave}
+     {...props}
+     style={{ color, ...props.style }}
+    >
+     <m.svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      animate={controls}
+      initial="normal"
+     >
+      <m.path
+       d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+       variants={speakerVariants}
+       style={{ transformBox: "view-box", originX: "6.5px", originY: "12px" }}
+      />
+      <m.path d="M16 9a5 5 0 0 1 0 6" variants={waveVariants} />
+      <m.path
+       d="M19.364 18.364a9 9 0 0 0 0-12.728"
+       variants={outerWaveVariants}
+      />
+     </m.svg>
+    </m.div>
+   </LazyMotion>
+  );
+ },
+);
+
+Volume2Icon.displayName = "Volume2Icon";
+export { Volume2Icon };

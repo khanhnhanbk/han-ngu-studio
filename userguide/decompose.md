@@ -76,6 +76,10 @@ Trang **214 bộ thủ** (nút **Chiết tự**) và trang **Thứ tự nét** (
 
 Bấm **繁** trên thanh menu: chữ được phân tích ở dạng phồn thể, dù bạn gõ giản thể (们 → 們: 亻 + 門). Pinyin và Hán Việt lấy theo chữ giản thể tương ứng. Danh sách **Chữ có chứa thành phần** chỉ hiện chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
+## Nghe phát âm
+
+Bấm biểu tượng **loa** cạnh Pinyin của chữ đang xem và ở góc mỗi chữ cùng thành phần để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |

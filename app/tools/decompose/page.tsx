@@ -3,6 +3,8 @@
 import { pinyin } from "pinyin-pro";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
+import { SpeakButton } from "@/components/speech/SpeakButton";
+import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
 import { ColoredGlyph } from "@/components/decompose/ColoredGlyph";
 import { ComponentTree, type GlyphInfo, type PartSelection } from "@/components/decompose/ComponentTree";
 import { FamilyList } from "@/components/decompose/FamilyList";
@@ -23,6 +25,7 @@ import { loadRadicals } from "@/lib/radicals/load";
 import type { Radical } from "@/lib/radicals/types";
 import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
+import { defaultTone3 } from "@/lib/speech/tone";
 import { loadStrokes } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
@@ -278,6 +281,7 @@ export default function DecomposePage() {
                   {!entry ? (
                     <div className="flex items-center gap-4">
                       <span className="hanzi text-6xl text-ink-900">{current}</span>
+                      <SpeakButton word={simpChar(current)} label={current} tone3={defaultTone3(simpChar(current))} size={24} />
                       <p className="text-sm text-ink-700">{t.noData}</p>
                     </div>
                   ) : (
@@ -298,8 +302,9 @@ export default function DecomposePage() {
                         )}
                         <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                           <dt className="text-ink-500">{t.pinyin}</dt>
-                          <dd className="font-medium text-ink-900">
+                          <dd className="flex items-center gap-1 font-medium text-ink-900">
                             {pinyin(simpChar(current), { multiple: true, type: "array" }).join(", ")}
+                            <SpeakButton word={simpChar(current)} label={current} tone3={defaultTone3(simpChar(current))} size={16} />
                           </dd>
                           <dt className="text-ink-500">{t.hanviet}</dt>
                           <dd className="font-medium text-brand-ink">{hanvietOf(current) || "—"}</dd>
@@ -393,6 +398,7 @@ export default function DecomposePage() {
                         component={selected.char}
                         members={family}
                         hanviet={(c) => allCharReadings(tables.hanviet, simpChar(c))[0] ?? ""}
+                        simp={simpChar}
                         onOpen={openFromFamily}
                       />
                     </div>
@@ -404,7 +410,9 @@ export default function DecomposePage() {
               </div>
             )}
 
-            <p className="mt-6 text-xs text-ink-500">{t.credits}</p>
+            <p className="mt-6 text-xs text-ink-500">
+              {t.credits} {vi.speech.credit} <SpeechSettingsLink />
+            </p>
           </div>
         </section>
       </main>

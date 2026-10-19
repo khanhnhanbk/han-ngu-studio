@@ -4,11 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { SpeakButton } from "@/components/speech/SpeakButton";
+import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { loadRadicals } from "@/lib/radicals/load";
 import { forScript, groupByStrokes, searchRadicals } from "@/lib/radicals/search";
 import type { Radical } from "@/lib/radicals/types";
 import { useConverter } from "@/lib/script/useScript";
+import { defaultTone3 } from "@/lib/speech/tone";
 
 /** Characters sent to the stroke-order page and the practice sheet. */
 const LINKED_EXAMPLES = 6;
@@ -17,6 +20,8 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
   const dict = useDictionary();
   const t = dict.radicals;
   const href = useHref();
+  // Example characters may be Traditional (Phồn thể); recordings are Simplified.
+  const { conv } = useConverter();
   const chars = [radical.radical, ...radical.chars.slice(0, LINKED_EXAMPLES).map(([c]) => c)].join("");
   // Characters travel in the hash, which is never sent to the server.
   const strokeHref = href(`/tools/stroke-order#${new URLSearchParams({ c: chars })}`);
@@ -56,7 +61,7 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
         <>
           <ul className="mt-3 grid grid-cols-4 gap-2">
             {radical.chars.map(([char, hv]) => (
-              <li key={char}>
+              <li key={char} className="relative">
                 <a
                   href={href(`/tools/stroke-order#${new URLSearchParams({ c: char })}`)}
                   className="flex flex-col items-center rounded-lg border border-ink-900/10 px-1 py-2 hover:border-brand-500 hover:bg-brand-50"
@@ -64,6 +69,14 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
                   <span className="hanzi text-2xl text-ink-900">{char}</span>
                   <span className="text-xs text-ink-700">{hv}</span>
                 </a>
+                {/* Beside the link, not inside it: a link cannot hold a button. */}
+                <SpeakButton
+                  word={conv.toSimp(char)}
+                  label={char}
+                  tone3={defaultTone3(conv.toSimp(char))}
+                  size={12}
+                  className="absolute left-0.5 top-0.5 p-1"
+                />
               </li>
             ))}
           </ul>
@@ -202,7 +215,9 @@ export default function RadicalsPage() {
               </div>
             )}
 
-            <p className="mt-10 text-xs text-ink-700/70">{t.credits}</p>
+            <p className="mt-10 text-xs text-ink-700/70">
+              {t.credits} {dict.speech.credit} <SpeechSettingsLink />
+            </p>
           </div>
         </section>
       </main>

@@ -74,6 +74,19 @@ Khi chọn **Giản thể**, các công cụ hoạt động y như trước, kh�
 
 Lựa chọn được lưu trên trình duyệt của bạn. Bộ chuyển đổi: OpenCC (Apache-2.0) qua opencc-js (MIT), chạy ngay trên máy, không gửi văn bản đi đâu.
 
+## Nghe phát âm
+
+Bấm biểu tượng **loa** cạnh một từ hoặc một chữ để nghe (chỉ từ và chữ, không đọc cả câu). Có ở **Đọc hiểu** (thẻ chi tiết và **Bảng từ**), **Thứ tự nét**, **Chiết tự** (chữ đang xem và các chữ cùng thành phần) và **214 bộ thủ** (chữ ví dụ).
+
+- Phần lớn từ và chữ thông dụng (khoảng 8.500 từ HSK và mọi âm tiết) dùng **bản ghi giọng người thật**, có sẵn trên trang, không cần cài gì. Ở **Đọc hiểu**, một chữ được đọc đúng theo nghĩa trong câu (行 trong 银行 đọc là háng).
+- Khi chưa có bản ghi, trang dùng **giọng đọc tiếng Trung của máy bạn**. Nếu máy chưa có, trang mở hộp **Giọng đọc** với hướng dẫn cài giọng miễn phí cho Windows, macOS, iPhone / iPad, Android.
+- Bấm **Giọng đọc** (cạnh nguồn dữ liệu ở cuối mỗi công cụ) để chọn giọng của máy, chỉnh **Tốc độ giọng máy** và bấm **Thử**.
+- **Cho phép giọng online (Google, Microsoft)** mặc định tắt. Nếu bật, trình duyệt gửi từ bạn bấm nghe tới Google hoặc Microsoft để đọc; bản ghi giọng người thật không bị ảnh hưởng.
+- Không nghe thấy gì? Kiểm tra âm lượng; trên iPhone / iPad, tắt **chế độ im lặng** (công tắc bên cạnh máy) vì nó tắt cả âm thanh trên trang web.
+- Bấm loa lần nữa để dừng. Lần đầu nghe, trang tải khoảng 100 KB; mỗi từ sau đó vài chục KB.
+
+Bản ghi: audio-cmn (CC BY-SA), giọng Yue Tan (từ) và Chen Wang (âm tiết).
+
 ## Mẹo chung
 
 - Lần đầu dùng **Ngắt từ**, **Chuyển Pinyin**, **Hán Việt** hoặc **Sắp xếp câu N+1**, trang sẽ tải một từ điển nhỏ (khoảng 0,5 MB). Các lần sau dùng ngay, không cần tải lại.

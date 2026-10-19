@@ -1,0 +1,19 @@
+Pronunciation recordings in public/data/audio/ (packed by scripts/build-audio.mjs)
+
+Source: audio-cmn — https://github.com/hugolpz/audio-cmn
+Pinned commit: 59dbafbda8b172ffc3b8b295cd5938ae1b3de803 (folders 24k-abr/hsk and 24k-abr/syllabs)
+
+License: Creative Commons Attribution-ShareAlike (CC BY-SA), as stated in the
+audio-cmn README ("CC-by-sa. See table upper for authors").
+
+Authors:
+- Words and characters (HSK 2000 list, 24k-abr/hsk): Yue Tan, from the Shtooka
+  pack cmn-caen-tan (http://packs.shtooka.net/cmn-caen-tan/readme.txt).
+- Toned syllables (24k-abr/syllabs): Chen Wang.
+- Curation, compression, renaming: Hugo Lopez (PLIDAM, INALCO); recording
+  software (SWAC Recorder): Nicolas Vion.
+
+Changes made here: the MP3 files are copied unchanged and concatenated into
+shards (w-<n>.bin, s-<n>.bin) with an index (index.json) giving each file's
+shard, offset and length. These packed files are distributed under the same
+CC BY-SA license.

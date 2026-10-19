@@ -24,7 +24,7 @@ const data: ReaderData = {
 
 const wordsOf = (lines: ReaderLine[]) => lines.flat().filter((t): t is ReaderWord => t.kind === "word");
 const word = (text: string, level: ReaderWord["level"]): ReaderWord => ({
-  kind: "word", text, pinyin: "", hanviet: "", level, meaningVi: "", meaningEn: "",
+  kind: "word", text, pinyin: "", tone3: [], hanviet: "", level, meaningVi: "", meaningEn: "",
 });
 
 describe("analyzeText", () => {
@@ -34,7 +34,7 @@ describe("analyzeText", () => {
   it("segments and reads each word in context", () => {
     expect(wordsOf(lines).map((w) => w.text)).toEqual(["我们", "明天", "去", "银行", "取钱"]);
     // 行 is read háng in 银行 (not xíng), and the Hán Việt follows that reading.
-    expect(byText["银行"]).toMatchObject({ pinyin: "yínháng", hanviet: "ngân hàng", meaningEn: expect.stringContaining("bank") });
+    expect(byText["银行"]).toMatchObject({ pinyin: "yínháng", tone3: ["yin2", "hang2"], hanviet: "ngân hàng", meaningEn: expect.stringContaining("bank") });
   });
 
   it("takes HSK levels and Vietnamese meanings from the HSK 3.0 list", () => {

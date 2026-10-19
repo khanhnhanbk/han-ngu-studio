@@ -5,6 +5,8 @@ import { useEffect, useState, type FormEvent } from "react";
 
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { SpeakButton } from "@/components/speech/SpeakButton";
+import { SpeechSettingsLink } from "@/components/speech/SpeechSettingsLink";
 import { StrokeSteps } from "@/components/stroke-order/StrokeSteps";
 import { Writer } from "@/components/stroke-order/Writer";
 import { confirmDownload } from "@/lib/data/budget";
@@ -14,6 +16,7 @@ import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { parseCharacters, parseSheetCharacters } from "@/lib/practiceSheet";
 import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
+import { defaultTone3 } from "@/lib/speech/tone";
 import { loadStrokes, strokeFiles } from "@/lib/strokes/load";
 import type { StrokeData } from "@/lib/strokes/types";
 
@@ -170,7 +173,10 @@ export default function StrokeOrderPage() {
 
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-4">
-                      <span className="hanzi text-6xl text-ink-900">{current}</span>
+                      <span className="flex items-center gap-1">
+                        <span className="hanzi text-6xl text-ink-900">{current}</span>
+                        <SpeakButton word={simpCurrent} label={current} tone3={defaultTone3(simpCurrent)} size={24} />
+                      </span>
                       <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                         <dt className="text-ink-500">{t.pinyin}</dt>
                         <dd className="font-medium text-ink-900">
@@ -210,7 +216,9 @@ export default function StrokeOrderPage() {
               </div>
             )}
 
-            <p className="mt-6 text-xs text-ink-500">{t.credit}</p>
+            <p className="mt-6 text-xs text-ink-500">
+              {t.credit} {dict.speech.credit} <SpeechSettingsLink />
+            </p>
           </div>
         </section>
       </main>

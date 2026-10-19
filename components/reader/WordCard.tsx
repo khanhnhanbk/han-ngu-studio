@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import type { ReaderWord } from "@/lib/reader/analyze";
+import { SpeakButton } from "@/components/speech/SpeakButton";
 
 import { LEVEL_STYLE, levelLabel } from "./levels";
 
@@ -91,7 +92,11 @@ export function WordCard({
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="hanzi text-4xl text-ink-900">{shown}</p>
+          <p className="flex items-center gap-2">
+            <span className="hanzi text-4xl text-ink-900">{shown}</span>
+            {/* Read as in this sentence: a single character uses the syllable for its reading here. */}
+            <SpeakButton word={word.text} label={shown} tone3={word.tone3} contextual size={22} />
+          </p>
           <p className="mt-1 text-lg text-brand-ink">{word.pinyin}</p>
         </div>
         <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink-50 px-2 py-0.5 text-xs font-medium text-ink-700">

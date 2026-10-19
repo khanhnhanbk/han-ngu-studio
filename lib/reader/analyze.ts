@@ -22,6 +22,8 @@ export type ReaderWord = {
   text: string;
   /** Pinyin with tone marks, written as a word ("yínháng"). */
   pinyin: string;
+  /** TONE3 reading of each character in this sentence ("yin2", "hang2"), for pronunciation. */
+  tone3: string[];
   /** Hán Việt, one reading per character, joined by spaces ("ngân hàng"). */
   hanviet: string;
   /** Lowest HSK 3.0 level of the word for this reading; null when not in the list. */
@@ -61,6 +63,7 @@ export function analyzeText(data: ReaderData, text: string): ReaderLine[] {
         kind: "word",
         text: w.hanzi,
         pinyin: joinSyllables(w.pinyin, "word"),
+        tone3: w.tone3,
         // analyzeLine joins a word's readings with "_" for its TSV columns.
         hanviet: w.hanviet.replace(/_/g, " "),
         level: info ? (info.level.replace(/^HSK /, "") as HskLevel) : null,
