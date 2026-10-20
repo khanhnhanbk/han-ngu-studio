@@ -10,10 +10,12 @@ import { ChevronDownIcon } from "./icons/chevron-down";
 import { MenuIcon } from "./icons/menu";
 import { useIconTrigger } from "./icons/trigger";
 import { XIcon } from "./icons/x";
-import { LanguageSwitch } from "./LanguageSwitch";
-import { ScriptSwitch } from "./ScriptSwitch";
-import { ThemePicker } from "./ThemePicker";
+import { SettingsMenu, SettingsPanel } from "./SettingsMenu";
 
+/**
+ * Kept short on purpose: Công cụ ▾ and one link on the left; on the right only
+ * the sound switch and ⚙ (language, Giản thể / Phồn thể, pronunciation, theme).
+ */
 export function Navbar() {
   const dict = useDictionary();
   const href = useHref();
@@ -22,12 +24,7 @@ export function Navbar() {
   const chevron = useIconTrigger();
   const menu = useIconTrigger();
 
-  const links = [
-    { href: href("/#how-it-works"), label: dict.nav.howItWorks },
-    { href: href("/#for-teachers"), label: dict.nav.forTeachers },
-    // Hidden on narrow desktops (lg) to make room; still in the footer and the phone menu.
-    { href: href("/#roadmap"), label: dict.nav.roadmap, wideOnly: true },
-  ];
+  const links = [{ href: href("/#for-teachers"), label: dict.nav.forTeachers }];
 
   const groups = TOOL_GROUPS.map((g) => ({
     id: g.id,
@@ -37,7 +34,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/5 bg-surface/80 backdrop-blur">
-      <div className="container-page flex h-16 items-center justify-between">
+      <div className="container-page flex h-16 items-center gap-8">
         <Link href={href("/")} className="flex items-center gap-2 whitespace-nowrap font-bold text-ink-900">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-on-brand hanzi text-lg">
             汉
@@ -45,19 +42,7 @@ export function Navbar() {
           <span>Hán Ngữ Studio</span>
         </Link>
 
-        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink ${
-                "wideOnly" in link ? "hidden xl:inline" : ""
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
-
+        <nav className="hidden items-center gap-6 lg:flex">
           <div
             className="group relative"
             onMouseLeave={() => setToolsOpen(false)}
@@ -82,9 +67,7 @@ export function Navbar() {
             {/* pt-2 bridges the gap so hover isn't lost moving into the panel */}
             <div
               role="menu"
-              className={`absolute left-1/2 top-full -translate-x-1/2 pt-2 group-hover:block ${
-                toolsOpen ? "block" : "hidden"
-              }`}
+              className={`absolute left-0 top-full pt-2 group-hover:block ${toolsOpen ? "block" : "hidden"}`}
             >
               {/* One column per group: what the learner wants to do. */}
               <div className="grid w-[44rem] grid-cols-3 gap-2 rounded-xl border border-ink-900/10 bg-surface p-3 shadow-lg">
@@ -110,20 +93,25 @@ export function Navbar() {
               </div>
             </div>
           </div>
+
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="whitespace-nowrap text-sm font-medium text-ink-700 transition hover:text-brand-ink"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="ml-auto hidden items-center gap-2 lg:flex">
           <SpeechNavButton />
-          <LanguageSwitch />
-          <ScriptSwitch />
-          <ThemePicker />
-          <Link href={href("/#cta")} className="btn-primary whitespace-nowrap">
-            {dict.nav.cta}
-          </Link>
+          <SettingsMenu />
         </div>
 
         {/* Phones: the sound switch stays visible outside the menu. */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="ml-auto flex items-center gap-2 lg:hidden">
           <SpeechNavButton compact />
           <button
             type="button"
@@ -143,20 +131,10 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-ink-900/5 bg-surface lg:hidden">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-ink-900/5 bg-surface lg:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50"
-              >
-                {link.label}
-              </a>
-            ))}
             {groups.map((group) => (
-              <div key={group.id} className="mt-2">
+              <div key={group.id} className="mt-2 first:mt-0">
                 <p className="px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
                   {dict.nav.tools} · {group.title}
                 </p>
@@ -173,37 +151,22 @@ export function Navbar() {
                 ))}
               </div>
             ))}
-            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {dict.language.label}
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="mt-2 rounded-lg px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50"
+              >
+                {link.label}
+              </a>
+            ))}
+            <p className="mt-2 border-t border-ink-900/10 px-3 pt-4 text-xs font-semibold uppercase tracking-wide text-ink-500">
+              {dict.nav.settings}
             </p>
             <div className="px-3 py-2">
-              <LanguageSwitch inline />
+              <SettingsPanel />
             </div>
-            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {dict.script.label}
-            </p>
-            <div className="px-3 py-2">
-              <ScriptSwitch inline />
-            </div>
-            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {dict.speech.navLabel}
-            </p>
-            <div className="px-3 py-2">
-              <SpeechNavButton />
-            </div>
-            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {dict.theme.button}
-            </p>
-            <div className="px-3 py-2">
-              <ThemePicker inline />
-            </div>
-            <Link
-              href={href("/#cta")}
-              onClick={() => setOpen(false)}
-              className="btn-primary mt-2"
-            >
-              {dict.nav.cta}
-            </Link>
           </div>
         </div>
       )}

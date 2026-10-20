@@ -1,26 +1,31 @@
-# Plan: make "Bật phát âm" big and easy to find (Navbar + tool pages) — 2026-10-20
+# Plan: simpler Navbar with one settings menu — 2026-10-20
+
+(The earlier plan in this file, the pronunciation button, shipped in 41ee09e.)
 
 ## Context
 
-Pronunciation is off by default (`lib/speech/prefs.ts`). The only way to turn it on is `SpeechToggle` (`components/speech/SpeechToggle.tsx`): a tiny 12 px icon + dotted-underline `text-xs` link hidden in the credits line at the **bottom** of 4 tools (reader, stroke-order, decompose, radicals). Users don't see it, so they never discover the 🔊 buttons. Goal: a clearly visible control at the **top of the site** (Navbar, every page) plus a visible button near the top of the tools that have audio. Behaviour stays the same: off by default, nothing loads until the user opts in and clicks a word.
+The desktop Navbar now has 4 links + 6 controls (Cách hoạt động, Cho giáo viên, Sắp ra mắt, Công cụ ▾ | Phát âm: tắt, VI/EN, 简/繁, Giao diện, Dùng thử miễn phí). It is crowded and confusing. Owner chose: keep the sound button visible, put language, script and theme into **one ⚙ settings menu**, and remove the CTA button, the "Cách hoạt động" link (the user guide covers it) and the "Sắp ra mắt" link (both still reachable on the landing page and in the footer).
+
+Target (desktop):
+```
+汉 Hán Ngữ Studio   Công cụ ▾  Cho giáo viên                     🔊 Phát âm: tắt   ⚙ VI · 简 ▾
+```
+Phone bar: `汉 Hán Ngữ Studio … 🔊 ☰`.
 
 ## Changes
 
-1. **New `components/speech/SpeechNavButton.tsx`** (`"use client"`), reusing `useSpeechEnabled`, `readSpeechPrefs`/`saveSpeechPrefs`, `openSpeechSettings` exactly like `SpeechToggle`:
-   - **Off**: pill button styled like the Navbar controls (`rounded-lg bg-ink-50 px-2 py-1 text-sm font-medium`), muted-speaker icon + label "Phát âm: tắt"; `title` = `enable` + `enableHint`. Click → enable (🔊 buttons appear instantly via `SPEECH_PREFS_EVENT`).
-   - **On**: same pill in brand colours (`bg-brand-50 text-brand-ink`, check token names in `app/globals.css`), speaker icon + "Phát âm: bật"; click → `openSpeechSettings()` (the dialog already has **Tắt phát âm**).
-   - `aria-pressed={enabled}`; `inline` prop (full label) for the phone menu, like `ScriptSwitch`.
-   - Before hydration `useSpeechEnabled` is `false` → renders "off" first; acceptable (same as today).
-2. **Icon**: add `components/icons/volume-x.tsx` mirroring `volume-2.tsx` (lucide `volume-x`) for the off state.
-3. **Navbar** (`components/Navbar.tsx`): put `<SpeechNavButton />` in the desktop right cluster before `<LanguageSwitch />`; in the phone menu add a section heading (`dict.speech.navLabel`) + `<SpeechNavButton inline />` next to Loại chữ / theme. Also show a compact icon-only version **outside** the hamburger on phones (left of the menu button) so it's visible without opening the menu.
-4. **Tool pages — bigger in-page toggle**: give `SpeechToggle` a `variant="prominent"` (btn-secondary-style pill, 16 px icon, `text-sm`, shows `enable` + hint on a second line when off; "Giọng đọc" when on). Place it near the top of the 4 tools (next to the input / title area) in `app/tools/{reader,stroke-order,decompose,radicals}/page.tsx`; keep the small existing link in the credits line.
-5. **i18n** (`lib/i18n/vi.ts` + `en.ts`, `speech` block): `navLabel: "Phát âm"/"Pronunciation"`, `navOn: "Phát âm: bật"/"Sound: on"`, `navOff: "Phát âm: tắt"/"Sound: off"`. Reuse `enable`, `enableHint`, `settingsLink`.
-6. **User guide**: `userguide/README.md` (Nghe phát âm section) and the 4 tool pages: replace "(cuối trang)" with "nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **Bật phát âm** trong công cụ)"; update "Muốn tắt" step.
-
-No new data, no network change: still Hard Rule 4 compliant (prefs in localStorage only).
+1. **New `components/SettingsMenu.tsx`** (`"use client"`):
+   - `SettingsPanel`: rows with a small label + control: **Ngôn ngữ** → `<LanguageSwitch inline />`; **Loại chữ** → `<ScriptSwitch inline />`; **Phát âm** → `<SpeechNavButton />`; **Giao diện** → `<ThemePicker inline />` (mode + accent panel, already exists).
+   - `SettingsMenu`: button `⚙ {LOCALE upper} · {简|繁} ▾` (shows the current state; `aria-label` = `dict.nav.settings`), opening a popover (`absolute right-0 top-full mt-2 w-80 rounded-xl border bg-surface p-4 shadow-lg`). Copy the click-outside + Escape logic from `ThemePicker` (`components/ThemePicker.tsx`). Uses `useLocale()` and `useScript()` (`lib/script/useScript.ts`) for the label.
+2. **New `components/icons/settings.tsx`**: static lucide `settings` gear, same shape as `components/icons/volume-x.tsx`.
+3. **`components/Navbar.tsx`**:
+   - Nav order: **Công cụ ▾** first (the main thing people want), then Cho giáo viên. Drop the `howItWorks` link (owner: the user guide covers it; the landing section `#how-it-works` stays) and the `roadmap` link (stays in Footer).
+   - Right cluster: `<SpeechNavButton />` + `<SettingsMenu />` only. Remove `LanguageSwitch`, `ScriptSwitch`, `ThemePicker` and the CTA `Link` from the bar.
+   - Phone menu: links, tool groups, then one heading **Cài đặt** + `<SettingsPanel />`; remove the separate Ngôn ngữ / Loại chữ / Phát âm / Giao diện sections, the roadmap link and the CTA. Keep the 🔊 icon + ☰ on the phone bar.
+4. **i18n** (`lib/i18n/vi.ts`, `en.ts`): `nav.settings: "Cài đặt"` / `"Settings"`. Keep `nav.cta`, `nav.roadmap` if still used elsewhere (CTASection, Footer); remove only if unused.
+5. **User guide**: `userguide/README.md` (lines on EN, Giao diện, Giản thể / Phồn thể, Nghe phát âm) and every "Bấm **繁** trên thanh menu" in tool pages (anki, comprehensible-input, … — grep `thanh menu`) → "bấm **⚙** trên thanh menu → **Loại chữ** → **繁**"; Giao diện now "⚙ → **Giao diện**"; EN now "⚙ → **Ngôn ngữ** → **EN** (hoặc cuối trang)".
 
 ## Verification
 
-- `pnpm test` (i18n key parity), `pnpm run lint`, `pnpm run build`.
-- `pnpm run dev`: on `/` and `/en`, Navbar shows "Phát âm: tắt"; click → becomes "bật", go to `/tools/reader`, tap a word → 🔊 shows and plays; click Navbar button again → settings dialog → **Tắt phát âm** → button returns to "tắt" and 🔊 disappears. Check desktop `lg` width (Navbar not overflowing at 1024 px), phone width (icon visible outside the menu), dark mode and another accent from ThemePicker.
-- Network tab: no audio request until a 🔊 is clicked.
+- `pnpm test`, `pnpm run lint`, `pnpm run build`.
+- `pnpm run dev`: desktop 1024 / 1280 px — one row, no overflow; ⚙ opens panel, switching EN keeps the hash, 简/繁 updates the button label, theme changes apply, Escape / outside click closes. Phone 375 px — 🔊 and ☰ visible; menu shows Cài đặt panel. Dark mode + another accent.

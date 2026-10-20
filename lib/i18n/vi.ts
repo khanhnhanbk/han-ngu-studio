@@ -10,9 +10,8 @@ export const vi = {
   },
   nav: {
     features: "Tính năng",
-    howItWorks: "Cách hoạt động",
     forTeachers: "Cho giáo viên",
-    roadmap: "Sắp ra mắt",
+    settings: "Cài đặt",
     tools: "Công cụ",
     reader: "Đọc hiểu",
     segment: "Ngắt từ",
@@ -25,7 +24,6 @@ export const vi = {
     comprehensibleInput: "Sắp xếp câu N+1",
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
-    cta: "Dùng thử miễn phí",
     groups: {
       chars: { title: "Chữ Hán", hint: "Học từng chữ" },
       text: { title: "Đọc văn bản", hint: "Dán câu hoặc đoạn văn" },

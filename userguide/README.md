@@ -4,7 +4,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 - Trang web: **https://han-ngu-studio.vercel.app**
 - Không cần đăng ký, không cần cài đặt. Chỉ cần trình duyệt (Chrome, Edge, Firefox, Safari).
-- Có giao diện tiếng Anh: bấm **EN** trên thanh menu hoặc cuối trang (địa chỉ https://han-ngu-studio.vercel.app/en). Tài liệu hướng dẫn này chỉ có tiếng Việt.
+- Có giao diện tiếng Anh: trên thanh menu bấm nút **⚙** (bên phải, hiện **VI · 简**) → **Ngôn ngữ** → **EN**, hoặc bấm **EN** ở cuối trang (địa chỉ https://han-ngu-studio.vercel.app/en). Tài liệu hướng dẫn này chỉ có tiếng Việt.
 - **Dữ liệu của bạn không rời khỏi máy:** mọi văn bản bạn nhập đều được xử lý ngay trên trình duyệt, không gửi lên máy chủ nào.
 
 ## Mở một công cụ
@@ -39,8 +39,8 @@ Câu ví dụ (Tạo thẻ Anki, Trắc nghiệm, Sắp xếp câu N+1) lấy t�
 
 ## Đổi giao diện (sáng / tối, màu sắc)
 
-1. Trên thanh menu, bấm **Giao diện** (biểu tượng bảng màu, bên trái nút **Dùng thử miễn phí**).
-   - Trên điện thoại: bấm **☰**, mục **Giao diện** nằm cuối danh sách.
+1. Trên thanh menu, bấm nút **⚙** ở góc phải (nút hiện **VI · 简**), phần **Giao diện** nằm cuối hộp **Cài đặt**.
+   - Trên điện thoại: bấm **☰**, mục **Cài đặt** → **Giao diện** nằm cuối danh sách.
 2. **Chế độ**: **Sáng**, **Tối**, hoặc **Theo hệ thống** (tự đổi theo cài đặt sáng/tối của máy).
 3. **Màu theo Ngũ hành**: bấm một trong 6 chấm màu:
 
@@ -59,8 +59,8 @@ Lựa chọn được lưu trên trình duyệt của bạn và giữ nguyên ch
 
 Trang mặc định dùng **chữ giản thể** (Trung Quốc đại lục). Nếu bạn học **chữ phồn thể** (Đài Loan, thi TOCFL):
 
-1. Trên thanh menu, bấm **繁** (bên trái nút **Giao diện**). Bấm **简** để quay lại giản thể.
-   - Trên điện thoại: bấm **☰**, mục **Loại chữ** → **Phồn thể** / **Giản thể**.
+1. Trên thanh menu, bấm nút **⚙** ở góc phải → **Loại chữ** → **繁 Phồn thể**. Nút **⚙** đổi thành **VI · 繁**. Bấm **简 Giản thể** để quay lại.
+   - Trên điện thoại: bấm **☰**, mục **Cài đặt** → **Loại chữ** → **Phồn thể** / **Giản thể**.
 2. Lần đầu chọn Phồn thể, trang tải bộ chuyển đổi (khoảng 0,5 MB, dòng "Đang tải bộ chuyển đổi Phồn thể…"). Các lần sau dùng ngay.
 
 Khi chọn **Phồn thể**:
@@ -76,7 +76,7 @@ Lựa chọn được lưu trên trình duyệt của bạn. Bộ chuyển đổ
 
 ## Nghe phát âm
 
-Phát âm **tắt sẵn** để trang nhẹ và nhanh. Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (trên điện thoại là biểu tượng **loa** cạnh nút menu), hoặc nút **Bật phát âm** ngay dưới tên công cụ, một lần; nút đổi thành **Phát âm: bật** và trang nhớ lựa chọn trên máy này. Sau đó bấm biểu tượng **loa** cạnh một từ hoặc một chữ để nghe (chỉ từ và chữ, không đọc cả câu). Có ở **Đọc hiểu** (thẻ chi tiết và **Bảng từ**), **Thứ tự nét**, **Chiết tự** (chữ đang xem và các chữ cùng thành phần) và **214 bộ thủ** (chữ ví dụ).
+Phát âm **tắt sẵn** để trang nhẹ và nhanh. Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (cạnh nút **⚙**; trên điện thoại là biểu tượng **loa** cạnh nút **☰**), hoặc nút **Bật phát âm** ngay dưới tên công cụ, một lần; nút đổi thành **Phát âm: bật** và trang nhớ lựa chọn trên máy này. Sau đó bấm biểu tượng **loa** cạnh một từ hoặc một chữ để nghe (chỉ từ và chữ, không đọc cả câu). Có ở **Đọc hiểu** (thẻ chi tiết và **Bảng từ**), **Thứ tự nét**, **Chiết tự** (chữ đang xem và các chữ cùng thành phần) và **214 bộ thủ** (chữ ví dụ).
 
 - Phần lớn từ và chữ thông dụng (khoảng 8.500 từ HSK và mọi âm tiết) dùng **bản ghi giọng người thật**, có sẵn trên trang, không cần cài gì. Ở **Đọc hiểu**, một chữ được đọc đúng theo nghĩa trong câu (行 trong 银行 đọc là háng).
 - Khi chưa có bản ghi, trang dùng **giọng đọc tiếng Trung của máy bạn**. Nếu máy chưa có, trang mở hộp **Giọng đọc** với hướng dẫn cài giọng miễn phí cho Windows, macOS, iPhone / iPad, Android.

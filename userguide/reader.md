@@ -84,7 +84,7 @@ Danh sách từ đã biết **chỉ lưu trên trình duyệt này**, không g�
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu: văn bản, thẻ chi tiết, bảng từ và danh sách học hiện bằng chữ phồn thể, dù bạn gõ giản thể hay phồn thể. Từ đã biết được lưu theo chữ giản thể, nên 學習 và 学习 là một từ. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**): văn bản, thẻ chi tiết, bảng từ và danh sách học hiện bằng chữ phồn thể, dù bạn gõ giản thể hay phồn thể. Từ đã biết được lưu theo chữ giản thể, nên 學習 và 学习 là một từ. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Nghe phát âm
 

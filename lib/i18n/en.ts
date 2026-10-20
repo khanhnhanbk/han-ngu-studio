@@ -17,9 +17,8 @@ export const en: Dictionary = {
   },
   nav: {
     features: "Features",
-    howItWorks: "How it works",
     forTeachers: "For teachers",
-    roadmap: "Coming soon",
+    settings: "Settings",
     tools: "Tools",
     reader: "Reader",
     segment: "Word segmentation",
@@ -32,7 +31,6 @@ export const en: Dictionary = {
     comprehensibleInput: "N+1 sentence order",
     practiceSheet: "Practice sheet",
     strokeOrder: "Stroke order",
-    cta: "Try it free",
     groups: {
       chars: { title: "Characters", hint: "Study one character" },
       text: { title: "Reading", hint: "Paste a sentence or text" },

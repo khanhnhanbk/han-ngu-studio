@@ -54,7 +54,7 @@ Thứ tự nét lấy từ Make Me a Hanzi / hanzi-writer-data (giấy phép Arp
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu: chữ được tra ở dạng phồn thể, dù bạn gõ giản thể (学 → 學, 16 nét). Pinyin và Hán Việt giữ nguyên như chữ giản thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**): chữ được tra ở dạng phồn thể, dù bạn gõ giản thể (学 → 學, 16 nét). Pinyin và Hán Việt giữ nguyên như chữ giản thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Nghe phát âm
 

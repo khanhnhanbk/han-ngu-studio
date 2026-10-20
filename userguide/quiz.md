@@ -91,7 +91,7 @@ Nếu có, khung này liệt kê từ nào bị bỏ qua ở loại câu hỏi n
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu trước khi bấm **Tạo bài trắc nghiệm**: chữ Hán trong câu hỏi, đáp án, đề in và file `.tsv` là chữ phồn thể. Bạn có thể gõ từ bằng giản thể hoặc phồn thể. Bài đang làm giữ nguyên loại chữ; muốn đổi, hãy đổi **简 / 繁** rồi tạo bài mới. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**) trước khi bấm **Tạo bài trắc nghiệm**: chữ Hán trong câu hỏi, đáp án, đề in và file `.tsv` là chữ phồn thể. Bạn có thể gõ từ bằng giản thể hoặc phồn thể. Bài đang làm giữ nguyên loại chữ; muốn đổi, hãy đổi **简 / 繁** rồi tạo bài mới. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Lỗi thường gặp
 

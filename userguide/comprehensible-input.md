@@ -73,7 +73,7 @@ File `sentence_sorted.tsv` có 4 cột, theo đúng thứ tự học:
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu: kết quả, từ mới được tô màu và file TSV hiện bằng chữ phồn thể. Câu và **Từ đã biết** có thể gõ bằng giản thể hoặc phồn thể (我們 và 我们 là một từ). Câu lấy bằng **Lấy câu** vẫn là giản thể trong ô nhập; kết quả sau khi **Sắp xếp** sẽ là phồn thể. Đổi **简 / 繁** sau khi sắp xếp thì kết quả đổi theo ngay. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**): kết quả, từ mới được tô màu và file TSV hiện bằng chữ phồn thể. Câu và **Từ đã biết** có thể gõ bằng giản thể hoặc phồn thể (我們 và 我们 là một từ). Câu lấy bằng **Lấy câu** vẫn là giản thể trong ô nhập; kết quả sau khi **Sắp xếp** sẽ là phồn thể. Đổi **简 / 繁** sau khi sắp xếp thì kết quả đổi theo ngay. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Lỗi thường gặp
 

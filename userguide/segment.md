@@ -21,7 +21,7 @@ Tiếng Trung viết liền, không có khoảng trắng giữa các từ. Công
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Từ được ngắt giống như với chữ giản thể (我們去銀行 → 我們 去 銀行). Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**) để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Từ được ngắt giống như với chữ giản thể (我們去銀行 → 我們 去 銀行). Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Lỗi thường gặp
 

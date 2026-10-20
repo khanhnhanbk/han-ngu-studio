@@ -67,7 +67,7 @@ Nếu có, khung **Không tìm thấy** liệt kê:
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu trước khi bấm **Tạo bộ thẻ**: cột **Từ vựng** và **Câu ví dụ** hiện bằng chữ phồn thể (学习 → 學習), cột **Ngũ bút** dùng mã của chữ phồn thể (學 → wfqb). Bạn có thể gõ từ bằng giản thể hoặc phồn thể; 學習 và 学习 tính là một từ. Nghĩa, Pinyin, Hán Việt và cấp HSK giữ nguyên.
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**) trước khi bấm **Tạo bộ thẻ**: cột **Từ vựng** và **Câu ví dụ** hiện bằng chữ phồn thể (学习 → 學習), cột **Ngũ bút** dùng mã của chữ phồn thể (學 → wfqb). Bạn có thể gõ từ bằng giản thể hoặc phồn thể; 學習 và 学习 tính là một từ. Nghĩa, Pinyin, Hán Việt và cấp HSK giữ nguyên.
 
 Đổi **简 / 繁** sau khi tạo bộ thẻ thì bảng hiện lại theo loại chữ mới, **mất các chỉnh sửa** bạn đã gõ trong bảng. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 

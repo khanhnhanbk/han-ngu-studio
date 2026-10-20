@@ -74,7 +74,7 @@ Trang **214 bộ thủ** (nút **Chiết tự**) và trang **Thứ tự nét** (
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu: chữ được phân tích ở dạng phồn thể, dù bạn gõ giản thể (们 → 們: 亻 + 門). Pinyin và Hán Việt lấy theo chữ giản thể tương ứng. Danh sách **Chữ có chứa thành phần** chỉ hiện chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**): chữ được phân tích ở dạng phồn thể, dù bạn gõ giản thể (们 → 們: 亻 + 門). Pinyin và Hán Việt lấy theo chữ giản thể tương ứng. Danh sách **Chữ có chứa thành phần** chỉ hiện chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Nghe phát âm
 

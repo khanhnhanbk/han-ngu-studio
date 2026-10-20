@@ -103,7 +103,7 @@ Kéo xuống phần **Xem trước (… trang)** để xem phiếu sẽ được
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu: phiếu in chữ phồn thể (学 → 學), có nét và thứ tự nét của chữ phồn thể; Pinyin vẫn đúng (們 → men). Phông **Tống thể (chữ in) – Noto Serif TC (mặc định)** và **Hắc thể (không chân) – Noto Sans TC** dùng mặt chữ Đài Loan. Phông **Bút lông – Ma Shan Zheng (chỉ giản thể)** không có chữ phồn thể, nên các chữ đó được vẽ bằng phông Khải thư. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**): phiếu in chữ phồn thể (学 → 學), có nét và thứ tự nét của chữ phồn thể; Pinyin vẫn đúng (們 → men). Phông **Tống thể (chữ in) – Noto Serif TC (mặc định)** và **Hắc thể (không chân) – Noto Sans TC** dùng mặt chữ Đài Loan. Phông **Bút lông – Ma Shan Zheng (chỉ giản thể)** không có chữ phồn thể, nên các chữ đó được vẽ bằng phông Khải thư. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Lỗi thường gặp
 

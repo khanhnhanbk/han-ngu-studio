@@ -60,7 +60,7 @@ Ngoài ra, công cụ áp dụng **biến điệu của 一 và 不** như trong
 
 ## Chữ phồn thể
 
-Bấm **繁** trên thanh menu để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Pinyin vẫn đọc theo ngữ cảnh như với chữ giản thể (我們去銀行 → wǒmen qù yínháng). Chữ trong **Pinyin trên chữ** và **Bảng TSV** là chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
+Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**) để nhận kết quả bằng chữ phồn thể, kể cả khi bạn gõ giản thể. Pinyin vẫn đọc theo ngữ cảnh như với chữ giản thể (我們去銀行 → wǒmen qù yínháng). Chữ trong **Pinyin trên chữ** và **Bảng TSV** là chữ phồn thể. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
 ## Lỗi thường gặp
 
