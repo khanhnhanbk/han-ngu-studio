@@ -52,6 +52,17 @@ export function AnkiGuide() {
               <p className="mt-3 text-sm text-ink-700">{t.sync}</p>
             </div>
 
+            <div className="card mt-6 border-brand-200 bg-brand-50">
+              <h2 className="text-xl font-semibold text-ink-900">{t.quickTitle}</h2>
+              <Steps items={t.quick} />
+              <p className="mt-3 text-sm text-ink-700">{t.quickNote}</p>
+              <Link href={href("/tools/anki")} className="btn-primary mt-4">
+                {t.toTool}
+              </Link>
+            </div>
+
+            <h2 className="mt-10 text-2xl font-semibold text-ink-900">{t.manualTitle}</h2>
+
             <div className="card mt-6">
               <h2 className="text-xl font-semibold text-ink-900">{t.step1Title}</h2>
               <Steps items={t.step1} />

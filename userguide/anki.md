@@ -60,7 +60,17 @@ Nếu có, khung **Không tìm thấy** liệt kê:
 - **Chưa có câu ví dụ**: chưa có câu cho từ này. Hãy tự điền vào ô Câu ví dụ (cột Pinyin của câu sẽ không tự cập nhật).
 - **Chưa có trong danh sách HSK**: từ không thuộc danh sách HSK 3.0, nên cột **Cấp HSK** và **Nghĩa tiếng Việt** để trống. Bạn có thể tự điền nghĩa tiếng Việt.
 
-### 6. Tải file
+### 6. Tải bộ thẻ
+
+**Cách dễ nhất: file .apkg** (khung **Tải bộ thẻ cho Anki**):
+
+1. **Tên bộ thẻ**: mặc định **Tiếng Trung**. Dùng `::` để tạo bộ thẻ con, ví dụ `Tiếng Trung::HSK 1`.
+2. **Loại thẻ (mỗi loại tạo một thẻ cho mỗi từ)**: mặc định **Nhận diện** và **Nhớ chữ**; có thể chọn thêm **Câu ví dụ** và **Gõ chữ**. Rê chuột lên tên để xem mô tả.
+3. Bấm **Tải bộ thẻ Anki (.apkg)**. Lần đầu, trang tải bộ SQLite (khoảng 0,3 MB) để tạo file ngay trên máy bạn; không gửi gì lên mạng. File tải về có tên theo bộ thẻ, ví dụ `Tiếng Trung - HSK 1.apkg`.
+
+Cột bạn bỏ tích ở **Cột xuất ra** sẽ để trống trong thẻ. Xem cách mở file ở mục [Import file .apkg](#import-file-apkg-cách-dễ-nhất).
+
+**Hoặc xuất bảng (.tsv) để tự import:**
 
 - **Tải .tsv**: lưu file `anki_deck.tsv` vào thư mục Tải xuống.
 - **Sao chép**: chép toàn bộ nội dung (dán vào Excel / Google Sheets nếu muốn chỉnh tiếp).
@@ -71,7 +81,14 @@ Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**)
 
 Đổi **简 / 繁** sau khi tạo bộ thẻ thì bảng hiện lại theo loại chữ mới, **mất các chỉnh sửa** bạn đã gõ trong bảng. Xem [Giản thể / Phồn thể](README.md#giản-thể--phồn-thể).
 
-## Import vào Anki trên máy tính
+## Import file .apkg (cách dễ nhất)
+
+- **Máy tính**: bấm đúp vào file `.apkg` (Anki tự mở và import), hoặc trong Anki chọn **File → Import** rồi chọn file.
+- **AnkiDroid**: mở file bằng AnkiDroid (từ thư mục Tải xuống), hoặc trong AnkiDroid bấm **⋮ → Import**.
+
+File đã có sẵn bộ thẻ, loại ghi chú **Hán Ngữ Studio** với 4 mẫu thẻ và các thẻ mới theo thứ tự danh sách của bạn. Không cần tạo trường hay dán mẫu thẻ.
+
+## Import file .tsv vào Anki trên máy tính
 
 > **Mới dùng Anki?** Trang [Dùng bộ thẻ với Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan) (nút **Hướng dẫn dùng với Anki và mẫu thẻ có sẵn →** ở trang Tạo thẻ Anki) hướng dẫn từng bước và có 4 mẫu thẻ dán sẵn: **Nhận diện**, **Nhớ chữ**, **Câu ví dụ**, **Gõ chữ**, kèm xem trước.
 
@@ -110,6 +127,11 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | "Quá nhiều từ (tối đa 1000 từ)." | Chia danh sách thành nhiều lần. |
 | "Hãy chọn ít nhất một cột." | Tích ít nhất một cột ở **Cột xuất ra**. |
 | "Không tải được dữ liệu…" | Kiểm tra mạng rồi bấm **Tạo bộ thẻ** lần nữa. |
+| "Hãy chọn ít nhất một loại thẻ." | Tích ít nhất một ô ở **Loại thẻ** trước khi bấm **Tải bộ thẻ Anki (.apkg)**. |
+| "Không tạo được file .apkg…" | Bấm lại; nếu vẫn lỗi (trình duyệt quá cũ), dùng **Tải .tsv** và làm theo [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan). |
+| Import lại file .apkg nhưng không thấy thẻ mới | Anki bỏ qua các từ đã có và không đổi. Từ bạn sửa trên trang được cập nhật; loại thẻ mới chọn thêm được thêm vào. |
+| Sửa một ghi chú trong Anki thì có thêm thẻ lạ | Anki tự tạo các loại thẻ bạn chưa chọn khi ghi chú được sửa. Vào **Browse**, chọn các thẻ đó, bấm **Suspend** (Tạm ngưng) hoặc xóa. |
+| Có hai loại ghi chú tên Hán Ngữ Studio | Bạn đã tự tạo một loại theo cách .tsv trước đó; loại từ file .apkg là loại riêng (Anki có thể thêm số vào tên). Cả hai đều dùng được. |
 | Loại ghi chú cũ chỉ có 8 trường (trước khi có cột HSK) | Hai cột mới nằm ở cuối nên 8 cột đầu vẫn khớp. Bỏ tích **Cấp HSK** và **Nghĩa tiếng Việt**, hoặc thêm hai trường `hsk_level`, `meaning_vi` vào cuối loại ghi chú. |
 | Anki báo lỗi số cột / thẻ bị lệch trường | Kiểm tra **Field mapping** khi import; loại ghi chú phải có đủ số trường bằng số cột đã chọn. |
 | Các dòng `#separator…` thành thẻ | Anki của bạn cũ hơn 2.1.55: bỏ tích **Thêm dòng cấu hình cho Anki** rồi tải lại. |

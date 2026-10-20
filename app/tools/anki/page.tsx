@@ -20,9 +20,11 @@ import {
 } from "@/lib/anki/buildDeck";
 import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE, type WubiTable } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
+import { APKG_FILES, loadSqlJs } from "@/lib/anki/sqlite";
+import { cardTemplates, type CardTemplateId } from "@/lib/anki/templates";
 import { confirmDownload } from "@/lib/data/budget";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
-import { downloadText } from "@/lib/download";
+import { downloadBytes, downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { parseWordsHash } from "@/lib/reader/handoff";
@@ -41,6 +43,11 @@ const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning", "meaning_vi"]);
 // Columns holding one line per example when a card has several.
 const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_pinyin", "sentence_meaning"]);
+const CARD_TYPES: readonly CardTemplateId[] = ["recognize", "recall", "sentence", "type"];
+
+/** A file name from the deck name ("Tiếng Trung::HSK 1" → "Tiếng Trung - HSK 1.apkg"). */
+const apkgFileName = (deck: string) =>
+  `${deck.replace(/::/g, " - ").replace(/[\\/:*?"<>|\t\r\n]+/g, " ").trim() || "anki_deck"}.apkg`;
 
 export default function AnkiPage() {
   const dict = useDictionary();
@@ -64,6 +71,11 @@ export default function AnkiPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [deckName, setDeckName] = useState(dict.anki.defaultDeck);
+  // Start with the two basic cards; the guide suggests adding others later.
+  const [cardTypes, setCardTypes] = useState<Set<CardTemplateId>>(() => new Set(["recognize", "recall"]));
+  const [apkgBusy, setApkgBusy] = useState(false);
+  const [apkgError, setApkgError] = useState("");
 
   const { words } = useMemo(() => parseWords(text), [text]);
   const tooMany = words.length > MAX_WORDS;
@@ -120,6 +132,42 @@ export default function AnkiPage() {
       setError(dict.anki.loadFailed);
     } finally {
       setLoading(false);
+    }
+  }
+
+  function toggleCardType(id: CardTemplateId) {
+    setCardTypes((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  /** The deck as one .apkg file (note type + templates included); SQLite loads only now. */
+  async function handleApkg() {
+    setApkgError("");
+    setApkgBusy(true);
+    try {
+      if (!(await confirmDownload(APKG_FILES))) return setApkgError(dict.download.declined);
+      const [{ buildApkg, cleanDeckName }, SQL] = await Promise.all([import("@/lib/anki/apkg"), loadSqlJs()]);
+      const names = Object.fromEntries(CARD_TYPES.map((id) => [id, dict.ankiGuide.templates[id].name])) as Record<
+        CardTemplateId,
+        string
+      >;
+      const deck = cleanDeckName(deckName, dict.anki.defaultDeck);
+      const bytes = await buildApkg(SQL, rows, {
+        deckName: deck,
+        templates: cardTemplates(dict.ankiGuide.cardLabels),
+        cardTypes,
+        templateNames: names,
+        columns,
+      });
+      downloadBytes(bytes, apkgFileName(deck), "application/apkg");
+    } catch {
+      setApkgError(dict.anki.apkgFailed);
+    } finally {
+      setApkgBusy(false);
     }
   }
 
@@ -268,18 +316,58 @@ export default function AnkiPage() {
                   {columns.length === 0 ? (
                     <p className="mt-4 text-sm text-red-600">{dict.anki.noColumns}</p>
                   ) : (
-                    <div className="mt-4 flex flex-wrap gap-3">
+                    <>
+                    <div className="mt-6 rounded-xl border border-brand-200 bg-brand-50 p-4">
+                      <h2 className="font-semibold text-ink-900">{dict.anki.apkgTitle}</h2>
+                      <p className="mt-1 text-sm text-ink-700">{dict.anki.apkgHint}</p>
+                      <label className="mt-4 block text-sm font-medium text-ink-700">
+                        {dict.anki.deckName}
+                        <input
+                          value={deckName}
+                          onChange={(e) => setDeckName(e.target.value)}
+                          className="mt-1 block w-full max-w-sm rounded-lg border border-ink-900/10 bg-surface px-3 py-2 font-normal text-ink-900 focus:border-brand-500 focus:outline-none"
+                        />
+                        <span className="mt-1 block text-xs font-normal text-ink-500">{dict.anki.deckNameHint}</span>
+                      </label>
+                      <fieldset className="mt-4 text-sm text-ink-700">
+                        <legend className="font-medium">{dict.anki.cardTypes}</legend>
+                        <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+                          {CARD_TYPES.map((id) => (
+                            <label key={id} className="flex items-center gap-2" title={dict.ankiGuide.templates[id].purpose}>
+                              <input type="checkbox" checked={cardTypes.has(id)} onChange={() => toggleCardType(id)} />
+                              {dict.ankiGuide.templates[id].name}
+                            </label>
+                          ))}
+                        </div>
+                      </fieldset>
+                      {cardTypes.size === 0 && <p className="mt-3 text-sm text-red-600">{dict.anki.noCardTypes}</p>}
+                      <div className="mt-4">
+                        <IconButton
+                          icon={DownloadIcon}
+                          className="btn-primary"
+                          onClick={handleApkg}
+                          disabled={apkgBusy || cardTypes.size === 0}
+                        >
+                          {apkgBusy ? dict.anki.apkgBuilding : dict.anki.apkg}
+                        </IconButton>
+                      </div>
+                      {apkgError && <p className="mt-3 text-sm text-red-600">{apkgError}</p>}
+                    </div>
+
+                    <h2 className="mt-6 text-sm font-semibold text-ink-900">{dict.anki.tsvTitle}</h2>
+                    <div className="mt-2 flex flex-wrap gap-3">
                       <IconButton icon={copied ? CheckIcon : CopyIcon} className="btn-secondary" onClick={handleCopy}>
                         {copied ? dict.anki.copied : dict.anki.copy}
                       </IconButton>
                       <IconButton
                         icon={DownloadIcon}
-                        className="btn-primary"
+                        className="btn-secondary"
                         onClick={() => downloadText(tsv, "anki_deck.tsv", "text/tab-separated-values")}
                       >
                         {dict.anki.download}
                       </IconButton>
                     </div>
+                    </>
                   )}
 
                   {(notFound.meaning.length > 0 ||

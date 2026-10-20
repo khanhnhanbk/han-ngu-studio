@@ -538,6 +538,18 @@ write("vocab.json", vocab, `${Object.keys(vocab).length} words`);
 buildExamples(vocab);
 
 /**
+ * SQLite (sql.js, pinned) for the Anki .apkg export, self-hosted next to the
+ * data so it is never fetched from a CDN and is counted in sizes.json.
+ */
+function copySqlWasm() {
+  const src = join(ROOT, "node_modules/sql.js/dist/sql-wasm.wasm");
+  mkdirSync(join(OUT, "vendor"), { recursive: true });
+  writeFileSync(join(OUT, "vendor/sql-wasm.wasm"), readFileSync(src));
+  console.log(`vendor/sql-wasm.wasm: sql.js (${Math.round(statSync(src).size / 1024)} KB)`);
+}
+copySqlWasm();
+
+/**
  * sizes.json: { "/data/…": gzip bytes } for every data file, plus the OpenCC
  * chunks, so lib/data/budget.ts can tell how much an action would download
  * before it starts. Written last, after every other file.

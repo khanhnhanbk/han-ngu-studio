@@ -23,7 +23,9 @@ credits at `/giay-phep` (English: `/en/giay-phep`).
 
 Libraries and fonts bundled into the site (licence texts in each package):
 Hanzi Writer 3.7.3 (MIT), pinyin-pro (MIT), opencc-js 1.4.2 (MIT) with OpenCC
-dictionaries (Apache-2.0), Next.js and React (MIT), animateicons (MIT) based on
+dictionaries (Apache-2.0), sql.js 1.12.0 (MIT, SQLite is public domain; its
+wasm is copied to `public/data/vendor/` for the Anki .apkg export), fflate 0.8.2
+(MIT), Next.js and React (MIT), animateicons (MIT) based on
 Lucide (ISC); fonts Be Vietnam Pro, Noto Sans/Serif SC/TC, LXGW WenKai TC and
 Ma Shan Zheng (SIL Open Font License 1.1). `pnpm licenses list` prints every
 npm dependency with its licence.
