@@ -3,19 +3,38 @@
 import { useEffect, useState } from "react";
 
 import { FileInput } from "@/components/FileInput";
+import { loadMnemonics, suggestionFor, type Mnemonics } from "@/lib/decompose/mnemonics";
 import { notesToTsv, parseNotesTsv, readNotes, withNote, writeNotes, type Notes } from "@/lib/decompose/notes";
 import { downloadText } from "@/lib/download";
 import { useDictionary } from "@/lib/i18n/useLocale";
 
-/** The learner's memory story for one character, kept in this browser only. */
-export function NotesBox({ char }: { char: string }) {
+/**
+ * The learner's memory story for one character, kept in this browser only,
+ * with our suggested story ("Mẹo nhớ gợi ý") above it. `simpChar` is the
+ * Simplified form used to look the suggestion up (Phồn thể mode).
+ */
+export function NotesBox({ char, simpChar = char }: { char: string; simpChar?: string }) {
   const t = useDictionary().decompose;
   const [notes, setNotes] = useState<Notes>({});
   const [status, setStatus] = useState("");
+  const [mnemonics, setMnemonics] = useState<Mnemonics | null>(null);
+  const [showSuggestion, setShowSuggestion] = useState(false);
 
   // localStorage exists only in the browser, so read it after mounting.
   useEffect(() => setNotes(readNotes()), []);
-  useEffect(() => setStatus(""), [char]);
+  // Small file (about 30 KB); without it the box simply shows no suggestion.
+  useEffect(() => {
+    loadMnemonics()
+      .then(setMnemonics)
+      .catch(() => setMnemonics(null));
+  }, []);
+  useEffect(() => {
+    setStatus("");
+    setShowSuggestion(false);
+  }, [char]);
+
+  const suggestion = suggestionFor(mnemonics, simpChar);
+  const own = notes[char] ?? "";
 
   function save(next: Notes, message: string) {
     setNotes(next);
@@ -43,9 +62,41 @@ export function NotesBox({ char }: { char: string }) {
         <span className="hanzi">{char}</span>
         {t.notesHint.split("{char}")[1]}
       </p>
+      {suggestion && (own === "" || showSuggestion) && (
+        <div className="mt-3 rounded-lg border border-brand-200 bg-brand-50 p-3 text-sm">
+          <p className="flex flex-wrap items-center gap-2 font-medium text-ink-900">
+            {t.suggestion}
+            {!suggestion.reviewed && (
+              <span className="rounded-full bg-ink-900/5 px-2 py-0.5 text-xs font-normal text-ink-700">
+                {t.suggestionDraft}
+              </span>
+            )}
+          </p>
+          <p className="mt-1 text-ink-700">{suggestion.story}</p>
+          <button
+            type="button"
+            className="btn-secondary mt-2 px-3 py-1.5 text-sm"
+            onClick={() => {
+              save(withNote(notes, char, suggestion.story), t.notesSaved);
+              setShowSuggestion(false);
+            }}
+          >
+            {t.useSuggestion}
+          </button>
+        </div>
+      )}
+      {suggestion && own !== "" && !showSuggestion && (
+        <button
+          type="button"
+          className="mt-2 text-sm text-brand-ink underline decoration-dotted underline-offset-2"
+          onClick={() => setShowSuggestion(true)}
+        >
+          {t.showSuggestion}
+        </button>
+      )}
       <textarea
         className="mt-3 min-h-28 w-full rounded-lg border border-ink-900/10 px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-brand-500"
-        value={notes[char] ?? ""}
+        value={own}
         placeholder={t.notesPlaceholder}
         aria-label={t.notes}
         onChange={(e) => save(withNote(notes, char, e.target.value), t.notesSaved)}

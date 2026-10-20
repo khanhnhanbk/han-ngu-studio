@@ -13,6 +13,7 @@ import * as t2cn from "opencc-js/t2cn";
 import { pinyin } from "pinyin-pro";
 
 import { readCsvFrom } from "./lib/csv.mjs";
+import { checkMnemonics } from "./lib/mnemonics.mjs";
 import { normalizeSentence, readMachineTranslations, tatoebaRows } from "./lib/sentences.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -531,6 +532,31 @@ buildStrokes(mmah);
 const decompose = buildDecompose(mmah);
 write("decompose.json", decompose, `${Object.keys(decompose).length} characters`);
 if (Buffer.byteLength(JSON.stringify(decompose)) > MAX_DATA_BYTES) throw new Error("decompose.json is too large");
+
+/**
+ * mnemonics.json: { char: [story, reviewed 0|1] }, the suggested memory
+ * stories shown in Chiết tự (our own content, drafted with AI help and
+ * reviewed by hand). Rows with an empty story are left out.
+ */
+function buildMnemonics() {
+  const rows = readCsv("mnemonics.tsv", "\t");
+  const errors = checkMnemonics(rows, decompose);
+  if (errors.length) throw new Error(errors.join("\n"));
+  const out = {};
+  let reviewed = 0;
+  for (const { char, story, status } of rows) {
+    if (!story) continue;
+    out[char] = [story, status === "reviewed" ? 1 : 0];
+    if (status === "reviewed") reviewed++;
+  }
+  return { out, reviewed };
+}
+const mnemonics = buildMnemonics();
+write(
+  "mnemonics.json",
+  mnemonics.out,
+  `${Object.keys(mnemonics.out).length} stories, ${mnemonics.reviewed} reviewed`,
+);
 const radicals = buildRadicals(hanviet);
 write("radicals.json", radicals, `${radicals.length} radicals`);
 const vocab = buildVocab();

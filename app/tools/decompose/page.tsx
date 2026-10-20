@@ -405,7 +405,7 @@ export default function DecomposePage() {
                     </div>
                   )}
                   <div className="card min-w-0">
-                    <NotesBox char={current} />
+                    <NotesBox char={current} simpChar={simpChar(current)} />
                   </div>
                 </div>
               </div>
