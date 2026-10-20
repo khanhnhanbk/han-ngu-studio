@@ -51,7 +51,7 @@ Bấm **繁** trên thanh menu: các chữ ví dụ và số chữ của mỗi b
 
 ## Nghe phát âm
 
-Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tượng **loa** ở góc mỗi chữ ví dụ để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **Bật phát âm** ngay dưới tên công cụ) một lần, sau đó bấm biểu tượng **loa** ở góc mỗi chữ ví dụ để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
 
 ## Lỗi thường gặp
 

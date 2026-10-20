@@ -76,15 +76,15 @@ Lựa chọn được lưu trên trình duyệt của bạn. Bộ chuyển đổ
 
 ## Nghe phát âm
 
-Phát âm **tắt sẵn** để trang nhẹ và nhanh. Bấm **Bật phát âm** (ở cuối mỗi công cụ có phát âm) một lần; trang nhớ lựa chọn trên máy này. Sau đó bấm biểu tượng **loa** cạnh một từ hoặc một chữ để nghe (chỉ từ và chữ, không đọc cả câu). Có ở **Đọc hiểu** (thẻ chi tiết và **Bảng từ**), **Thứ tự nét**, **Chiết tự** (chữ đang xem và các chữ cùng thành phần) và **214 bộ thủ** (chữ ví dụ).
+Phát âm **tắt sẵn** để trang nhẹ và nhanh. Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (trên điện thoại là biểu tượng **loa** cạnh nút menu), hoặc nút **Bật phát âm** ngay dưới tên công cụ, một lần; nút đổi thành **Phát âm: bật** và trang nhớ lựa chọn trên máy này. Sau đó bấm biểu tượng **loa** cạnh một từ hoặc một chữ để nghe (chỉ từ và chữ, không đọc cả câu). Có ở **Đọc hiểu** (thẻ chi tiết và **Bảng từ**), **Thứ tự nét**, **Chiết tự** (chữ đang xem và các chữ cùng thành phần) và **214 bộ thủ** (chữ ví dụ).
 
 - Phần lớn từ và chữ thông dụng (khoảng 8.500 từ HSK và mọi âm tiết) dùng **bản ghi giọng người thật**, có sẵn trên trang, không cần cài gì. Ở **Đọc hiểu**, một chữ được đọc đúng theo nghĩa trong câu (行 trong 银行 đọc là háng).
 - Khi chưa có bản ghi, trang dùng **giọng đọc tiếng Trung của máy bạn**. Nếu máy chưa có, trang mở hộp **Giọng đọc** với hướng dẫn cài giọng miễn phí cho Windows, macOS, iPhone / iPad, Android.
-- Bấm **Giọng đọc** (chỗ nút **Bật phát âm** sau khi đã bật) để chọn giọng của máy, chỉnh **Tốc độ giọng máy** và bấm **Thử**.
+- Bấm **Phát âm: bật** trên thanh menu (hoặc **Giọng đọc** trong công cụ) để chọn giọng của máy, chỉnh **Tốc độ giọng máy** và bấm **Thử**.
 - **Cho phép giọng online (Google, Microsoft)** mặc định tắt. Nếu bật, trình duyệt gửi từ bạn bấm nghe tới Google hoặc Microsoft để đọc; bản ghi giọng người thật không bị ảnh hưởng.
 - Không nghe thấy gì? Kiểm tra âm lượng; trên iPhone / iPad, tắt **chế độ im lặng** (công tắc bên cạnh máy) vì nó tắt cả âm thanh trên trang web.
 - Bấm loa lần nữa để dừng. Mỗi từ mới chỉ tải khoảng 30 KB (khoảng 0,1 giây với Wi-Fi/4G, khoảng 1,5 giây với 3G yếu); từ đã nghe phát lại ngay. Không bấm nghe thì không tải gì.
-- Muốn tắt: mở **Giọng đọc** → **Tắt phát âm**.
+- Muốn tắt: bấm **Phát âm: bật** trên thanh menu để mở **Giọng đọc** → **Tắt phát âm**.
 - **Nghe cả đoạn văn?** Trang chỉ đọc từng từ. Với cả câu hoặc đoạn văn, dùng công cụ miễn phí: **Microsoft Edge** (bôi đen, chuột phải → Đọc to), **iPhone / iPad / Mac** (Đọc mục được chọn trong Trợ năng), **Android** (Chọn để nói), hoặc **Google Dịch** (dán văn bản, bấm loa). Google Dịch và giọng online của Edge gửi văn bản tới máy chủ của họ.
 
 Bản ghi: audio-cmn (CC BY-SA), giọng Yue Tan (từ) và Chen Wang (âm tiết).

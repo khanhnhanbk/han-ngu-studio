@@ -88,7 +88,7 @@ Bấm **繁** trên thanh menu: văn bản, thẻ chi tiết, bảng từ và da
 
 ## Nghe phát âm
 
-Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tượng **loa** trong thẻ chi tiết và cạnh mỗi từ trong **Bảng từ** để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **Bật phát âm** ngay dưới tên công cụ) một lần, sau đó bấm biểu tượng **loa** trong thẻ chi tiết và cạnh mỗi từ trong **Bảng từ** để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
 
 ## Lỗi thường gặp
 

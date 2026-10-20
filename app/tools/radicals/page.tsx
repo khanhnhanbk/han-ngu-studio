@@ -152,6 +152,7 @@ export default function RadicalsPage() {
           <div className="container-page">
             <h1 className="text-3xl font-bold text-ink-900 sm:text-4xl">{t.title}</h1>
             <p className="mt-4 text-lg text-ink-700">{t.subtitle}</p>
+            <SpeechToggle prominent className="mt-5" />
 
             <label className="mt-8 block max-w-xl text-sm font-medium text-ink-700">
               {t.search}

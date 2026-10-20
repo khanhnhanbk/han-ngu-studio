@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { SpeechNavButton } from "@/components/speech/SpeechNavButton";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { TOOL_GROUPS } from "@/lib/links";
 
@@ -112,6 +113,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <SpeechNavButton />
           <LanguageSwitch />
           <ScriptSwitch />
           <ThemePicker />
@@ -120,20 +122,24 @@ export function Navbar() {
           </Link>
         </div>
 
-        <button
-          type="button"
-          aria-label="Menu"
-          className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10 lg:hidden"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          {...menu.triggerProps}
-        >
-          {open ? (
-            <XIcon ref={menu.ref} size={20} aria-hidden />
-          ) : (
-            <MenuIcon ref={menu.ref} size={20} aria-hidden />
-          )}
-        </button>
+        {/* Phones: the sound switch stays visible outside the menu. */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <SpeechNavButton compact />
+          <button
+            type="button"
+            aria-label="Menu"
+            className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            {...menu.triggerProps}
+          >
+            {open ? (
+              <XIcon ref={menu.ref} size={20} aria-hidden />
+            ) : (
+              <MenuIcon ref={menu.ref} size={20} aria-hidden />
+            )}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -178,6 +184,12 @@ export function Navbar() {
             </p>
             <div className="px-3 py-2">
               <ScriptSwitch inline />
+            </div>
+            <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
+              {dict.speech.navLabel}
+            </p>
+            <div className="px-3 py-2">
+              <SpeechNavButton />
             </div>
             <p className="mt-2 px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
               {dict.theme.button}

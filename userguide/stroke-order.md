@@ -58,7 +58,7 @@ Bấm **繁** trên thanh menu: chữ được tra ở dạng phồn thể, dù 
 
 ## Nghe phát âm
 
-Bấm **Bật phát âm** (cuối trang) một lần, sau đó bấm biểu tượng **loa** cạnh chữ đang xem để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
+Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **Bật phát âm** ngay dưới tên công cụ) một lần, sau đó bấm biểu tượng **loa** cạnh chữ đang xem để nghe chữ hoặc từ đó (giọng người thật nếu có bản ghi). Xem [Nghe phát âm](README.md#nghe-phát-âm) để cài giọng cho máy và các tùy chọn.
 
 ## Lỗi thường gặp
 

@@ -119,6 +119,7 @@ export default function StrokeOrderPage() {
           <div className="container-page">
             <h1 className="text-3xl font-bold text-ink-900 sm:text-4xl">{t.title}</h1>
             <p className="mt-4 text-lg text-ink-700">{t.subtitle}</p>
+            <SpeechToggle prominent className="mt-5" />
 
             <form className="card mt-8" onSubmit={handleSubmit}>
               <label className="flex flex-col gap-2 text-sm font-medium text-ink-700">

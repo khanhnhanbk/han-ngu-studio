@@ -548,6 +548,9 @@ export const vi = {
     enable: "Bật phát âm",
     enableHint: "(khoảng 30 KB mỗi từ, chỉ tải khi bấm nghe)",
     disable: "Tắt phát âm",
+    navLabel: "Phát âm",
+    navOn: "Phát âm: bật",
+    navOff: "Phát âm: tắt",
     paragraphTitle: "Nghe cả đoạn văn?",
     paragraphIntro: "Trang chỉ đọc từng từ. Để nghe cả câu hoặc đoạn văn, hãy dùng các công cụ miễn phí sẵn có:",
     paragraphTools: [

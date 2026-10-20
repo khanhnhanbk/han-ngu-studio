@@ -548,6 +548,9 @@ export const en: Dictionary = {
     enable: "Turn on pronunciation",
     enableHint: "(about 30 KB per word, loaded only when you listen)",
     disable: "Turn off pronunciation",
+    navLabel: "Pronunciation",
+    navOn: "Sound: on",
+    navOff: "Sound: off",
     paragraphTitle: "Listen to a whole text?",
     paragraphIntro: "This site reads single words only. To hear a sentence or a whole text, use these free tools:",
     paragraphTools: [
