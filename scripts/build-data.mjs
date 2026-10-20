@@ -14,6 +14,7 @@ import { pinyin } from "pinyin-pro";
 
 import { readCsvFrom } from "./lib/csv.mjs";
 import { checkMnemonics } from "./lib/mnemonics.mjs";
+import { checkStory, storyIndexEntry } from "./lib/stories.mjs";
 import { normalizeSentence, readMachineTranslations, tatoebaRows } from "./lib/sentences.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -562,6 +563,33 @@ write("radicals.json", radicals, `${radicals.length} radicals`);
 const vocab = buildVocab();
 write("vocab.json", vocab, `${Object.keys(vocab).length} words`);
 buildExamples(vocab);
+
+/**
+ * Story reader ("Truyện đọc"): our own short stories, drafted with AI help and
+ * reviewed by hand. assets/stories/<id>.json → public/data/stories/<id>.json
+ * plus index.json (the library list, without the text).
+ */
+function buildStories() {
+  const srcDir = join(ROOT, "assets/stories");
+  const outDir = join(OUT, "stories");
+  rmSync(outDir, { recursive: true, force: true });
+  mkdirSync(outDir, { recursive: true });
+  const known = (w) => Object.hasOwn(vocab, w) || Object.hasOwn(meanings, w);
+  const index = [];
+  for (const name of readdirSync(srcDir).filter((n) => n.endsWith(".json")).sort()) {
+    const story = JSON.parse(readFileSync(join(srcDir, name), "utf-8"));
+    const errors = checkStory(story, known);
+    if (`${story.id}.json` !== name) errors.push(`stories/${name}: file name must be <id>.json`);
+    if (errors.length) throw new Error(errors.join("\n"));
+    writeFileSync(join(outDir, name), JSON.stringify(story));
+    index.push(storyIndexEntry(story));
+  }
+  // Library order: by level, then by file name (stable sort).
+  index.sort((a, b) => Number(a.level) - Number(b.level));
+  writeFileSync(join(outDir, "index.json"), JSON.stringify(index));
+  console.log(`stories/: ${index.length} stories, ${index.filter((s) => s.status === "reviewed").length} reviewed`);
+}
+buildStories();
 
 /**
  * SQLite (sql.js, pinned) for the Anki .apkg export, self-hosted next to the

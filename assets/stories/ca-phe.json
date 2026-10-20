@@ -1,0 +1,55 @@
+{
+  "id": "ca-phe",
+  "level": "1",
+  "title": "在咖啡店",
+  "titleVi": "Ở quán cà phê",
+  "topic": "Gọi đồ uống",
+  "status": "draft",
+  "sentences": [
+    [
+      "今天早上，小明跟朋友一起去咖啡店。",
+      "Sáng nay, Tiểu Minh cùng bạn đi quán cà phê."
+    ],
+    [
+      "服务员说：“你们好！你们想喝什么？”",
+      "Nhân viên phục vụ nói: “Chào hai bạn! Hai bạn muốn uống gì?”"
+    ],
+    [
+      "小明说：“我要一杯热咖啡。”",
+      "Tiểu Minh nói: “Tôi lấy một cốc cà phê nóng.”"
+    ],
+    [
+      "他的朋友不喜欢喝咖啡，她想喝茶。",
+      "Bạn của cậu ấy không thích uống cà phê, cô ấy muốn uống trà."
+    ],
+    [
+      "服务员问：“你们要大杯还是小杯？”",
+      "Nhân viên hỏi: “Hai bạn lấy cốc lớn hay cốc nhỏ?”"
+    ],
+    [
+      "小明说：“大杯，谢谢。多少钱？”",
+      "Tiểu Minh nói: “Cốc lớn, cảm ơn. Bao nhiêu tiền?”"
+    ],
+    [
+      "服务员说：“一共四十五块。”",
+      "Nhân viên nói: “Tổng cộng bốn mươi lăm tệ.”"
+    ],
+    [
+      "小明用手机给了钱。",
+      "Tiểu Minh trả tiền bằng điện thoại."
+    ],
+    [
+      "他们坐在一起，喝咖啡，喝茶，说了很多话。",
+      "Họ ngồi cùng nhau, uống cà phê, uống trà, nói chuyện rất nhiều."
+    ]
+  ],
+  "newWords": [
+    "咖啡",
+    "服务员",
+    "杯",
+    "还是",
+    "一共",
+    "块"
+  ],
+  "culture": "Ở các thành phố lớn của Trung Quốc, quán cà phê rất phổ biến, nhiều nơi chỉ nhận thanh toán bằng điện thoại. Khi gọi đồ, người ta hay hỏi cỡ cốc (大杯 lớn, 中杯 vừa, 小杯 nhỏ) và nóng hay lạnh (热 / 冰). “块” là cách nói thường ngày của “元” (tệ): 四十五块 = 45 tệ."
+}

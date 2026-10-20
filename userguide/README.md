@@ -12,7 +12,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 1. Vào trang chủ https://han-ngu-studio.vercel.app.
 2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm, mỗi công cụ có một dòng mô tả ngắn:
    - **Chữ Hán** (học từng chữ): **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
-   - **Đọc văn bản** (dán câu hoặc đoạn văn): **Đọc hiểu**, **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
+   - **Đọc văn bản** (dán câu hoặc đoạn văn): **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
    - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
    - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Chữ Hán**, **Công cụ · Đọc văn bản**, **Công cụ · Từ vựng & ôn tập**.
 3. Chọn công cụ bạn cần. Trang chủ và chân trang cũng chia công cụ theo 3 nhóm này.
@@ -24,6 +24,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ, thứ tự nét) | [practice-sheet.md](practice-sheet.md) |
 | **Thứ tự nét** | Xem hoạt hình từng nét, sơ đồ từng bước và tự viết thử; tạo phiếu tập viết cho các chữ đó | [stroke-order.md](stroke-order.md) |
 | **Đọc hiểu** | Đọc văn bản có trợ giúp: từ tô màu theo cấp HSK, bấm vào từ để xem Pinyin, Hán Việt, nghĩa; ước tính độ khó, ghi nhớ từ đã biết, gửi từ mới sang Anki, Trắc nghiệm | [reader.md](reader.md) |
+| **Truyện đọc** | Truyện ngắn hiện đại theo cấp HSK (gọi đồ, hỏi đường, đi tàu, trả tiền, khám bệnh, Tết), mở trong Đọc hiểu, có từ mới, bản dịch từng câu và Góc văn hóa | [stories.md](stories.md) |
 | **Ngắt từ** | Ngắt câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
 | **Hán Việt** | Ngắt từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |

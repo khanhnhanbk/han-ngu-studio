@@ -8,6 +8,8 @@ Dán một đoạn văn tiếng Trung để **đọc có trợ giúp**:
 
 Văn bản chỉ được xử lý trên máy của bạn, không gửi đi đâu.
 
+Muốn có sẵn bài để đọc? **Truyện đọc** có các truyện ngắn theo cấp HSK, mở thẳng trong Đọc hiểu với bản dịch từng câu: xem [stories.md](stories.md).
+
 **Mở công cụ:** trang chủ → **Công cụ ▾** → nhóm **Đọc văn bản** → **Đọc hiểu**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/reader)
 

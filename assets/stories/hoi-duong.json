@@ -1,0 +1,51 @@
+{
+  "id": "hoi-duong",
+  "level": "1",
+  "title": "请问，火车站在哪儿？",
+  "titleVi": "Xin hỏi, ga tàu ở đâu?",
+  "topic": "Hỏi đường",
+  "status": "draft",
+  "sentences": [
+    [
+      "安娜是越南人，她第一次来北京。",
+      "Anna là người Việt Nam, cô ấy lần đầu đến Bắc Kinh."
+    ],
+    [
+      "她想去火车站，但是不知道怎么走。",
+      "Cô ấy muốn đến ga tàu, nhưng không biết đi thế nào."
+    ],
+    [
+      "她问一个老人：“请问，火车站在哪儿？”",
+      "Cô ấy hỏi một cụ già: “Xin hỏi, ga tàu ở đâu ạ?”"
+    ],
+    [
+      "老人说：“火车站不远。你往前走，到了第二个路口往右走。”",
+      "Cụ già nói: “Ga tàu không xa. Cháu đi thẳng, đến ngã tư thứ hai thì rẽ phải.”"
+    ],
+    [
+      "安娜问：“走路要多长时间？”",
+      "Anna hỏi: “Đi bộ mất bao lâu ạ?”"
+    ],
+    [
+      "老人说：“十分钟就到了。你也可以坐出租车。”",
+      "Cụ già nói: “Mười phút là đến. Cháu cũng có thể đi taxi.”"
+    ],
+    [
+      "安娜说：“谢谢您！”",
+      "Anna nói: “Cháu cảm ơn cụ!”"
+    ],
+    [
+      "老人笑了：“不客气，路上小心！”",
+      "Cụ già cười: “Không có gì, đi đường cẩn thận nhé!”"
+    ]
+  ],
+  "newWords": [
+    "请问",
+    "火车站",
+    "往",
+    "路口",
+    "出租车",
+    "不客气"
+  ],
+  "culture": "“请问” (xin hỏi) là cách mở lời lịch sự nhất khi hỏi người lạ. Người miền Bắc Trung Quốc hay chỉ đường theo hướng đông, tây, nam, bắc (往东走: đi về phía đông); người miền Nam hay nói trái, phải. Ở Trung Quốc đại lục, Google Maps gần như không dùng được; người ta dùng bản đồ của Trung Quốc như 高德地图 hoặc 百度地图."
+}

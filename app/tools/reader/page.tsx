@@ -33,6 +33,7 @@ import {
 import { createAligner, type ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
+import { loadStory, storyIdFromHash, storyText, type Story } from "@/lib/stories/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
 const SAMPLE =
@@ -95,6 +96,9 @@ export default function ReaderPage() {
   const [card, setCard] = useState<CardTarget | null>(null);
   const [filterNew, setFilterNew] = useState(false);
   const [sort, setSort] = useState<SortKey>("order");
+  // A story from the library (#story=<id>): shown while its text is the one read.
+  const [story, setStory] = useState<Story | null>(null);
+  const [revealed, setRevealed] = useState<ReadonlySet<number>>(new Set());
   const resultRef = useRef<HTMLDivElement>(null);
 
   // Preferences and known words live in this browser only.
@@ -152,11 +156,11 @@ export default function ReaderPage() {
     setText(await file.text());
   }
 
-  async function handleRead() {
+  async function handleRead(source: string = text) {
     setError("");
     setCard(null);
-    if (!text.trim()) return setError(t.error);
-    if (tooLong) return setError(t.tooLong);
+    if (!source.trim()) return setError(t.error);
+    if (Array.from(source).length > MAX_LENGTH) return setError(t.tooLong);
     setLoading(true);
     try {
       if (!data) {
@@ -171,7 +175,7 @@ export default function ReaderPage() {
         ]);
         setData({ tokenizer, hanviet, vocab, meanings });
       }
-      setSubmitted(text);
+      setSubmitted(source);
       requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch {
       setError(t.loadFailed);
@@ -179,6 +183,32 @@ export default function ReaderPage() {
       setLoading(false);
     }
   }
+
+  // Open a story from the library: fill the text and read it at once.
+  useEffect(() => {
+    const id = storyIdFromHash(window.location.hash);
+    if (!id) return;
+    loadStory(id)
+      .then((s) => {
+        const source = storyText(s);
+        setStory(s);
+        setRevealed(new Set());
+        setText(source);
+        void handleRead(source);
+      })
+      .catch(() => setError(dict.stories.storyFailed));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on arrival
+  }, []);
+
+  const storyActive = story !== null && submitted === storyText(story);
+  const allRevealed = storyActive && revealed.size === story.sentences.length;
+  const toggleLine = (i: number) =>
+    setRevealed((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
 
   const closeCard = useCallback(() => setCard(null), []);
 
@@ -302,7 +332,7 @@ export default function ReaderPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
-                <button type="button" className="btn-primary" onClick={handleRead} disabled={loading || !ready}>
+                <button type="button" className="btn-primary" onClick={() => handleRead()} disabled={loading || !ready}>
                   {loading ? t.loading : t.button}
                 </button>
                 <button type="button" className="btn-secondary" onClick={() => setText(SAMPLE)}>
@@ -316,6 +346,38 @@ export default function ReaderPage() {
 
             {lines.length > 0 && (
               <div ref={resultRef} className="scroll-mt-24">
+                {storyActive && (
+                  <div className="card mt-6 border-brand-200 bg-brand-50">
+                    <a href={href("/tools/stories")} className="text-sm text-ink-700 hover:text-brand-ink">
+                      {dict.stories.back}
+                    </a>
+                    <p className="mt-3 text-xs font-medium uppercase tracking-wide text-brand-ink">
+                      {fill(dict.stories.level, { level: story.level })} · {story.topic}
+                    </p>
+                    <h2 className="hanzi mt-1 text-2xl text-ink-900">{conv.toShown(story.title)}</h2>
+                    <p className="text-ink-700">{story.titleVi}</p>
+                    {story.status === "draft" && (
+                      <span className="mt-2 inline-block rounded-full bg-ink-900/5 px-2 py-0.5 text-xs text-ink-700">
+                        {dict.stories.draft}
+                      </span>
+                    )}
+                    <p className="mt-4 text-sm font-medium text-ink-700">{dict.stories.newWords}</p>
+                    <p className="hanzi mt-1 text-lg text-ink-900">{story.newWords.map((w) => conv.toShown(w)).join("、")}</p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <button type="button" className="btn-secondary px-3 py-1.5 text-sm" onClick={() => addToList(story.newWords)}>
+                        {dict.stories.addNewWords}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-secondary px-3 py-1.5 text-sm"
+                        onClick={() => setRevealed(allRevealed ? new Set() : new Set(story.sentences.map((_, i) => i)))}
+                      >
+                        {allRevealed ? dict.stories.hideAll : dict.stories.showAll}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* The text, word by word */}
                 <div className="card mt-6">
                   <p className="flex flex-wrap items-center justify-between gap-2 text-xs text-ink-500">
@@ -324,7 +386,8 @@ export default function ReaderPage() {
                   </p>
                   <div className="hanzi mt-4 text-2xl leading-[2.4] text-ink-900">
                     {lines.map((line, i) => (
-                      <p key={i} className="min-h-[1em]">
+                      <Fragment key={i}>
+                      <p className="min-h-[1em]">
                         {line.map((tok, j) => {
                           const label = shown[i]?.[j] ?? tok.text;
                           if (tok.kind === "other") return <span key={j}>{label}</span>;
@@ -353,9 +416,31 @@ export default function ReaderPage() {
                           );
                         })}
                       </p>
+                      {storyActive && story.sentences[i] && (
+                        <div className="mb-3 font-sans text-sm leading-normal">
+                          <button
+                            type="button"
+                            className="text-brand-ink underline decoration-dotted underline-offset-2"
+                            aria-expanded={revealed.has(i)}
+                            onClick={() => toggleLine(i)}
+                          >
+                            {revealed.has(i) ? dict.stories.hideTranslation : dict.stories.showTranslation}
+                          </button>
+                          {revealed.has(i) && <p className="mt-1 text-base text-ink-700">{story.sentences[i][1]}</p>}
+                        </div>
+                      )}
+                      </Fragment>
                     ))}
                   </div>
                 </div>
+
+                {storyActive && (
+                  <div className="card mt-6">
+                    <h2 className="text-xl font-semibold text-ink-900">{dict.stories.culture}</h2>
+                    <p className="mt-2 text-ink-700">{story.culture}</p>
+                    <p className="mt-3 text-xs text-ink-500">{dict.stories.note}</p>
+                  </div>
+                )}
 
                 {/* Difficulty */}
                 <div className="card mt-6">

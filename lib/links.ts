@@ -13,7 +13,8 @@ export type ToolId =
   | "quiz"
   | "radicals"
   | "decompose"
-  | "comprehensibleInput";
+  | "comprehensibleInput"
+  | "stories";
 
 export type ToolGroupId = "chars" | "text" | "vocab";
 
@@ -29,6 +30,7 @@ const HREF: Record<ToolId, string> = {
   radicals: "/tools/radicals",
   decompose: "/tools/decompose",
   comprehensibleInput: "/tools/comprehensible-input",
+  stories: "/tools/stories",
 };
 
 /**
@@ -39,7 +41,7 @@ const HREF: Record<ToolId, string> = {
 export const TOOL_GROUPS: ReadonlyArray<{ id: ToolGroupId; tools: ReadonlyArray<{ id: ToolId; href: string }> }> = (
   [
     { id: "chars", tools: ["strokeOrder", "decompose", "radicals", "practiceSheet"] },
-    { id: "text", tools: ["reader", "pinyin", "hanviet", "segment"] },
+    { id: "text", tools: ["reader", "stories", "pinyin", "hanviet", "segment"] },
     { id: "vocab", tools: ["anki", "quiz", "comprehensibleInput"] },
   ] as const
 ).map((g) => ({ id: g.id, tools: g.tools.map((id) => ({ id, href: HREF[id] })) }));

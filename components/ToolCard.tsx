@@ -27,6 +27,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   radicals: PuzzleIcon,
   decompose: SplitIcon,
   comprehensibleInput: ListOrderedIcon,
+  stories: BookOpenIcon,
 };
 
 /** Landing-page tool card; hovering or focusing the card plays both icons. */

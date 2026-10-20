@@ -1,0 +1,51 @@
+{
+  "id": "tet",
+  "level": "2",
+  "title": "过春节",
+  "titleVi": "Đón Tết",
+  "topic": "Lễ hội và văn hóa",
+  "status": "draft",
+  "sentences": [
+    [
+      "春节是中国最重要的节日。",
+      "Tết Nguyên đán là ngày lễ quan trọng nhất của Trung Quốc."
+    ],
+    [
+      "春节以前，人们都要回家，和家人在一起。",
+      "Trước Tết, mọi người đều về nhà, đoàn tụ với gia đình."
+    ],
+    [
+      "除夕晚上，一家人一起吃饭，一起看电视。",
+      "Tối giao thừa, cả nhà cùng ăn cơm, cùng xem ti vi."
+    ],
+    [
+      "北方人喜欢吃饺子，南方人喜欢吃年糕。",
+      "Người miền Bắc thích ăn sủi cảo, người miền Nam thích ăn bánh tổ."
+    ],
+    [
+      "孩子们最高兴，因为可以拿到红包。",
+      "Trẻ con vui nhất, vì được nhận lì xì."
+    ],
+    [
+      "现在很多人用手机发红包，非常方便。",
+      "Bây giờ nhiều người gửi lì xì qua điện thoại, rất tiện."
+    ],
+    [
+      "见面的时候，大家都说：“新年快乐！”",
+      "Khi gặp nhau, mọi người đều nói: “Chúc mừng năm mới!”"
+    ],
+    [
+      "越南也过春节，我们叫它“Tết”。",
+      "Việt Nam cũng ăn Tết, chúng tôi gọi là “Tết”."
+    ]
+  ],
+  "newWords": [
+    "春节",
+    "节日",
+    "饺子",
+    "红包",
+    "新年",
+    "快乐"
+  ],
+  "culture": "Đêm giao thừa (除夕), nhiều gia đình xem chương trình Gala mừng xuân (春晚) trên ti vi. Mùa về quê ăn Tết (春运) là đợt di chuyển lớn nhất năm. Bữa tối giao thừa thường có cá vì 鱼 (cá) đọc giống 余 (dư): câu chúc 年年有余 nghĩa là “năm nào cũng dư dả”."
+}

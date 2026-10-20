@@ -21,6 +21,7 @@ export const en: Dictionary = {
     settings: "Settings",
     tools: "Tools",
     reader: "Reader",
+    stories: "Stories",
     segment: "Word segmentation",
     pinyin: "Pinyin converter",
     hanviet: "Hán Việt",
@@ -42,6 +43,7 @@ export const en: Dictionary = {
       radicals: "Look up radicals, names, examples",
       practiceSheet: "Print grid sheets for handwriting",
       reader: "Read with help, measure difficulty",
+      stories: "Short stories by HSK level, culture",
       pinyin: "Add Pinyin to sentences and texts",
       hanviet: "Sino-Vietnamese reading of each word",
       segment: "Split a sentence into words",
@@ -72,7 +74,7 @@ export const en: Dictionary = {
   },
   features: {
     title: "Everything you need, in one place",
-    subtitle: "Eleven free tools that run right in your browser.",
+    subtitle: "Twelve free tools that run right in your browser.",
     items: {
       practiceSheet: {
         title: "Handwriting practice sheet",
@@ -91,6 +93,12 @@ export const en: Dictionary = {
         description:
           "Paste any text: words are coloured by HSK level, and tapping one shows its Pinyin, Hán Việt and meanings. Estimates difficulty, remembers the words you know and sends new words to Anki or the Quiz.",
         cta: "Read a text",
+      },
+      stories: {
+        title: "Stories",
+        description:
+          "Short modern stories by HSK level: ordering a drink, asking the way, the metro, paying by phone… Each has new words, a translation under every sentence and a culture note, read right in the Reader.",
+        cta: "Pick a story",
       },
       segment: {
         title: "Word segmentation",
@@ -312,6 +320,26 @@ export const en: Dictionary = {
         "Split long sentences into shorter ones.",
       ],
     },
+  },
+  stories: {
+    title: "Stories",
+    subtitle:
+      "Short modern stories you can use right away: ordering a drink, asking the way, the metro, paying, seeing a doctor, Spring Festival. Each story teaches a few new words and ends with a culture note. Stories open in the Reader: words coloured by HSK level, tap a word for its meaning, the Vietnamese translation hidden under each sentence.",
+    level: "HSK {level}",
+    newWords: "New words",
+    read: "Read the story",
+    draft: "draft, not yet reviewed",
+    note: "Stories and translations are written by Hán Ngữ Studio with AI help. Stories marked “draft” have not been checked by a person yet. Translations are in Vietnamese.",
+    loading: "Loading the stories…",
+    loadFailed: "Could not load the stories. Please check your connection and try again.",
+    back: "← All stories",
+    showTranslation: "Show translation",
+    hideTranslation: "Hide translation",
+    showAll: "Show all translations",
+    hideAll: "Hide all translations",
+    addNewWords: "Add the new words to the study list",
+    culture: "Culture corner",
+    storyFailed: "Could not load this story. Please check your connection and try again.",
   },
   reader: {
     title: "Reader",
@@ -1121,7 +1149,7 @@ export const en: Dictionary = {
       fonts: "Interface and practice-sheet fonts.",
     },
     ownTitle: "Compiled by Hán Ngữ Studio",
-    own: "Names and meanings of the 214 radicals (checked against PREP's list), the example sentences with hand-checked translations, the suggested memory tricks in Character breakdown (drafted with AI help and reviewed over time; unreviewed ones are labelled), and the edits made to the sources above.",
+    own: "Names and meanings of the 214 radicals (checked against PREP's list), the example sentences with hand-checked translations, the stories in Stories (text, translations and culture notes), the suggested memory tricks in Character breakdown (drafted with AI help and reviewed over time; unreviewed ones are labelled), and the edits made to the sources above.",
     noticesLink: "Full list (THIRD-PARTY-NOTICES.md)",
   },
   footer: {

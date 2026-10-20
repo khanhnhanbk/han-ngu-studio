@@ -10,6 +10,7 @@ Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`li
 
 | Tool | Route | Status |
 |---|---|---|
+| Story reader "Truyện đọc" (short modern stories by HSK level, new words, Vietnamese translation hidden under each sentence, culture note; opens in Đọc hiểu via `#story=<id>`) | `/tools/stories` | Live, client-side (`lib/stories/`, content in `assets/stories/<id>.json` checked by `scripts/lib/stories.mjs`, built into `public/data/stories/`) |
 | Character practice sheet (米字格 grid, Pinyin, Wubi, traceable characters, stroke-order strip) → PDF | `/tools/practice-sheet` | Live, client-side (stroke data in `public/data/strokes/`, `lib/strokes/`) |
 | Stroke-order lookup (animation, step diagram, quiz) | `/tools/stroke-order` | Live, client-side (Hanzi Writer, data from `public/data/strokes/`) |
 | Reader "Đọc hiểu" (words coloured by HSK level, tap-a-word card with Pinyin/Hán Việt/meanings, Smart Pinyin, 95 %-rule difficulty estimate, word table, known words, study list → Anki/Quiz/practice sheet) | `/tools/reader` | Live, client-side (`lib/reader/`, reuses `analyzeLine`, `vocabFor`, meanings; UI in `components/reader/`) |

@@ -14,6 +14,7 @@ export const vi = {
     settings: "Cài đặt",
     tools: "Công cụ",
     reader: "Đọc hiểu",
+    stories: "Truyện đọc",
     segment: "Ngắt từ",
     pinyin: "Chuyển Pinyin",
     hanviet: "Hán Việt",
@@ -36,6 +37,7 @@ export const vi = {
       radicals: "Tra bộ thủ, tên Hán Việt, chữ ví dụ",
       practiceSheet: "In phiếu ô vuông để luyện viết",
       reader: "Đọc có trợ giúp, đo độ khó",
+      stories: "Truyện ngắn theo cấp HSK, văn hóa",
       pinyin: "Ghi Pinyin cho câu, đoạn văn",
       hanviet: "Ghi âm Hán Việt cho từng từ",
       segment: "Tách câu thành từng từ",
@@ -66,7 +68,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Mười một công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Mười hai công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -85,6 +87,12 @@ export const vi = {
         description:
           "Dán đoạn văn bất kỳ: từ tô màu theo cấp HSK, bấm vào từ để xem Pinyin, Hán Việt và nghĩa. Ước tính độ khó, ghi nhớ từ đã biết và gửi từ mới sang Anki, Trắc nghiệm.",
         cta: "Đọc văn bản",
+      },
+      stories: {
+        title: "Truyện đọc",
+        description:
+          "Truyện ngắn hiện đại theo cấp HSK: gọi đồ, hỏi đường, đi tàu điện ngầm, trả tiền bằng điện thoại… Mỗi truyện có từ mới, bản dịch từng câu và ghi chú văn hóa, đọc ngay trong Đọc hiểu.",
+        cta: "Chọn truyện",
       },
       segment: {
         title: "Ngắt từ",
@@ -311,6 +319,26 @@ export const vi = {
         "Tách câu dài thành nhiều câu ngắn hơn.",
       ],
     },
+  },
+  stories: {
+    title: "Truyện đọc",
+    subtitle:
+      "Truyện ngắn hiện đại, dùng được ngay ngoài đời: gọi đồ, hỏi đường, đi tàu, trả tiền, đi khám bệnh, đón Tết. Mỗi truyện dạy vài từ mới và kèm một ghi chú văn hóa. Truyện mở trong Đọc hiểu: từ tô màu theo cấp HSK, bấm vào từ để xem nghĩa, bản dịch tiếng Việt ẩn dưới từng câu.",
+    level: "HSK {level}",
+    newWords: "Từ mới",
+    read: "Đọc truyện",
+    draft: "bản nháp, chưa kiểm duyệt",
+    note: "Truyện và bản dịch do Hán Ngữ Studio soạn với trợ giúp của AI. Truyện có nhãn “bản nháp” chưa được người kiểm tra lại.",
+    loading: "Đang tải danh sách truyện…",
+    loadFailed: "Không tải được danh sách truyện. Vui lòng kiểm tra kết nối mạng và thử lại.",
+    back: "← Thư viện truyện",
+    showTranslation: "Xem bản dịch",
+    hideTranslation: "Ẩn bản dịch",
+    showAll: "Hiện tất cả bản dịch",
+    hideAll: "Ẩn tất cả bản dịch",
+    addNewWords: "Thêm từ mới vào danh sách học",
+    culture: "Góc văn hóa",
+    storyFailed: "Không tải được truyện này. Vui lòng kiểm tra kết nối mạng và thử lại.",
   },
   reader: {
     title: "Đọc hiểu",
@@ -1127,7 +1155,7 @@ export const vi = {
       fonts: "Phông chữ giao diện và phiếu tập viết.",
     },
     ownTitle: "Do Hán Ngữ Studio biên soạn",
-    own: "Tên và nghĩa 214 bộ thủ (đối chiếu danh sách của PREP), các câu ví dụ có bản dịch kiểm tra tay, các mẹo nhớ gợi ý trong Chiết tự (soạn với trợ giúp AI và được kiểm duyệt dần; mẹo chưa kiểm duyệt có nhãn “gợi ý”), và những chỉnh sửa trên các nguồn ở trên.",
+    own: "Tên và nghĩa 214 bộ thủ (đối chiếu danh sách của PREP), các câu ví dụ có bản dịch kiểm tra tay, các truyện trong Truyện đọc (truyện, bản dịch và Góc văn hóa), các mẹo nhớ gợi ý trong Chiết tự (soạn với trợ giúp AI và được kiểm duyệt dần; mẹo chưa kiểm duyệt có nhãn “gợi ý”), và những chỉnh sửa trên các nguồn ở trên.",
     noticesLink: "Danh sách đầy đủ (THIRD-PARTY-NOTICES.md)",
   },
   footer: {

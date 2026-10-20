@@ -1,0 +1,53 @@
+{
+  "id": "tra-tien-dien-thoai",
+  "level": "2",
+  "title": "用手机付钱",
+  "titleVi": "Trả tiền bằng điện thoại",
+  "topic": "Mua sắm",
+  "status": "draft",
+  "sentences": [
+    [
+      "在中国，很多人出门不带钱包，只带手机。",
+      "Ở Trung Quốc, nhiều người ra ngoài không mang ví, chỉ mang điện thoại."
+    ],
+    [
+      "买东西的时候，大家常常用手机付钱。",
+      "Khi mua đồ, mọi người thường trả tiền bằng điện thoại."
+    ],
+    [
+      "我的越南朋友阿南刚来中国，他觉得很新鲜。",
+      "Bạn người Việt của tôi là Nam vừa đến Trung Quốc, cậu ấy thấy rất mới lạ."
+    ],
+    [
+      "他在水果店买了一斤苹果。",
+      "Cậu ấy mua nửa cân táo ở tiệm hoa quả."
+    ],
+    [
+      "老板说：“八块五，扫这个码就可以。”",
+      "Ông chủ nói: “Tám tệ rưỡi, quét mã này là được.”"
+    ],
+    [
+      "阿南打开手机，扫了一下，钱就付好了。",
+      "Nam mở điện thoại, quét một cái là trả tiền xong."
+    ],
+    [
+      "他笑着说：“真方便！比用现金快多了。”",
+      "Cậu ấy cười nói: “Tiện thật! Nhanh hơn dùng tiền mặt nhiều.”"
+    ],
+    [
+      "老板说：“现在买菜也都用手机。”",
+      "Ông chủ nói: “Bây giờ đi chợ mua rau cũng đều dùng điện thoại.”"
+    ]
+  ],
+  "newWords": [
+    "钱包",
+    "新鲜",
+    "斤",
+    "付",
+    "扫",
+    "老板",
+    "方便",
+    "现金"
+  ],
+  "culture": "Ở Trung Quốc, trả tiền bằng WeChat Pay (微信支付) và Alipay (支付宝) phổ biến đến mức nhiều quán nhỏ, chợ rau đều chỉ cần quét mã QR. Người nước ngoài nay có thể liên kết thẻ ngân hàng quốc tế vào hai ứng dụng này. Lưu ý: 一斤 là 500 gam, không phải 1 cân như ở Việt Nam."
+}

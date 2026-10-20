@@ -20,10 +20,10 @@
 ### 3. Test the .apkg file in real apps (owner)
 - Download a deck from the live site; import in Anki desktop and AnkiDroid; check card looks (light/night), 2–3 example lines, Phồn thể, re-import.
 
-### 4. Story reader "Truyện" (next feature, needs its own plan)
-- Short modern stories by HSK level (gọi món, thuê nhà, đi tàu, WeChat Pay, thành ngữ dùng ngày nay), each teaching 5–8 new words + a short culture note.
-- Opens in Đọc hiểu (HSK colours, tap-a-word card, study list → Anki / Quiz).
-- Content: Claude drafts offline, owner reviews (same "gợi ý" label until reviewed). No runtime AI.
+### 4. Story reader "Truyện đọc" — built (plan: `2026-10-20-story-reader.md`)
+- 6 draft stories (HSK 1: ca-phe, hoi-duong; HSK 2: tau-dien-ngam, tra-tien-dien-thoai, di-kham-benh, tet) in `assets/stories/`.
+- **Owner**: read them (Chinese, Vietnamese per sentence, culture note); fix and set `"status": "reviewed"`, then `pnpm build:data`.
+- **Claude, after review**: more stories (HSK 3–4, thuê nhà, phỏng vấn xin việc, thành ngữ dùng ngày nay such as 马马虎虎, 一路平安), same checks.
 
 ### Later ideas (from the Anki journey map)
 - Voice recordings (audio-cmn) inside the .apkg cards.

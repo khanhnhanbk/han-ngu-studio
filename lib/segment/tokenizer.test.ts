@@ -64,7 +64,8 @@ describe("length cutoff", () => {
     for (const run of runs) {
       expect(tokenizer.tokenize(run)).toEqual(referenceTokenize(lines, run));
     }
-  });
+    // CPU-bound (~2 s alone); other data-heavy test files run in parallel.
+  }, 30_000);
 });
 
 describe("createTokenizer", () => {
