@@ -97,7 +97,7 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Rê chuột vào thành phần sâu bên trong mà không tô sáng nét | Thứ tự nét của thành phần đó không khớp hoàn toàn với chữ lớn, nên công cụ không tô để tránh tô sai. |
 | Mất câu chuyện ghi nhớ | Câu chuyện nằm trong bộ nhớ trình duyệt: xóa dữ liệu duyệt web, dùng chế độ ẩn danh hoặc đổi trình duyệt đều làm mất. Hãy **Tải câu chuyện (TSV)** thường xuyên để có bản sao. |
 | Không thấy **Mẹo nhớ gợi ý** | Hiện mới có mẹo cho các chữ HSK 1; chữ khác sẽ được thêm dần. |
-| Mẹo nhớ nghe gượng hoặc chưa đúng | Mẹo có nhãn **gợi ý, chưa kiểm duyệt** chưa được người đọc lại. Bấm **Dùng mẹo này** rồi sửa theo ý bạn, hoặc tự viết câu chuyện riêng. |
+| Mẹo nhớ nghe gượng hoặc chưa đúng | Mẹo có nhãn **gợi ý, chưa kiểm duyệt** chưa được người đọc lại. Bấm **Góp ý mẹo này** để báo cho Hán Ngữ Studio: trang GitHub mở ra với chữ và mẹo điền sẵn (không có câu chuyện của bạn), bạn ghi đề xuất rồi gửi (cần tài khoản GitHub). Hoặc bấm **Dùng mẹo này** rồi sửa theo ý bạn. |
 | "Trình duyệt không cho lưu…" | Trình duyệt đang chặn lưu dữ liệu (thường do chế độ ẩn danh). Viết xong hãy bấm **Tải câu chuyện (TSV)**. |
 | "File không có câu chuyện nào hợp lệ." | Chỉ nhập được file do nút **Tải câu chuyện (TSV)** tạo ra (mỗi dòng: một chữ, dấu Tab, câu chuyện). |
 | Chữ trong danh sách "Chữ có chứa…" ghi "—" thay vì âm Hán Việt | Thường là chữ phồn thể hoặc chữ hiếm chưa có trong bảng Hán Việt. |

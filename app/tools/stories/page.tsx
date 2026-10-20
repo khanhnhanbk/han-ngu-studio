@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { LEVEL_STYLE } from "@/components/reader/levels";
+import { feedbackUrl } from "@/lib/feedback";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { HSK_LEVELS, type HskLevel } from "@/lib/reader/analyze";
 import { useConverter } from "@/lib/script/useScript";
@@ -55,7 +56,18 @@ export default function StoriesPage() {
                         <h3 className="hanzi mt-2 text-2xl text-ink-900">{conv.toShown(s.title)}</h3>
                         <p className="mt-1 text-ink-700">{s.titleVi}</p>
                         {s.status === "draft" && (
-                          <span className="mt-2 w-fit rounded-full bg-ink-900/5 px-2 py-0.5 text-xs text-ink-700">{t.draft}</span>
+                          <p className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                            <span className="rounded-full bg-ink-900/5 px-2 py-0.5 text-ink-700">{t.draft}</span>
+                            <a
+                              href={feedbackUrl(fill(t.issueTitle, { title: s.title, id: s.id }), fill(t.issueBody, { title: s.title, id: s.id }))}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={t.feedbackHint}
+                              className="text-brand-ink underline decoration-dotted underline-offset-2"
+                            >
+                              {t.feedback}
+                            </a>
+                          </p>
                         )}
                         <p className="mt-4 text-sm text-ink-500">{t.newWords}</p>
                         <p className="hanzi mt-1 text-lg text-ink-900">{s.newWords.map((w) => conv.toShown(w)).join("、")}</p>

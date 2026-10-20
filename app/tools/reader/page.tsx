@@ -33,6 +33,7 @@ import {
 import { createAligner, type ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
+import { feedbackUrl } from "@/lib/feedback";
 import { loadStory, storyIdFromHash, storyText, type Story } from "@/lib/stories/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
@@ -439,6 +440,18 @@ export default function ReaderPage() {
                     <h2 className="text-xl font-semibold text-ink-900">{dict.stories.culture}</h2>
                     <p className="mt-2 text-ink-700">{story.culture}</p>
                     <p className="mt-3 text-xs text-ink-500">{dict.stories.note}</p>
+                    <a
+                      href={feedbackUrl(
+                        fill(dict.stories.issueTitle, { title: story.title, id: story.id }),
+                        fill(dict.stories.issueBody, { title: story.title, id: story.id }),
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={dict.stories.feedbackHint}
+                      className="mt-2 inline-block text-sm text-brand-ink underline decoration-dotted underline-offset-2"
+                    >
+                      {dict.stories.feedback}
+                    </a>
                   </div>
                 )}
 

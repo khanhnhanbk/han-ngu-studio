@@ -1,5 +1,6 @@
 "use client";
 
+import { feedbackUrl } from "@/lib/feedback";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { REPO_URL, TOOL_GROUPS, USER_GUIDE_URL } from "@/lib/links";
 
@@ -24,6 +25,7 @@ export function Footer() {
         { label: dict.footer.links.faq, href: href("/#faq"), external: false },
         { label: dict.footer.links.roadmap, href: href("/#roadmap"), external: false },
         { label: dict.footer.links.legal, href: href("/giay-phep"), external: false },
+        { label: dict.footer.links.feedback, href: feedbackUrl(), external: true },
       ],
     },
   ];

@@ -5,6 +5,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 - Trang web: **https://han-ngu-studio.vercel.app**
 - Không cần đăng ký, không cần cài đặt. Chỉ cần trình duyệt (Chrome, Edge, Firefox, Safari).
 - Có giao diện tiếng Anh: trên thanh menu bấm nút **⚙** (bên phải, hiện **VI · 简**) → **Ngôn ngữ** → **EN**, hoặc bấm **EN** ở cuối trang (địa chỉ https://han-ngu-studio.vercel.app/en). Tài liệu hướng dẫn này chỉ có tiếng Việt.
+- Thấy lỗi hoặc muốn góp ý? Bấm **Góp ý / báo lỗi (GitHub)** ở cuối trang (cần tài khoản GitHub). Với truyện và mẹo nhớ còn là bản nháp, bấm **Góp ý sửa truyện** / **Góp ý mẹo này** ngay cạnh nội dung đó.
 - **Dữ liệu của bạn không rời khỏi máy:** mọi văn bản bạn nhập đều được xử lý ngay trên trình duyệt, không gửi lên máy chủ nào.
 
 ## Mở một công cụ

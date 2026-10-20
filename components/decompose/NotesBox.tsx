@@ -6,6 +6,7 @@ import { FileInput } from "@/components/FileInput";
 import { loadMnemonics, suggestionFor, type Mnemonics } from "@/lib/decompose/mnemonics";
 import { notesToTsv, parseNotesTsv, readNotes, withNote, writeNotes, type Notes } from "@/lib/decompose/notes";
 import { downloadText } from "@/lib/download";
+import { feedbackUrl } from "@/lib/feedback";
 import { useDictionary } from "@/lib/i18n/useLocale";
 
 /**
@@ -73,16 +74,30 @@ export function NotesBox({ char, simpChar = char }: { char: string; simpChar?: s
             )}
           </p>
           <p className="mt-1 text-ink-700">{suggestion.story}</p>
-          <button
-            type="button"
-            className="btn-secondary mt-2 px-3 py-1.5 text-sm"
-            onClick={() => {
-              save(withNote(notes, char, suggestion.story), t.notesSaved);
-              setShowSuggestion(false);
-            }}
-          >
-            {t.useSuggestion}
-          </button>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              className="btn-secondary px-3 py-1.5 text-sm"
+              onClick={() => {
+                save(withNote(notes, char, suggestion.story), t.notesSaved);
+                setShowSuggestion(false);
+              }}
+            >
+              {t.useSuggestion}
+            </button>
+            <a
+              href={feedbackUrl(
+                t.issueTitle.replace("{char}", simpChar),
+                t.issueBody.replace("{char}", simpChar).replace("{story}", suggestion.story),
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={t.suggestionFeedbackHint}
+              className="text-sm text-brand-ink underline decoration-dotted underline-offset-2"
+            >
+              {t.suggestionFeedback}
+            </a>
+          </div>
         </div>
       )}
       {suggestion && own !== "" && !showSuggestion && (

@@ -44,7 +44,7 @@ Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**)
 |---|---|
 | "Không tải được danh sách truyện…" / "Không tải được truyện này…" | Kiểm tra mạng rồi tải lại trang. |
 | Khung truyện và nút **Xem bản dịch** biến mất | Bạn đã sửa văn bản trong ô rồi bấm **Đọc**: trang coi đó là văn bản của bạn, không còn là truyện. Quay lại **Truyện đọc** và bấm **Đọc truyện** lần nữa. |
-| Truyện có nhãn **bản nháp, chưa kiểm duyệt** | Truyện và bản dịch do Hán Ngữ Studio soạn với trợ giúp của AI và chưa được người đọc lại. Nếu thấy chỗ chưa đúng, hãy báo qua GitHub. |
+| Truyện có nhãn **bản nháp, chưa kiểm duyệt** | Truyện và bản dịch do Hán Ngữ Studio soạn với trợ giúp của AI và chưa được người đọc lại. Thấy chỗ chưa đúng? Bấm **Góp ý sửa truyện** (cạnh nhãn, hoặc cuối **Góc văn hóa**): trang GitHub mở ra với tên truyện điền sẵn, bạn ghi câu cần sửa rồi gửi (cần tài khoản GitHub). |
 | Một vài từ không có cấp HSK (gạch chân xám) | Thường là tên người (安娜, 大卫) hoặc từ ghép không có trong danh sách HSK 3.0 (喝茶, 外国人). Bấm vào từ để xem nghĩa. |
 
 ## Nguồn
