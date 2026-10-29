@@ -28,6 +28,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   decompose: SplitIcon,
   comprehensibleInput: ListOrderedIcon,
   stories: BookOpenIcon,
+  lookup: BookOpenTextIcon,
 };
 
 /** Landing-page tool card; hovering or focusing the card plays both icons. */

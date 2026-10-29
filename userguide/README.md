@@ -14,7 +14,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm, mỗi công cụ có một dòng mô tả ngắn:
    - **Chữ Hán** (học từng chữ): **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
    - **Đọc văn bản** (dán câu hoặc đoạn văn): **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
-   - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
+   - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tra từ**, **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
    - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Chữ Hán**, **Công cụ · Đọc văn bản**, **Công cụ · Từ vựng & ôn tập**.
 3. Chọn công cụ bạn cần. Trang chủ và chân trang cũng chia công cụ theo 3 nhóm này.
 
@@ -29,6 +29,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Ngắt từ** | Ngắt câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
 | **Hán Việt** | Ngắt từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
+| **Tra từ** | Tra một từ hoặc chữ: Pinyin, Hán Việt, cấp HSK, từ loại, nghĩa tiếng Việt, lượng từ, câu ví dụ, từ bắt đầu bằng nó; mở sang Chiết tự, Anki, Trắc nghiệm | [tra-tu.md](tra-tu.md) |
 | **Tạo thẻ Anki** | Từ danh sách từ vựng, tạo bộ thẻ Anki (file .apkg mở thẳng bằng Anki, hoặc .tsv): Pinyin, nghĩa tiếng Anh và tiếng Việt, cấp HSK, 1–3 câu ví dụ dễ hiểu, Ngũ bút, Hán Việt | [anki.md](anki.md) (xem thêm: [hướng dẫn Anki và mẫu thẻ](https://han-ngu-studio.vercel.app/tools/anki/huong-dan) trên trang web) |
 | **Trắc nghiệm** | Tạo câu hỏi trắc nghiệm từ danh sách từ vựng (nghĩa, Pinyin, Hán Việt, chữ Hán, điền từ, sắp xếp câu); xếp câu hỏi ngẫu nhiên hoặc theo loại; làm bài, ôn câu sai, in đề kèm đáp án | [quiz.md](quiz.md) |
 | **214 bộ thủ** | Tra 214 bộ thủ theo số nét, tên Hán Việt, nghĩa hoặc chữ; xem dạng khác và chữ thường gặp | [radicals.md](radicals.md) |

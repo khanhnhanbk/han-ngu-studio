@@ -12,7 +12,7 @@ describe("TOOLS", () => {
   });
   it("puts every tool in exactly one group", () => {
     const ids = TOOL_GROUPS.flatMap((g) => g.tools.map((t) => t.id));
-    const all: ToolId[] = ["reader", "practiceSheet", "strokeOrder", "segment", "pinyin", "hanviet", "anki", "quiz", "radicals", "decompose", "comprehensibleInput", "stories"];
+    const all: ToolId[] = ["reader", "practiceSheet", "strokeOrder", "segment", "pinyin", "hanviet", "anki", "quiz", "radicals", "decompose", "comprehensibleInput", "stories", "lookup"];
     expect([...ids].sort()).toEqual([...all].sort());
     expect(new Set(TOOLS.map((t) => t.href)).size).toBe(all.length);
   });

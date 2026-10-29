@@ -50,6 +50,7 @@ Lần đầu, trang tải dữ liệu (khoảng 1,3 MB). Sau đó văn bản hi�
 - **✓ Đã biết**: lưu từ vào danh sách từ đã biết (bấm **Bỏ đã biết** để bỏ). Nếu từ đã được tính là biết theo trình độ, thẻ hiện **✓ Đã biết (đến HSK …)**.
 - **+ Danh sách học**: thêm từ vào danh sách học bên dưới.
 - **Thứ tự nét**, **Chiết tự**: mở từ đó ở công cụ tương ứng.
+- **Xem đầy đủ**: mở từ đó ở **Tra từ** (mọi cách đọc, nghĩa đầy đủ, câu ví dụ, từ bắt đầu bằng nó).
 
 Đóng thẻ bằng **Đóng**, phím Esc hoặc bấm ra ngoài. Trên điện thoại, thẻ hiện ở cuối màn hình.
 

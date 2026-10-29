@@ -32,6 +32,7 @@ export const en: Dictionary = {
     comprehensibleInput: "N+1 sentence order",
     practiceSheet: "Practice sheet",
     strokeOrder: "Stroke order",
+    lookup: "Word lookup",
     groups: {
       chars: { title: "Characters", hint: "Study one character" },
       text: { title: "Reading", hint: "Paste a sentence or text" },
@@ -50,6 +51,7 @@ export const en: Dictionary = {
       anki: "Cards with meanings and examples",
       quiz: "Make a quiz, print a test",
       comprehensibleInput: "Order sentences from easy to hard",
+      lookup: "Meaning, part of speech, measure words",
     },
   },
   hero: {
@@ -74,7 +76,7 @@ export const en: Dictionary = {
   },
   features: {
     title: "Everything you need, in one place",
-    subtitle: "Twelve free tools that run right in your browser.",
+    subtitle: "Thirteen free tools that run right in your browser.",
     items: {
       practiceSheet: {
         title: "Handwriting practice sheet",
@@ -87,6 +89,12 @@ export const en: Dictionary = {
         description:
           "Watch each stroke of a character animated, try writing it with your mouse or finger, then make a practice sheet for those characters.",
         cta: "Look up stroke order",
+      },
+      lookup: {
+        title: "Word lookup",
+        description:
+          "Type a word or character: Pinyin, Hán Việt, part of speech, Vietnamese meaning, measure words, example sentences and the words that start with it, with shortcuts to Character breakdown, Anki and Quiz.",
+        cta: "Look up a word",
       },
       reader: {
         title: "Reader",
@@ -342,6 +350,38 @@ export const en: Dictionary = {
       Phonetic: "Onomatopoeia",
     },
   },
+  lookup: {
+    title: "Word lookup",
+    subtitle:
+      "Type a word or a character to see its Pinyin, Sino-Vietnamese reading, part of speech, Vietnamese meaning, measure words and example sentences, then open it in the other tools.",
+    inputLabel: "Word or character",
+    placeholder: "For example: 亲戚",
+    button: "Look up",
+    loading: "Loading…",
+    error: "Please type a Chinese word.",
+    tooLong: "This looks like a sentence rather than a word. Paste it into the Reader to see each word.",
+    openReader: "Open the Reader",
+    loadFailed: "Could not load the data. Check your connection and press Look up again.",
+    notFound: "“{word}” is not in the dictionary. Look up each character:",
+    traditional: "Traditional",
+    hanviet: "Hán Việt",
+    meanings: "Meanings (Vietnamese)",
+    english: "English",
+    noMeaning: "No Vietnamese meaning yet",
+    examples: "Example sentences",
+    machine: "machine-translated",
+    startsWith: "Words starting with {word}",
+    openIn: "Open in another tool",
+    decompose: "Character breakdown",
+    strokeOrder: "Stroke order",
+    practiceSheet: "Practice sheet",
+    anki: "Anki deck builder",
+    quiz: "Quiz",
+    external: "More on Hanzii",
+    externalNote: "Opens an outside site in a new tab; only this word is sent to it, when you click.",
+    credits:
+      "Part of speech and HSK level: the HSK 3.0 word list (PRC Ministry of Education, GF 0025-2021; data from ivankra/hsk30, MIT). Vietnamese meanings and measure words: the CVDICT dictionary by Phong Phan (CC BY-SA 4.0, machine-translated from CC-CEDICT and reviewed). English: CC-CEDICT (CC BY-SA 4.0). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), with edits. Example sentences: Hán Ngữ Studio and Tatoeba (CC BY 2.0 FR); sentences marked “machine-translated” were translated with Google Translate.",
+  },
   stories: {
     title: "Stories",
     subtitle:
@@ -410,6 +450,7 @@ export const en: Dictionary = {
       inList: "In the study list",
       strokeOrder: "Stroke order",
       decompose: "Break down",
+      lookup: "Full entry",
       close: "Close",
     },
     tableTitle: "Word table",

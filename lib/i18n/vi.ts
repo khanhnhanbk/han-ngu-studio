@@ -25,6 +25,7 @@ export const vi = {
     comprehensibleInput: "Sắp xếp câu N+1",
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
+    lookup: "Tra từ",
     groups: {
       chars: { title: "Chữ Hán", hint: "Học từng chữ" },
       text: { title: "Đọc văn bản", hint: "Dán câu hoặc đoạn văn" },
@@ -44,6 +45,7 @@ export const vi = {
       anki: "Tạo bộ thẻ có nghĩa, câu ví dụ",
       quiz: "Tạo bài trắc nghiệm, in đề",
       comprehensibleInput: "Xếp câu từ dễ đến khó",
+      lookup: "Nghĩa, từ loại, lượng từ, câu ví dụ",
     },
   },
   hero: {
@@ -68,7 +70,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Mười hai công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "Mười ba công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -81,6 +83,12 @@ export const vi = {
         description:
           "Xem hoạt hình từng nét của chữ Hán, tự viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho các chữ đó.",
         cta: "Tra thứ tự nét",
+      },
+      lookup: {
+        title: "Tra từ",
+        description:
+          "Nhập một từ hoặc chữ: Pinyin, Hán Việt, từ loại, nghĩa tiếng Việt, lượng từ, câu ví dụ và các từ bắt đầu bằng nó, kèm lối tắt sang Chiết tự, Anki, Trắc nghiệm.",
+        cta: "Tra từ",
       },
       reader: {
         title: "Đọc hiểu",
@@ -341,6 +349,38 @@ export const vi = {
       Phonetic: "Từ tượng thanh",
     },
   },
+  lookup: {
+    title: "Tra từ",
+    subtitle:
+      "Nhập một từ hoặc một chữ Hán để xem Pinyin, Hán Việt, từ loại, nghĩa tiếng Việt, lượng từ và câu ví dụ, rồi mở từ đó ở các công cụ khác.",
+    inputLabel: "Từ hoặc chữ cần tra",
+    placeholder: "Ví dụ: 亲戚",
+    button: "Tra",
+    loading: "Đang tải…",
+    error: "Vui lòng nhập một từ tiếng Trung.",
+    tooLong: "Đoạn này giống một câu hơn là một từ. Hãy dán vào Đọc hiểu để xem nghĩa từng từ.",
+    openReader: "Mở Đọc hiểu",
+    loadFailed: "Không tải được dữ liệu. Kiểm tra mạng rồi bấm Tra lần nữa.",
+    notFound: "Không tìm thấy “{word}” trong từ điển. Tra từng chữ:",
+    traditional: "Phồn thể",
+    hanviet: "Hán Việt",
+    meanings: "Nghĩa",
+    english: "Nghĩa tiếng Anh",
+    noMeaning: "Chưa có nghĩa tiếng Việt",
+    examples: "Câu ví dụ",
+    machine: "dịch máy",
+    startsWith: "Từ bắt đầu bằng {word}",
+    openIn: "Mở trong công cụ khác",
+    decompose: "Chiết tự",
+    strokeOrder: "Thứ tự nét",
+    practiceSheet: "Phiếu tập viết",
+    anki: "Tạo thẻ Anki",
+    quiz: "Trắc nghiệm",
+    external: "Tra thêm trên Hanzii",
+    externalNote: "Mở trang ngoài trong tab mới; chỉ từ này được gửi tới trang đó, khi bạn bấm.",
+    credits:
+      "Từ loại và cấp HSK: danh sách từ vựng HSK 3.0 (Bộ Giáo dục Trung Quốc, GF 0025-2021; dữ liệu ivankra/hsk30, MIT). Nghĩa tiếng Việt và lượng từ: từ điển CVDICT của Phong Phan (CC BY-SA 4.0, dịch máy từ CC-CEDICT và rà soát lại). Nghĩa tiếng Anh: CC-CEDICT (CC BY-SA 4.0). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa. Câu ví dụ: Hán Ngữ Studio và Tatoeba (CC BY 2.0 FR); câu đánh dấu “dịch máy” được dịch bằng Google Dịch.",
+  },
   stories: {
     title: "Truyện đọc",
     subtitle:
@@ -409,6 +449,7 @@ export const vi = {
       inList: "Đã có trong danh sách",
       strokeOrder: "Thứ tự nét",
       decompose: "Chiết tự",
+      lookup: "Xem đầy đủ",
       close: "Đóng",
     },
     tableTitle: "Bảng từ",
