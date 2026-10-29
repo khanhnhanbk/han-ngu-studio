@@ -1027,8 +1027,17 @@ export const vi = {
     showAll: "Xem tất cả",
     showLess: "Thu gọn",
     notes: "Câu chuyện ghi nhớ",
-    suggestion: "Mẹo nhớ gợi ý",
+    suggestion: "Gợi ý ghi nhớ",
     suggestionDraft: "gợi ý, chưa kiểm duyệt",
+    kinds: {
+      goc: "Theo nguồn gốc",
+      meo: "Mẹo nhớ",
+    },
+    kindHints: {
+      goc: "Giải thích theo nguồn gốc thật của chữ, có ghi nguồn.",
+      meo: "Câu chuyện đặt ra để dễ nhớ, không phải lịch sử của chữ.",
+    },
+    suggestionSource: "Nguồn: {source}",
     useSuggestion: "Dùng mẹo này",
     showSuggestion: "Xem mẹo gợi ý",
     suggestionFeedback: "Góp ý mẹo này",

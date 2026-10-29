@@ -537,9 +537,11 @@ write("decompose.json", decompose, `${Object.keys(decompose).length} characters`
 if (Buffer.byteLength(JSON.stringify(decompose)) > MAX_DATA_BYTES) throw new Error("decompose.json is too large");
 
 /**
- * mnemonics.json: { char: [story, reviewed 0|1] }, the suggested memory
+ * mnemonics.json: { char: [story, reviewed 0|1, source?] }, the suggested memory
  * stories shown in Chiết tự (our own content, drafted with AI help and
- * reviewed by hand). Rows with an empty story are left out.
+ * reviewed by hand). Rows with an empty story are left out. `source` is
+ * there only for an origin-based story (kind "goc"); a mnemonic (kind "meo")
+ * has none.
  */
 function buildMnemonics() {
   const rows = readCsv("mnemonics.tsv", "\t");
@@ -547,9 +549,9 @@ function buildMnemonics() {
   if (errors.length) throw new Error(errors.join("\n"));
   const out = {};
   let reviewed = 0;
-  for (const { char, story, status } of rows) {
+  for (const { char, story, status, kind, source } of rows) {
     if (!story) continue;
-    out[char] = [story, status === "reviewed" ? 1 : 0];
+    out[char] = kind === "goc" ? [story, status === "reviewed" ? 1 : 0, source.trim()] : [story, status === "reviewed" ? 1 : 0];
     if (status === "reviewed") reviewed++;
   }
   return { out, reviewed };

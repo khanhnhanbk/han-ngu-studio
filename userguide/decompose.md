@@ -59,9 +59,11 @@ Bấm vào một thành phần ở bước 3. Khung **Chữ có chứa thành ph
 
 ### 6. Viết câu chuyện ghi nhớ
 
-**Không muốn tự viết?** Với các chữ HSK 1, khung **Mẹo nhớ gợi ý** hiện sẵn một mẹo, ví dụ 休: *Người (亻 nhân) tựa vào cây (木 mộc) → 休 hưu, nghỉ.* Bấm **Dùng mẹo này** để chép mẹo vào ô câu chuyện của bạn, rồi sửa tùy ý. Khi bạn đã có câu chuyện riêng, mẹo được thu gọn; bấm **Xem mẹo gợi ý** để xem lại.
+**Không muốn tự viết?** Với các chữ HSK 1, khung **Gợi ý ghi nhớ** hiện sẵn một mẹo, ví dụ 休: *Người (亻 nhân) tựa vào cây (木 mộc) → 休 hưu, nghỉ.* Bấm **Dùng mẹo này** để chép mẹo vào ô câu chuyện của bạn, rồi sửa tùy ý. Khi bạn đã có câu chuyện riêng, mẹo được thu gọn; bấm **Xem mẹo gợi ý** để xem lại.
 
-- Mẹo nhớ là **cách để nhớ**, không phải nguồn gốc lịch sử của chữ. Nguồn gốc thật xem ở bước 4 (**Cách tạo chữ**).
+- Mỗi gợi ý có một nhãn (rê chuột vào nhãn để xem giải thích):
+  - **Mẹo nhớ**: câu chuyện đặt ra để dễ nhớ, **không phải** lịch sử của chữ. Nguồn gốc thật xem ở bước 4 (**Cách tạo chữ**). Hiện mọi gợi ý đều là mẹo nhớ.
+  - **Theo nguồn gốc**: giải thích theo nguồn gốc thật của chữ, luôn ghi **Nguồn: …** bên dưới.
 - Mẹo do Hán Ngữ Studio soạn với trợ giúp của AI. Mẹo có nhãn **gợi ý, chưa kiểm duyệt** là mẹo chưa được người kiểm tra lại.
 - Ở chế độ **Phồn thể**, mẹo lấy theo chữ giản thể tương ứng (學 dùng mẹo của 学).
 
@@ -96,7 +98,7 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Chữ lớn không có màu / "Chưa có dữ liệu nét để tô màu chữ này." | Chữ chưa có dữ liệu nét; phần phân tích thành phần vẫn dùng được. |
 | Rê chuột vào thành phần sâu bên trong mà không tô sáng nét | Thứ tự nét của thành phần đó không khớp hoàn toàn với chữ lớn, nên công cụ không tô để tránh tô sai. |
 | Mất câu chuyện ghi nhớ | Câu chuyện nằm trong bộ nhớ trình duyệt: xóa dữ liệu duyệt web, dùng chế độ ẩn danh hoặc đổi trình duyệt đều làm mất. Hãy **Tải câu chuyện (TSV)** thường xuyên để có bản sao. |
-| Không thấy **Mẹo nhớ gợi ý** | Hiện mới có mẹo cho các chữ HSK 1; chữ khác sẽ được thêm dần. |
+| Không thấy **Gợi ý ghi nhớ** | Hiện mới có mẹo cho các chữ HSK 1; chữ khác sẽ được thêm dần. |
 | Mẹo nhớ nghe gượng hoặc chưa đúng | Mẹo có nhãn **gợi ý, chưa kiểm duyệt** chưa được người đọc lại. Bấm **Góp ý mẹo này** để báo cho Hán Ngữ Studio: trang GitHub mở ra với chữ và mẹo điền sẵn (không có câu chuyện của bạn), bạn ghi đề xuất rồi gửi (cần tài khoản GitHub). Hoặc bấm **Dùng mẹo này** rồi sửa theo ý bạn. |
 | "Trình duyệt không cho lưu…" | Trình duyệt đang chặn lưu dữ liệu (thường do chế độ ẩn danh). Viết xong hãy bấm **Tải câu chuyện (TSV)**. |
 | "File không có câu chuyện nào hợp lệ." | Chỉ nhập được file do nút **Tải câu chuyện (TSV)** tạo ra (mỗi dòng: một chữ, dấu Tab, câu chuyện). |
@@ -110,4 +112,4 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 - Nét chữ để tô màu: Make Me a Hanzi / hanzi-writer-data (Arphic Public License).
 - Tên và nghĩa bộ thủ: Hán Ngữ Studio. Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ; xem [radicals.md](radicals.md) và [hanviet.md](hanviet.md).
 - Mã Ngũ bút: pywubi (MIT).
-- Mẹo nhớ gợi ý: Hán Ngữ Studio (soạn với trợ giúp AI, đang kiểm duyệt dần).
+- Gợi ý ghi nhớ: Hán Ngữ Studio (soạn với trợ giúp AI, đang kiểm duyệt dần).

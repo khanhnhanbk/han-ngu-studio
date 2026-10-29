@@ -11,7 +11,8 @@ import { useDictionary } from "@/lib/i18n/useLocale";
 
 /**
  * The learner's memory story for one character, kept in this browser only,
- * with our suggested story ("Mẹo nhớ gợi ý") above it. `simpChar` is the
+ * with our suggested story ("Gợi ý ghi nhớ") above it, labelled as origin-based
+ * ("Theo nguồn gốc") or a made-up memory trick ("Mẹo nhớ"). `simpChar` is the
  * Simplified form used to look the suggestion up (Phồn thể mode).
  */
 export function NotesBox({ char, simpChar = char }: { char: string; simpChar?: string }) {
@@ -67,6 +68,14 @@ export function NotesBox({ char, simpChar = char }: { char: string; simpChar?: s
         <div className="mt-3 rounded-lg border border-brand-200 bg-brand-50 p-3 text-sm">
           <p className="flex flex-wrap items-center gap-2 font-medium text-ink-900">
             {t.suggestion}
+            <span
+              title={t.kindHints[suggestion.kind]}
+              className={`cursor-help rounded-full px-2 py-0.5 text-xs font-medium ${
+                suggestion.kind === "goc" ? "bg-brand-600 text-on-brand" : "border border-brand-300 bg-surface text-brand-700"
+              }`}
+            >
+              {t.kinds[suggestion.kind]}
+            </span>
             {!suggestion.reviewed && (
               <span className="rounded-full bg-ink-900/5 px-2 py-0.5 text-xs font-normal text-ink-700">
                 {t.suggestionDraft}
@@ -74,6 +83,10 @@ export function NotesBox({ char, simpChar = char }: { char: string; simpChar?: s
             )}
           </p>
           <p className="mt-1 text-ink-700">{suggestion.story}</p>
+          <p className="mt-1 text-xs text-ink-500">
+            {t.kindHints[suggestion.kind]}
+            {suggestion.source && ` ${t.suggestionSource.replace("{source}", suggestion.source)}`}
+          </p>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <button
               type="button"

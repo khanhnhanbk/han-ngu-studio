@@ -1025,8 +1025,17 @@ export const en: Dictionary = {
     showAll: "Show all",
     showLess: "Show less",
     notes: "Memory story",
-    suggestion: "Suggested memory trick",
+    suggestion: "Suggested memory aid",
     suggestionDraft: "suggestion, not yet reviewed",
+    kinds: {
+      goc: "From its origin",
+      meo: "Memory trick",
+    },
+    kindHints: {
+      goc: "Explains the character from its real origin, with a source.",
+      meo: "A story made up to help you remember, not the history of the character.",
+    },
+    suggestionSource: "Source: {source}",
     useSuggestion: "Use this trick",
     showSuggestion: "Show the suggested trick",
     suggestionFeedback: "Suggest a fix",
