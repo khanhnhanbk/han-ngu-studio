@@ -46,6 +46,7 @@ Lần đầu, trang tải dữ liệu (khoảng 1,3 MB). Sau đó văn bản hi�
 - Dưới Pinyin là **từ loại** (Danh từ, Động từ, Tính từ, Trợ từ…) theo danh sách HSK 3.0. Một từ có thể có nhiều từ loại (爱好: Động từ, Danh từ). Từ loại ghi cho cả từ, không ghi riêng cho từng nghĩa.
 - **Lượng từ**: lượng từ đi kèm danh từ, theo CVDICT (亲戚: 门 mén · 个 gè · 位 wèi, tức 一门亲戚, 一个亲戚, 一位亲戚).
 - Từ **Ngoài HSK** có thêm dòng **Từng chữ**: cấp HSK của từng chữ trong từ (chỉ để tham khảo; từ ghép không dễ bằng từng chữ của nó).
+- Từ **Ngoài HSK** vẫn có **Nghĩa tiếng Việt** nếu từ điển CVDICT có từ đó: trang tải thêm một phần nhỏ của từ điển (khoảng 40–110 KB) khi bạn bấm vào từ, không tải cho cả văn bản.
 - **✓ Đã biết**: lưu từ vào danh sách từ đã biết (bấm **Bỏ đã biết** để bỏ). Nếu từ đã được tính là biết theo trình độ, thẻ hiện **✓ Đã biết (đến HSK …)**.
 - **+ Danh sách học**: thêm từ vào danh sách học bên dưới.
 - **Thứ tự nét**, **Chiết tự**: mở từ đó ở công cụ tương ứng.
@@ -104,6 +105,7 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Một từ quen thuộc bị ghi **Ngoài HSK** | Từ đó (thường là từ ghép như 每天, 看书, hoặc tên riêng) không có trong danh sách HSK 3.0 của chúng tôi. Dòng **Từng chữ** cho biết cấp của từng chữ. Bấm **✓ Đã biết** nếu bạn đã biết từ này. |
 | **Ước tính** có vẻ quá dễ hoặc quá khó | Ước tính chỉ dựa vào danh sách từ HSK và quy tắc 95%, không xét ngữ pháp hay độ dài câu. Hãy xem thêm **Bạn biết x% số từ** và **Bảng từ**. |
 | Mất danh sách từ đã biết | Danh sách nằm trong dữ liệu trình duyệt; xóa dữ liệu trang web hoặc dùng chế độ ẩn danh sẽ mất. Hãy **Tải danh sách (TSV)** để sao lưu. |
+| Từ **Ngoài HSK** ghi "Chưa có trong dữ liệu" | CVDICT không có từ này (thường là tên riêng hoặc từ bị tách sai). Xem **Từng chữ** và **Nghĩa tiếng Anh**. Nếu mạng lỗi lúc bấm, đóng thẻ rồi bấm lại. |
 | Thẻ từ không có từ loại hoặc lượng từ | Từ loại chỉ có cho từ trong danh sách HSK 3.0; cụm từ (不客气, 半天…) và từ **Ngoài HSK** không có. Lượng từ chỉ hiện khi CVDICT ghi lượng từ cho từ đó. |
 | Từ bị tách chưa đúng | Công cụ tách từ theo từ điển tần suất; tên riêng hoặc từ hiếm có thể bị tách sai. |
 

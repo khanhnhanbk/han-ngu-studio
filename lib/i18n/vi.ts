@@ -1169,8 +1169,8 @@ export const vi = {
     usedFor: "Dùng cho",
     licenseLabel: "Giấy phép",
     uses: {
-      hsk30: "Cấp HSK 3.0 và Pinyin của từ (Bộ Giáo dục Trung Quốc).",
-      cvdict: "Nghĩa tiếng Việt của từ HSK (dịch máy từ CC-CEDICT và rà soát lại; ba nghĩa đầu, bỏ ghi chú lượng từ).",
+      hsk30: "Cấp HSK 3.0, Pinyin và từ loại của từ (Bộ Giáo dục Trung Quốc).",
+      cvdict: "Nghĩa tiếng Việt và lượng từ (dịch máy từ CC-CEDICT và rà soát lại): ba nghĩa đầu cho từ HSK, toàn bộ từ điển cho từ ngoài HSK trong Đọc hiểu.",
       cedict: "Nghĩa tiếng Anh.",
       tatoeba: "Câu ví dụ; câu đánh dấu “dịch máy” được dịch bằng Google Dịch.",
       mmah: "Phân tách thành phần và cách tạo chữ (Chiết tự).",

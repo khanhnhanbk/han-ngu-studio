@@ -566,6 +566,62 @@ const vocab = buildVocab();
 write("vocab.json", vocab, `${Object.keys(vocab).length} words`);
 buildExamples(vocab);
 
+// Must match CVDICT_SHARDS and cvdictShard() in lib/cvdict/lookup.ts.
+const CVDICT_SHARDS = 64;
+
+/** FNV-1a over the code point of a word's first character, modulo CVDICT_SHARDS. */
+function cvdictShard(word) {
+  let h = 0x811c9dc5;
+  h ^= word.codePointAt(0);
+  h = Math.imul(h, 0x01000193) >>> 0;
+  return h % CVDICT_SHARDS;
+}
+
+/**
+ * cvdict/<n>.json: { simp: [[trad, pinyin, senses[], classifiers?], …] }, the
+ * whole of CVDICT (CC BY-SA 4.0) from cvdict.tsv (scripts/build-vocab-source.mjs),
+ * for the word lookup and the reader's fallback meaning. Sharded by the first
+ * character, so one shard also lists every word that starts with it. Entries
+ * that differ only in their Traditional form (復習, 複習) are merged ("復習|複習").
+ * Classifiers ("门 mén|个 gè") are left off when empty.
+ */
+function buildCvdict() {
+  const outDir = join(OUT, "cvdict");
+  rmSync(outDir, { recursive: true, force: true });
+  mkdirSync(outDir, { recursive: true });
+  const shards = Array.from({ length: CVDICT_SHARDS }, () => ({}));
+  let count = 0;
+  // Plain tab split, not readCsv: 133 senses start with a quote ("chất lượng…"),
+  // which the CSV rules would read as a quoted field. cvdict.tsv has no tabs inside fields.
+  const [header, ...lines] = readFileSync(join(SRC, "cvdict.tsv"), "utf-8").split("\n").filter(Boolean);
+  const cols = header.split("\t");
+  const rows = lines.map((line) => Object.fromEntries(line.split("\t").map((v, j) => [cols[j], v])));
+  for (const [i, r] of rows.entries()) {
+    if (!r.simp || !r.pinyin) throw new Error(`cvdict.tsv row ${i + 2} is wrong: ${JSON.stringify(r)}`);
+    const shard = shards[cvdictShard(r.simp)];
+    if (!Object.hasOwn(shard, r.simp)) shard[r.simp] = [];
+    const senses = r.senses ? r.senses.split(" / ") : [];
+    const same = shard[r.simp].find((e) => e[1] === r.pinyin && e[2].join("\0") === senses.join("\0"));
+    if (same) {
+      if (!same[0].split("|").includes(r.trad)) same[0] += `|${r.trad}`;
+      const cl = new Set([...(same[3] ? same[3].split("|") : []), ...(r.classifiers ? r.classifiers.split("|") : [])]);
+      if (cl.size) same[3] = [...cl].join("|");
+      continue;
+    }
+    shard[r.simp].push(r.classifiers ? [r.trad, r.pinyin, senses, r.classifiers] : [r.trad, r.pinyin, senses]);
+    count++;
+  }
+  let largest = 0;
+  for (const [n, shard] of shards.entries()) {
+    const json = JSON.stringify(shard);
+    largest = Math.max(largest, Buffer.byteLength(json));
+    if (Buffer.byteLength(json) > MAX_DATA_BYTES) throw new Error(`cvdict/${n}.json is too large`);
+    writeFileSync(join(outDir, `${n}.json`), json);
+  }
+  console.log(`cvdict/: ${count} entries in ${CVDICT_SHARDS} shards (largest ${Math.round(largest / 1024)} KB)`);
+}
+buildCvdict();
+
 /**
  * Story reader ("Truyện đọc"): our own short stories, drafted with AI help and
  * reviewed by hand. assets/stories/<id>.json → public/data/stories/<id>.json

@@ -1163,8 +1163,8 @@ export const en: Dictionary = {
     usedFor: "Used for",
     licenseLabel: "Licence",
     uses: {
-      hsk30: "HSK 3.0 levels and Pinyin of words (PRC Ministry of Education).",
-      cvdict: "Vietnamese meanings of HSK words (machine-translated from CC-CEDICT and reviewed; first three senses, classifier notes removed).",
+      hsk30: "HSK 3.0 levels, Pinyin and part of speech of words (PRC Ministry of Education).",
+      cvdict: "Vietnamese meanings and measure words (machine-translated from CC-CEDICT and reviewed): first three senses for HSK words, the whole dictionary for other words in the Reader.",
       cedict: "English meanings.",
       tatoeba: "Example sentences; sentences marked “machine-translated” were translated with Google Translate.",
       mmah: "Component breakdown and character formation (Character breakdown).",

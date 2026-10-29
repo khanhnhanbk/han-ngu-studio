@@ -11,6 +11,9 @@
  *     Vietnamese translation of CC-CEDICT by Phong Phan (mostly machine-translated
  *     with a fine-tuned model, then checked by hand).
  *
+ * Also writes assets/dictionary/cvdict.tsv, the whole of CVDICT cleaned the
+ * same way (scripts/lib/cvdict.mjs), for the word lookup (public/data/cvdict/).
+ *
  * Each HSK word takes the CVDICT senses of its CC-CEDICT entries (classifier
  * notes dropped, "variant of X" senses resolved to X, at most MAX_SENSES per
  * entry). A word with no CVDICT entry keeps its level with an empty meaning.
@@ -23,13 +26,13 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { convert } from "pinyin-pro";
-
 import { readCsvFrom } from "./lib/csv.mjs";
+import { cvdictRows, readCvdict, sensesOf } from "./lib/cvdict.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, "node_modules/.cache/vocab-source");
 const OUT = join(ROOT, "assets/dictionary/vocab_hsk30.csv");
+const OUT_CVDICT = join(ROOT, "assets/dictionary/cvdict.tsv");
 const HSK30 = "https://raw.githubusercontent.com/ivankra/hsk30/4ff9e3915ce87baaecd7ebe263085573a4ea3192/hsk30-expanded.csv";
 const CVDICT = "https://raw.githubusercontent.com/ph0ngp/CVDICT/c379d909e308343a247e51619f7839a2060a271c/CVDICT.u8";
 const MAX_SENSES = 3;
@@ -46,68 +49,6 @@ async function fetchOnce(url, name) {
 }
 
 const csvField = (s) => (/[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
-
-// Classifier notes: "LT:个[ge4]", "Lượng từ: 个[ge4]", or the same in brackets.
-const CLASSIFIER = /^(?:CL|LT|lượng từ):/iu;
-const CLASSIFIER_NOTE = /\s*\((?:CL|LT|lượng từ):[^()]*\)/giu;
-// A sense that only points at another entry: "biến thể er hoá của 好玩[hao3 wan2]".
-const POINTER = /^(?:biến thể(?: er hoá| cũ| cổ)? của|xem(?: thêm)?|viết tắt của) (\S+?)\[([^\]]+)\]$/u;
-
-// One measure word in a classifier note: "門|门[men2]" or "位[wei4]".
-const CLASSIFIER_ITEM = /(?:[^\s,:|[\]]+\|)?([^\s,:|[\]]+)\[([^\]]+)\]/gu;
-
-/** "LT:門|门[men2],個|个[ge4]" → ["门 mén", "个 gè"] (Simplified, tone marks). */
-function classifiersIn(note) {
-  return [...note.matchAll(CLASSIFIER_ITEM)].map(
-    ([, simp, pinyin]) => `${simp} ${convert(pinyin.replace(/u:/g, "ü"), { format: "numToSymbol" })}`,
-  );
-}
-
-/**
- * CVDICT: { entries: "trad|simp[pin yin]" → senses, classifiers: key → measure
- * words, bySimp: "simp[pin yin]" → entry keys }.
- */
-function readCvdict(text) {
-  const entries = new Map();
-  const classifiers = new Map();
-  const bySimp = new Map();
-  for (const line of text.split("\n")) {
-    const m = /^(\S+) (\S+) \[([^\]]*)\] \/(.*)\/\s*$/.exec(line);
-    if (!m) continue;
-    const raw = m[4].split("/");
-    const senses = raw.map((s) => s.replace(CLASSIFIER_NOTE, "").trim()).filter((s) => s && !CLASSIFIER.test(s));
-    const notes = raw.flatMap((s) => [
-      ...(CLASSIFIER.test(s.trim()) ? [s] : []),
-      ...(s.match(CLASSIFIER_NOTE) ?? []),
-    ]);
-    const key = `${m[1]}|${m[2]}[${m[3]}]`;
-    entries.set(key, senses);
-    if (notes.length) classifiers.set(key, notes.flatMap(classifiersIn));
-    const simp = `${m[2]}[${m[3]}]`;
-    if (!bySimp.has(simp)) bySimp.set(simp, []);
-    bySimp.get(simp).push(key);
-  }
-  return { entries, classifiers, bySimp };
-}
-
-const ownSenses = (cvdict, key) => (cvdict.entries.get(key) ?? []).filter((s) => !POINTER.test(s));
-
-/**
- * The senses of one entry. Pointer senses are dropped when the entry has
- * others; an entry that only points elsewhere ("复习: variant of 復習|复习")
- * takes the target's senses. A target written with one form ("好玩[hao3 wan2]")
- * is the first entry of that Simplified form and reading that has senses.
- */
-function sensesOf(cvdict, key) {
-  const own = ownSenses(cvdict, key);
-  if (own.length) return own;
-  return (cvdict.entries.get(key) ?? []).flatMap((s) => {
-    const [, ref, pinyin] = POINTER.exec(s);
-    const targets = ref.includes("|") ? [`${ref}[${pinyin}]`] : (cvdict.bySimp.get(`${ref}[${pinyin}]`) ?? []);
-    const target = targets.find((t) => t !== key && ownSenses(cvdict, t).length);
-    return target ? ownSenses(cvdict, target) : [];
-  });
-}
 
 await fetchOnce(CVDICT, "CVDICT.u8");
 await fetchOnce(HSK30, "hsk30-expanded.csv");
@@ -153,4 +94,7 @@ for (const { cells, pos, classifiers } of out) {
   lines.push([...cells, pos.join("/"), classifiers.join("|")].map(csvField).join(","));
 }
 writeFileSync(OUT, `${lines.join("\n")}\n`);
+const full = cvdictRows(cvdict);
+writeFileSync(OUT_CVDICT, `simp\ttrad\tpinyin\tsenses\tclassifiers\n${full.map((r) => r.join("\t")).join("\n")}\n`);
+console.log(`cvdict.tsv: ${full.length} entries`);
 console.log(`vocab_hsk30.csv: ${lines.length - 1} words, ${missing} without a CVDICT meaning`);

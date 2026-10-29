@@ -2,7 +2,11 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { cvdictFile, loadCvdictShard } from "@/lib/cvdict/load";
+import { cvdictMeaning, lookupCvdict } from "@/lib/cvdict/lookup";
+import { confirmDownload } from "@/lib/data/budget";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
+import type { Classifier } from "@/lib/vocab/lookup";
 import type { ReaderWord } from "@/lib/reader/analyze";
 import { useConverter } from "@/lib/script/useScript";
 import { posLabels } from "@/lib/vocab/pos";
@@ -54,13 +58,33 @@ export function WordCard({
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const wide = typeof window !== "undefined" && window.innerWidth >= 640;
 
+  // A word outside the HSK list has no Vietnamese meaning in vocab.json: look it
+  // up in the full CVDICT (one ~60 KB shard, fetched on tap, not for the whole text).
+  const [extra, setExtra] = useState<{ text: string; meaning: string; classifiers: Classifier[] } | null>(null);
+  useEffect(() => {
+    if (word.meaningVi) return;
+    let live = true;
+    (async () => {
+      if (!(await confirmDownload([cvdictFile(word.text)]))) return;
+      const entries = lookupCvdict(await loadCvdictShard(word.text), word.text, word.pinyin);
+      if (live) setExtra({ text: word.text, meaning: cvdictMeaning(entries), classifiers: entries.flatMap((e) => e.classifiers) });
+    })().catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [word]);
+  const fallback = extra?.text === word.text ? extra : null;
+  const meaningVi = word.meaningVi || fallback?.meaning || "";
+  const classifiers = word.classifiers.length ? word.classifiers : [...new Map((fallback?.classifiers ?? []).map((c) => [c.hanzi, c])).values()];
+
   useLayoutEffect(() => {
     if (!wide || !ref.current) return setPos(null);
     const height = ref.current.offsetHeight;
     const below = rect.bottom + 8;
     const top = below + height <= window.innerHeight - 8 ? below : Math.max(8, rect.top - height - 8);
     setPos({ top, left: Math.max(16, Math.min(rect.left, window.innerWidth - CARD_WIDTH - 16)) });
-  }, [wide, rect, word]);
+    // Re-measured when the CVDICT meaning arrives and the card grows.
+  }, [wide, rect, word, fallback]);
 
   useEffect(() => {
     ref.current?.focus();
@@ -121,14 +145,14 @@ export function WordCard({
         <dt className="text-ink-500">{t.card.hanviet}</dt>
         <dd className="font-semibold text-ink-900">{word.hanviet}</dd>
         <dt className="text-ink-500">{t.card.meaningVi}</dt>
-        <dd className="text-ink-900">{meaning(word.meaningVi)}</dd>
+        <dd className="text-ink-900">{meaning(meaningVi)}</dd>
         <dt className="text-ink-500">{t.card.meaningEn}</dt>
         <dd className="text-ink-700">{meaning(word.meaningEn)}</dd>
-        {word.classifiers.length > 0 && (
+        {classifiers.length > 0 && (
           <>
             <dt className="text-ink-500">{dict.vocab.classifiersTitle}</dt>
             <dd className="text-ink-900">
-              {word.classifiers.map((c, i) => (
+              {classifiers.map((c, i) => (
                 <span key={c.hanzi} className="whitespace-nowrap">
                   {i > 0 && <span className="text-ink-500"> · </span>}
                   <span className="hanzi">{conv.toShown(c.hanzi)}</span> <span className="text-ink-700">{c.pinyin}</span>
