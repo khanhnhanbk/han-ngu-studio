@@ -4,13 +4,14 @@ import { lookupChar, toTone3, type HanvietData } from "@/lib/hanviet/lookup";
 import { convertLine } from "@/lib/pinyin/convert";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
 import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
+import { posLabels, type PosCode } from "@/lib/vocab/pos";
 
 import type { Meanings, WubiTable } from "./load";
 import { wubiLine } from "./wubi";
 
 /**
  * Columns in anki_desk.py's order, so existing note types still line up.
- * The HSK columns come last for the same reason.
+ * The HSK columns come last for the same reason, then the part of speech.
  */
 export const COLUMNS = [
   "word",
@@ -23,6 +24,7 @@ export const COLUMNS = [
   "hanviet",
   "hsk_level",
   "meaning_vi",
+  "pos",
 ] as const;
 
 export type Column = (typeof COLUMNS)[number];
@@ -40,6 +42,9 @@ export type DeckData = {
   wubi: WubiTable;
   vocab: VocabData;
 };
+
+/** Part-of-speech names written into the `pos` column (i18n `vocab.pos`). */
+export type PosNames = Record<PosCode, string>;
 
 export const MAX_WORDS = 1000;
 
@@ -86,7 +91,8 @@ export function hanvietLine(data: Pick<DeckData, "tokenizer" | "hanviet">, word:
  * is the easiest of the word's candidates (lib/examples/rank.ts), not the
  * first in file order as in anki_desk.py (owner decision, phase 10).
  */
-export function buildRow(data: DeckData, word: string, exampleCount: ExampleCount = 1): DeckRow {
+/** `posNames` labels the part of speech; without it the HSK list's codes are written ("V, N"). */
+export function buildRow(data: DeckData, word: string, exampleCount: ExampleCount = 1, posNames?: PosNames): DeckRow {
   const syllableOpts = { toneStyle: "mark", spacing: "syllable" } as const;
   const candidates = Object.hasOwn(data.examples, word) ? data.examples[word] : [];
   const picked = rankExamples(data, word, candidates).slice(0, exampleCount);
@@ -110,12 +116,18 @@ export function buildRow(data: DeckData, word: string, exampleCount: ExampleCoun
     hanviet: hanvietLine(data, word),
     hsk_level: hsk?.level ?? "",
     meaning_vi: hsk?.meaning ?? "",
+    pos: (posNames ? posLabels(posNames, hsk?.pos ?? []) : (hsk?.pos ?? [])).join(", "),
     machineTranslated: picked.some((ex) => ex.machine),
   };
 }
 
-export function buildDeck(data: DeckData, words: readonly string[], exampleCount: ExampleCount = 1): DeckRow[] {
-  return words.map((w) => buildRow(data, w, exampleCount));
+export function buildDeck(
+  data: DeckData,
+  words: readonly string[],
+  exampleCount: ExampleCount = 1,
+  posNames?: PosNames,
+): DeckRow[] {
+  return words.map((w) => buildRow(data, w, exampleCount, posNames));
 }
 
 /** Words with no meaning / no example sentence, for the "not found" box. */

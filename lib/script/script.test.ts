@@ -112,7 +112,7 @@ describe("tool helpers", () => {
   const blankRow = {
     word: "学习", pinyin: "xué xí", meaning: "to learn", sentence: "我学习<br>头发很长",
     sentence_pinyin: "", sentence_meaning: "", wubi: "ip nu", hanviet: "học tập",
-    hsk_level: "1", meaning_vi: "học", machineTranslated: false,
+    hsk_level: "1", meaning_vi: "học", pos: "", machineTranslated: false,
   };
 
   it("anki: words in Simplified, rows shown in the chosen script", () => {

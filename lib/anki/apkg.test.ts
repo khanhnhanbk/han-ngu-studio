@@ -26,6 +26,7 @@ const rows: DeckRow[] = [
     hanviet: "bằng hữu",
     hsk_level: "HSK 1",
     meaning_vi: "bạn bè",
+    pos: "Danh từ",
     machineTranslated: true,
   },
   // No example sentence and no Vietnamese meaning: no "Câu ví dụ" card.

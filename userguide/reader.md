@@ -3,7 +3,7 @@
 Dán một đoạn văn tiếng Trung để **đọc có trợ giúp**:
 
 - Mỗi từ được **gạch chân theo màu cấp HSK** (HSK 3.0, từ cấp 1 đến 7-9); từ mới với bạn có **nền màu**.
-- **Bấm vào từ bất kỳ** để xem Pinyin (đọc theo ngữ cảnh cả câu), âm Hán Việt, nghĩa tiếng Việt, nghĩa tiếng Anh và cấp HSK.
+- **Bấm vào từ bất kỳ** để xem Pinyin (đọc theo ngữ cảnh cả câu), từ loại, âm Hán Việt, nghĩa tiếng Việt, nghĩa tiếng Anh, lượng từ và cấp HSK.
 - Công cụ **ước tính độ khó** của văn bản, **ghi nhớ từ bạn đã biết** trên máy này, và gom **từ mới** để gửi sang **Tạo thẻ Anki**, **Trắc nghiệm** hoặc **Phiếu tập viết**.
 
 Văn bản chỉ được xử lý trên máy của bạn, không gửi đi đâu.
@@ -43,6 +43,8 @@ Lần đầu, trang tải dữ liệu (khoảng 1,3 MB). Sau đó văn bản hi�
 **Bấm vào một từ** (hoặc dùng phím Tab rồi Enter) để mở thẻ chi tiết:
 
 - Pinyin, **Hán Việt**, **Nghĩa tiếng Việt**, **Nghĩa tiếng Anh**, cấp HSK, số lần từ xuất hiện trong văn bản.
+- Dưới Pinyin là **từ loại** (Danh từ, Động từ, Tính từ, Trợ từ…) theo danh sách HSK 3.0. Một từ có thể có nhiều từ loại (爱好: Động từ, Danh từ). Từ loại ghi cho cả từ, không ghi riêng cho từng nghĩa.
+- **Lượng từ**: lượng từ đi kèm danh từ, theo CVDICT (亲戚: 门 mén · 个 gè · 位 wèi, tức 一门亲戚, 一个亲戚, 一位亲戚).
 - Từ **Ngoài HSK** có thêm dòng **Từng chữ**: cấp HSK của từng chữ trong từ (chỉ để tham khảo; từ ghép không dễ bằng từng chữ của nó).
 - **✓ Đã biết**: lưu từ vào danh sách từ đã biết (bấm **Bỏ đã biết** để bỏ). Nếu từ đã được tính là biết theo trình độ, thẻ hiện **✓ Đã biết (đến HSK …)**.
 - **+ Danh sách học**: thêm từ vào danh sách học bên dưới.
@@ -71,7 +73,7 @@ Các từ bạn đã thêm trong lần dùng này:
 
 - **→ Tạo thẻ Anki**, **→ Trắc nghiệm**: mở công cụ đó với danh sách từ đã điền sẵn.
 - **→ Phiếu tập viết**: mở phiếu tập viết với các chữ đó (có thứ tự nét).
-- **Tải .tsv**: file `reader_words.tsv` (từ, Pinyin, Hán Việt, cấp HSK, nghĩa tiếng Việt, nghĩa tiếng Anh).
+- **Tải .tsv**: file `reader_words.tsv` (từ, Pinyin, Hán Việt, cấp HSK, nghĩa tiếng Việt, nghĩa tiếng Anh, từ loại).
 - **Xóa danh sách**.
 
 Danh sách học mất khi tải lại trang.
@@ -102,6 +104,7 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Một từ quen thuộc bị ghi **Ngoài HSK** | Từ đó (thường là từ ghép như 每天, 看书, hoặc tên riêng) không có trong danh sách HSK 3.0 của chúng tôi. Dòng **Từng chữ** cho biết cấp của từng chữ. Bấm **✓ Đã biết** nếu bạn đã biết từ này. |
 | **Ước tính** có vẻ quá dễ hoặc quá khó | Ước tính chỉ dựa vào danh sách từ HSK và quy tắc 95%, không xét ngữ pháp hay độ dài câu. Hãy xem thêm **Bạn biết x% số từ** và **Bảng từ**. |
 | Mất danh sách từ đã biết | Danh sách nằm trong dữ liệu trình duyệt; xóa dữ liệu trang web hoặc dùng chế độ ẩn danh sẽ mất. Hãy **Tải danh sách (TSV)** để sao lưu. |
+| Thẻ từ không có từ loại hoặc lượng từ | Từ loại chỉ có cho từ trong danh sách HSK 3.0; cụm từ (不客气, 半天…) và từ **Ngoài HSK** không có. Lượng từ chỉ hiện khi CVDICT ghi lượng từ cho từ đó. |
 | Từ bị tách chưa đúng | Công cụ tách từ theo từ điển tần suất; tên riêng hoặc từ hiếm có thể bị tách sai. |
 
 ## Nguồn dữ liệu
@@ -109,4 +112,5 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 - Cấp HSK: danh sách từ vựng HSK 3.0 của Bộ Giáo dục Trung Quốc (GF 0025-2021), dữ liệu [ivankra/hsk30](https://github.com/ivankra/hsk30) (MIT).
 - Nghĩa tiếng Việt: từ điển [CVDICT](https://github.com/ph0ngp/CVDICT) của Phong Phan (CC BY-SA 4.0), dịch máy từ CC-CEDICT và được rà soát lại, nên đôi khi còn chưa tự nhiên.
 - Nghĩa tiếng Anh: **CC-CEDICT** (CC BY-SA 4.0).
+- Từ loại: danh sách HSK 3.0 (GF 0025-2021), dữ liệu [ivankra/hsk30](https://github.com/ivankra/hsk30) (MIT). Lượng từ: [CVDICT](https://github.com/ph0ngp/CVDICT) (CC BY-SA 4.0).
 - Pinyin: **pinyin-pro** (MIT). Âm Hán Việt: [hanviet-pinyin-wordlist](https://github.com/ph0ngp/hanviet-pinyin-wordlist) của Phong Phan (MIT), Hán Ngữ Studio chỉnh sửa một số chữ.

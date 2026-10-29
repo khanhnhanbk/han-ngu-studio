@@ -14,8 +14,9 @@ Nhập danh sách từ vựng, công cụ tạo sẵn bảng thẻ để **impor
 | **Hán Việt** | đại học |
 | **Cấp HSK** | HSK 1 |
 | **Nghĩa tiếng Việt** | đại học, trường đại học |
+| **Từ loại** | Danh từ |
 
-**Cấp HSK** và **Nghĩa tiếng Việt** lấy từ danh sách từ vựng HSK 3.0 (khoảng 11.000 từ, cấp 1 đến 7-9) và từ điển CVDICT. Một từ có trong nhiều cấp thì ghi cấp thấp nhất. Chữ đa âm lấy nghĩa theo cách đọc ở cột Pinyin (好 hǎo: "tốt; thích hợp; đúng; …", không lấy nghĩa của hào).
+**Cấp HSK** và **Nghĩa tiếng Việt** lấy từ danh sách từ vựng HSK 3.0 (khoảng 11.000 từ, cấp 1 đến 7-9) và từ điển CVDICT. Một từ có trong nhiều cấp thì ghi cấp thấp nhất. Chữ đa âm lấy nghĩa theo cách đọc ở cột Pinyin (好 hǎo: "tốt; thích hợp; đúng; …", không lấy nghĩa của hào). **Từ loại** cũng lấy từ danh sách HSK 3.0, ghi cho cả từ (爱好: Động từ, Danh từ); cụm từ và từ ngoài danh sách để trống.
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Tạo thẻ Anki**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/anki)
@@ -100,7 +101,7 @@ File đã có sẵn bộ thẻ, loại ghi chú **Hán Ngữ Studio** với 4 m�
    - **Field mapping**: kiểm tra mỗi cột (word, pinyin, meaning…) khớp với một trường.
 3. Bấm **Import**.
 
-**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 10 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi`. Sau đó vào Cards và dán mẫu thẻ có sẵn ở [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan#mau-the). Vì tên trường giống hệt tên cột, Anki 2.1.55 trở lên tự ghép cột vào trường khi import. Các lần import sau chỉ cần chọn loại ghi chú này.
+**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 11 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi, pos`. Sau đó vào Cards và dán mẫu thẻ có sẵn ở [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan#mau-the). Vì tên trường giống hệt tên cột, Anki 2.1.55 trở lên tự ghép cột vào trường khi import. Các lần import sau chỉ cần chọn loại ghi chú này.
 
 ## Import vào AnkiDroid (Android)
 
@@ -133,6 +134,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | Sửa một ghi chú trong Anki thì có thêm thẻ lạ | Anki tự tạo các loại thẻ bạn chưa chọn khi ghi chú được sửa. Vào **Browse**, chọn các thẻ đó, bấm **Suspend** (Tạm ngưng) hoặc xóa. |
 | Có hai loại ghi chú tên Hán Ngữ Studio | Bạn đã tự tạo một loại theo cách .tsv trước đó; loại từ file .apkg là loại riêng (Anki có thể thêm số vào tên). Cả hai đều dùng được. |
 | Loại ghi chú cũ chỉ có 8 trường (trước khi có cột HSK) | Hai cột mới nằm ở cuối nên 8 cột đầu vẫn khớp. Bỏ tích **Cấp HSK** và **Nghĩa tiếng Việt**, hoặc thêm hai trường `hsk_level`, `meaning_vi` vào cuối loại ghi chú. |
+| Loại ghi chú cũ có 10 trường (trước khi có cột **Từ loại**) | Cột `pos` nằm cuối nên 10 cột đầu vẫn khớp. Bỏ tích **Từ loại**, hoặc thêm trường `pos` vào cuối loại ghi chú. File .apkg mới tự thêm trường này; nếu Anki tạo loại ghi chú thứ hai (có số trong tên), cả hai đều dùng được. |
 | Anki báo lỗi số cột / thẻ bị lệch trường | Kiểm tra **Field mapping** khi import; loại ghi chú phải có đủ số trường bằng số cột đã chọn. |
 | Các dòng `#separator…` thành thẻ | Anki của bạn cũ hơn 2.1.55: bỏ tích **Thêm dòng cấu hình cho Anki** rồi tải lại. |
 | Ô câu ví dụ trong Anki hiện chữ `<br>` | File được tạo với 2–3 câu ví dụ nên dùng HTML. Giữ ô **Thêm dòng cấu hình cho Anki** (dòng `#html:true`), hoặc khi import tích **Allow HTML in fields**. |

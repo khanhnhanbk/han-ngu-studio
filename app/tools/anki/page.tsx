@@ -125,7 +125,7 @@ export default function AnkiPage() {
         loadWubi(),
         loadVocab(),
       ]);
-      setBuilt({ rows: buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, words, exampleCount), wubi });
+      setBuilt({ rows: buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, words, exampleCount, dict.vocab.pos), wubi });
       setBuiltCount(exampleCount);
       setDuplicates(parsed.duplicates + parsed.words.length - words.length);
     } catch {

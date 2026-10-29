@@ -36,6 +36,7 @@ import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { feedbackUrl } from "@/lib/feedback";
 import { loadStory, storyIdFromHash, storyText, type Story } from "@/lib/stories/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
+import { posLabels } from "@/lib/vocab/pos";
 
 const SAMPLE =
   "我叫小明，是越南人。我在河内的一所大学学习中文。每天早上，我先去图书馆看书，然后跟朋友一起吃早饭。周末的时候，我们常常去公园散步，有时候也去看电影。我觉得学习中文很有意思，但是汉字有点儿难。";
@@ -230,10 +231,10 @@ export default function ReaderPage() {
   const listShown = list.map(show);
 
   function downloadList() {
-    const header = ["word", "pinyin", "hanviet", "hsk_level", "meaning_vi", "meaning_en"].join("\t");
+    const header = ["word", "pinyin", "hanviet", "hsk_level", "meaning_vi", "meaning_en", "pos"].join("\t");
     const body = list.map((w) => {
       const r = byText.get(w);
-      return [show(w), r?.pinyin ?? "", r?.hanviet ?? "", r?.level ? `HSK ${r.level}` : "", r?.meaningVi ?? "", r?.meaningEn ?? ""]
+      return [show(w), r?.pinyin ?? "", r?.hanviet ?? "", r?.level ? `HSK ${r.level}` : "", r?.meaningVi ?? "", r?.meaningEn ?? "", posLabels(dict.vocab.pos, r?.pos ?? []).join(", ")]
         .map((s) => s.replace(/[\t\r\n]+/g, " "))
         .join("\t");
     });

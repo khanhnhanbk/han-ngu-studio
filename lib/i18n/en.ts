@@ -679,6 +679,7 @@ export const en: Dictionary = {
       hanviet: "Hán Việt",
       hsk_level: "HSK level",
       meaning_vi: "Meaning (Vietnamese)",
+      pos: "Part of speech",
     },
     header: "Add Anki header lines (#columns…), for Anki 2.1.55 and later",
     preview: "Preview and edit",
@@ -749,7 +750,7 @@ export const en: Dictionary = {
       "Click Add, choose “Add: Basic” and name it Hán Ngữ Studio.",
       "Select the new note type and click Fields. Rename the Front and Back fields to word and pinyin, then click Add to create the remaining fields, in exactly this order and with exactly these names.",
     ],
-    fieldsLabel: "10 fields, in order:",
+    fieldsLabel: "11 fields, in order:",
     copyFields: "Copy the field list",
     fieldsNote:
       "Field names must match the column names in the .tsv file exactly (lower case, with underscores), so Anki maps the columns to the fields by itself when importing.",
@@ -772,7 +773,7 @@ export const en: Dictionary = {
     toTool: "Open the Anki deck builder",
     templatesTitle: "Suggested card templates",
     templatesIntro:
-      "All four templates use the 10 fields above. The previews below are real cards for the word 学习; click Back to see the answer.",
+      "All four templates use the 11 fields above. The previews below are real cards for the word 学习; click Back to see the answer.",
     templates: {
       recognize: {
         name: "Recognition",

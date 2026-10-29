@@ -19,6 +19,7 @@ export const NOTE_TYPE_FIELDS: readonly Column[] = [
   "hanviet",
   "hsk_level",
   "meaning_vi",
+  "pos",
 ];
 
 export type CardTemplateId = "recognize" | "recall" | "sentence" | "type";
@@ -45,6 +46,7 @@ export const CARD_CSS = `.card {
 .pinyin { font-size: 24px; color: #8a6d1f; }
 .nightMode .pinyin { color: #e6cf70; }
 .hanviet { font-size: 20px; font-weight: 600; }
+.pos { font-size: 14px; color: #a8a29e; }
 .meaning { font-size: 22px; margin-top: 8px; }
 .meaning-en, .sub { font-size: 16px; color: #78716c; }
 .hint { font-size: 16px; color: #a8a29e; margin-top: 8px; }
@@ -54,6 +56,8 @@ export const CARD_CSS = `.card {
 
 const MEANING = `{{#meaning_vi}}<div class="meaning">{{meaning_vi}}</div>{{/meaning_vi}}
 {{^meaning_vi}}<div class="meaning">{{meaning}}</div>{{/meaning_vi}}`;
+
+const POS = `{{#pos}}<div class="pos">{{pos}}</div>{{/pos}}`;
 
 const EXAMPLE = `{{#sentence}}
 <div class="example">
@@ -77,6 +81,7 @@ export function cardTemplates(labels: CardLabels = { hanviet: "Hán Việt", wub
     back: `{{FrontSide}}
 <hr id="answer">
 <div class="pinyin">{{pinyin}}</div>
+${POS}
 <div class="hanviet">{{hanviet}}</div>
 ${MEANING}
 {{#meaning_vi}}<div class="meaning-en">{{meaning}}</div>{{/meaning_vi}}
@@ -92,6 +97,7 @@ ${EXTRA}`,
 <hr id="answer">
 <div class="hanzi">{{word}}</div>
 <div class="pinyin">{{pinyin}}</div>
+${POS}
 ${EXAMPLE}
 ${EXTRA}`,
   },
@@ -106,6 +112,7 @@ ${EXTRA}`,
 <div class="example">
   <div class="hanzi" style="font-size: 40px">{{word}}</div>
   <div class="pinyin">{{pinyin}}</div>
+  ${POS}
   ${MEANING}
 </div>`,
   },
@@ -119,6 +126,7 @@ ${EXTRA}`,
 <div class="hint">{{pinyin}}</div>
 {{type:word}}
 <hr id="answer">
+${POS}
 <div class="hanviet">{{hanviet}}</div>
 ${EXAMPLE}`,
   },
@@ -140,6 +148,7 @@ export const SAMPLE_ROW: Record<Column, string> = {
   hanviet: "học tập",
   hsk_level: "HSK 1",
   meaning_vi: "học, học tập",
+  pos: "Động từ",
 };
 
 const escapeHtml = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

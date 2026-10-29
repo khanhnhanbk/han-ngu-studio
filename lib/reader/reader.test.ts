@@ -24,7 +24,7 @@ const data: ReaderData = {
 
 const wordsOf = (lines: ReaderLine[]) => lines.flat().filter((t): t is ReaderWord => t.kind === "word");
 const word = (text: string, level: ReaderWord["level"]): ReaderWord => ({
-  kind: "word", text, pinyin: "", tone3: [], hanviet: "", level, meaningVi: "", meaningEn: "",
+  kind: "word", text, pinyin: "", tone3: [], hanviet: "", level, meaningVi: "", meaningEn: "", pos: [], classifiers: [],
 });
 
 describe("analyzeText", () => {

@@ -3,7 +3,7 @@ import type { HanvietData } from "@/lib/hanviet/lookup";
 import { analyzeLine } from "@/lib/hanviet/sentence";
 import { joinSyllables } from "@/lib/pinyin/convert";
 import type { Tokenizer } from "@/lib/segment/tokenizer";
-import { vocabFor, type VocabData } from "@/lib/vocab/lookup";
+import { vocabFor, type Classifier, type VocabData } from "@/lib/vocab/lookup";
 
 /** HSK 3.0 levels as vocab.json writes them. */
 export const HSK_LEVELS = ["1", "2", "3", "4", "5", "6", "7-9"] as const;
@@ -36,6 +36,10 @@ export type ReaderWord = {
   chars?: Array<[string, HskLevel | null]>;
   meaningVi: string;
   meaningEn: string;
+  /** Part-of-speech codes from the HSK list (lib/vocab/pos.ts); [] outside it and for phrases. */
+  pos: string[];
+  /** Measure words (CVDICT) for a word in the HSK list; [] otherwise. */
+  classifiers: Classifier[];
 };
 
 export type ReaderToken = ReaderWord | { kind: "other"; text: string };
@@ -70,6 +74,8 @@ export function analyzeText(data: ReaderData, text: string): ReaderLine[] {
         ...(info ? {} : { chars: w.chars.map((c): [string, HskLevel | null] => [c, listedLevel(data.vocab, c)]) }),
         meaningVi: info?.meaning ?? "",
         meaningEn: Object.hasOwn(data.meanings, w.hanzi) ? data.meanings[w.hanzi] : "",
+        pos: info?.pos ?? [],
+        classifiers: info?.classifiers ?? [],
       };
     });
     return withGaps(source, tokens);

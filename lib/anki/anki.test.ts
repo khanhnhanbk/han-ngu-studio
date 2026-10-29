@@ -8,6 +8,7 @@ import type { ExampleBank, ExampleManifest, ExampleShard } from "@/lib/examples/
 import type { HanvietData } from "@/lib/hanviet/lookup";
 import { createTokenizer } from "@/lib/segment/tokenizer";
 import type { VocabData } from "@/lib/vocab/lookup";
+import { vi } from "@/lib/i18n/vi";
 
 import golden from "./__golden__/deck.json";
 import { buildRow, COLUMNS, missing, parseWords, toTsv, type DeckData } from "./buildDeck";
@@ -142,6 +143,12 @@ describe("toTsv", () => {
     expect(out[3]).toBe("a&lt;b<br>c&amp;d");
   });
 
+  it("writes the part of speech, labelled when names are given", () => {
+    expect(buildRow(data, "爱好").pos).toBe("V, N");
+    expect(buildRow(data, "爱好", 1, vi.vocab.pos).pos).toBe("Động từ, Danh từ");
+    expect(buildRow(data, "髮", 1, vi.vocab.pos).pos).toBe("");
+  });
+
   it("keeps anki_desk.py's column order, with the HSK columns last", () => {
     expect(COLUMNS).toEqual([
       "word",
@@ -154,6 +161,7 @@ describe("toTsv", () => {
       "hanviet",
       "hsk_level",
       "meaning_vi",
+      "pos",
     ]);
   });
 });

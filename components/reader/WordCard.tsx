@@ -4,6 +4,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import type { ReaderWord } from "@/lib/reader/analyze";
+import { useConverter } from "@/lib/script/useScript";
+import { posLabels } from "@/lib/vocab/pos";
 import { SpeakButton } from "@/components/speech/SpeakButton";
 
 import { LEVEL_STYLE, levelLabel } from "./levels";
@@ -42,7 +44,9 @@ export function WordCard({
   onAdd: () => void;
   onClose: () => void;
 }) {
-  const t = useDictionary().reader;
+  const dict = useDictionary();
+  const t = dict.reader;
+  const { conv } = useConverter();
   const href = useHref();
   const ref = useRef<HTMLDivElement>(null);
   const { word, shown, count, rect } = target;
@@ -98,6 +102,15 @@ export function WordCard({
             <SpeakButton word={word.text} label={shown} tone3={word.tone3} contextual size={22} />
           </p>
           <p className="mt-1 text-lg text-brand-ink">{word.pinyin}</p>
+          {word.pos.length > 0 && (
+            <p className="mt-1 flex flex-wrap gap-1" aria-label={dict.vocab.posTitle}>
+              {posLabels(dict.vocab.pos, word.pos).map((label) => (
+                <span key={label} className="rounded-md bg-brand-50 px-1.5 py-0.5 text-xs font-medium text-brand-700">
+                  {label}
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <span className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink-50 px-2 py-0.5 text-xs font-medium text-ink-700">
           <span className={`h-2 w-2 rounded-full ${LEVEL_STYLE[level].bg}`} aria-hidden />
@@ -111,6 +124,19 @@ export function WordCard({
         <dd className="text-ink-900">{meaning(word.meaningVi)}</dd>
         <dt className="text-ink-500">{t.card.meaningEn}</dt>
         <dd className="text-ink-700">{meaning(word.meaningEn)}</dd>
+        {word.classifiers.length > 0 && (
+          <>
+            <dt className="text-ink-500">{dict.vocab.classifiersTitle}</dt>
+            <dd className="text-ink-900">
+              {word.classifiers.map((c, i) => (
+                <span key={c.hanzi} className="whitespace-nowrap">
+                  {i > 0 && <span className="text-ink-500"> · </span>}
+                  <span className="hanzi">{conv.toShown(c.hanzi)}</span> <span className="text-ink-700">{c.pinyin}</span>
+                </span>
+              ))}
+            </dd>
+          </>
+        )}
       </dl>
       {word.chars && word.chars.length > 1 && (
         <p className="mt-2 text-xs text-ink-700">

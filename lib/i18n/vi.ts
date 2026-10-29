@@ -680,6 +680,7 @@ export const vi = {
       hanviet: "Hán Việt",
       hsk_level: "Cấp HSK",
       meaning_vi: "Nghĩa tiếng Việt",
+      pos: "Từ loại",
     },
     header: "Thêm dòng cấu hình cho Anki (#columns…), dùng cho Anki 2.1.55 trở lên",
     preview: "Xem trước và chỉnh sửa",
@@ -750,7 +751,7 @@ export const vi = {
       "Bấm Add, chọn “Add: Basic”, đặt tên là Hán Ngữ Studio.",
       "Chọn loại ghi chú vừa tạo, bấm Fields. Đổi tên hai trường Front, Back thành word, pinyin, rồi bấm Add để thêm các trường còn lại theo đúng thứ tự và đúng tên dưới đây.",
     ],
-    fieldsLabel: "10 trường, theo thứ tự:",
+    fieldsLabel: "11 trường, theo thứ tự:",
     copyFields: "Sao chép danh sách trường",
     fieldsNote:
       "Tên trường phải giống hệt tên cột trong file .tsv (chữ thường, có dấu gạch dưới), để Anki tự ghép cột vào trường khi import.",
@@ -773,7 +774,7 @@ export const vi = {
     toTool: "Mở công cụ Tạo thẻ Anki",
     templatesTitle: "Mẫu thẻ gợi ý",
     templatesIntro:
-      "Bốn mẫu dùng chung 10 trường ở trên. Xem trước bên dưới là thẻ thật cho từ 学习; bấm Mặt sau để xem đáp án.",
+      "Bốn mẫu dùng chung 11 trường ở trên. Xem trước bên dưới là thẻ thật cho từ 学习; bấm Mặt sau để xem đáp án.",
     templates: {
       recognize: {
         name: "Nhận diện",
