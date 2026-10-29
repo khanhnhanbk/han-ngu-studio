@@ -321,6 +321,27 @@ export const en: Dictionary = {
       ],
     },
   },
+  vocab: {
+    posTitle: "Part of speech",
+    classifiersTitle: "Measure words",
+    pos: {
+      N: "Noun",
+      V: "Verb",
+      Adj: "Adjective",
+      Adv: "Adverb",
+      M: "Measure word",
+      Num: "Numeral",
+      Pron: "Pronoun",
+      Prep: "Preposition",
+      Conj: "Conjunction",
+      Aux: "Particle",
+      Intj: "Interjection",
+      Prefix: "Prefix",
+      Suffix: "Suffix",
+      Name: "Proper noun",
+      Phonetic: "Onomatopoeia",
+    },
+  },
   stories: {
     title: "Stories",
     subtitle:

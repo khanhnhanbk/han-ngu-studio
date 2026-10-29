@@ -3,7 +3,10 @@ import { join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import { en } from "../i18n/en";
+import { vi } from "../i18n/vi";
 import { vocabFor, type VocabData } from "./lookup";
+import { POS_CODES, posCode, posLabels } from "./pos";
 
 const vocab = JSON.parse(
   readFileSync(join(__dirname, "../../public/data/vocab.json"), "utf-8"),
@@ -39,8 +42,8 @@ describe("vocab.json", () => {
 
 describe("vocabFor", () => {
   it("uses only the entries for the given reading", () => {
-    expect(vocabFor(vocab, "好", "hǎo")).toEqual({ level: "HSK 1", meaning: "tốt; thích hợp; đúng; (trước động từ) dễ" });
-    expect(vocabFor(vocab, "好", "hào")).toEqual({ level: "HSK 4", meaning: "thích; có khuynh hướng; dễ" });
+    expect(vocabFor(vocab, "好", "hǎo")).toMatchObject({ level: "HSK 1", meaning: "tốt; thích hợp; đúng; (trước động từ) dễ" });
+    expect(vocabFor(vocab, "好", "hào")).toMatchObject({ level: "HSK 4", meaning: "thích; có khuynh hướng; dễ", pos: ["V"] });
   });
 
   it("falls back to every entry when no reading matches", () => {
@@ -68,8 +71,50 @@ describe("vocabFor", () => {
     expect(vocabFor(data, "词")?.level).toBe("HSK 6");
   });
 
+  it("gives the part of speech of the HSK list", () => {
+    expect(vocabFor(vocab, "爱")?.pos).toEqual(["V"]);
+    expect(vocabFor(vocab, "爱好")?.pos).toEqual(["V", "N"]);
+    expect(vocabFor(vocab, "吧")?.pos).toEqual(["Aux"]);
+    // 省 shěng is listed twice at HSK 2 (N, then V): both are kept.
+    expect(vocabFor(vocab, "省", "shěng")?.pos).toEqual(["N", "V"]);
+    // Phrases have no part of speech in the list.
+    expect(vocabFor(vocab, "不客气")?.pos).toEqual([]);
+  });
+
+  it("gives the CVDICT measure words in Simplified with tone marks", () => {
+    expect(vocabFor(vocab, "亲戚")?.classifiers).toEqual([
+      { hanzi: "门", pinyin: "mén" },
+      { hanzi: "个", pinyin: "gè" },
+      { hanzi: "位", pinyin: "wèi" },
+    ]);
+    expect(vocabFor(vocab, "书")?.classifiers.map((c) => c.hanzi)).toEqual(["本", "册", "部"]);
+    expect(vocabFor(vocab, "吧")?.classifiers).toEqual([]);
+  });
+
   it("returns null for a word not in the list", () => {
     expect(vocabFor(vocab, "abc")).toBeNull();
     expect(vocabFor(vocab, "hasOwnProperty")).toBeNull();
+  });
+});
+
+describe("part of speech", () => {
+  it("knows every code in vocab.json", () => {
+    for (const entries of Object.values(vocab)) {
+      for (const [, , , pos = ""] of entries) {
+        for (const code of pos.split("/").filter(Boolean)) expect(posCode(code), code).not.toBeNull();
+      }
+    }
+  });
+
+  it("has a label for every code in both languages", () => {
+    for (const code of POS_CODES) {
+      expect(vi.vocab.pos[code]).toBeTruthy();
+      expect(en.vocab.pos[code]).toBeTruthy();
+    }
+  });
+
+  it("merges aliases and keeps unknown codes", () => {
+    expect(posLabels(vi.vocab.pos, ["Pr", "Pron", "N"])).toEqual(["Đại từ", "Danh từ"]);
+    expect(posLabels(vi.vocab.pos, ["Xyz"])).toEqual(["Xyz"]);
   });
 });

@@ -14,12 +14,16 @@
  * Each HSK word takes the CVDICT senses of its CC-CEDICT entries (classifier
  * notes dropped, "variant of X" senses resolved to X, at most MAX_SENSES per
  * entry). A word with no CVDICT entry keeps its level with an empty meaning.
- * Erhua words are written "好玩{儿}" so both forms are found. Run once; the
- * output is committed. Then run `pnpm build:data`.
+ * Erhua words are written "好玩{儿}" so both forms are found. `pos` is the
+ * list's part of speech ("V/N"; merged when a word is listed twice at one
+ * level), `classifiers` the CVDICT measure words ("门 mén|个 gè|位 wèi").
+ * Run once; the output is committed. Then run `pnpm build:data`.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { convert } from "pinyin-pro";
 
 import { readCsvFrom } from "./lib/csv.mjs";
 
@@ -49,24 +53,41 @@ const CLASSIFIER_NOTE = /\s*\((?:CL|LT|lượng từ):[^()]*\)/giu;
 // A sense that only points at another entry: "biến thể er hoá của 好玩[hao3 wan2]".
 const POINTER = /^(?:biến thể(?: er hoá| cũ| cổ)? của|xem(?: thêm)?|viết tắt của) (\S+?)\[([^\]]+)\]$/u;
 
-/** CVDICT: { entries: "trad|simp[pin yin]" → senses, bySimp: "simp[pin yin]" → entry keys }. */
+// One measure word in a classifier note: "門|门[men2]" or "位[wei4]".
+const CLASSIFIER_ITEM = /(?:[^\s,:|[\]]+\|)?([^\s,:|[\]]+)\[([^\]]+)\]/gu;
+
+/** "LT:門|门[men2],個|个[ge4]" → ["门 mén", "个 gè"] (Simplified, tone marks). */
+function classifiersIn(note) {
+  return [...note.matchAll(CLASSIFIER_ITEM)].map(
+    ([, simp, pinyin]) => `${simp} ${convert(pinyin.replace(/u:/g, "ü"), { format: "numToSymbol" })}`,
+  );
+}
+
+/**
+ * CVDICT: { entries: "trad|simp[pin yin]" → senses, classifiers: key → measure
+ * words, bySimp: "simp[pin yin]" → entry keys }.
+ */
 function readCvdict(text) {
   const entries = new Map();
+  const classifiers = new Map();
   const bySimp = new Map();
   for (const line of text.split("\n")) {
     const m = /^(\S+) (\S+) \[([^\]]*)\] \/(.*)\/\s*$/.exec(line);
     if (!m) continue;
-    const senses = m[4]
-      .split("/")
-      .map((s) => s.replace(CLASSIFIER_NOTE, "").trim())
-      .filter((s) => s && !CLASSIFIER.test(s));
+    const raw = m[4].split("/");
+    const senses = raw.map((s) => s.replace(CLASSIFIER_NOTE, "").trim()).filter((s) => s && !CLASSIFIER.test(s));
+    const notes = raw.flatMap((s) => [
+      ...(CLASSIFIER.test(s.trim()) ? [s] : []),
+      ...(s.match(CLASSIFIER_NOTE) ?? []),
+    ]);
     const key = `${m[1]}|${m[2]}[${m[3]}]`;
     entries.set(key, senses);
+    if (notes.length) classifiers.set(key, notes.flatMap(classifiersIn));
     const simp = `${m[2]}[${m[3]}]`;
     if (!bySimp.has(simp)) bySimp.set(simp, []);
     bySimp.get(simp).push(key);
   }
-  return { entries, bySimp };
+  return { entries, classifiers, bySimp };
 }
 
 const ownSenses = (cvdict, key) => (cvdict.entries.get(key) ?? []).filter((s) => !POINTER.test(s));
@@ -92,28 +113,44 @@ await fetchOnce(CVDICT, "CVDICT.u8");
 await fetchOnce(HSK30, "hsk30-expanded.csv");
 const cvdict = readCvdict(readFileSync(join(CACHE, "CVDICT.u8"), "utf-8"));
 const rows = readCsvFrom(CACHE, "hsk30-expanded.csv");
-const seen = new Set();
-const lines = ["level,hanzi,pinyin,meaning"];
+const seen = new Map();
+const out = [];
 let missing = 0;
+const pushNew = (list, items) => {
+  for (const x of items) if (x && !list.includes(x)) list.push(x);
+};
 for (const r of rows) {
   // Example words for an affix (子 → 桌子) are not on the list themselves.
   if (r.Example) continue;
   // "dì-èr" → "dì èr": lib/vocab compares Pinyin without spaces.
   const pinyin = r.Pinyin.replace(/-/g, " ").trim();
   const key = `${r.Level}\t${r.Simplified}\t${pinyin}`;
-  if (seen.has(key)) continue;
-  seen.add(key);
+  const pos = r.POS.split("/").map((p) => p.trim());
+  // 省 shěng is listed at level 2 as N and again as V: one row, POS "N/V".
+  if (seen.has(key)) {
+    pushNew(seen.get(key).pos, pos);
+    continue;
+  }
   const keys = r.CEDICT.split("/").filter(Boolean);
   const senses = [];
+  const classifiers = [];
   for (const k of keys) {
-    for (const s of sensesOf(cvdict, k).slice(0, MAX_SENSES)) if (!senses.includes(s)) senses.push(s);
+    pushNew(senses, sensesOf(cvdict, k).slice(0, MAX_SENSES));
+    pushNew(classifiers, cvdict.classifiers.get(k) ?? []);
   }
   if (!senses.length) missing++;
   // An erhua word (好玩儿 hǎowánr) is also written without 儿 in most texts:
   // "好玩{儿}" makes build-data store both forms (unless 好玩 has its own row).
   const erhua = r.Simplified.endsWith("儿") && keys.length > 0 && keys.every((k) => k.endsWith(" r5]"));
   const hanzi = erhua ? `${r.Simplified.slice(0, -1)}{儿}` : r.Simplified;
-  lines.push([r.Level, hanzi, pinyin, senses.join("; ")].map(csvField).join(","));
+  const row = { cells: [r.Level, hanzi, pinyin, senses.join("; ")], pos: [], classifiers };
+  pushNew(row.pos, pos);
+  seen.set(key, row);
+  out.push(row);
+}
+const lines = ["level,hanzi,pinyin,meaning,pos,classifiers"];
+for (const { cells, pos, classifiers } of out) {
+  lines.push([...cells, pos.join("/"), classifiers.join("|")].map(csvField).join(","));
 }
 writeFileSync(OUT, `${lines.join("\n")}\n`);
 console.log(`vocab_hsk30.csv: ${lines.length - 1} words, ${missing} without a CVDICT meaning`);

@@ -320,6 +320,27 @@ export const vi = {
       ],
     },
   },
+  vocab: {
+    posTitle: "Từ loại",
+    classifiersTitle: "Lượng từ",
+    pos: {
+      N: "Danh từ",
+      V: "Động từ",
+      Adj: "Tính từ",
+      Adv: "Phó từ",
+      M: "Lượng từ",
+      Num: "Số từ",
+      Pron: "Đại từ",
+      Prep: "Giới từ",
+      Conj: "Liên từ",
+      Aux: "Trợ từ",
+      Intj: "Thán từ",
+      Prefix: "Tiền tố",
+      Suffix: "Hậu tố",
+      Name: "Tên riêng",
+      Phonetic: "Từ tượng thanh",
+    },
+  },
   stories: {
     title: "Truyện đọc",
     subtitle:
