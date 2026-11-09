@@ -12,7 +12,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 1. Vào trang chủ https://han-ngu-studio.vercel.app.
 2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm, mỗi công cụ có một dòng mô tả ngắn:
-   - **Chữ Hán** (học từng chữ): **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
+   - **Chữ Hán** (học từng chữ): **Lộ trình 1000 chữ**, **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
    - **Đọc văn bản** (dán câu hoặc đoạn văn): **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
    - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tra từ**, **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
    - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Chữ Hán**, **Công cụ · Đọc văn bản**, **Công cụ · Từ vựng & ôn tập**.
@@ -22,6 +22,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 | Công cụ | Dùng để | Hướng dẫn |
 |---|---|---|
+| **Lộ trình 1000 chữ** | Học 1000 chữ thông dụng (đủ chữ HSK 1–3) theo 10 chặng, thành phần trước chữ ghép; đánh dấu đã học, tạo thẻ Anki và phiếu tập viết cho từng chặng | [lo-trinh.md](lo-trinh.md) |
 | **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ, thứ tự nét) | [practice-sheet.md](practice-sheet.md) |
 | **Thứ tự nét** | Xem hoạt hình từng nét, sơ đồ từng bước và tự viết thử; tạo phiếu tập viết cho các chữ đó | [stroke-order.md](stroke-order.md) |
 | **Đọc hiểu** | Đọc văn bản có trợ giúp: từ tô màu theo cấp HSK, bấm vào từ để xem Pinyin, Hán Việt, nghĩa; ước tính độ khó, ghi nhớ từ đã biết, gửi từ mới sang Anki, Trắc nghiệm | [reader.md](reader.md) |

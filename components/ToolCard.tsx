@@ -29,6 +29,7 @@ const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
   comprehensibleInput: ListOrderedIcon,
   stories: BookOpenIcon,
   lookup: BookOpenTextIcon,
+  path: ArrowRightIcon,
 };
 
 /** Landing-page tool card; hovering or focusing the card plays both icons. */

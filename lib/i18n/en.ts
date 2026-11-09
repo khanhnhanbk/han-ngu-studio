@@ -33,6 +33,7 @@ export const en: Dictionary = {
     practiceSheet: "Practice sheet",
     strokeOrder: "Stroke order",
     lookup: "Word lookup",
+    path: "The 1000-character path",
     groups: {
       chars: { title: "Characters", hint: "Study one character" },
       text: { title: "Reading", hint: "Paste a sentence or text" },
@@ -52,6 +53,7 @@ export const en: Dictionary = {
       quiz: "Make a quiz, print a test",
       comprehensibleInput: "Order sentences from easy to hard",
       lookup: "Meaning, part of speech, measure words",
+      path: "The 1000 most common characters, stage by stage",
     },
   },
   hero: {
@@ -89,6 +91,12 @@ export const en: Dictionary = {
         description:
           "Watch each stroke of a character animated, try writing it with your mouse or finger, then make a practice sheet for those characters.",
         cta: "Look up stroke order",
+      },
+      path: {
+        title: "The 1000-character path",
+        description:
+          "The 1000 most common characters (every HSK 1–3 character included) in 10 stages: components first, then the characters built from them. Tick what you have learned; make an Anki deck or a practice sheet per stage.",
+        cta: "Start the path",
       },
       lookup: {
         title: "Word lookup",
@@ -170,12 +178,6 @@ export const en: Dictionary = {
     items: [
       {
         status: "next",
-        title: "The 1000-character path",
-        description:
-          "Learn the 1000 most common characters in stages of about 100: components first, then the characters built from them. Each stage downloads as an Anki deck.",
-      },
-      {
-        status: "planned",
         title: "Character origins",
         description:
           "In Character breakdown: the character's original meaning and how today's meanings grew from it, with sources, kept apart from memory tricks.",
@@ -984,6 +986,32 @@ export const en: Dictionary = {
     close: "Close",
     credits:
       "Radical names and meanings: compiled by Hán Ngữ Studio, checked against PREP’s list (prepedu.com). Characters per radical: Unicode Unihan (Unicode License v3). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited.",
+  },
+  path: {
+    title: "The 1000-character path",
+    subtitle:
+      "The 1000 most common characters, every HSK 1–3 character included, in 10 stages of about 100. A component comes before the characters built from it (人 before 你, 青 before 清); otherwise the most common come first.",
+    loading: "Loading data…",
+    loadFailed: "Could not load the data. Please check your connection and try again.",
+    stages: "Stages",
+    stage: "Stage {n}",
+    stageRange: "characters {from}–{to}",
+    stageProgress: "Learned {n}/{total}",
+    total: "Learned {n}/{total} characters",
+    anki: "Make an Anki deck for this stage",
+    sheet: "Make a practice sheet",
+    families: "Families sharing a sound part",
+    familiesHint: "Characters in this stage that share a phonetic part and often sound alike: learn them together.",
+    openDecompose: "Break down {char}",
+    learned: "Learned",
+    export: "Download progress (TSV)",
+    import: "Import progress from a TSV file",
+    imported: "Imported {n} learned characters.",
+    importEmpty: "The file has no valid characters.",
+    unsaved: "Your browser does not allow saving (private mode?). Download the file to keep your progress.",
+    privacy: "Progress is kept in this browser only and never sent anywhere. Download the TSV file to move it to another device.",
+    credits:
+      "Frequency order: SUBTLEX-CH (Cai & Brysbaert, 2010). Components and formation: Make Me a Hanzi (LGPL-3.0). HSK levels: HSK 3.0 list (GF 0025-2021; ivankra/hsk30, MIT). Vietnamese meanings: CVDICT by Phong Phan (CC BY-SA 4.0). Hán Việt readings: hanviet-pinyin-wordlist by Phong Phan (MIT), edited.",
   },
   decompose: {
     title: "Character breakdown",
