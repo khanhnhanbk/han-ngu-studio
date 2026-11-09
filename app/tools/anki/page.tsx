@@ -31,6 +31,8 @@ import { parseWordsHash } from "@/lib/reader/handoff";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
+import { addWords, HSK_LEVELS, splitParts, wordsOfLevel, type HskLevel } from "@/lib/anki/picker";
+import { readKnown } from "@/lib/reader/known";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
@@ -76,6 +78,13 @@ export default function AnkiPage() {
   const [cardTypes, setCardTypes] = useState<Set<CardTemplateId>>(() => new Set(["recognize", "recall"]));
   const [apkgBusy, setApkgBusy] = useState(false);
   const [apkgError, setApkgError] = useState("");
+  // "Thêm từ theo cấp HSK": level, part (levels over MAX_WORDS are split), skip known words.
+  const [level, setLevel] = useState<HskLevel>("1");
+  const [part, setPart] = useState(0);
+  const [levelParts, setLevelParts] = useState<number | null>(null);
+  const [skipKnown, setSkipKnown] = useState(true);
+  const [pickStatus, setPickStatus] = useState("");
+  const [picking, setPicking] = useState(false);
 
   const { words } = useMemo(() => parseWords(text), [text]);
   const tooMany = words.length > MAX_WORDS;
@@ -89,6 +98,46 @@ export default function AnkiPage() {
   useEffect(() => {
     if (built) setRows(built.rows.map((r) => showRow(r, conv, built.wubi)));
   }, [built, conv]);
+
+  /** The level's words (parts only when it has more than MAX_WORDS). vocab.json is about 300 KB. */
+  async function levelWords(lvl: HskLevel): Promise<string[][] | null> {
+    if (!(await confirmDownload([VOCAB_FILE]))) return null;
+    return splitParts(wordsOfLevel(await loadVocab(), lvl));
+  }
+
+  async function chooseLevel(lvl: HskLevel) {
+    setLevel(lvl);
+    setPart(0);
+    setPickStatus("");
+    setLevelParts(null);
+    const parts = await levelWords(lvl).catch(() => null);
+    if (parts) setLevelParts(parts.length);
+  }
+
+  async function handlePick() {
+    setPickStatus("");
+    setPicking(true);
+    try {
+      const parts = await levelWords(level);
+      if (!parts) return setPickStatus(dict.download.declined);
+      setLevelParts(parts.length);
+      const current = simpWords(conv, parseWords(text).words);
+      const r = addWords(current, parts[Math.min(part, parts.length - 1)] ?? [], readKnown(), skipKnown);
+      setText(r.words.map((w) => conv.toShown(w)).join("\n"));
+      const notes = [
+        r.known && dict.anki.pickKnown.replace("{n}", String(r.known)),
+        r.already && dict.anki.pickAlready.replace("{n}", String(r.already)),
+        r.overLimit && dict.anki.pickOverLimit.replace("{n}", String(r.overLimit)).replace("{max}", String(MAX_WORDS)),
+      ].filter(Boolean);
+      setPickStatus(
+        dict.anki.pickDone.replace("{n}", String(r.added)).replace("{level}", level) + (notes.length ? ` (${notes.join(", ")})` : ""),
+      );
+    } catch {
+      setPickStatus(dict.anki.loadFailed);
+    } finally {
+      setPicking(false);
+    }
+  }
 
   async function handleFile(file: File | undefined) {
     setError("");
@@ -214,6 +263,52 @@ export default function AnkiPage() {
                 </span>
                 {tooMany && <span className="text-red-600">{dict.anki.tooMany}</span>}
               </div>
+
+              <fieldset className="mt-4 rounded-lg border border-ink-900/10 p-3 text-sm text-ink-700">
+                <legend className="px-1 font-medium">{dict.anki.pickTitle}</legend>
+                <div className="flex flex-wrap items-end gap-3">
+                  <label className="flex flex-col gap-1">
+                    <span>{dict.anki.pickLevel}</span>
+                    <select
+                      value={level}
+                      onChange={(e) => chooseLevel(e.target.value as HskLevel)}
+                      className="rounded-lg border border-ink-900/10 bg-surface px-3 py-2"
+                    >
+                      {HSK_LEVELS.map((l) => (
+                        <option key={l} value={l}>
+                          HSK {l}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  {levelParts !== null && levelParts > 1 && (
+                    <label className="flex flex-col gap-1">
+                      <span>{dict.anki.pickPart}</span>
+                      <select
+                        value={part}
+                        onChange={(e) => setPart(Number(e.target.value))}
+                        className="rounded-lg border border-ink-900/10 bg-surface px-3 py-2"
+                      >
+                        {Array.from({ length: levelParts }, (_, i) => (
+                          <option key={i} value={i}>
+                            {dict.anki.pickPartN.replace("{n}", String(i + 1)).replace("{total}", String(levelParts))}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
+                  <button type="button" className="btn-secondary px-3 py-2" onClick={handlePick} disabled={picking || !ready}>
+                    {picking ? dict.anki.loading : dict.anki.pickButton}
+                  </button>
+                </div>
+                <label className="mt-3 flex items-center gap-2">
+                  <input type="checkbox" checked={skipKnown} onChange={(e) => setSkipKnown(e.target.checked)} />
+                  {dict.anki.pickSkipKnown}
+                </label>
+                <p className="mt-2 min-h-5 text-xs text-ink-500" aria-live="polite">
+                  {pickStatus || dict.anki.pickHint}
+                </p>
+              </fieldset>
 
               <div className="mt-4 grid gap-4 text-sm text-ink-700 sm:grid-cols-3">
                 <FileInput label={dict.anki.upload} accept=".txt" onFile={handleFile} />

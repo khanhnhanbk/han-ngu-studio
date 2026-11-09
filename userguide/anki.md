@@ -29,6 +29,7 @@ Mở từ **Đọc hiểu** (nút **→ Tạo thẻ Anki** trong **Danh sách h�
 
 - Gõ hoặc dán vào ô lớn, **mỗi dòng một từ**; hoặc
 - bấm nút **Chọn file** dưới dòng **Hoặc tải file (.txt)** (file `.txt`, mỗi dòng một từ).
+- dùng khung **Thêm từ theo cấp HSK**: chọn **Cấp** (HSK 1 … 7-9) rồi bấm **Thêm vào danh sách** để thêm mọi từ của cấp đó vào ô lớn (thêm vào sau các từ đang có). Cấp có hơn 1000 từ (HSK 5, 6, 7-9) có thêm ô **Phần** để chọn từng phần. Ô **Bỏ qua từ đã đánh dấu “đã biết” trong Đọc hiểu** (bật sẵn) bỏ những từ bạn đã đánh dấu đã biết ở công cụ Đọc hiểu trên trình duyệt này. Dòng bên dưới cho biết đã thêm bao nhiêu từ, bỏ qua bao nhiêu.
 
 Dòng **Số từ: … / 1000** cho biết số từ (tối đa 1000). Từ trùng lặp được tự động bỏ.
 
@@ -124,6 +125,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 
 | Hiện tượng | Cách xử lý |
 |---|---|
+| "… từ chưa thêm vì vượt 1000 từ" | Ô lớn chỉ nhận tối đa 1000 từ. Xóa bớt từ trong ô, hoặc tạo bộ thẻ cho từng phần một. |
 | "Vui lòng nhập ít nhất một từ." | Ô nhập đang trống. |
 | "Quá nhiều từ (tối đa 1000 từ)." | Chia danh sách thành nhiều lần. |
 | "Hãy chọn ít nhất một cột." | Tích ít nhất một cột ở **Cột xuất ra**. |
