@@ -9,12 +9,13 @@ Built with **Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS**. D
 
 ## Tools
 
-Thirteen tools in three groups, as on the site. Every tool follows the **Giản thể / Phồn thể** (Simplified / Traditional) switch in the navbar. Step-by-step guides in Vietnamese: [`userguide/`](userguide/README.md).
+Fourteen tools in three groups, as on the site. Every tool follows the **Giản thể / Phồn thể** (Simplified / Traditional) switch in the navbar. Step-by-step guides in Vietnamese: [`userguide/`](userguide/README.md).
 
 ### Chữ Hán — one character at a time
 
 | Tool | Route | What it does |
 |---|---|---|
+| Lộ trình 1000 chữ (Learning path) | [`/tools/lo-trinh`](https://han-ngu-studio.vercel.app/tools/lo-trinh) | The 1000 most common characters (every HSK 1–3 character included) in 10 stages, components before the characters built from them; tick what you have learned, make an Anki deck or practice sheet per stage |
 | Thứ tự nét (Stroke order) | [`/tools/stroke-order`](https://han-ngu-studio.vercel.app/tools/stroke-order) | Stroke animation, step diagram, write-it-yourself quiz |
 | Chiết tự (Character breakdown) | [`/tools/decompose`](https://han-ngu-studio.vercel.app/tools/decompose) | Component tree coloured on the glyph, semantic/phonetic parts, component families, **Giản · Phồn · Nhật** forms (Simplified · Traditional · Japanese shinjitai), old forms **through the ages** (oracle bone → bronze → seal, from Wikimedia Commons, public domain), suggested memory tricks labelled **Mẹo nhớ / Theo nguồn gốc**, your own notes, and a **"Tải ảnh thẻ chữ"** 1080×1350 PNG card to share |
 | 214 bộ thủ (Radicals) | [`/tools/radicals`](https://han-ngu-studio.vercel.app/tools/radicals) | The 214 Kangxi radicals by stroke count, Hán Việt name or meaning, with variants and example characters |
@@ -108,7 +109,7 @@ Every push to `main` deploys to Vercel automatically, so changes go through pull
 .
 ├─ app/
 │  ├─ page.tsx               # landing page
-│  ├─ tools/<tool>/          # one folder per tool (13 tools, see above)
+│  ├─ tools/<tool>/          # one folder per tool (14 tools, see above)
 │  ├─ en/                    # English twin of every page (/en/…)
 │  ├─ giay-phep/             # data and licence page
 │  └─ globals.css            # theme tokens (light/dark, accents, Phồn thể fonts)
