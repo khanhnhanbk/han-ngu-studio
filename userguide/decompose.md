@@ -74,6 +74,20 @@ Hoặc tự viết: trong khung **Câu chuyện ghi nhớ**, viết một câu n
 - **Nhập câu chuyện từ file TSV**: bấm **Chọn file** và chọn file đã tải trước đó để chép câu chuyện sang trình duyệt khác. Câu chuyện trong file sẽ ghi đè câu chuyện cùng chữ đang có.
 - Xóa hết chữ trong khung để xóa câu chuyện của chữ đó.
 
+### 7. Tải ảnh thẻ chữ
+
+Bấm **Tải ảnh thẻ chữ** (dưới hai nút **Xem thứ tự nét** và **Tạo phiếu tập viết**) để tải về một ảnh PNG dọc 1080×1350, hợp để lưu vào điện thoại hay chia sẻ lên mạng xã hội. Ảnh có:
+
+- Chữ lớn trên ô 米字格, Pinyin, âm Hán Việt và nghĩa (nếu có trong dữ liệu).
+- Dòng công thức, ví dụ `氵 + 青 = 清` (chỉ hiện khi biết hết các thành phần).
+- Từng thành phần kèm âm Hán Việt và nghĩa.
+- Mẹo gợi ý kèm nhãn **Mẹo nhớ** / **Theo nguồn gốc** (và **gợi ý, chưa kiểm duyệt** nếu mẹo chưa được kiểm tra).
+- Địa chỉ trang ở cuối ảnh.
+
+Mặc định ảnh dùng **mẹo gợi ý**. Muốn in câu chuyện của riêng bạn thì đánh dấu **Dùng ghi chú của tôi** trước khi bấm; ảnh khi đó có nhãn **Câu chuyện của tôi**.
+
+Ảnh được tạo ngay trên trình duyệt và lưu thẳng về máy (file `the-chu-<chữ>.png`), không tải lên đâu. Ảnh luôn có nền sáng, kể cả khi trang đang ở chế độ tối; màu nhấn theo màu bạn chọn cho trang.
+
 ### Chia sẻ
 
 Địa chỉ trang đổi thành `…/tools/decompose#c=清晴&s=晴` (`c`: các chữ, `s`: chữ đang xem). Gửi địa chỉ này cho người khác để mở đúng các chữ đó. Câu chuyện ghi nhớ **không** nằm trong địa chỉ.
@@ -100,6 +114,8 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Mất câu chuyện ghi nhớ | Câu chuyện nằm trong bộ nhớ trình duyệt: xóa dữ liệu duyệt web, dùng chế độ ẩn danh hoặc đổi trình duyệt đều làm mất. Hãy **Tải câu chuyện (TSV)** thường xuyên để có bản sao. |
 | Không thấy **Gợi ý ghi nhớ** | Hiện mới có mẹo cho các chữ HSK 1; chữ khác sẽ được thêm dần. |
 | Mẹo nhớ nghe gượng hoặc chưa đúng | Mẹo có nhãn **gợi ý, chưa kiểm duyệt** chưa được người đọc lại. Bấm **Góp ý mẹo này** để báo cho Hán Ngữ Studio: trang GitHub mở ra với chữ và mẹo điền sẵn (không có câu chuyện của bạn), bạn ghi đề xuất rồi gửi (cần tài khoản GitHub). Hoặc bấm **Dùng mẹo này** rồi sửa theo ý bạn. |
+| Ảnh thẻ chữ không có câu chuyện của tôi / "Chữ này chưa có ghi chú của bạn, ảnh dùng mẹo gợi ý." | Đánh dấu **Dùng ghi chú của tôi** trước khi bấm **Tải ảnh thẻ chữ**, và chữ đó phải có câu chuyện trong khung **Câu chuyện ghi nhớ**. |
+| Ảnh thẻ chữ không có dòng công thức | Có thành phần **？ Chưa rõ** hoặc chữ chỉ có một thành phần, nên công cụ bỏ dòng công thức để không ghi sai. |
 | "Trình duyệt không cho lưu…" | Trình duyệt đang chặn lưu dữ liệu (thường do chế độ ẩn danh). Viết xong hãy bấm **Tải câu chuyện (TSV)**. |
 | "File không có câu chuyện nào hợp lệ." | Chỉ nhập được file do nút **Tải câu chuyện (TSV)** tạo ra (mỗi dòng: một chữ, dấu Tab, câu chuyện). |
 | Chữ trong danh sách "Chữ có chứa…" ghi "—" thay vì âm Hán Việt | Thường là chữ phồn thể hoặc chữ hiếm chưa có trong bảng Hán Việt. |
