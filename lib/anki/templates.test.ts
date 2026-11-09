@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { COLUMNS } from "./buildDeck";
 import {
+  APKG_FIELDS,
+  apkgTemplates,
   CARD_TEMPLATES,
   NOTE_TYPE_FIELDS,
   renderCard,
@@ -41,6 +43,33 @@ describe("card templates", () => {
   it("make no Câu ví dụ card for a word without a sentence (empty front)", () => {
     expect(renderCard(get("sentence"), { ...SAMPLE_ROW, sentence: "" }).front.trim()).toBe('<div class="sentence"></div>');
     expect(renderTemplate("{{sentence}}", { sentence: "" }, "front")).toBe("");
+  });
+});
+
+describe("apkg templates", () => {
+  const tpls = apkgTemplates();
+
+  it("name only the .apkg note type's fields", () => {
+    const allowed = new Set<string>([...APKG_FIELDS, "FrontSide"]);
+    for (const t of tpls) {
+      for (const name of [...templateFields(t.front), ...templateFields(t.back)]) expect(allowed).toContain(name);
+    }
+  });
+
+  it("add Nghe, which plays the word on the front and shows it on the back", () => {
+    expect(tpls.map((t) => t.id)).toEqual(["recognize", "recall", "sentence", "type", "listen"]);
+    const listen = tpls.find((t) => t.id === "listen")!;
+    expect(listen.front).toContain("{{audio}}");
+    expect(listen.front).not.toContain("{{word}}");
+    expect(listen.back).toContain("{{word}}");
+  });
+
+  it("play the sound on every other back, and keep the TSV guide's templates without it", () => {
+    for (const t of tpls.filter((t) => t.id !== "listen")) {
+      expect(t.back).toContain("{{audio}}");
+      expect(t.front).not.toContain("{{audio}}");
+    }
+    for (const t of CARD_TEMPLATES) expect(`${t.front}${t.back}`).not.toMatch(/audio|mnemonic/);
   });
 });
 
