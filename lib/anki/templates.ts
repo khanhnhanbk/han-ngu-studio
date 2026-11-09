@@ -25,11 +25,12 @@ export const NOTE_TYPE_FIELDS: readonly Column[] = [
 /**
  * The .apkg note type (lib/anki/apkg.ts): the TSV fields plus two that only a
  * package can carry, the memory stories of the word's characters and its
- * recording ([sound:…], the file is inside the package). A new note type,
+ * recording ([sound:…], the file is inside the package), and the picture
+ * the learner chose with its credit (phase 4a). A new note type,
  * "Hán Ngữ Studio 2", so decks imported with the first one stay as they are.
  */
 export const APKG_NOTE_TYPE_NAME = "Hán Ngữ Studio 2";
-export const APKG_EXTRA_FIELDS = ["mnemonic", "audio"] as const;
+export const APKG_EXTRA_FIELDS = ["mnemonic", "audio", "image"] as const;
 export type ApkgField = Column | (typeof APKG_EXTRA_FIELDS)[number];
 export const APKG_FIELDS: readonly ApkgField[] = [...NOTE_TYPE_FIELDS, ...APKG_EXTRA_FIELDS];
 
@@ -66,7 +67,10 @@ export const CARD_CSS = `.card {
 .example { margin-top: 16px; }
 #typeans { font-family: "LXGW WenKai TC", "KaiTi", serif; font-size: 28px; }
 .mnemonic { font-size: 16px; margin-top: 12px; text-align: left; }
-.listen { font-size: 40px; margin: 24px 0 8px; }`;
+.listen { font-size: 40px; margin: 24px 0 8px; }
+.image { margin-top: 12px; }
+.image img { max-width: 100%; max-height: 240px; border-radius: 8px; }
+.image .credit { font-size: 11px; color: #a8a29e; margin-top: 2px; }`;
 
 const MEANING = `{{#meaning_vi}}<div class="meaning">{{meaning_vi}}</div>{{/meaning_vi}}
 {{^meaning_vi}}<div class="meaning">{{meaning}}</div>{{/meaning_vi}}`;
@@ -157,9 +161,10 @@ export function apkgTemplates(
   labels: CardLabels = { hanviet: "Hán Việt", wubi: "Ngũ bút", mnemonic: "Mẹo nhớ", listen: "Nghe rồi nhớ lại từ và nghĩa" },
 ): readonly CardTemplate[] {
   const MNEMONIC = `{{#mnemonic}}<div class="mnemonic"><b>${labels.mnemonic ?? "Mẹo nhớ"}:</b> {{mnemonic}}</div>{{/mnemonic}}`;
+  const IMAGE = `{{#image}}<div class="image">{{image}}</div>{{/image}}`;
   const base = cardTemplates(labels).map((t) => ({
     ...t,
-    back: `${t.back}\n{{audio}}${t.id === "recognize" ? `\n${MNEMONIC}` : ""}`,
+    back: `${t.back}\n${t.id === "sentence" ? "" : `${IMAGE}\n`}{{audio}}${t.id === "recognize" ? `\n${MNEMONIC}` : ""}`,
   }));
   const listen: CardTemplate = {
     id: "listen",
@@ -171,6 +176,7 @@ export function apkgTemplates(
 <div class="pinyin">{{pinyin}}</div>
 <div class="hanviet">{{hanviet}}</div>
 ${MEANING}
+${IMAGE}
 ${MNEMONIC}`,
   };
   return [...base, listen];

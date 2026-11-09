@@ -24,6 +24,9 @@ import { APKG_FILES, loadSqlJs } from "@/lib/anki/sqlite";
 import { apkgTemplates, type CardTemplateId } from "@/lib/anki/templates";
 import { audioFileName, joinRecordings, loadAudioIndex, loadShards, recordingsFor, shardPath } from "@/lib/anki/audio";
 import { wordMnemonic } from "@/lib/anki/mnemonic";
+import { imageCredit, imageFieldHtml, imageFileName, type ImageCandidate } from "@/lib/anki/images";
+import { fetchShrunkJpeg } from "@/lib/anki/shrink";
+import { ImagePicker } from "@/components/anki/ImagePicker";
 import type { RowExtras } from "@/lib/anki/apkg";
 import { loadMnemonics } from "@/lib/decompose/mnemonics";
 import { defaultTone3 } from "@/lib/speech/tone";
@@ -88,6 +91,8 @@ export default function AnkiPage() {
   // Human recordings packed into the .apkg (the "Nghe" card needs them).
   const [withAudio, setWithAudio] = useState(true);
   const [apkgStatus, setApkgStatus] = useState("");
+  // Pictures chosen in "Ảnh minh họa", by row (cleared when the deck is rebuilt).
+  const [picks, setPicks] = useState<Record<number, ImageCandidate>>({});
   const [apkgBusy, setApkgBusy] = useState(false);
   const [apkgError, setApkgError] = useState("");
   // "Thêm từ theo cấp HSK": level, part (levels over MAX_WORDS are split), skip known words.
@@ -110,6 +115,8 @@ export default function AnkiPage() {
   useEffect(() => {
     if (built) setRows(built.rows.map((r) => showRow(r, conv, built.wubi)));
   }, [built, conv]);
+
+  useEffect(() => setPicks({}), [built]);
 
   /** The level's words (parts only when it has more than MAX_WORDS). vocab.json is about 300 KB. */
   async function levelWords(lvl: HskLevel): Promise<string[][] | null> {
@@ -210,13 +217,31 @@ export default function AnkiPage() {
    * the same order as rows). Recordings come from the audio shards, which are
    * fetched only now and only those the words need.
    */
-  async function rowExtras(): Promise<{ extras: RowExtras[]; media: Map<string, Uint8Array>; noSound: number }> {
+  async function rowExtras(): Promise<{ extras: RowExtras[]; media: Map<string, Uint8Array>; noSound: number; images: number; imagesFailed: number }> {
     const words = (built?.rows ?? []).map((r) => r.word);
     const mnemonics = await loadMnemonics().catch(() => null);
     const labels = { goc: dict.decompose.kinds.goc, draft: dict.decompose.suggestionDraft };
     const extras: RowExtras[] = words.map((w) => ({ mnemonic: wordMnemonic(mnemonics, w, labels) }));
     const media = new Map<string, Uint8Array>();
-    if (!withAudio || words.length === 0) return { extras, media, noSound: 0 };
+
+    // Chosen pictures: one Openverse thumbnail request each, shrunk here.
+    let images = 0;
+    let imagesFailed = 0;
+    for (const [key, choice] of Object.entries(picks)) {
+      const i = Number(key);
+      if (!extras[i]) continue;
+      setApkgStatus(dict.anki.imagesPacking.replace("{n}", String(images + imagesFailed + 1)).replace("{total}", String(Object.keys(picks).length)));
+      const bytes = await fetchShrunkJpeg(choice.thumbnail);
+      if (!bytes) {
+        imagesFailed++;
+        continue;
+      }
+      const file = imageFileName(choice.id);
+      media.set(file, bytes);
+      extras[i].image = { file, html: imageFieldHtml(file, imageCredit(choice)) };
+      images++;
+    }
+    if (!withAudio || words.length === 0) return { extras, media, noSound: 0, images, imagesFailed };
 
     const index = await loadAudioIndex(words);
     const plans = words.map((w) => recordingsFor(index, w, defaultTone3(w)));
@@ -236,7 +261,7 @@ export default function AnkiPage() {
       media.set(name, bytes);
       extras[i].audio = name;
     }
-    return { extras, media, noSound };
+    return { extras, media, noSound, images, imagesFailed };
   }
 
   /** The deck as one .apkg file (note type + templates included); SQLite loads only now. */
@@ -252,7 +277,7 @@ export default function AnkiPage() {
         string
       >;
       const deck = cleanDeckName(deckName, dict.anki.defaultDeck);
-      const { extras, media, noSound } = await rowExtras();
+      const { extras, media, noSound, images, imagesFailed } = await rowExtras();
       const bytes = await buildApkg(SQL, rows, {
         deckName: deck,
         templates: apkgTemplates(dict.ankiGuide.cardLabels),
@@ -264,12 +289,16 @@ export default function AnkiPage() {
       });
       downloadBytes(bytes, apkgFileName(deck), "application/apkg");
       setApkgStatus(
-        withAudio
-          ? dict.anki.audioDone
-              .replace("{n}", String(media.size))
-              .replace("{size}", fileSize(bytes.length))
-              .concat(noSound ? ` ${dict.anki.audioMissing.replace("{n}", String(noSound))}` : "")
-          : "",
+        [
+          withAudio
+            ? dict.anki.audioDone.replace("{n}", String(media.size - images)).replace("{size}", fileSize(bytes.length))
+            : dict.anki.apkgDone.replace("{size}", fileSize(bytes.length)),
+          noSound && withAudio ? dict.anki.audioMissing.replace("{n}", String(noSound)) : "",
+          images ? dict.anki.imagesPacked.replace("{n}", String(images)) : "",
+          imagesFailed ? dict.anki.imagesFailed.replace("{n}", String(imagesFailed)) : "",
+        ]
+          .filter(Boolean)
+          .join(" "),
       );
     } catch {
       setApkgError(dict.anki.apkgFailed);
@@ -470,6 +499,18 @@ export default function AnkiPage() {
                     <p className="mt-4 text-sm text-red-600">{dict.anki.noColumns}</p>
                   ) : (
                     <>
+                    <ImagePicker
+                      rows={rows.map((r) => ({ word: r.word, meaning: r.meaning }))}
+                      picks={picks}
+                      onPick={(i, choice) =>
+                        setPicks((prev) => {
+                          const next = { ...prev };
+                          if (choice) next[i] = choice;
+                          else delete next[i];
+                          return next;
+                        })
+                      }
+                    />
                     <div className="mt-6 rounded-xl border border-brand-200 bg-brand-50 p-4">
                       <h2 className="font-semibold text-ink-900">{dict.anki.apkgTitle}</h2>
                       <p className="mt-1 text-sm text-ink-700">{dict.anki.apkgHint}</p>
