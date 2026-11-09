@@ -110,7 +110,7 @@ describe("buildApkg", () => {
     expect(notes).toHaveLength(3);
     const fields = String(notes[0][0]).split("\x1f");
     // No extras given: the mnemonic and audio fields are empty.
-    expect(fields).toEqual(APKG_FIELDS.map((c) => (c === "mnemonic" || c === "audio" ? "" : SAMPLE_ROW[c])));
+    expect(fields).toEqual(APKG_FIELDS.map((c) => (c === "mnemonic" || c === "audio" || c === "image" ? "" : SAMPLE_ROW[c])));
     expect(notes[0][1]).toBe("学习");
     expect(notes[0][2]).toBe(2861161827);
     expect(notes[0][3]).toBe(" HanNguStudio HSK1 ");
@@ -159,21 +159,30 @@ describe("buildApkg", () => {
       rows,
       options({
         cardTypes: new Set<CardTemplateId>(["listen", "recognize"]),
-        extras: [{ audio: "hns-a.mp3", mnemonic: "学: <x> & y" }, { audio: "hns-missing.mp3" }, undefined],
-        media: new Map([["hns-a.mp3", mp3]]),
+        extras: [
+          { audio: "hns-a.mp3", mnemonic: "学: <x> & y", image: { file: "hns-img-a.jpg", html: '<img src="hns-img-a.jpg"><div class="credit">CC0 1.0</div>' } },
+          { audio: "hns-missing.mp3", image: { file: "hns-img-missing.jpg", html: '<img src="hns-img-missing.jpg">' } },
+          undefined,
+        ],
+        media: new Map([
+          ["hns-a.mp3", mp3],
+          ["hns-img-a.jpg", new Uint8Array([0xff, 0xd8, 0xff])],
+        ]),
       }),
     );
     const files = unzipSync(bytes);
-    expect(Object.keys(files).sort()).toEqual(["0", "collection.anki2", "media"]);
-    expect(JSON.parse(strFromU8(files.media))).toEqual({ 0: "hns-a.mp3" });
+    expect(Object.keys(files).sort()).toEqual(["0", "1", "collection.anki2", "media"]);
+    expect(JSON.parse(strFromU8(files.media))).toEqual({ 0: "hns-a.mp3", 1: "hns-img-a.jpg" });
     expect(files["0"]).toEqual(mp3);
     const db = new SQL.Database(files["collection.anki2"]);
     const notes = all(db, "SELECT flds FROM notes ORDER BY id").map((r) => String(r[0]).split("\x1f"));
     const at = (f: string) => APKG_FIELDS.indexOf(f as (typeof APKG_FIELDS)[number]);
     expect(notes[0][at("audio")]).toBe("[sound:hns-a.mp3]");
     expect(notes[0][at("mnemonic")]).toBe("学: &lt;x&gt; &amp; y");
-    // A file name with no bytes in the package gives no sound.
+    expect(notes[0][at("image")]).toBe('<img src="hns-img-a.jpg"><div class="credit">CC0 1.0</div>');
+    // A file name with no bytes in the package gives no sound and no picture.
     expect(notes[1][at("audio")]).toBe("");
+    expect(notes[1][at("image")]).toBe("");
     // Nghe (ord 4) only for the first word; Nhận diện for all three.
     expect(all(db, "SELECT ord, count(*) FROM cards GROUP BY ord ORDER BY ord")).toEqual([
       [0, 3],
