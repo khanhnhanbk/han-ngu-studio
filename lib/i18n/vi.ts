@@ -164,21 +164,21 @@ export const vi = {
     items: [
       {
         status: "next",
-        title: "Ảnh minh họa cho thẻ Anki",
+        title: "Lộ trình 1000 chữ",
         description:
-          "Tìm ảnh có giấy phép mở cho từng từ vựng, chọn ảnh ưng ý và thêm thẳng vào bộ thẻ Anki của bạn.",
-      },
-      {
-        status: "next",
-        title: "Tải bộ thẻ Anki (.apkg)",
-        description:
-          "Một file duy nhất đã kèm ảnh: nhập bằng một chạm trên Anki máy tính, AnkiDroid và iPhone, không cần cài thêm gì.",
+          "Học 1000 chữ Hán thông dụng theo từng chặng khoảng 100 chữ: thành phần học trước, chữ ghép từ nó học sau. Mỗi chặng tải được thành bộ thẻ Anki.",
       },
       {
         status: "planned",
-        title: "Âm thanh cho thẻ Anki",
+        title: "Nguồn gốc chữ",
         description:
-          "Tạo file phát âm cho từng thẻ ngay trên máy của bạn. Đang thử nghiệm.",
+          "Trong Chiết tự: nghĩa gốc của chữ và vì sao có nghĩa ngày nay, có ghi nguồn, tách bạch với mẹo nhớ.",
+      },
+      {
+        status: "idea",
+        title: "Ảnh minh họa cho thẻ Anki",
+        description:
+          "Tìm ảnh có giấy phép mở cho từng từ vựng và thêm vào bộ thẻ Anki. Đang cân nhắc vì phải gửi từ cần tìm tới dịch vụ ảnh.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",

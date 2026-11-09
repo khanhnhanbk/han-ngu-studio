@@ -170,20 +170,21 @@ export const en: Dictionary = {
     items: [
       {
         status: "next",
-        title: "Pictures for Anki cards",
+        title: "The 1000-character path",
         description:
-          "Find an openly licensed picture for each word, pick the one you like and add it straight to your Anki deck.",
-      },
-      {
-        status: "next",
-        title: "Anki deck download (.apkg)",
-        description:
-          "One file with pictures included: import in one tap in Anki desktop, AnkiDroid and on iPhone, with nothing else to install.",
+          "Learn the 1000 most common characters in stages of about 100: components first, then the characters built from them. Each stage downloads as an Anki deck.",
       },
       {
         status: "planned",
-        title: "Audio for Anki cards",
-        description: "Create a pronunciation file for each card on your own device. Experimental.",
+        title: "Character origins",
+        description:
+          "In Character breakdown: the character's original meaning and how today's meanings grew from it, with sources, kept apart from memory tricks.",
+      },
+      {
+        status: "idea",
+        title: "Pictures for Anki cards",
+        description:
+          "Find openly licensed pictures for each word and add them to the Anki deck. Still under consideration, because the word would be sent to an image service.",
       },
     ],
     note: "The roadmap may change.",
