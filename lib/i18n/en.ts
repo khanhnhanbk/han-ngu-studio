@@ -177,7 +177,7 @@ export const en: Dictionary = {
     },
     items: [
       {
-        status: "next",
+        status: "planned",
         title: "Character origins",
         description:
           "In Character breakdown: the character's original meaning and how today's meanings grew from it, with sources, kept apart from memory tricks.",
