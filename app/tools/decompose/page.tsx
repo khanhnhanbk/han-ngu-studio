@@ -9,6 +9,7 @@ import { ColoredGlyph } from "@/components/decompose/ColoredGlyph";
 import { ComponentTree, type GlyphInfo, type PartSelection } from "@/components/decompose/ComponentTree";
 import { FamilyList } from "@/components/decompose/FamilyList";
 import { NotesBox } from "@/components/decompose/NotesBox";
+import { ShareCard, type ShareCardPart } from "@/components/decompose/ShareCard";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { loadWubi, type WubiTable } from "@/lib/anki/load";
@@ -49,6 +50,18 @@ function topParts(tree: PartNode): PartSelection[] {
     else if (node.kind === "char") out.push({ key, char: node.char, strokes: node.strokes });
   };
   visit(tree.parts, "r");
+  return out;
+}
+
+/** The root's own parts in order, null for an unknown one (for the share card's formula). */
+function cardPartChars(tree: PartNode): (string | null)[] {
+  if (tree.kind !== "char" || !tree.parts) return [];
+  const out: (string | null)[] = [];
+  const visit = (node: PartNode) => {
+    if (node.kind === "op") node.children.forEach(visit);
+    else out.push(node.kind === "char" ? node.char : null);
+  };
+  visit(tree.parts);
   return out;
 }
 
@@ -223,6 +236,14 @@ export default function DecomposePage() {
   const strokeHref = href(`/tools/stroke-order#${new URLSearchParams({ c: current })}`);
   const sheetHref = href(`/tools/practice-sheet#${new URLSearchParams({ chars: current, strokes: "1" })}`);
   const radical = entry?.[1] ?? "";
+  const cardParts: ShareCardPart[] = tree
+    ? cardPartChars(tree).map((c) => ({
+        char: c,
+        simp: c ? simpChar(c) : "",
+        hanviet: c ? (allCharReadings(tables?.hanviet ?? null, simpChar(c))[0] ?? "") : "",
+        radical: c ? info(c).radical : "",
+      }))
+    : [];
 
   return (
     <>
@@ -335,6 +356,14 @@ export default function DecomposePage() {
                             {t.practice}
                           </a>
                         </div>
+                        <ShareCard
+                          char={current}
+                          simp={simpChar(current)}
+                          pinyin={pinyin(simpChar(current))}
+                          hanviet={allCharReadings(tables.hanviet, simpChar(current))[0] ?? ""}
+                          radical={info(current).radical}
+                          parts={cardParts}
+                        />
                       </div>
 
                       <div className="min-w-0">
