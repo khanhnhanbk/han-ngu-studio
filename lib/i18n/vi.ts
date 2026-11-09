@@ -171,7 +171,7 @@ export const vi = {
     },
     items: [
       {
-        status: "next",
+        status: "planned",
         title: "Nguồn gốc chữ",
         description:
           "Trong Chiết tự: nghĩa gốc của chữ và vì sao có nghĩa ngày nay, có ghi nguồn, tách bạch với mẹo nhớ.",
