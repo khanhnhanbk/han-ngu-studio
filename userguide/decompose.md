@@ -21,10 +21,12 @@ Gõ hoặc dán chữ Hán vào ô **Chữ Hán cần phân tích (tối đa 20 
 
 ### 2. Xem chữ tô màu và thông tin chung
 
-Bên trái là chữ lớn, **mỗi thành phần một màu**. Bên dưới có **Pinyin**, **Hán Việt**, **Số nét**, **Bộ thủ** và **Mã Ngũ bút**, cùng hai nút:
+Bên trái là chữ lớn, **mỗi thành phần một màu**. Bên dưới có **Pinyin**, **Hán Việt**, **Số nét**, **Bộ thủ** và **Mã Ngũ bút**, hàng **Giản · Phồn · Nhật** (nếu có) và hai nút:
 
 - **Xem thứ tự nét**: mở trang Thứ tự nét với chữ này.
 - **Tạo phiếu tập viết**: mở trang Phiếu tập viết với chữ này, có sẵn dải thứ tự nét.
+
+Hàng **Giản · Phồn · Nhật** chỉ hiện khi chữ có dạng giản thể, phồn thể (kiểu Đài Loan) hay chữ Nhật (shinjitai) khác nhau, ví dụ 广 · 廣 · 広 hoặc 国 · 國 · 国. Chữ có nhiều dạng phồn thể thì có nhiều dòng, ví dụ 发: 發 · 発 (phát, phát ra) và 髮 · 髪 (tóc). Chữ đang xem có viền màu. Bấm vào một chữ khác trong hàng để chiết tự chữ đó; chữ nào không bấm được là chữ chưa có dữ liệu phân tích (thường là chữ Nhật). Dữ liệu lấy từ bảng của OpenCC.
 
 ### 3. Xem các thành phần
 

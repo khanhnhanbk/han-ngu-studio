@@ -10,6 +10,7 @@ import { ComponentTree, type GlyphInfo, type PartSelection } from "@/components/
 import { FamilyList } from "@/components/decompose/FamilyList";
 import { NotesBox } from "@/components/decompose/NotesBox";
 import { ShareCard, type ShareCardPart } from "@/components/decompose/ShareCard";
+import { VariantForms } from "@/components/decompose/VariantForms";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { loadWubi, type WubiTable } from "@/lib/anki/load";
@@ -18,6 +19,7 @@ import { etymologyOf } from "@/lib/decompose/ids";
 import { loadDecompose } from "@/lib/decompose/load";
 import { buildTree, strokeColors, treeGlyphs } from "@/lib/decompose/tree";
 import type { DecomposeData, PartNode } from "@/lib/decompose/types";
+import { indexVariants, loadVariants, variantsOf, type VariantIndex } from "@/lib/decompose/variants";
 import { loadHanviet } from "@/lib/hanviet/load";
 import { allCharReadings, type HanvietData } from "@/lib/hanviet/lookup";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
@@ -39,6 +41,7 @@ type Tables = {
   hanviet: HanvietData | null;
   radicals: Radical[] | null;
   wubi: WubiTable | null;
+  variants: VariantIndex | null;
 };
 
 /** The parts of the root's own decomposition, with the keys ComponentTree gives them. */
@@ -108,9 +111,12 @@ export default function DecomposePage() {
       loadHanviet().catch(() => null),
       loadRadicals().catch(() => null),
       loadWubi().catch(() => null),
+      loadVariants()
+        .then(indexVariants)
+        .catch(() => null),
     ])
-      .then(([decompose, hanviet, radicals, wubi]) => {
-        setTables({ decompose, hanviet, radicals, wubi });
+      .then(([decompose, hanviet, radicals, wubi, variants]) => {
+        setTables({ decompose, hanviet, radicals, wubi, variants });
         const params = new URLSearchParams(window.location.hash.slice(1));
         const text = params.get("c") || SAMPLE;
         setInput(text);
@@ -348,6 +354,12 @@ export default function DecomposePage() {
                             </>
                           )}
                         </dl>
+                        <VariantForms
+                          rows={variantsOf(tables.variants, current)}
+                          current={current}
+                          hasData={(c) => Object.hasOwn(tables.decompose, c)}
+                          onOpen={openFromFamily}
+                        />
                         <div className="mt-4 flex flex-wrap gap-2">
                           <a href={strokeHref} className="btn-secondary px-3 py-2">
                             {t.strokeOrder}
