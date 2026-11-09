@@ -35,7 +35,7 @@ Thirteen tools in three groups, as on the site. Every tool follows the **Giản 
 | Tool | Route | What it does |
 |---|---|---|
 | Tra từ (Word lookup) | [`/tools/tra-tu`](https://han-ngu-studio.vercel.app/tools/tra-tu) | Pinyin, Hán Việt, HSK level, part of speech, Vietnamese senses, measure words, examples |
-| Tạo thẻ Anki (Anki decks) | [`/tools/anki`](https://han-ngu-studio.vercel.app/tools/anki) | Pinyin, meanings, HSK level, 1–3 easy examples, Wubi, Hán Việt → ready-to-import **.apkg** (note type + card templates) or TSV; **add every word of an HSK level**, skipping words you marked known |
+| Tạo thẻ Anki (Anki decks) | [`/tools/anki`](https://han-ngu-studio.vercel.app/tools/anki) | Pinyin, meanings, HSK level, 1–3 easy examples, Wubi, Hán Việt → ready-to-import **.apkg** or TSV; the .apkg carries **human voice recordings** and a **"Nghe" (listen) card** that plays the word with no typing, good for a phone; **add every word of an HSK level**, skipping words you marked known |
 | Trắc nghiệm (Quiz) | [`/tools/quiz`](https://han-ngu-studio.vercel.app/tools/quiz) | Meaning, Pinyin, Hán Việt, cloze and sentence-order questions; play, print or TSV |
 | Sắp xếp câu N+1 | [`/tools/comprehensible-input`](https://han-ngu-studio.vercel.app/tools/comprehensible-input) | Orders sentences so each adds about one new word, with a built-in sentence bank |
 
