@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import { SpeakButton } from "@/components/speech/SpeakButton";
 import { SpeechToggle } from "@/components/speech/SpeechToggle";
+import { AncientForms } from "@/components/decompose/AncientForms";
 import { ColoredGlyph } from "@/components/decompose/ColoredGlyph";
 import { ComponentTree, type GlyphInfo, type PartSelection } from "@/components/decompose/ComponentTree";
 import { FamilyList } from "@/components/decompose/FamilyList";
@@ -354,6 +355,18 @@ export default function DecomposePage() {
                             </>
                           )}
                         </dl>
+                        <AncientForms
+                          key={current}
+                          shown={current}
+                          simp={simpChar(current)}
+                          tradForms={Array.from(
+                            new Set(
+                              variantsOf(tables.variants, simpChar(current))
+                                .filter((r) => r[0] === simpChar(current) && r[1] !== r[0])
+                                .map((r) => r[1]),
+                            ),
+                          )}
+                        />
                         <VariantForms
                           rows={variantsOf(tables.variants, current)}
                           current={current}

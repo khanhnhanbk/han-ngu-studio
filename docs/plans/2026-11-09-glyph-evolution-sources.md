@@ -1,6 +1,6 @@
 # Research note: licensed sources for old glyph forms (phase 12d, roadmap B1)
 
-Date: 2026-11-09. Status: **waiting for the owner's decision** (see the end). Nothing ships from this note.
+Date: 2026-11-09. Status: **approved by the owner on 2026-11-09** (Commons ACC, without lệ thư for now); built as described under "Proposed implementation", for the HSK 3.0 characters.
 
 Goal of 12d: a strip per character showing its older forms, giáp cốt (oracle bone) → kim văn (bronze) → triện (seal) → lệ (clerical) → khải (regular), in Chiết tự and later in the "Nguồn gốc chữ" card (12c). HARD RULE: no data without a licence that allows redistribution, and nothing hot-linked.
 

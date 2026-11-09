@@ -11,7 +11,8 @@
     "test": "vitest run",
     "build:data": "node scripts/build-data.mjs",
     "build:audio": "node scripts/build-audio.mjs",
-    "build:vocab-source": "node scripts/build-vocab-source.mjs"
+    "build:vocab-source": "node scripts/build-vocab-source.mjs",
+    "fetch:ancient": "node scripts/fetch-ancient.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",

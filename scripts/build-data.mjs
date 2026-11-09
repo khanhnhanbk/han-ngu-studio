@@ -16,6 +16,7 @@ import * as t2cn from "opencc-js/t2cn";
 import { pinyin } from "pinyin-pro";
 
 import { readCsvFrom } from "./lib/csv.mjs";
+import { ANCIENT_FORMS, ANCIENT_SHARDS, ancientShard } from "./lib/ancient.mjs";
 import { checkMnemonics } from "./lib/mnemonics.mjs";
 import { checkStory, storyIndexEntry } from "./lib/stories.mjs";
 import { normalizeSentence, readMachineTranslations, tatoebaRows } from "./lib/sentences.mjs";
@@ -674,6 +675,47 @@ function buildCvdict() {
   console.log(`cvdict/: ${count} entries in ${CVDICT_SHARDS} shards (largest ${Math.round(largest / 1024)} KB)`);
 }
 buildCvdict();
+
+/**
+ * ancient/<n>.json: old glyph forms for Chiết tự (phase 12d), from
+ * assets/ancient/ (Wikimedia Commons ACC, public domain / CC0, fetched once by
+ * `pnpm fetch:ancient`). { 车: { oracle: [svg, name], … } } where name is the
+ * character in the Commons file name (車 when the file is 車-oracle.svg), so
+ * the page can link to the file and tell 發 from 髮. Sharded by
+ * ancientShard(), like cvdict.
+ */
+function buildAncient() {
+  const dir = join(OUT, "ancient");
+  rmSync(dir, { recursive: true, force: true });
+  if (!statSync(join(ROOT, "assets/ancient/glyphs.json"), { throwIfNoEntry: false })) return;
+  mkdirSync(dir, { recursive: true });
+  const glyphs = JSON.parse(readFileSync(join(ROOT, "assets/ancient/glyphs.json"), "utf-8"));
+  const names = new Map();
+  for (const { char, form, file } of readCsvFrom(join(ROOT, "assets/ancient"), "manifest.tsv", "\t")) {
+    names.set(`${char} ${form}`, file.slice(0, file.lastIndexOf(`-${form}.svg`)));
+  }
+  const shards = Array.from({ length: ANCIENT_SHARDS }, () => ({}));
+  let files = 0;
+  for (const [char, forms] of Object.entries(glyphs)) {
+    const entry = {};
+    for (const form of ANCIENT_FORMS) {
+      if (!forms[form]) continue;
+      const name = names.get(`${char} ${form}`);
+      if (!name) throw new Error(`ancient: ${char} ${form} is not in manifest.tsv`);
+      entry[form] = [forms[form], name];
+      files++;
+    }
+    shards[ancientShard(char)][char] = entry;
+  }
+  let largest = 0;
+  shards.forEach((shard, i) => {
+    const json = JSON.stringify(shard);
+    largest = Math.max(largest, Buffer.byteLength(json));
+    writeFileSync(join(dir, `${i}.json`), json);
+  });
+  console.log(`ancient/: ${Object.keys(glyphs).length} characters, ${files} forms in ${ANCIENT_SHARDS} shards (largest ${Math.round(largest / 1024)} KB)`);
+}
+buildAncient();
 
 /**
  * Story reader ("Truyện đọc"): our own short stories, drafted with AI help and
