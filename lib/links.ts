@@ -15,7 +15,8 @@ export type ToolId =
   | "decompose"
   | "comprehensibleInput"
   | "stories"
-  | "lookup";
+  | "lookup"
+  | "path";
 
 export type ToolGroupId = "chars" | "text" | "vocab";
 
@@ -33,6 +34,7 @@ const HREF: Record<ToolId, string> = {
   comprehensibleInput: "/tools/comprehensible-input",
   stories: "/tools/stories",
   lookup: "/tools/tra-tu",
+  path: "/tools/lo-trinh",
 };
 
 /**
@@ -42,7 +44,7 @@ const HREF: Record<ToolId, string> = {
  */
 export const TOOL_GROUPS: ReadonlyArray<{ id: ToolGroupId; tools: ReadonlyArray<{ id: ToolId; href: string }> }> = (
   [
-    { id: "chars", tools: ["strokeOrder", "decompose", "radicals", "practiceSheet"] },
+    { id: "chars", tools: ["path", "strokeOrder", "decompose", "radicals", "practiceSheet"] },
     { id: "text", tools: ["reader", "stories", "pinyin", "hanviet", "segment"] },
     { id: "vocab", tools: ["lookup", "anki", "quiz", "comprehensibleInput"] },
   ] as const

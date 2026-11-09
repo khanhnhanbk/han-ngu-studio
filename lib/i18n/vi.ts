@@ -26,6 +26,7 @@ export const vi = {
     practiceSheet: "Phiếu tập viết",
     strokeOrder: "Thứ tự nét",
     lookup: "Tra từ",
+    path: "Lộ trình 1000 chữ",
     groups: {
       chars: { title: "Chữ Hán", hint: "Học từng chữ" },
       text: { title: "Đọc văn bản", hint: "Dán câu hoặc đoạn văn" },
@@ -46,6 +47,7 @@ export const vi = {
       quiz: "Tạo bài trắc nghiệm, in đề",
       comprehensibleInput: "Xếp câu từ dễ đến khó",
       lookup: "Nghĩa, từ loại, lượng từ, câu ví dụ",
+      path: "Học 1000 chữ thông dụng theo chặng",
     },
   },
   hero: {
@@ -83,6 +85,12 @@ export const vi = {
         description:
           "Xem hoạt hình từng nét của chữ Hán, tự viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho các chữ đó.",
         cta: "Tra thứ tự nét",
+      },
+      path: {
+        title: "Lộ trình 1000 chữ",
+        description:
+          "1000 chữ Hán thông dụng (đủ mọi chữ HSK 1–3) chia thành 10 chặng: thành phần học trước, chữ ghép từ nó học sau. Đánh dấu chữ đã học, tạo thẻ Anki hay phiếu tập viết cho từng chặng.",
+        cta: "Bắt đầu lộ trình",
       },
       lookup: {
         title: "Tra từ",
@@ -164,12 +172,6 @@ export const vi = {
     items: [
       {
         status: "next",
-        title: "Lộ trình 1000 chữ",
-        description:
-          "Học 1000 chữ Hán thông dụng theo từng chặng khoảng 100 chữ: thành phần học trước, chữ ghép từ nó học sau. Mỗi chặng tải được thành bộ thẻ Anki.",
-      },
-      {
-        status: "planned",
         title: "Nguồn gốc chữ",
         description:
           "Trong Chiết tự: nghĩa gốc của chữ và vì sao có nghĩa ngày nay, có ghi nguồn, tách bạch với mẹo nhớ.",
@@ -985,6 +987,32 @@ export const vi = {
     close: "Đóng",
     credits:
       "Tên và nghĩa bộ thủ: Hán Ngữ Studio biên soạn, có tham khảo danh sách của PREP (prepedu.com). Chữ thuộc bộ: Unicode Unihan (Unicode License v3). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa.",
+  },
+  path: {
+    title: "Lộ trình 1000 chữ",
+    subtitle:
+      "1000 chữ Hán thông dụng nhất, có đủ mọi chữ HSK 1–3, chia thành 10 chặng khoảng 100 chữ. Thành phần được học trước chữ ghép từ nó (人 trước 你, 青 trước 清), còn lại theo độ thông dụng.",
+    loading: "Đang tải dữ liệu…",
+    loadFailed: "Không tải được dữ liệu. Vui lòng kiểm tra kết nối mạng và thử lại.",
+    stages: "Các chặng",
+    stage: "Chặng {n}",
+    stageRange: "chữ {from}–{to}",
+    stageProgress: "Đã học {n}/{total}",
+    total: "Đã học {n}/{total} chữ",
+    anki: "Tạo thẻ Anki cho chặng này",
+    sheet: "Tạo phiếu tập viết",
+    families: "Họ chữ cùng phần gợi âm",
+    familiesHint: "Các chữ trong chặng có chung một phần gợi âm, thường đọc gần giống nhau: học cùng lúc cho dễ nhớ.",
+    openDecompose: "Chiết tự chữ {char}",
+    learned: "Đã học",
+    export: "Tải tiến độ (TSV)",
+    import: "Nhập tiến độ từ file TSV",
+    imported: "Đã nhập {n} chữ đã học.",
+    importEmpty: "File không có chữ nào hợp lệ.",
+    unsaved: "Trình duyệt không cho lưu (chế độ ẩn danh?). Hãy tải file để giữ tiến độ.",
+    privacy: "Tiến độ chỉ được lưu trên trình duyệt này, không gửi đi đâu. Hãy tải file TSV để chuyển sang máy khác.",
+    credits:
+      "Thứ tự thông dụng: SUBTLEX-CH (Cai & Brysbaert, 2010). Thành phần và cách tạo chữ: Make Me a Hanzi (LGPL-3.0). Cấp HSK: danh sách HSK 3.0 (GF 0025-2021; ivankra/hsk30, MIT). Nghĩa tiếng Việt: CVDICT của Phong Phan (CC BY-SA 4.0). Âm Hán Việt: hanviet-pinyin-wordlist của Phong Phan (MIT), có chỉnh sửa.",
   },
   decompose: {
     title: "Chiết tự chữ Hán",
