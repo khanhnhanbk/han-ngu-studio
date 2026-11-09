@@ -22,7 +22,19 @@ export const NOTE_TYPE_FIELDS: readonly Column[] = [
   "pos",
 ];
 
-export type CardTemplateId = "recognize" | "recall" | "sentence" | "type";
+/**
+ * The .apkg note type (lib/anki/apkg.ts): the TSV fields plus two that only a
+ * package can carry, the memory stories of the word's characters and its
+ * recording ([sound:…], the file is inside the package). A new note type,
+ * "Hán Ngữ Studio 2", so decks imported with the first one stay as they are.
+ */
+export const APKG_NOTE_TYPE_NAME = "Hán Ngữ Studio 2";
+export const APKG_EXTRA_FIELDS = ["mnemonic", "audio"] as const;
+export type ApkgField = Column | (typeof APKG_EXTRA_FIELDS)[number];
+export const APKG_FIELDS: readonly ApkgField[] = [...NOTE_TYPE_FIELDS, ...APKG_EXTRA_FIELDS];
+
+/** "listen" (Nghe) exists only in the .apkg: it needs the audio field. */
+export type CardTemplateId = "recognize" | "recall" | "sentence" | "type" | "listen";
 export type CardTemplate = { id: CardTemplateId; front: string; back: string };
 
 /** Shared styling (Anki: Cards → Styling). Night mode follows Anki's own class. */
@@ -52,7 +64,9 @@ export const CARD_CSS = `.card {
 .hint { font-size: 16px; color: #a8a29e; margin-top: 8px; }
 .extra { font-size: 13px; color: #a8a29e; margin-top: 16px; }
 .example { margin-top: 16px; }
-#typeans { font-family: "LXGW WenKai TC", "KaiTi", serif; font-size: 28px; }`;
+#typeans { font-family: "LXGW WenKai TC", "KaiTi", serif; font-size: 28px; }
+.mnemonic { font-size: 16px; margin-top: 12px; text-align: left; }
+.listen { font-size: 40px; margin: 24px 0 8px; }`;
 
 const MEANING = `{{#meaning_vi}}<div class="meaning">{{meaning_vi}}</div>{{/meaning_vi}}
 {{^meaning_vi}}<div class="meaning">{{meaning}}</div>{{/meaning_vi}}`;
@@ -68,7 +82,7 @@ const EXAMPLE = `{{#sentence}}
 {{/sentence}}`;
 
 /** Words written into the templates, in the page's language. */
-export type CardLabels = { hanviet: string; wubi: string };
+export type CardLabels = { hanviet: string; wubi: string; mnemonic?: string; listen?: string };
 
 /** The four suggested card types, with their labels in one language. */
 export function cardTemplates(labels: CardLabels = { hanviet: "Hán Việt", wubi: "Ngũ bút" }): readonly CardTemplate[] {
@@ -131,6 +145,35 @@ ${POS}
 ${EXAMPLE}`,
   },
   ];
+}
+
+/**
+ * The .apkg templates: the four above with the recording on every back (Anki
+ * plays it when the answer shows) and the memory stories on Nhận diện, plus
+ * Nghe: the front only plays the word; tap to see it. No typing, so it suits
+ * a phone. Field names are APKG_FIELDS.
+ */
+export function apkgTemplates(
+  labels: CardLabels = { hanviet: "Hán Việt", wubi: "Ngũ bút", mnemonic: "Mẹo nhớ", listen: "Nghe rồi nhớ lại từ và nghĩa" },
+): readonly CardTemplate[] {
+  const MNEMONIC = `{{#mnemonic}}<div class="mnemonic"><b>${labels.mnemonic ?? "Mẹo nhớ"}:</b> {{mnemonic}}</div>{{/mnemonic}}`;
+  const base = cardTemplates(labels).map((t) => ({
+    ...t,
+    back: `${t.back}\n{{audio}}${t.id === "recognize" ? `\n${MNEMONIC}` : ""}`,
+  }));
+  const listen: CardTemplate = {
+    id: "listen",
+    front: `<div class="listen">{{audio}}</div>
+<div class="hint">${labels.listen ?? "Nghe rồi nhớ lại từ và nghĩa"}</div>`,
+    back: `{{FrontSide}}
+<hr id="answer">
+<div class="hanzi">{{word}}</div>
+<div class="pinyin">{{pinyin}}</div>
+<div class="hanviet">{{hanviet}}</div>
+${MEANING}
+${MNEMONIC}`,
+  };
+  return [...base, listen];
 }
 
 /** The Vietnamese templates (the default labels). */

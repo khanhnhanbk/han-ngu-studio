@@ -21,8 +21,13 @@ import {
 import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE, type WubiTable } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
 import { APKG_FILES, loadSqlJs } from "@/lib/anki/sqlite";
-import { cardTemplates, type CardTemplateId } from "@/lib/anki/templates";
-import { confirmDownload } from "@/lib/data/budget";
+import { apkgTemplates, type CardTemplateId } from "@/lib/anki/templates";
+import { audioFileName, joinRecordings, loadAudioIndex, loadShards, recordingsFor, shardPath } from "@/lib/anki/audio";
+import { wordMnemonic } from "@/lib/anki/mnemonic";
+import type { RowExtras } from "@/lib/anki/apkg";
+import { loadMnemonics } from "@/lib/decompose/mnemonics";
+import { defaultTone3 } from "@/lib/speech/tone";
+import { confirmDownload, formatBytes } from "@/lib/data/budget";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { downloadBytes, downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
@@ -39,13 +44,17 @@ import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 import { FileInput } from "@/components/FileInput";
 
+/** "34 KB" under 1 MB, else "2,4 MB". */
+const fileSize = (bytes: number) => (bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : formatBytes(bytes));
+
 const SAMPLE = "大学\n学习\n朋友\n喜欢\n电脑";
 
 // Wider inputs for the long text columns.
 const WIDE: ReadonlySet<Column> = new Set(["meaning", "sentence", "sentence_pinyin", "sentence_meaning", "meaning_vi"]);
 // Columns holding one line per example when a card has several.
 const EXAMPLE_COLUMNS: ReadonlySet<Column> = new Set(["sentence", "sentence_pinyin", "sentence_meaning"]);
-const CARD_TYPES: readonly CardTemplateId[] = ["recognize", "recall", "sentence", "type"];
+// Nghe first: it needs no typing, so it suits a phone.
+const CARD_TYPES: readonly CardTemplateId[] = ["listen", "recognize", "recall", "sentence", "type"];
 
 /** A file name from the deck name ("Tiếng Trung::HSK 1" → "Tiếng Trung - HSK 1.apkg"). */
 const apkgFileName = (deck: string) =>
@@ -74,8 +83,11 @@ export default function AnkiPage() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const [deckName, setDeckName] = useState(dict.anki.defaultDeck);
-  // Start with the two basic cards; the guide suggests adding others later.
-  const [cardTypes, setCardTypes] = useState<Set<CardTemplateId>>(() => new Set(["recognize", "recall"]));
+  // Start with the basic cards that need no typing; the guide suggests adding others later.
+  const [cardTypes, setCardTypes] = useState<Set<CardTemplateId>>(() => new Set(["listen", "recognize", "recall"]));
+  // Human recordings packed into the .apkg (the "Nghe" card needs them).
+  const [withAudio, setWithAudio] = useState(true);
+  const [apkgStatus, setApkgStatus] = useState("");
   const [apkgBusy, setApkgBusy] = useState(false);
   const [apkgError, setApkgError] = useState("");
   // "Thêm từ theo cấp HSK": level, part (levels over MAX_WORDS are split), skip known words.
@@ -193,9 +205,44 @@ export default function AnkiPage() {
     });
   }
 
+  /**
+   * Memory stories and recordings for each row (built.rows are Simplified, in
+   * the same order as rows). Recordings come from the audio shards, which are
+   * fetched only now and only those the words need.
+   */
+  async function rowExtras(): Promise<{ extras: RowExtras[]; media: Map<string, Uint8Array>; noSound: number }> {
+    const words = (built?.rows ?? []).map((r) => r.word);
+    const mnemonics = await loadMnemonics().catch(() => null);
+    const labels = { goc: dict.decompose.kinds.goc, draft: dict.decompose.suggestionDraft };
+    const extras: RowExtras[] = words.map((w) => ({ mnemonic: wordMnemonic(mnemonics, w, labels) }));
+    const media = new Map<string, Uint8Array>();
+    if (!withAudio || words.length === 0) return { extras, media, noSound: 0 };
+
+    const index = await loadAudioIndex(words);
+    const plans = words.map((w) => recordingsFor(index, w, defaultTone3(w)));
+    const paths = Array.from(new Set(plans.flatMap((p) => (p ?? []).map(shardPath))));
+    setApkgStatus(dict.anki.audioLoading.replace("{done}", "0").replace("{total}", String(paths.length)));
+    const shards = await loadShards(paths, (done) =>
+      setApkgStatus(dict.anki.audioLoading.replace("{done}", String(done)).replace("{total}", String(paths.length))),
+    );
+    let noSound = 0;
+    for (const [i, plan] of plans.entries()) {
+      const bytes = plan ? joinRecordings(plan, shards) : null;
+      if (!bytes) {
+        noSound++;
+        continue;
+      }
+      const name = await audioFileName(words[i]);
+      media.set(name, bytes);
+      extras[i].audio = name;
+    }
+    return { extras, media, noSound };
+  }
+
   /** The deck as one .apkg file (note type + templates included); SQLite loads only now. */
   async function handleApkg() {
     setApkgError("");
+    setApkgStatus("");
     setApkgBusy(true);
     try {
       if (!(await confirmDownload(APKG_FILES))) return setApkgError(dict.download.declined);
@@ -205,14 +252,25 @@ export default function AnkiPage() {
         string
       >;
       const deck = cleanDeckName(deckName, dict.anki.defaultDeck);
+      const { extras, media, noSound } = await rowExtras();
       const bytes = await buildApkg(SQL, rows, {
         deckName: deck,
-        templates: cardTemplates(dict.ankiGuide.cardLabels),
+        templates: apkgTemplates(dict.ankiGuide.cardLabels),
         cardTypes,
         templateNames: names,
         columns,
+        extras,
+        media,
       });
       downloadBytes(bytes, apkgFileName(deck), "application/apkg");
+      setApkgStatus(
+        withAudio
+          ? dict.anki.audioDone
+              .replace("{n}", String(media.size))
+              .replace("{size}", fileSize(bytes.length))
+              .concat(noSound ? ` ${dict.anki.audioMissing.replace("{n}", String(noSound))}` : "")
+          : "",
+      );
     } catch {
       setApkgError(dict.anki.apkgFailed);
     } finally {
@@ -435,6 +493,14 @@ export default function AnkiPage() {
                           ))}
                         </div>
                       </fieldset>
+                      <label className="mt-4 flex items-start gap-2 text-sm text-ink-700">
+                        <input type="checkbox" className="mt-1" checked={withAudio} onChange={(e) => setWithAudio(e.target.checked)} />
+                        <span>
+                          <span className="font-medium">{dict.anki.audio}</span>
+                          <span className="block text-xs text-ink-500">{dict.anki.audioHint}</span>
+                        </span>
+                      </label>
+                      {cardTypes.has("listen") && !withAudio && <p className="mt-2 text-sm text-red-600">{dict.anki.listenNeedsAudio}</p>}
                       {cardTypes.size === 0 && <p className="mt-3 text-sm text-red-600">{dict.anki.noCardTypes}</p>}
                       <div className="mt-4">
                         <IconButton
@@ -446,6 +512,9 @@ export default function AnkiPage() {
                           {apkgBusy ? dict.anki.apkgBuilding : dict.anki.apkg}
                         </IconButton>
                       </div>
+                      <p className="mt-2 min-h-5 text-xs text-ink-500" aria-live="polite">
+                        {apkgStatus}
+                      </p>
                       {apkgError && <p className="mt-3 text-sm text-red-600">{apkgError}</p>}
                     </div>
 

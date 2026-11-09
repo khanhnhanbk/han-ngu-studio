@@ -4,13 +4,16 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { buildApkg, cleanDeckName, deckId, fieldChecksum, noteGuid, stripHtml, type ApkgOptions } from "./apkg";
 import { COLUMNS, type DeckRow } from "./buildDeck";
-import { CARD_TEMPLATES, NOTE_TYPE_FIELDS, NOTE_TYPE_NAME, SAMPLE_ROW, type CardTemplateId } from "./templates";
+import { APKG_FIELDS, APKG_NOTE_TYPE_NAME, apkgTemplates, SAMPLE_ROW, type CardTemplateId } from "./templates";
+
+const TEMPLATES = apkgTemplates();
 
 const NAMES: Record<CardTemplateId, string> = {
   recognize: "Nhận diện",
   recall: "Nhớ chữ",
   sentence: "Câu ví dụ",
   type: "Gõ chữ",
+  listen: "Nghe",
 };
 
 const rows: DeckRow[] = [
@@ -35,7 +38,7 @@ const rows: DeckRow[] = [
 
 const options = (over: Partial<ApkgOptions> = {}): ApkgOptions => ({
   deckName: "Tiếng Trung::HSK 1",
-  templates: CARD_TEMPLATES,
+  templates: TEMPLATES,
   cardTypes: new Set<CardTemplateId>(["recognize", "recall", "sentence", "type"]),
   templateNames: NAMES,
   columns: COLUMNS,
@@ -95,10 +98,10 @@ describe("buildApkg", () => {
       css: string;
     }>;
     expect(models).toHaveLength(1);
-    expect(models[0].name).toBe(NOTE_TYPE_NAME);
-    expect(models[0].flds.map((f) => f.name)).toEqual(NOTE_TYPE_FIELDS);
-    expect(models[0].tmpls.map((t) => t.name)).toEqual(["Nhận diện", "Nhớ chữ", "Câu ví dụ", "Gõ chữ"]);
-    expect(models[0].tmpls[0].qfmt).toBe(CARD_TEMPLATES[0].front);
+    expect(models[0].name).toBe(APKG_NOTE_TYPE_NAME);
+    expect(models[0].flds.map((f) => f.name)).toEqual(APKG_FIELDS);
+    expect(models[0].tmpls.map((t) => t.name)).toEqual(["Nhận diện", "Nhớ chữ", "Câu ví dụ", "Gõ chữ", "Nghe"]);
+    expect(models[0].tmpls[0].qfmt).toBe(TEMPLATES[0].front);
 
     const deckNames = Object.values(JSON.parse(String(decksJson)) as Record<string, { name: string }>).map((d) => d.name);
     expect(deckNames.sort()).toEqual(["Default", "Tiếng Trung::HSK 1"]);
@@ -106,7 +109,8 @@ describe("buildApkg", () => {
     const notes = all(db, "SELECT flds, sfld, csum, tags FROM notes ORDER BY id");
     expect(notes).toHaveLength(3);
     const fields = String(notes[0][0]).split("\x1f");
-    expect(fields).toEqual(NOTE_TYPE_FIELDS.map((c) => SAMPLE_ROW[c]));
+    // No extras given: the mnemonic and audio fields are empty.
+    expect(fields).toEqual(APKG_FIELDS.map((c) => (c === "mnemonic" || c === "audio" ? "" : SAMPLE_ROW[c])));
     expect(notes[0][1]).toBe("学习");
     expect(notes[0][2]).toBe(2861161827);
     expect(notes[0][3]).toBe(" HanNguStudio HSK1 ");
@@ -126,8 +130,8 @@ describe("buildApkg", () => {
     const models = JSON.parse(String(all(db, "SELECT models FROM col")[0][0])) as Record<string, { name: string; tmpls: unknown[] }>;
     const full = await open(await buildApkg(SQL, rows, options()));
     expect(Object.keys(models)).toEqual(Object.keys(JSON.parse(String(all(full, "SELECT models FROM col")[0][0]))));
-    expect(Object.values(models)[0].name).toBe(NOTE_TYPE_NAME);
-    expect(Object.values(models)[0].tmpls).toHaveLength(4);
+    expect(Object.values(models)[0].name).toBe(APKG_NOTE_TYPE_NAME);
+    expect(Object.values(models)[0].tmpls).toHaveLength(5);
     expect(all(db, "SELECT DISTINCT ord FROM cards ORDER BY ord")).toEqual([[0], [3]]);
     expect(all(db, "SELECT count(*) FROM cards")[0][0]).toBe(6);
     full.close();
@@ -146,5 +150,35 @@ describe("buildApkg", () => {
     expect(all(a, "SELECT guid FROM notes ORDER BY id")).toEqual(all(b, "SELECT guid FROM notes ORDER BY id"));
     a.close();
     b.close();
+  });
+
+  it("packs recordings as media and makes Nghe cards only for words with sound", async () => {
+    const mp3 = new Uint8Array([0xff, 0xfb, 1, 2, 3]);
+    const bytes = await buildApkg(
+      SQL,
+      rows,
+      options({
+        cardTypes: new Set<CardTemplateId>(["listen", "recognize"]),
+        extras: [{ audio: "hns-a.mp3", mnemonic: "学: <x> & y" }, { audio: "hns-missing.mp3" }, undefined],
+        media: new Map([["hns-a.mp3", mp3]]),
+      }),
+    );
+    const files = unzipSync(bytes);
+    expect(Object.keys(files).sort()).toEqual(["0", "collection.anki2", "media"]);
+    expect(JSON.parse(strFromU8(files.media))).toEqual({ 0: "hns-a.mp3" });
+    expect(files["0"]).toEqual(mp3);
+    const db = new SQL.Database(files["collection.anki2"]);
+    const notes = all(db, "SELECT flds FROM notes ORDER BY id").map((r) => String(r[0]).split("\x1f"));
+    const at = (f: string) => APKG_FIELDS.indexOf(f as (typeof APKG_FIELDS)[number]);
+    expect(notes[0][at("audio")]).toBe("[sound:hns-a.mp3]");
+    expect(notes[0][at("mnemonic")]).toBe("学: &lt;x&gt; &amp; y");
+    // A file name with no bytes in the package gives no sound.
+    expect(notes[1][at("audio")]).toBe("");
+    // Nghe (ord 4) only for the first word; Nhận diện for all three.
+    expect(all(db, "SELECT ord, count(*) FROM cards GROUP BY ord ORDER BY ord")).toEqual([
+      [0, 3],
+      [4, 1],
+    ]);
+    db.close();
   });
 });

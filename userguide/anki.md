@@ -88,7 +88,16 @@ Chọn **繁 Phồn thể** (nút **⚙** trên thanh menu → **Loại chữ**)
 - **Máy tính**: bấm đúp vào file `.apkg` (Anki tự mở và import), hoặc trong Anki chọn **File → Import** rồi chọn file.
 - **AnkiDroid**: mở file bằng AnkiDroid (từ thư mục Tải xuống), hoặc trong AnkiDroid bấm **⋮ → Import**.
 
-File đã có sẵn bộ thẻ, loại ghi chú **Hán Ngữ Studio** với 4 mẫu thẻ và các thẻ mới theo thứ tự danh sách của bạn. Không cần tạo trường hay dán mẫu thẻ.
+File đã có sẵn bộ thẻ, loại ghi chú **Hán Ngữ Studio 2** với 5 mẫu thẻ và các thẻ mới theo thứ tự danh sách của bạn. Không cần tạo trường hay dán mẫu thẻ.
+
+### Ôn trên điện thoại: thẻ **Nghe** và giọng đọc
+
+- Ô **Kèm giọng đọc người thật** (bật sẵn) gói file phát âm của từng từ vào file `.apkg` (giọng người thật của audio-cmn). Dữ liệu giọng đọc chỉ được tải khi bạn bấm tải bộ thẻ; dòng bên dưới nút cho biết tiến độ, số từ có giọng đọc và dung lượng file. Từ không có bản ghi riêng thì dùng âm tiết ghép lại; từ có thanh nhẹ mà không có bản ghi thì không có âm thanh.
+- Thẻ **Nghe**: mở thẻ là Anki tự đọc từ, bạn nhớ lại chữ và nghĩa rồi chạm để xem đáp án. Không phải gõ, hợp để ôn trên điện thoại. Thẻ Nghe chỉ được tạo cho từ có giọng đọc.
+- Các thẻ khác đọc từ khi lật mặt sau. Thẻ **Nhận diện** còn có dòng **Mẹo nhớ** cho các chữ có mẹo gợi ý (hiện là chữ HSK 1).
+- Mặc định chọn sẵn **Nghe**, **Nhận diện** và **Nhớ chữ**: ba loại không cần gõ. **Gõ chữ** chỉ nên bật khi ôn trên máy tính.
+
+**Đã import bộ thẻ cũ (loại ghi chú "Hán Ngữ Studio")?** File mới dùng loại ghi chú mới **Hán Ngữ Studio 2**, nên Anki thêm thẻ mới chứ không sửa thẻ cũ. Nếu không cần lịch ôn của bộ cũ nữa, bạn có thể xóa bộ cũ trong Anki rồi dùng bộ mới.
 
 ## Import file .tsv vào Anki trên máy tính
 
@@ -125,6 +134,8 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 
 | Hiện tượng | Cách xử lý |
 |---|---|
+| Thẻ không phát âm | Trên AnkiDroid, kiểm tra âm lượng phương tiện và mục **Cài đặt → Âm thanh** (tự phát âm thanh). Trên máy tính, bấm biểu tượng ▶ trên thẻ. Từ ghi “… từ chưa có giọng đọc” khi tải thì không có file âm thanh. |
+| Có hai bộ thẻ trùng từ sau khi import | Bộ cũ dùng loại ghi chú **Hán Ngữ Studio**, bộ mới dùng **Hán Ngữ Studio 2**. Xóa bộ cũ nếu không cần lịch ôn của nó. |
 | "… từ chưa thêm vì vượt 1000 từ" | Ô lớn chỉ nhận tối đa 1000 từ. Xóa bớt từ trong ô, hoặc tạo bộ thẻ cho từng phần một. |
 | "Vui lòng nhập ít nhất một từ." | Ô nhập đang trống. |
 | "Quá nhiều từ (tối đa 1000 từ)." | Chia danh sách thành nhiều lần. |

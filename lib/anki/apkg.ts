@@ -2,11 +2,12 @@ import { strToU8, zipSync } from "fflate";
 import type { Database, SqlJsStatic } from "sql.js";
 
 import { EXAMPLE_SEPARATOR, type Column, type DeckRow } from "./buildDeck";
-import { CARD_CSS, NOTE_TYPE_FIELDS, NOTE_TYPE_NAME, type CardTemplate, type CardTemplateId } from "./templates";
+import { APKG_FIELDS, APKG_NOTE_TYPE_NAME, CARD_CSS, type ApkgField, type CardTemplate, type CardTemplateId } from "./templates";
 
 /**
- * A ready-to-import Anki package (.apkg): the deck, the "Hán Ngữ Studio" note
- * type with its four card templates and one new card per chosen template and word,
+ * A ready-to-import Anki package (.apkg): the deck, the "Hán Ngữ Studio 2" note
+ * type with its five card templates (lib/anki/templates.ts apkgTemplates), the
+ * word recordings as media, and one new card per chosen template and word,
  * so the learner skips creating fields, pasting templates and mapping columns.
  *
  * Format: the legacy collection.anki2 (schema 11, as written by genanki),
@@ -14,20 +15,30 @@ import { CARD_CSS, NOTE_TYPE_FIELDS, NOTE_TYPE_NAME, type CardTemplate, type Car
  * the browser with sql.js; nothing is uploaded.
  */
 
-/** Fixed id so every export reuses the same note type in the user's collection. */
-const MODEL_ID = 1_729_800_000_015;
-const TEMPLATE_IDS: readonly CardTemplateId[] = ["recognize", "recall", "sentence", "type"];
+/**
+ * Fixed id so every export reuses the same note type in the user's collection.
+ * "Hán Ngữ Studio 2" (with the mnemonic and audio fields) has its own id and
+ * guids: the first note type (1_729_800_000_015) and the notes made with it
+ * are left alone, never half-updated with a different field list.
+ */
+const MODEL_ID = 1_762_650_000_002;
+const GUID_SALT = "han-ngu-studio-2";
+const TEMPLATE_IDS: readonly CardTemplateId[] = ["recognize", "recall", "sentence", "type", "listen"];
 
 /**
  * A card is created only when its front shows something: the fields of which
  * at least one must be non-empty (as Anki's "req" would decide).
  */
-const REQUIRED: Record<CardTemplateId, readonly Column[]> = {
+const REQUIRED: Record<CardTemplateId, readonly ApkgField[]> = {
   recognize: ["word"],
   recall: ["meaning", "meaning_vi"],
   sentence: ["sentence"],
   type: ["pinyin", "meaning", "meaning_vi"],
+  listen: ["audio"],
 };
+
+/** Per row: the memory stories (HTML-free text) and the recording's file name inside the package. */
+export type RowExtras = { mnemonic?: string; audio?: string };
 
 export type ApkgOptions = {
   deckName: string;
@@ -38,6 +49,10 @@ export type ApkgOptions = {
   templateNames: Record<CardTemplateId, string>;
   /** Columns the user kept; the others are exported empty. */
   columns: readonly Column[];
+  /** Extras for each row (same order as `rows`). */
+  extras?: readonly (RowExtras | undefined)[];
+  /** Media files: name (as in [sound:name]) → bytes. */
+  media?: ReadonlyMap<string, Uint8Array>;
   /** Fixed time for reproducible output in tests (ms). */
   now?: number;
 };
@@ -78,7 +93,7 @@ const BASE91 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#
  * notes instead of adding duplicates. BigInt keeps all 64 bits exact.
  */
 export async function noteGuid(word: string): Promise<string> {
-  let n = BigInt(`0x${hex((await sha1(`han-ngu-studio:${word}`)).slice(0, 8))}`);
+  let n = BigInt(`0x${hex((await sha1(`${GUID_SALT}:${word}`)).slice(0, 8))}`);
   let out = "";
   do {
     out = BASE91[Number(n % 91n)] + out;
@@ -157,7 +172,7 @@ export function cleanDeckName(name: string, fallback: string): string {
 export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], options: ApkgOptions): Promise<Uint8Array> {
   const nowMs = options.now ?? Date.now();
   const now = Math.floor(nowMs / 1000);
-  const deckName = cleanDeckName(options.deckName, NOTE_TYPE_NAME);
+  const deckName = cleanDeckName(options.deckName, APKG_NOTE_TYPE_NAME);
   const did = await deckId(deckName);
 
   if (!TEMPLATE_IDS.some((id) => options.cardTypes.has(id))) throw new Error("No card type chosen");
@@ -169,7 +184,7 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
   const model = {
     css: CARD_CSS,
     did,
-    flds: NOTE_TYPE_FIELDS.map((name, ord) => ({
+    flds: APKG_FIELDS.map((name, ord) => ({
       name,
       ord,
       font: "Arial",
@@ -184,8 +199,8 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
       "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
     latexsvg: false,
     mod: now,
-    name: NOTE_TYPE_NAME,
-    req: TEMPLATE_IDS.map((id, ord) => [ord, "any", REQUIRED[id].map((f) => NOTE_TYPE_FIELDS.indexOf(f))]),
+    name: APKG_NOTE_TYPE_NAME,
+    req: TEMPLATE_IDS.map((id, ord) => [ord, "any", REQUIRED[id].map((f) => APKG_FIELDS.indexOf(f))]),
     sortf: 0,
     tags: [],
     tmpls: TEMPLATE_IDS.map((id, ord) => {
@@ -234,7 +249,13 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
     const insertCard = db.prepare("INSERT INTO cards VALUES (?, ?, ?, ?, ?, -1, 0, 0, ?, 0, 0, 0, 0, 0, 0, 0, 0, '')");
     let cardId = nowMs;
     for (const [i, row] of rows.entries()) {
-      const fields = NOTE_TYPE_FIELDS.map((c) => (kept.has(c) ? fieldHtml(row[c]) : ""));
+      const extra = options.extras?.[i];
+      const media = options.media;
+      const fields = APKG_FIELDS.map((c) => {
+        if (c === "mnemonic") return fieldHtml(extra?.mnemonic ?? "");
+        if (c === "audio") return extra?.audio && media?.has(extra.audio) ? `[sound:${extra.audio}]` : "";
+        return kept.has(c) ? fieldHtml(row[c]) : "";
+      });
       const nid = nowMs + i;
       const tags = ["HanNguStudio", ...(kept.has("hsk_level") && row.hsk_level ? [levelTag(row.hsk_level)] : [])];
       insertNote.run([
@@ -249,7 +270,7 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
       ]);
       for (const [ord, id] of TEMPLATE_IDS.entries()) {
         if (!options.cardTypes.has(id)) continue;
-        const shows = REQUIRED[id].some((c) => fields[NOTE_TYPE_FIELDS.indexOf(c)] !== "");
+        const shows = REQUIRED[id].some((c) => fields[APKG_FIELDS.indexOf(c)] !== "");
         // due = position: new cards are learned in the list's order.
         if (shows) insertCard.run([cardId++, nid, did, ord, now, i + 1]);
       }
@@ -257,7 +278,15 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
     insertNote.free();
     insertCard.free();
 
-    return zipSync({ "collection.anki2": db.export(), media: strToU8("{}") });
+    // Media: files named "0", "1", … in the zip, with "media" mapping them to their names.
+    const zip: Record<string, Uint8Array> = { "collection.anki2": db.export() };
+    const names: Record<string, string> = {};
+    for (const [n, [name, bytes]] of [...(options.media ?? new Map<string, Uint8Array>())].entries()) {
+      zip[String(n)] = bytes;
+      names[String(n)] = name;
+    }
+    zip.media = strToU8(JSON.stringify(names));
+    return zipSync(zip);
   } finally {
     db.close();
   }
