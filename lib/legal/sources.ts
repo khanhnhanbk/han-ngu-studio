@@ -17,6 +17,7 @@ export type SourceId =
   | "subtlex"
   | "wordlist"
   | "variants"
+  | "ancient"
   | "libraries"
   | "fonts";
 
@@ -44,6 +45,7 @@ export const SOURCES: readonly Source[] = [
   { id: "subtlex", name: "SUBTLEX-CH · Cai & Brysbaert (2010), PLoS ONE 5(6): e10729", url: "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexch", license: "—" },
   { id: "wordlist", name: "CC-CEDICT + SUBTLEX-CH", url: "https://cc-cedict.org/", license: "CC BY-SA 4.0", licenseUrl: CC_BY_SA_4 },
   { id: "variants", name: "OpenCC (opencc-js 1.4.2)", url: "https://github.com/BYVoid/OpenCC", license: "Apache-2.0", licenseUrl: "https://www.apache.org/licenses/LICENSE-2.0" },
+  { id: "ancient", name: "Wikimedia Commons · Ancient Chinese characters project", url: "https://commons.wikimedia.org/wiki/Commons:Ancient_Chinese_characters_project", license: "Public domain · CC0 1.0", licenseUrl: "https://commons.wikimedia.org/wiki/Template:PD-ancient-script" },
   { id: "libraries", name: "Hanzi Writer, pinyin-pro, opencc-js + OpenCC, sql.js + SQLite, fflate, Next.js, React, animateicons + Lucide", url: "https://github.com/khanhnhanbk/han-ngu-studio/blob/main/THIRD-PARTY-NOTICES.md", license: "MIT · Apache-2.0 · ISC · public domain (SQLite)" },
   { id: "fonts", name: "Be Vietnam Pro, Noto Sans/Serif SC/TC, LXGW WenKai TC, Ma Shan Zheng", url: "https://fonts.google.com/", license: "SIL OFL 1.1", licenseUrl: "https://openfontlicense.org/" },
 ];

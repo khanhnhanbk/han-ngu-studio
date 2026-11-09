@@ -26,6 +26,8 @@ Bên trái là chữ lớn, **mỗi thành phần một màu**. Bên dưới có
 - **Xem thứ tự nét**: mở trang Thứ tự nét với chữ này.
 - **Tạo phiếu tập viết**: mở trang Phiếu tập viết với chữ này, có sẵn dải thứ tự nét.
 
+Hàng **Chữ qua các thời kỳ** cho thấy chữ đã được viết thế nào qua từng thời kỳ: **Giáp cốt** (khắc trên mai rùa, xương thú), **Kim văn** (đúc trên đồ đồng), **Đại triện**, **Tiểu triện**, rồi **Khải thư** (chữ ngày nay). Chỉ những dạng có dữ liệu mới hiện, nhiều chữ không có đủ cả bốn dạng cổ; chữ xuất hiện muộn (như 你, 们) thì không có hàng này. Mỗi ô là **một dạng tiêu biểu**, vì cùng một thời kỳ chữ có thể được viết theo nhiều cách. Bấm vào một ô để mở trang nguồn trên Wikimedia Commons. Dữ liệu hiện có cho các chữ trong danh sách HSK.
+
 Hàng **Giản · Phồn · Nhật** chỉ hiện khi chữ có dạng giản thể, phồn thể (kiểu Đài Loan) hay chữ Nhật (shinjitai) khác nhau, ví dụ 广 · 廣 · 広 hoặc 国 · 國 · 国. Chữ có nhiều dạng phồn thể thì có nhiều dòng, ví dụ 发: 發 · 発 (phát, phát ra) và 髮 · 髪 (tóc). Chữ đang xem có viền màu. Bấm vào một chữ khác trong hàng để chiết tự chữ đó; chữ nào không bấm được là chữ chưa có dữ liệu phân tích (thường là chữ Nhật). Dữ liệu lấy từ bảng của OpenCC.
 
 ### 3. Xem các thành phần
@@ -117,6 +119,7 @@ Bấm nút **Phát âm: tắt** trên thanh menu đầu trang (hoặc nút **B�
 | Không thấy **Gợi ý ghi nhớ** | Hiện mới có mẹo cho các chữ HSK 1; chữ khác sẽ được thêm dần. |
 | Mẹo nhớ nghe gượng hoặc chưa đúng | Mẹo có nhãn **gợi ý, chưa kiểm duyệt** chưa được người đọc lại. Bấm **Góp ý mẹo này** để báo cho Hán Ngữ Studio: trang GitHub mở ra với chữ và mẹo điền sẵn (không có câu chuyện của bạn), bạn ghi đề xuất rồi gửi (cần tài khoản GitHub). Hoặc bấm **Dùng mẹo này** rồi sửa theo ý bạn. |
 | Ảnh thẻ chữ không có câu chuyện của tôi / "Chữ này chưa có ghi chú của bạn, ảnh dùng mẹo gợi ý." | Đánh dấu **Dùng ghi chú của tôi** trước khi bấm **Tải ảnh thẻ chữ**, và chữ đó phải có câu chuyện trong khung **Câu chuyện ghi nhớ**. |
+| Không thấy hàng **Chữ qua các thời kỳ** | Chữ chưa có bản vẽ chữ cổ (thường là chữ xuất hiện muộn, hoặc chữ ngoài danh sách HSK). Ở chế độ **Phồn thể**, chữ giản thể gộp từ nhiều chữ phồn thể (发 ← 發, 髮) chỉ hiện chữ cổ khi xem đúng chữ phồn thể đó. |
 | Ảnh thẻ chữ không có dòng công thức | Có thành phần **？ Chưa rõ** hoặc chữ chỉ có một thành phần, nên công cụ bỏ dòng công thức để không ghi sai. |
 | "Trình duyệt không cho lưu…" | Trình duyệt đang chặn lưu dữ liệu (thường do chế độ ẩn danh). Viết xong hãy bấm **Tải câu chuyện (TSV)**. |
 | "File không có câu chuyện nào hợp lệ." | Chỉ nhập được file do nút **Tải câu chuyện (TSV)** tạo ra (mỗi dòng: một chữ, dấu Tab, câu chuyện). |
