@@ -37,8 +37,12 @@ const REQUIRED: Record<CardTemplateId, readonly ApkgField[]> = {
   listen: ["audio"],
 };
 
-/** Per row: the memory stories (HTML-free text) and the recording's file name inside the package. */
-export type RowExtras = { mnemonic?: string; audio?: string };
+/**
+ * Per row: the memory stories (plain text), the recording's file name inside
+ * the package, and the picture field (HTML from images.ts imageFieldHtml, which
+ * escapes its parts; written as is when its file is in `media`).
+ */
+export type RowExtras = { mnemonic?: string; audio?: string; image?: { file: string; html: string } };
 
 export type ApkgOptions = {
   deckName: string;
@@ -254,6 +258,7 @@ export async function buildApkg(SQL: SqlJsStatic, rows: readonly DeckRow[], opti
       const fields = APKG_FIELDS.map((c) => {
         if (c === "mnemonic") return fieldHtml(extra?.mnemonic ?? "");
         if (c === "audio") return extra?.audio && media?.has(extra.audio) ? `[sound:${extra.audio}]` : "";
+        if (c === "image") return extra?.image && media?.has(extra.image.file) ? extra.image.html : "";
         return kept.has(c) ? fieldHtml(row[c]) : "";
       });
       const nid = nowMs + i;

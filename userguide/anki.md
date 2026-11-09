@@ -97,6 +97,18 @@ File đã có sẵn bộ thẻ, loại ghi chú **Hán Ngữ Studio 2** với 5 
 - Các thẻ khác đọc từ khi lật mặt sau. Thẻ **Nhận diện** còn có dòng **Mẹo nhớ** cho các chữ có mẹo gợi ý (hiện là chữ HSK 1).
 - Mặc định chọn sẵn **Nghe**, **Nhận diện** và **Nhớ chữ**: ba loại không cần gõ. **Gõ chữ** chỉ nên bật khi ôn trên máy tính.
 
+### Ảnh minh họa (không bắt buộc)
+
+Sau khi bấm **Tạo bộ thẻ**, khung **Ảnh minh họa (không bắt buộc)** cho phép chọn ảnh cho từng từ. Ảnh lấy từ **Openverse** (kho ảnh có giấy phép mở) và được gói luôn vào file `.apkg`, nên **dùng được cả trên điện thoại**.
+
+1. Đánh dấu **Tôi đồng ý gửi từ khóa tìm ảnh tới Openverse**. Mỗi lần tìm chỉ gửi **một từ khóa ngắn**: nghĩa tiếng Anh của từ, sửa được trong ô bên cạnh từ. Không gửi câu hay văn bản nào khác. Lựa chọn này **không được lưu**: lần sau mở trang cần đánh dấu lại.
+2. Kiểm tra ô từ khóa của từng từ. Ô trống nghĩa là chưa có từ khóa hợp lý: gõ một từ tiếng Anh (ví dụ `cat` cho 猫), hoặc để trống để bỏ qua từ đó.
+3. Bấm **Tìm ảnh cho trang này**: công cụ tìm lần lượt 10 từ của trang, mỗi từ hiện tối đa 6 ảnh. Dùng **‹ ›** để sang trang khác, **Tìm** để tìm lại một từ.
+4. Bấm vào ảnh để chọn (có viền màu); bấm lại hoặc **Bỏ ảnh** để bỏ chọn. Dòng chữ nhỏ dưới ảnh ghi tên ảnh, tác giả và giấy phép.
+5. Bấm tải file `.apkg` như bình thường. Ảnh đã chọn được thu nhỏ (cạnh dài 400 px) và gói vào file; thẻ hiện ảnh ở mặt sau kèm dòng ghi nguồn.
+
+Ảnh hợp nhất với danh từ cụ thể (táo, mèo, máy bay). Từ trừu tượng như 的, 了 nên bỏ qua.
+
 **Đã import bộ thẻ cũ (loại ghi chú "Hán Ngữ Studio")?** File mới dùng loại ghi chú mới **Hán Ngữ Studio 2**, nên Anki thêm thẻ mới chứ không sửa thẻ cũ. Nếu không cần lịch ôn của bộ cũ nữa, bạn có thể xóa bộ cũ trong Anki rồi dùng bộ mới.
 
 ## Import file .tsv vào Anki trên máy tính
@@ -134,6 +146,8 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 
 | Hiện tượng | Cách xử lý |
 |---|---|
+| "Openverse đang giới hạn số lần tìm…" | Khi không đăng nhập, Openverse chỉ cho khoảng 20 lần tìm mỗi phút và 200 lần mỗi ngày. Đợi một lúc rồi bấm **Tìm ảnh cho trang này** để tìm tiếp; các từ đã có ảnh không bị tìm lại. |
+| "… ảnh không tải được nên bị bỏ qua." | Ảnh đó tạm thời không tải được. Chọn ảnh khác cho từ đó rồi tải lại bộ thẻ. |
 | Thẻ không phát âm | Trên AnkiDroid, kiểm tra âm lượng phương tiện và mục **Cài đặt → Âm thanh** (tự phát âm thanh). Trên máy tính, bấm biểu tượng ▶ trên thẻ. Từ ghi “… từ chưa có giọng đọc” khi tải thì không có file âm thanh. |
 | Có hai bộ thẻ trùng từ sau khi import | Bộ cũ dùng loại ghi chú **Hán Ngữ Studio**, bộ mới dùng **Hán Ngữ Studio 2**. Xóa bộ cũ nếu không cần lịch ôn của nó. |
 | "… từ chưa thêm vì vượt 1000 từ" | Ô lớn chỉ nhận tối đa 1000 từ. Xóa bớt từ trong ô, hoặc tạo bộ thẻ cho từng phần một. |
