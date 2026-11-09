@@ -16,7 +16,7 @@ Thirteen tools in three groups, as on the site. Every tool follows the **Giản 
 | Tool | Route | What it does |
 |---|---|---|
 | Thứ tự nét (Stroke order) | [`/tools/stroke-order`](https://han-ngu-studio.vercel.app/tools/stroke-order) | Stroke animation, step diagram, write-it-yourself quiz |
-| Chiết tự (Character breakdown) | [`/tools/decompose`](https://han-ngu-studio.vercel.app/tools/decompose) | Component tree coloured on the glyph, semantic/phonetic parts, component families, **Giản · Phồn · Nhật** forms (Simplified · Traditional · Japanese shinjitai), suggested memory tricks labelled **Mẹo nhớ / Theo nguồn gốc**, your own notes, and a **"Tải ảnh thẻ chữ"** 1080×1350 PNG card to share |
+| Chiết tự (Character breakdown) | [`/tools/decompose`](https://han-ngu-studio.vercel.app/tools/decompose) | Component tree coloured on the glyph, semantic/phonetic parts, component families, **Giản · Phồn · Nhật** forms (Simplified · Traditional · Japanese shinjitai), old forms **through the ages** (oracle bone → bronze → seal, from Wikimedia Commons, public domain), suggested memory tricks labelled **Mẹo nhớ / Theo nguồn gốc**, your own notes, and a **"Tải ảnh thẻ chữ"** 1080×1350 PNG card to share |
 | 214 bộ thủ (Radicals) | [`/tools/radicals`](https://han-ngu-studio.vercel.app/tools/radicals) | The 214 Kangxi radicals by stroke count, Hán Việt name or meaning, with variants and example characters |
 | Phiếu tập viết (Practice sheet) | [`/tools/practice-sheet`](https://han-ngu-studio.vercel.app/tools/practice-sheet) | A4 米字格 / 田字格 sheets with Pinyin, model and traceable characters, stroke-order strip → print or PDF |
 
@@ -95,6 +95,7 @@ pnpm build        # must pass before a change counts as done
 |---|---|
 | `pnpm build:data` | Rebuild `public/data/*` from `assets/dictionary/` (run after changing source data; commit the output) |
 | `pnpm build:vocab-source` | One-off: join the HSK 3.0 list and CVDICT into `assets/dictionary/` (pinned commits) |
+| `pnpm fetch:ancient` | One-off: download the old glyph forms from Wikimedia Commons into `assets/ancient/` (then run `pnpm build:data`) |
 | `pnpm build:audio` | One-off: pack the audio-cmn recordings into `public/data/audio/` (then run `pnpm build:data`) |
 
 ## Deploy
@@ -139,4 +140,4 @@ All self-hosted with `next/font`, SIL Open Font License:
 ## Licence and credits
 
 - **Code:** [MIT](LICENSE).
-- **Data:** each dataset keeps its own licence (HSK 3.0 list via ivankra/hsk30: MIT; CC-CEDICT and CVDICT: CC BY-SA 4.0; Tatoeba: CC BY 2.0 FR; Make Me a Hanzi: LGPL-3.0+ / Arphic; audio-cmn: CC BY-SA; OpenCC: Apache-2.0; Unihan: Unicode License…). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and [/giay-phep](https://han-ngu-studio.vercel.app/giay-phep).
+- **Data:** each dataset keeps its own licence (HSK 3.0 list via ivankra/hsk30: MIT; CC-CEDICT and CVDICT: CC BY-SA 4.0; Tatoeba: CC BY 2.0 FR; Make Me a Hanzi: LGPL-3.0+ / Arphic; Wikimedia Commons ancient characters: public domain / CC0; audio-cmn: CC BY-SA; OpenCC: Apache-2.0; Unihan: Unicode License…). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and [/giay-phep](https://han-ngu-studio.vercel.app/giay-phep).
