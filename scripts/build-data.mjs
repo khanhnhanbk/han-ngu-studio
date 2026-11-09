@@ -8,7 +8,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 
+import * as OpenCC from "opencc-js";
 import * as cn2t from "opencc-js/cn2t";
+import STCharacters from "opencc-js/dict/STCharacters";
+import TSCharacters from "opencc-js/dict/TSCharacters";
 import * as t2cn from "opencc-js/t2cn";
 import { pinyin } from "pinyin-pro";
 
@@ -535,6 +538,54 @@ buildStrokes(mmah);
 const decompose = buildDecompose(mmah);
 write("decompose.json", decompose, `${Object.keys(decompose).length} characters`);
 if (Buffer.byteLength(JSON.stringify(decompose)) > MAX_DATA_BYTES) throw new Error("decompose.json is too large");
+
+/**
+ * variants.json: [[simp, trad, jp], …], the Giản · Phồn · Nhật row in Chiết tự
+ * (phase 12b). For every character in decompose.json, its Simplified form
+ * (OpenCC tw → cn), then each Traditional form of it: OpenCC's default
+ * (STCharacters: 发 → 發) plus the other Traditional characters that become it
+ * (TSCharacters: 髮 → 发) when they are in decompose.json too, so rare variants
+ * stay out. Each is shown as Taiwan text writes it (t → tw, as the
+ * Phồn thể switch does) and as Japanese shinjitai (t → jp, OpenCC
+ * JPShinjitaiCharacters: 國 → 国, 廣 → 広). Only rows where the three are not
+ * all the same. OpenCC data: Apache-2.0, from the pinned opencc-js.
+ */
+function buildVariants() {
+  const st = new Map();
+  const add = (simp, trad) => {
+    const list = st.get(simp) ?? [];
+    if (!list.includes(trad)) list.push(trad);
+    st.set(simp, list);
+  };
+  for (const entry of STCharacters.split("|")) {
+    const [simp, ...trads] = entry.split(" ");
+    for (const trad of trads) add(simp, trad);
+  }
+  for (const entry of TSCharacters.split("|")) {
+    const [trad, ...simps] = entry.split(" ");
+    if (!Object.hasOwn(decompose, trad)) continue;
+    for (const simp of simps) add(simp, trad);
+  }
+  const twToCn = OpenCC.Converter({ from: "tw", to: "cn" });
+  const tToTw = OpenCC.Converter({ from: "t", to: "tw" });
+  const tToJp = OpenCC.Converter({ from: "t", to: "jp" });
+  const one = (c) => Array.from(c).length === 1;
+  const simps = new Set(Object.keys(decompose).map((c) => twToCn(c)).filter(one));
+  const rows = new Map();
+  for (const simp of simps) {
+    for (const option of st.get(simp) ?? [simp]) {
+      const row = [simp, tToTw(option), tToJp(option)];
+      if (!row.every(one) || (row[0] === row[1] && row[1] === row[2])) continue;
+      // One row per Simplified + Taiwan pair: 裏 and 裡 both show as 裡 in
+      // Taiwan text; OpenCC's default (listed first) gives the Japanese form.
+      const key = `${row[0]} ${row[1]}`;
+      if (!rows.has(key)) rows.set(key, row);
+    }
+  }
+  return [...rows.values()];
+}
+const variants = buildVariants();
+write("variants.json", variants, `${variants.length} rows`);
 
 /**
  * mnemonics.json: { char: [story, reviewed 0|1, source?] }, the suggested memory
