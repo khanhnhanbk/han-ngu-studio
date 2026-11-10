@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: dict.meta.title,
     description: dict.meta.description,
+    url: "/en",
+    siteName: "Hán Ngữ Studio",
     locale: "en_US",
     type: "website",
   },
