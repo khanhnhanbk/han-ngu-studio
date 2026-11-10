@@ -51,9 +51,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: dict.meta.title,
     description: dict.meta.description,
+    url: "/",
+    siteName: "Hán Ngữ Studio",
     locale: "vi_VN",
     type: "website",
   },
+  // Image, favicon and icons are the file-convention files next to this layout:
+  // opengraph-image.png, twitter-image.png, favicon.ico, icon.png, apple-icon.png.
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

@@ -17,9 +17,21 @@ type ToolKey = keyof ReturnType<typeof getDictionary>["features"]["items"];
 export function toolMetadata(locale: Locale, tool: ToolKey, path: string): Metadata {
   const dict = getDictionary(locale);
   const item = dict.features.items[tool];
+  const title = `${item.title} – Hán Ngữ Studio`;
   return {
-    title: `${item.title} – Hán Ngữ Studio`,
+    title,
     description: item.description,
     alternates: alternates(locale, path),
+    // Link previews (Zalo, Facebook) show the tool's own title. Setting openGraph
+    // here drops the inherited app/opengraph-image.png, so name it again.
+    openGraph: {
+      images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Hán Ngữ Studio" }],
+      title,
+      description: item.description,
+      url: localizeHref(locale, path),
+      siteName: "Hán Ngữ Studio",
+      locale: locale === "vi" ? "vi_VN" : "en_US",
+      type: "website",
+    },
   };
 }
