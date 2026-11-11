@@ -22,6 +22,15 @@ The images are drawn from HTML with Playwright (Be Vietnam Pro + Noto Sans SC fr
 and 512×512, then shrunk with Pillow. Colours: gold `#D4AF37`, text `#0F172A`, accent text `#8A6D1F`,
 background `#FCF8E8` → white. Each headline line is fixed (`white-space: nowrap`) so no word wraps alone.
 
+## Square-crop safe area (2026-11-11)
+
+Facebook shows a link in a comment as a small card with a near-square thumbnail on the left, cropped from the
+centre of the 1200×630 image. The first image (headline on the left, 汉语 grid on the right) lost both halves and
+read as fragments. The image is now laid out around the centre 630×630 (x 285–915): the gold 汉 tile (250 px),
+"Hán Ngữ Studio" (76 px) and "Học tiếng Trung miễn phí" all sit inside it; the 米字格 tiles on the sides are
+decoration only. Keep any future text inside that square and large enough to read at ~175 px wide.
+Before/after crops: `docs/screenshots/link-preview/`.
+
 ## Checking after deploy
 
 Facebook caches previews: re-scrape with https://developers.facebook.com/tools/debug/ ("Scrape Again").
