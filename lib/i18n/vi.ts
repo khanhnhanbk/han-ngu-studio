@@ -170,7 +170,7 @@ export const vi = {
   roadmap: {
     eyebrow: "Lộ trình",
     title: "Sắp ra mắt",
-    subtitle: "Những gì chúng tôi đang làm tiếp theo, theo thứ tự ưu tiên.",
+    subtitle: "Từ một hộp công cụ thành nơi soạn bài cho giáo viên và góc tự học mỗi ngày cho người học. Đây là những gì đang đến, theo thứ tự ưu tiên.",
     statuses: {
       next: "Tiếp theo",
       planned: "Dự kiến",
@@ -178,10 +178,76 @@ export const vi = {
     },
     items: [
       {
+        status: "next",
+        title: "Slide theo mẫu của chính bạn",
+        description:
+          "Tải file PowerPoint của bạn lên, đặt {{chu}} {{pinyin}} {{nghia}} vào chỗ muốn hiện, cả bài thành bộ slide trong vài giây. Có sẵn mẫu để dùng ngay.",
+      },
+      {
+        status: "next",
+        title: "Tự học: trang \"Hôm nay\"",
+        description:
+          "Mỗi ngày mở một trang là đủ: ôn từ đến hạn, học 5–10 từ mới, đọc một truyện, viết vài chữ. Ôn ngắt quãng chạy ngay trong trình duyệt, không cần cài gì.",
+      },
+      {
+        status: "next",
+        title: "Ảnh thẻ từ để gửi Zalo",
+        description:
+          "Mỗi từ thành một tấm ảnh đẹp có chữ, Pinyin, Hán Việt, nghĩa và ví dụ. Tải cả bài một lần, gửi nhóm lớp hay đăng mạng xã hội.",
+      },
+      {
+        status: "planned",
+        title: "Mục tiêu HSK và bài kiểm tra trình độ",
+        description:
+          "Chọn HSK 1, 2, 3 hoặc 1000 chữ, làm bài thử 5 phút để biết nên bắt đầu từ đâu, rồi theo dõi số từ đã thuộc và chuỗi ngày học.",
+      },
+      {
+        status: "planned",
+        title: "Tra chữ: tất cả trong một trang",
+        description:
+          "Gõ một chữ, thấy ngay nghĩa, Hán Việt, chiết tự, thứ tự nét, bộ thủ và ví dụ. Không phải nhảy qua bốn công cụ nữa.",
+      },
+      {
+        status: "planned",
+        title: "Đọc: một trang cho mọi văn bản",
+        description:
+          "Dán văn bản, bật tắt Pinyin, Hán Việt, ngắt từ, màu HSK ngay tại chỗ. Truyện đọc thành thư viện có sẵn theo trình độ.",
+      },
+      {
+        status: "planned",
+        title: "Lưu thẳng vào Google",
+        description:
+          "Một nút đưa bảng từ sang Google Docs, Sheets hoặc Slides của bạn. Trang chỉ chạm vào đúng file nó tạo ra.",
+      },
+      {
+        status: "planned",
+        title: "Soạn bài thông minh hơn",
+        description:
+          "Dán cả giáo án là xong: tự bỏ từ quá dễ và từ học viên đã biết, thêm đáp án cho bài tập in.",
+      },
+      {
         status: "planned",
         title: "Nguồn gốc chữ",
         description:
           "Trong Chiết tự: nghĩa gốc của chữ và vì sao có nghĩa ngày nay, có ghi nguồn, tách bạch với mẹo nhớ.",
+      },
+      {
+        status: "idea",
+        title: "Trình chiếu và nghe viết 听写",
+        description:
+          "Chế độ chiếu lên màn hình lớp học, đọc từ cho cả lớp chép, đáp án đủ bốn phần: chữ, Pinyin, thanh điệu, nghĩa.",
+      },
+      {
+        status: "idea",
+        title: "Gửi bài cho học viên bằng một đường link",
+        description:
+          "Học viên mở link là làm bài trên điện thoại, gửi lại mã kết quả. Giáo viên có sổ lớp mà vẫn không cần tài khoản hay máy chủ.",
+      },
+      {
+        status: "idea",
+        title: "Cảnh báo \"bẫy Hán Việt\"",
+        description:
+          "Đánh dấu những từ mà nghĩa tiếng Trung ngày nay khác với từ Hán Việt người Việt quen dùng, để không đoán nhầm.",
       },
     ],
     note: "Lộ trình có thể thay đổi.",

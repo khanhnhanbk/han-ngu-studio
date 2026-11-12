@@ -176,7 +176,7 @@ export const en: Dictionary = {
   roadmap: {
     eyebrow: "Roadmap",
     title: "Coming soon",
-    subtitle: "What we are working on next, in order of priority.",
+    subtitle: "From a toolbox to a lesson desk for teachers and a daily study corner for learners. Here is what is coming, in order of priority.",
     statuses: {
       next: "Next",
       planned: "Planned",
@@ -184,10 +184,76 @@ export const en: Dictionary = {
     },
     items: [
       {
+        status: "next",
+        title: "Slides from your own template",
+        description:
+          "Upload your PowerPoint file, put {{chu}} {{pinyin}} {{nghia}} where they should appear, and the whole lesson becomes a deck in seconds. Ready-made templates included.",
+      },
+      {
+        status: "next",
+        title: "Self-study: the \"Today\" page",
+        description:
+          "One page a day is enough: review the words that are due, learn 5–10 new ones, read a story, write a few characters. Spaced repetition runs in your browser, nothing to install.",
+      },
+      {
+        status: "next",
+        title: "Word cards as images",
+        description:
+          "Every word becomes a clean picture with the character, Pinyin, Sino-Vietnamese reading, meaning and an example. Download the whole lesson at once for your class chat or social media.",
+      },
+      {
+        status: "planned",
+        title: "HSK goals and a level check",
+        description:
+          "Pick HSK 1, 2, 3 or the 1000 characters, take a 5-minute check to find where to start, then follow your known words and study streak.",
+      },
+      {
+        status: "planned",
+        title: "Look up: everything on one page",
+        description:
+          "Type one character and see meanings, Sino-Vietnamese reading, breakdown, stroke order, radical and examples together. No more jumping between four tools.",
+      },
+      {
+        status: "planned",
+        title: "Read: one page for any text",
+        description:
+          "Paste a text and switch Pinyin, Sino-Vietnamese readings, word breaks and HSK colours on the spot. Stories become a built-in library by level.",
+      },
+      {
+        status: "planned",
+        title: "Save straight to Google",
+        description:
+          "One button sends the word table to your Google Docs, Sheets or Slides. The site only touches the file it creates.",
+      },
+      {
+        status: "planned",
+        title: "A smarter lesson builder",
+        description:
+          "Paste a whole handout and you are done: it skips words that are too easy or already known and adds answer keys to printed exercises.",
+      },
+      {
         status: "planned",
         title: "Character origins",
         description:
           "In Character breakdown: the character's original meaning and how today's meanings grew from it, with sources, kept apart from memory tricks.",
+      },
+      {
+        status: "idea",
+        title: "Projector and dictation (听写) modes",
+        description:
+          "A classroom view for the big screen, words read aloud for the class to write, and a four-part answer key: character, Pinyin, tone, meaning.",
+      },
+      {
+        status: "idea",
+        title: "Send a lesson to students with one link",
+        description:
+          "Students open the link, practise on their phone and send back a result code. Teachers get a class book, still with no accounts and no server.",
+      },
+      {
+        status: "idea",
+        title: "\"False friend\" warnings",
+        description:
+          "Flags words whose Chinese meaning today differs from the Sino-Vietnamese word Vietnamese speakers know, so nobody guesses wrong.",
       },
     ],
     note: "The roadmap may change.",

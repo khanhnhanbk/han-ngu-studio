@@ -11,7 +11,7 @@ const STATUS_STYLE: Record<Status, string> = {
   idea: "bg-ink-900/5 text-ink-700",
 };
 
-/** What's coming, in the order of docs/plans/2026-10-15-roadmap.md. */
+/** What's coming, from docs/plans/2026-10-15-roadmap.md and docs/plans/2026-11-12-user-flows.md. */
 export function Roadmap() {
   const dict = useDictionary();
   return (
@@ -23,7 +23,7 @@ export function Roadmap() {
           <p className="mt-4 text-lg text-ink-700">{dict.roadmap.subtitle}</p>
         </div>
 
-        <ol className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+        <ol className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {dict.roadmap.items.map((item) => {
             const status = item.status as Status;
             return (
