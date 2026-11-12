@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { FileInput } from "@/components/FileInput";
 import { DownloadIcon } from "@/components/icons/download";
@@ -53,6 +53,14 @@ export function SlideMaker({
   const [error, setError] = useState("");
   const [done, setDone] = useState("");
   const [fitted, setFitted] = useState<FitNote[]>([]);
+  /** A finished deck held back until the teacher has read the list of shrunk text. */
+  const [pending, setPending] = useState<{ bytes: Uint8Array; slides: number; unknown: string[] } | null>(null);
+
+  // A held deck is for the words and template it was made from.
+  useEffect(() => {
+    setPending(null);
+    setFitted([]);
+  }, [choice, own, words, entries, lessonName]);
 
   async function readOwn(file: File | undefined) {
     setError("");
@@ -107,10 +115,20 @@ export function SlideMaker({
     });
   }
 
+  function save(deck: { bytes: Uint8Array; slides: number; unknown: string[] }) {
+    downloadBytes(deck.bytes, fileName(lessonName), PPTX);
+    setPending(null);
+    setDone(
+      t.done.replace("{n}", String(deck.slides)) +
+        (deck.unknown.length ? " " + t.unknown.replace("{fields}", deck.unknown.map((f) => `{{${f}}}`).join(", ")) : ""),
+    );
+  }
+
   async function make() {
     setError("");
     setDone("");
     setFitted([]);
+    setPending(null);
     if (words.length === 0) return setError(dict.lesson.noWords);
     if (choice === "own" && !own) return setError(t.pickFile);
     setBusy(true);
@@ -120,12 +138,12 @@ export function SlideMaker({
       if (!list) return;
       const res = fillTemplate(template, list, lessonName);
       if (!res.ok) return setError(t.errors[res.error]);
-      downloadBytes(res.bytes, fileName(lessonName), PPTX);
-      setFitted(groupFitted(res.fitted));
-      setDone(
-        t.done.replace("{n}", String(res.slides)) +
-          (res.unknown.length ? " " + t.unknown.replace("{fields}", res.unknown.map((f) => `{{${f}}}`).join(", ")) : ""),
-      );
+      const deck = { bytes: res.bytes, slides: res.slides, unknown: res.unknown };
+      const notes = groupFitted(res.fitted);
+      setFitted(notes);
+      // Text had to be made smaller: show which first, the teacher downloads after reading.
+      if (notes.length > 0) setPending(deck);
+      else save(deck);
     } catch {
       setError(dict.lesson.loadFailed);
     } finally {
@@ -188,7 +206,12 @@ export function SlideMaker({
       )}
 
       <div className="mt-6 flex flex-wrap gap-2">
-        <IconButton icon={DownloadIcon} className="btn-primary px-3 py-2 text-sm" disabled={busy} onClick={() => void make()}>
+        <IconButton
+          icon={DownloadIcon}
+          className={`${pending ? "btn-secondary" : "btn-primary"} px-3 py-2 text-sm`}
+          disabled={busy}
+          onClick={() => void make()}
+        >
           {busy ? t.making : t.make}
         </IconButton>
         <IconButton icon={DownloadIcon} className="btn-secondary px-3 py-2 text-sm" onClick={() => void downloadTemplate()}>
@@ -198,7 +221,7 @@ export function SlideMaker({
       {done && <p className="mt-3 text-sm text-ink-900">{done}</p>}
       {fitted.length > 0 && (
         <div className="mt-3 max-w-3xl rounded-2xl border border-brand-600/30 bg-surface p-4 text-sm">
-          <p className="font-medium text-ink-900">{t.fitted}</p>
+          <p className="font-medium text-ink-900">{pending ? t.fittedAsk : t.fitted}</p>
           <ul className="mt-2 list-disc space-y-1 pl-6 text-ink-700">
             {fitted.map((n) => (
               <li key={`${n.fields.join(",")}:${n.text}`} className={n.overflow ? "text-red-600" : undefined}>
@@ -210,6 +233,23 @@ export function SlideMaker({
             ))}
           </ul>
           <p className="mt-2 text-ink-500">{t.fittedHint}</p>
+          {pending && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              <IconButton icon={DownloadIcon} className="btn-primary px-3 py-2 text-sm" onClick={() => save(pending)}>
+                {t.downloadAnyway}
+              </IconButton>
+              <button
+                type="button"
+                className="btn-secondary px-3 py-2 text-sm"
+                onClick={() => {
+                  setPending(null);
+                  setFitted([]);
+                }}
+              >
+                {t.fixTemplateFirst}
+              </button>
+            </div>
+          )}
         </div>
       )}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
