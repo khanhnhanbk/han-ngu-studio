@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FileInput } from "@/components/FileInput";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
-import { buildDeck } from "@/lib/anki/buildDeck";
+import { buildDeck, EXAMPLE_SEPARATOR } from "@/lib/anki/buildDeck";
 import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
 import { confirmDownload } from "@/lib/data/budget";
@@ -20,7 +20,7 @@ import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { fillTemplate, LESSON_FIELDS, WORD_FIELDS, type SlideWord } from "@/lib/slides/fill";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
-const BUILT_IN = ["the-tu", "hoi-dap"] as const;
+const BUILT_IN = ["the-tu", "hoi-dap", "ba-trang"] as const;
 type Choice = (typeof BUILT_IN)[number] | "own";
 
 const PPTX = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
@@ -82,17 +82,24 @@ export function SlideMaker({
       loadVocab(),
     ]);
     const mine = new Map(entries.map((e) => [conv.toSimp(e.word), e]));
-    return buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, simp, 1, dict.vocab.pos).map((d) => {
+    // Two examples: {{vidu}} is the easiest one (as before), {{vidu2}} the next.
+    return buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, simp, 2, dict.vocab.pos).map((d) => {
       const r = showRow(d, conv, wubi);
       const e = mine.get(d.word);
+      const [vidu = "", vidu2 = ""] = r.sentence.split(EXAMPLE_SEPARATOR);
+      const [viduPinyin = "", vidu2Pinyin = ""] = r.sentence_pinyin.split(EXAMPLE_SEPARATOR);
+      const [viduNghia = "", vidu2Nghia = ""] = r.sentence_meaning.split(EXAMPLE_SEPARATOR);
       return {
         chu: r.word,
         pinyin: e?.pinyin || r.pinyin,
         hanviet: r.hanviet,
         nghia: e?.meaning || briefMeaning(r.meaning_vi || r.meaning),
-        vidu: r.sentence,
-        vidu_pinyin: r.sentence_pinyin,
-        vidu_nghia: r.sentence_meaning,
+        vidu,
+        vidu_pinyin: viduPinyin,
+        vidu_nghia: viduNghia,
+        vidu2,
+        vidu2_pinyin: vidu2Pinyin,
+        vidu2_nghia: vidu2Nghia,
         hsk: r.hsk_level,
       };
     });
@@ -141,7 +148,7 @@ export function SlideMaker({
 
       <fieldset className="mt-6">
         <legend className="font-medium text-ink-900">{t.choose}</legend>
-        <div className="mt-3 grid gap-4 md:grid-cols-3">
+        <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {options.map((id) => {
             const info = id === "own" ? t.own : t.templates[id];
             const active = choice === id;
