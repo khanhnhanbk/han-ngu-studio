@@ -2,7 +2,7 @@
 
 Dành cho giáo viên: nhập từ mới của một buổi học **một lần**, rồi lấy ra bảng từ, thẻ Anki, đề trắc nghiệm và phiếu tập viết mà không phải dán lại danh sách từ ở từng công cụ.
 
-Trang: https://han-ngu-studio.vercel.app/soan-bai (trên thanh menu bấm **Soạn bài**).
+Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn bài**).
 
 ## Các bước
 

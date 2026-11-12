@@ -19,7 +19,7 @@ function Steps({ items }: { items: readonly string[] }) {
   );
 }
 
-/** The Anki guide (/tools/anki/huong-dan and /en/tools/anki/huong-dan). */
+/** The Anki guide (/tools/anki/guide and /en/tools/anki/guide). */
 export function AnkiGuide() {
   const t = useDictionary().ankiGuide;
   const href = useHref();

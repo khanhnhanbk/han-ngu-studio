@@ -24,7 +24,7 @@ export function Footer() {
         { label: dict.footer.links.source, href: REPO_URL, external: true },
         { label: dict.footer.links.faq, href: href("/#faq"), external: false },
         { label: dict.footer.links.roadmap, href: href("/#roadmap"), external: false },
-        { label: dict.footer.links.legal, href: href("/giay-phep"), external: false },
+        { label: dict.footer.links.legal, href: href("/licenses"), external: false },
         { label: dict.footer.links.feedback, href: feedbackUrl(), external: true },
       ],
     },

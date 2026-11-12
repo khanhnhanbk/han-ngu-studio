@@ -9,7 +9,7 @@ const t = getDictionary("vi").legal;
 export const metadata: Metadata = {
   title: t.metaTitle,
   description: t.metaDescription,
-  alternates: alternates("vi", "/giay-phep"),
+  alternates: alternates("vi", "/licenses"),
 };
 
 export default function Page() {

@@ -9,7 +9,7 @@ const t = getDictionary("en").legal;
 export const metadata: Metadata = {
   title: t.metaTitle,
   description: t.metaDescription,
-  alternates: alternates("en", "/giay-phep"),
+  alternates: alternates("en", "/licenses"),
 };
 
 export default function Page() {

@@ -16,7 +16,7 @@ function External({ href, children }: { href: string; children: React.ReactNode 
   );
 }
 
-/** Licences & privacy (/giay-phep and /en/giay-phep). */
+/** Licences & privacy (/licenses and /en/licenses). */
 export function LegalPage() {
   const t = useDictionary().legal;
   return (

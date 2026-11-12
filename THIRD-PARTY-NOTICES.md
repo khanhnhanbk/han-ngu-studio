@@ -4,7 +4,7 @@ The **source code** of Hán Ngữ Studio is under the MIT License (`LICENSE`).
 The **data** it ships (`assets/dictionary/`, `public/data/`) comes from the projects
 below and stays under **their** licences, not MIT. Files built from share-alike
 data (CC BY-SA) are released under the same licence. The site shows these
-credits at `/giay-phep` (English: `/en/giay-phep`).
+credits at `/licenses` (English: `/en/licenses`).
 
 | Data | Source | Licence | Used for / changes |
 |---|---|---|---|
