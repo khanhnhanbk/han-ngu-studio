@@ -7,7 +7,7 @@ import { createTokenizer } from "@/lib/segment/tokenizer";
 
 import { appendWords, extractWords } from "./extract";
 import { cleanLessons, lessonsFile, mergeLessons, newLesson, parseLessonsFile, type Lesson } from "./store";
-import { docxText, entryLine, parseEntries, parseWordLine, splitPaste } from "./paste";
+import { docxText, entryLine, parseEntries, parseWordLine, pinyinSyllables, splitPaste } from "./paste";
 import { briefMeaning, tableCsv, tableHtml, tableQuizlet, tableText, tableTsv, type TableHeaders, type TableRow } from "./table";
 
 const tokenizer = createTokenizer(readFileSync(join(__dirname, "../../public/data/word_list.txt"), "utf-8").split("\n"));
@@ -188,6 +188,29 @@ describe("splitPaste", () => {
       ],
       duplicates: 1,
     });
+  });
+
+  it("does not take a Vietnamese meaning as Pinyin", () => {
+    expect(parseWordLine("家 jiā nhà, gia đình")).toEqual({ word: "家", pinyin: "jiā", meaning: "nhà, gia đình" });
+    expect(parseWordLine("工作 gōngzuò làm việc")).toEqual({ word: "工作", pinyin: "gōngzuò", meaning: "làm việc" });
+    expect(parseWordLine("哥哥 gēge anh trai")).toEqual({ word: "哥哥", pinyin: "gēge", meaning: "anh trai" });
+    expect(parseWordLine("医生 yīshēng bác sĩ")).toEqual({ word: "医生", pinyin: "yīshēng", meaning: "bác sĩ" });
+    expect(parseWordLine("一点儿 yìdiǎnr một chút")).toEqual({ word: "一点儿", pinyin: "yìdiǎnr", meaning: "một chút" });
+    // Syllables written apart, alternatives, tone digits and brackets still count as Pinyin.
+    expect(parseWordLine("工作 gōng zuò làm việc")).toEqual({ word: "工作", pinyin: "gōng zuò", meaning: "làm việc" });
+    expect(parseWordLine("谁 shéi / shuí ai")).toEqual({ word: "谁", pinyin: "shéi / shuí", meaning: "ai" });
+    expect(parseWordLine("学习 xue2xi2 học tập")).toEqual({ word: "学习", pinyin: "xue2xi2", meaning: "học tập" });
+    expect(parseWordLine("早 [zǎo] buổi sáng")).toEqual({ word: "早", pinyin: "zǎo", meaning: "buổi sáng" });
+    // No tone mark and only syllable-like words: too unsure, all of it is the meaning.
+    expect(parseWordLine("爸妈 ba me an")).toEqual({ word: "爸妈", pinyin: "", meaning: "ba me an" });
+  });
+
+  it("counts Pinyin syllables", () => {
+    expect(pinyinSyllables("gōngzuò")).toEqual({ count: 2, erhua: false });
+    expect(pinyinSyllables("xi'an")).toEqual({ count: 2, erhua: false });
+    expect(pinyinSyllables("yìdiǎnr")).toEqual({ count: 3, erhua: true });
+    expect(pinyinSyllables("nǚ")).toEqual({ count: 1, erhua: false });
+    for (const vi of ["nhà", "gia", "làm", "anh", "trai", "bác", "việc"]) expect(pinyinSyllables(vi)).toBeNull();
   });
 
   it("rejects a file that is not a .docx", () => {

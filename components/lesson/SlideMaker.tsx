@@ -123,10 +123,11 @@ export function SlideMaker({
   }
 
   async function downloadTemplate() {
-    if (choice === "own") return;
     setError("");
+    // With "Mẫu của tôi" picked, the word-card template is the starting point to edit.
+    const id = choice === "own" ? "the-tu" : choice;
     try {
-      downloadBytes(await builtIn(choice), `${t.templates[choice].name}.pptx`, PPTX);
+      downloadBytes(await builtIn(id), `${t.templates[id].name}.pptx`, PPTX);
     } catch {
       setError(dict.lesson.loadFailed);
     }
@@ -170,8 +171,8 @@ export function SlideMaker({
 
       {choice === "own" && (
         <div className="mt-4 max-w-md">
-          <FileInput buttonLabel={t.upload} accept=".pptx" onFile={(f) => void readOwn(f)} fullWidth />
-          {own && <p className="mt-1 text-sm text-ink-500">{own.name}</p>}
+          <FileInput buttonLabel={t.upload} accept=".pptx" onFile={(f) => void readOwn(f)} showName={false} fullWidth />
+          <p className="mt-1 text-sm text-ink-500">{own ? own.name : t.ownHint}</p>
         </div>
       )}
 
@@ -179,12 +180,7 @@ export function SlideMaker({
         <IconButton icon={DownloadIcon} className="btn-primary px-3 py-2 text-sm" disabled={busy} onClick={() => void make()}>
           {busy ? t.making : t.make}
         </IconButton>
-        <IconButton
-          icon={DownloadIcon}
-          className="btn-secondary px-3 py-2 text-sm"
-          disabled={choice === "own"}
-          onClick={() => void downloadTemplate()}
-        >
+        <IconButton icon={DownloadIcon} className="btn-secondary px-3 py-2 text-sm" onClick={() => void downloadTemplate()}>
           {t.getTemplate}
         </IconButton>
       </div>

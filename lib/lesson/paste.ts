@@ -19,6 +19,90 @@ const NUMBERING = /^\s*(?:[(（]?\d{1,3}[)）.、:：]|[-–•*·])\s*/;
 const SENTENCE_MARK = /[。！？!?，,；;：:、…]/;
 /** Letters Pinyin uses (tone marks, ü, tone numbers) but nothing only Vietnamese has. */
 const PINYIN_TOKEN = /^(?:[a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüńňǹ']+[1-5]?)+$/i;
+const TONE_MARK = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ1-5]/i;
+
+/**
+ * Every standard Mandarin syllable without tone, ü written "v". Letters alone
+ * cannot tell Pinyin from Vietnamese ("nhà", "làm", "anh" use the same
+ * letters), but those words do not split into these syllables.
+ */
+const SYLLABLES = new Set(
+  `a ai an ang ao
+  ba bai ban bang bao bei ben beng bi bian biao bie bin bing bo bu
+  pa pai pan pang pao pei pen peng pi pian piao pie pin ping po pou pu
+  ma mai man mang mao me mei men meng mi mian miao mie min ming miu mo mou mu
+  fa fan fang fei fen feng fo fou fu
+  da dai dan dang dao de dei den deng di dia dian diao die ding diu dong dou du duan dui dun duo
+  ta tai tan tang tao te tei teng ti tian tiao tie ting tong tou tu tuan tui tun tuo
+  na nai nan nang nao ne nei nen neng ni nian niang niao nie nin ning niu nong nou nu nuan nun nuo nv nve
+  la lai lan lang lao le lei leng li lia lian liang liao lie lin ling liu lo long lou lu luan lun luo lv lve
+  ga gai gan gang gao ge gei gen geng gong gou gu gua guai guan guang gui gun guo
+  ka kai kan kang kao ke kei ken keng kong kou ku kua kuai kuan kuang kui kun kuo
+  ha hai han hang hao he hei hen heng hong hou hu hua huai huan huang hui hun huo
+  ji jia jian jiang jiao jie jin jing jiong jiu ju juan jue jun
+  qi qia qian qiang qiao qie qin qing qiong qiu qu quan que qun
+  xi xia xian xiang xiao xie xin xing xiong xiu xu xuan xue xun
+  zha zhai zhan zhang zhao zhe zhei zhen zheng zhi zhong zhou zhu zhua zhuai zhuan zhuang zhui zhun zhuo
+  cha chai chan chang chao che chen cheng chi chong chou chu chua chuai chuan chuang chui chun chuo
+  sha shai shan shang shao she shei shen sheng shi shou shu shua shuai shuan shuang shui shun shuo
+  ra ran rang rao re ren reng ri rong rou ru rua ruan rui run ruo
+  za zai zan zang zao ze zei zen zeng zi zong zou zu zuan zui zun zuo
+  ca cai can cang cao ce cen ceng ci cong cou cu cuan cui cun cuo
+  sa sai san sang sao se sen seng si song sou su suan sui sun suo
+  e ei en eng er o ou
+  yi ya yan yang yao ye yin ying yo yong you yu yuan yue yun
+  wu wa wai wan wang wei wen weng wo`.split(/\s+/),
+);
+
+const TONELESS: Record<string, string> = {
+  ā: "a", á: "a", ǎ: "a", à: "a",
+  ē: "e", é: "e", ě: "e", è: "e",
+  ī: "i", í: "i", ǐ: "i", ì: "i",
+  ō: "o", ó: "o", ǒ: "o", ò: "o",
+  ū: "u", ú: "u", ǔ: "u", ù: "u",
+  ǖ: "v", ǘ: "v", ǚ: "v", ǜ: "v", ü: "v",
+};
+
+/**
+ * How many syllables a Pinyin token holds ("gōngzuò" → 2, "xue2xi2" → 2,
+ * "yìdiǎnr" → 3 with the erhua "r"), or null when it is not Pinyin. Tone
+ * digits and apostrophes mark boundaries; the rest is split into the fewest
+ * standard syllables, each optionally followed by an erhua "r".
+ */
+export function pinyinSyllables(token: string): { count: number; erhua: boolean } | null {
+  if (!PINYIN_TOKEN.test(token)) return null;
+  const plain = Array.from(token.toLowerCase(), (c) => TONELESS[c] ?? c).join("");
+  if (/[ńňǹ]/.test(plain)) return null;
+  let count = 0;
+  let erhua = false;
+  for (const piece of plain.split(/['1-5]+/)) {
+    if (!piece) continue;
+    // best[i]: fewest syllables covering piece[0..i), with whether an erhua "r" was used.
+    const best: ({ n: number; r: boolean } | null)[] = [{ n: 0, r: false }];
+    for (let i = 1; i <= piece.length; i++) {
+      best[i] = null;
+      for (let j = Math.max(0, i - 7); j < i; j++) {
+        const prev = best[j];
+        if (!prev) continue;
+        const unit = piece.slice(j, i);
+        let cand: { n: number; r: boolean } | null = null;
+        if (SYLLABLES.has(unit)) cand = { n: prev.n + 1, r: prev.r };
+        else if (unit.endsWith("r") && unit !== "err" && SYLLABLES.has(unit.slice(0, -1)))
+          cand = { n: prev.n + 2, r: true };
+        else if (unit === "r" && j > 0) cand = { n: prev.n + 1, r: true };
+        if (cand && (!best[i] || cand.n < best[i]!.n)) best[i] = cand;
+      }
+    }
+    const end = best[piece.length];
+    if (!end) return null;
+    count += end.n;
+    erhua ||= end.r;
+  }
+  return count > 0 ? { count, erhua } : null;
+}
+
+/** A token that reads as Pinyin, alternatives "shéi/shuí" included. */
+const isPinyinToken = (t: string) => t.split("/").every((p) => p !== "" && pinyinSyllables(p) !== null);
 const SEPARATOR = /\s*(?:\t+|\s[-–—=]\s|[:：=])\s*/;
 
 /** The longest word a list line can hold; longer Chinese runs are sentences. */
@@ -42,20 +126,51 @@ export type PasteResult = {
   title: string;
 };
 
-/** Split "zǎo buổi sáng" / "zǎo – buổi sáng" / "shéi / shuí" into Pinyin and meaning. */
-function splitRest(rest: string): { pinyin: string; meaning: string } {
+/**
+ * Split "zǎo buổi sáng" / "zǎo – buổi sáng" / "shéi / shuí" into Pinyin and
+ * meaning. A token is Pinyin only when it splits into Mandarin syllables, and
+ * no more syllables are taken than the word has characters (one extra for an
+ * erhua "r"), so "家 jiā nhà" keeps "nhà" in the meaning.
+ */
+function splitRest(rest: string, chars: number): { pinyin: string; meaning: string } {
   const text = rest.trim().replace(/^[-–—:：=]\s*/, "");
   if (!text) return { pinyin: "", meaning: "" };
   const tokens = text.split(/\s+/);
-  let n = 0;
-  while (n < tokens.length && (tokens[n] === "/" || PINYIN_TOKEN.test(tokens[n].replace(/[,;/]+$/, "")))) n++;
   // A leading run of Pinyin-looking tokens is the Pinyin; brackets too: "[zǎo]", "(zǎo)".
   const bracket = /^[[(（【]\s*([^\])）】]+)\s*[\])）】]\s*(.*)$/.exec(text);
-  if (bracket && bracket[1].split(/\s+/).every((t) => PINYIN_TOKEN.test(t))) {
+  if (bracket && bracket[1].split(/\s+/).every((t) => t === "/" || isPinyinToken(t))) {
     return {
       pinyin: bracket[1].trim(),
       meaning: bracket[2].replace(/^[-–—:：=]\s*/, "").trim(),
     };
+  }
+  // Only Latin words, all of them syllables, and no tone mark at all ("ba me"): too unsure, keep it as the meaning.
+  const bare = (t: string) => t.replace(/[,;/]+$/, "");
+  if (
+    tokens.length > 2 &&
+    !TONE_MARK.test(text) &&
+    tokens.every((t) => t === "/" || isPinyinToken(bare(t)))
+  ) {
+    return { pinyin: "", meaning: text };
+  }
+  let n = 0;
+  let used = 0; // syllables taken for the current reading; "/" starts another reading
+  while (n < tokens.length) {
+    const tok = tokens[n];
+    if (tok === "/") {
+      if (n === 0 || n + 1 >= tokens.length || !isPinyinToken(bare(tokens[n + 1]))) break;
+      used = 0;
+      n++;
+      continue;
+    }
+    const t = bare(tok);
+    if (!isPinyinToken(t)) break;
+    const sylls = t.split("/").map((p) => pinyinSyllables(p)!);
+    const count = Math.max(...sylls.map((s) => s.count));
+    const erhua = sylls.some((s) => s.erhua);
+    if (used >= chars || used + count > chars + (erhua ? 1 : 0)) break;
+    used += count;
+    n++;
   }
   const pinyin = tokens
     .slice(0, n)
@@ -66,10 +181,6 @@ function splitRest(rest: string): { pinyin: string; meaning: string } {
     .join(" ")
     .replace(/^[-–—:：=]\s*/, "")
     .trim();
-  // Only Latin words and no tone mark at all ("ba me"): too unsure, keep it as the meaning.
-  if (pinyin && !meaning && !/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ1-5]/i.test(pinyin) && tokens.length > 2) {
-    return { pinyin: "", meaning: text };
-  }
   return { pinyin, meaning };
 }
 
@@ -84,7 +195,7 @@ export function parseWordLine(line: string): WordEntry | null {
   const run = HAN_RUN.exec(trimmed)?.[0];
   if (!run) return { word: trimmed, pinyin: "", meaning: "" };
   const rest = trimmed.slice(run.length).split(SEPARATOR).join(" ");
-  return { word: run, ...splitRest(rest) };
+  return { word: run, ...splitRest(rest, Array.from(run).length) };
 }
 
 /** The word list as entries, first occurrence of each word kept. */
