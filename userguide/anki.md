@@ -113,7 +113,7 @@ Sau khi bấm **Tạo bộ thẻ**, khung **Ảnh minh họa (không bắt buộ
 
 ## Import file .tsv vào Anki trên máy tính
 
-> **Mới dùng Anki?** Trang [Dùng bộ thẻ với Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan) (nút **Hướng dẫn dùng với Anki và mẫu thẻ có sẵn →** ở trang Tạo thẻ Anki) hướng dẫn từng bước và có 4 mẫu thẻ dán sẵn: **Nhận diện**, **Nhớ chữ**, **Câu ví dụ**, **Gõ chữ**, kèm xem trước.
+> **Mới dùng Anki?** Trang [Dùng bộ thẻ với Anki](https://han-ngu-studio.vercel.app/tools/anki/guide) (nút **Hướng dẫn dùng với Anki và mẫu thẻ có sẵn →** ở trang Tạo thẻ Anki) hướng dẫn từng bước và có 4 mẫu thẻ dán sẵn: **Nhận diện**, **Nhớ chữ**, **Câu ví dụ**, **Gõ chữ**, kèm xem trước.
 
 1. Mở Anki, bấm **File → Import** (Tệp → Nhập) và chọn `anki_deck.tsv`.
 2. Trong cửa sổ import:
@@ -123,7 +123,7 @@ Sau khi bấm **Tạo bộ thẻ**, khung **Ảnh minh họa (không bắt buộ
    - **Field mapping**: kiểm tra mỗi cột (word, pinyin, meaning…) khớp với một trường.
 3. Bấm **Import**.
 
-**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 11 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi, pos`. Sau đó vào Cards và dán mẫu thẻ có sẵn ở [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan#mau-the). Vì tên trường giống hệt tên cột, Anki 2.1.55 trở lên tự ghép cột vào trường khi import. Các lần import sau chỉ cần chọn loại ghi chú này.
+**Mẹo: tạo loại ghi chú riêng một lần.** Tools → Manage Note Types → Add → "Add: Basic" → đặt tên (ví dụ "Tiếng Trung") → Fields → tạo 11 trường theo đúng thứ tự: `word, pinyin, meaning, sentence, sentence_pinyin, sentence_meaning, wubi, hanviet, hsk_level, meaning_vi, pos`. Sau đó vào Cards và dán mẫu thẻ có sẵn ở [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/guide#mau-the). Vì tên trường giống hệt tên cột, Anki 2.1.55 trở lên tự ghép cột vào trường khi import. Các lần import sau chỉ cần chọn loại ghi chú này.
 
 ## Import vào AnkiDroid (Android)
 
@@ -156,7 +156,7 @@ Cách dễ nhất: import trên máy tính rồi **đồng bộ (Sync)** qua Ank
 | "Hãy chọn ít nhất một cột." | Tích ít nhất một cột ở **Cột xuất ra**. |
 | "Không tải được dữ liệu…" | Kiểm tra mạng rồi bấm **Tạo bộ thẻ** lần nữa. |
 | "Hãy chọn ít nhất một loại thẻ." | Tích ít nhất một ô ở **Loại thẻ** trước khi bấm **Tải bộ thẻ Anki (.apkg)**. |
-| "Không tạo được file .apkg…" | Bấm lại; nếu vẫn lỗi (trình duyệt quá cũ), dùng **Tải .tsv** và làm theo [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/huong-dan). |
+| "Không tạo được file .apkg…" | Bấm lại; nếu vẫn lỗi (trình duyệt quá cũ), dùng **Tải .tsv** và làm theo [trang hướng dẫn Anki](https://han-ngu-studio.vercel.app/tools/anki/guide). |
 | Import lại file .apkg nhưng không thấy thẻ mới | Anki bỏ qua các từ đã có và không đổi. Từ bạn sửa trên trang được cập nhật; loại thẻ mới chọn thêm được thêm vào. |
 | Sửa một ghi chú trong Anki thì có thêm thẻ lạ | Anki tự tạo các loại thẻ bạn chưa chọn khi ghi chú được sửa. Vào **Browse**, chọn các thẻ đó, bấm **Suspend** (Tạm ngưng) hoặc xóa. |
 | Có hai loại ghi chú tên Hán Ngữ Studio | Bạn đã tự tạo một loại theo cách .tsv trước đó; loại từ file .apkg là loại riêng (Anki có thể thêm số vào tên). Cả hai đều dùng được. |

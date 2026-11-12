@@ -5,7 +5,7 @@ Tra một từ hoặc một chữ Hán: Pinyin, Hán Việt, cấp HSK, từ lo�
 Đây là trang tra nhanh cho người học, không phải một từ điển đầy đủ. Muốn đọc cả câu hoặc đoạn văn, hãy dùng **Đọc hiểu**.
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Tra từ**
-(hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/tra-tu)
+(hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/lookup)
 
 Trong **Đọc hiểu**, bấm vào một từ rồi bấm **Xem đầy đủ** cũng mở từ đó ở trang này.
 
@@ -19,7 +19,7 @@ Trong **Đọc hiểu**, bấm vào một từ rồi bấm **Xem đầy đủ** 
 Chỉ chữ Hán được giữ lại; dấu câu, khoảng trắng, chữ Latin và số bị bỏ qua.
 Lần tra đầu tiên tải dữ liệu khoảng 1,5 MB (danh sách từ, Hán Việt, nghĩa, câu ví dụ). Các lần sau chỉ tải thêm một phần nhỏ của từ điển (khoảng 40–110 KB) cho chữ đầu của từ.
 
-Địa chỉ trang đổi thành `…/tools/tra-tu#w=亲戚`. Bạn có thể lưu hoặc gửi đường dẫn này; phần sau dấu `#` không được gửi lên máy chủ.
+Địa chỉ trang đổi thành `…/tools/lookup#w=亲戚`. Bạn có thể lưu hoặc gửi đường dẫn này; phần sau dấu `#` không được gửi lên máy chủ.
 
 ### 2. Đọc kết quả
 

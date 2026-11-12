@@ -5,7 +5,7 @@ Học **1000 chữ Hán thông dụng nhất** theo một thứ tự có sẵn, 
 Thứ tự được sắp để dễ nhớ: **thành phần học trước, chữ ghép từ nó học sau**. Ví dụ 尔 đứng ngay trước 你, 木 đứng trước 林 và 森. Ngoài ra chữ càng thông dụng càng đứng trước.
 
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Lộ trình 1000 chữ** (nhóm **Chữ Hán**)
-(hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/lo-trinh)
+(hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/path)
 
 Lần mở đầu tiên tải dữ liệu khoảng 1,7 MB (phân tích chữ, danh sách HSK, Hán Việt).
 
@@ -15,7 +15,7 @@ Lần mở đầu tiên tải dữ liệu khoảng 1,7 MB (phân tích chữ, da
 
 Khung **Các chặng** có 10 ô, từ **Chặng 1** đến **Chặng 10**. Mỗi ô có vài chữ đầu của chặng và thanh tiến độ **Đã học …/100**. Dòng **Đã học …/1000 chữ** ở góc trên cho biết tổng tiến độ.
 
-Bấm vào một ô để mở chặng đó. Địa chỉ trang đổi thành `…/tools/lo-trinh#chang=5`, nên bạn có thể lưu lại hoặc gửi đúng chặng đang học.
+Bấm vào một ô để mở chặng đó. Địa chỉ trang đổi thành `…/tools/path#chang=5`, nên bạn có thể lưu lại hoặc gửi đúng chặng đang học.
 
 ### 2. Học các chữ trong chặng
 

@@ -25,7 +25,7 @@ export function Navbar() {
   const menu = useIconTrigger();
 
   const links = [
-    { href: href("/soan-bai"), label: dict.nav.lesson },
+    { href: href("/lesson"), label: dict.nav.lesson },
     { href: href("/#for-teachers"), label: dict.nav.forTeachers },
   ];
 

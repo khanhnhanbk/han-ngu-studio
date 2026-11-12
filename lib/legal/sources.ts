@@ -1,5 +1,5 @@
 /**
- * Data and libraries the site ships, with their licences (shown on /giay-phep;
+ * Data and libraries the site ships, with their licences (shown on /licenses;
  * keep in step with THIRD-PARTY-NOTICES.md). What each is used for is UI text:
  * `legal.uses[id]` in lib/i18n.
  */

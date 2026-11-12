@@ -33,8 +33,8 @@ const HREF: Record<ToolId, string> = {
   decompose: "/tools/decompose",
   comprehensibleInput: "/tools/comprehensible-input",
   stories: "/tools/stories",
-  lookup: "/tools/tra-tu",
-  path: "/tools/lo-trinh",
+  lookup: "/tools/lookup",
+  path: "/tools/path",
 };
 
 /**

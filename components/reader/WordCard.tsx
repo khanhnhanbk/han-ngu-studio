@@ -194,7 +194,7 @@ export function WordCard({
         <a href={href(`/tools/decompose#${new URLSearchParams({ c: shown })}`)} className="btn-secondary px-3 py-1.5 text-xs">
           {t.card.decompose}
         </a>
-        <a href={href(`/tools/tra-tu#${new URLSearchParams({ w: shown })}`)} className="btn-secondary px-3 py-1.5 text-xs">
+        <a href={href(`/tools/lookup#${new URLSearchParams({ w: shown })}`)} className="btn-secondary px-3 py-1.5 text-xs">
           {t.card.lookup}
         </a>
         <button type="button" onClick={onClose} className="ml-auto px-2 text-xs text-ink-500 hover:text-ink-900">

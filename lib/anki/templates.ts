@@ -3,7 +3,7 @@
 import type { Column } from "./buildDeck";
 
 /**
- * Suggested Anki card templates for the TSV export (/tools/anki/huong-dan).
+ * Suggested Anki card templates for the TSV export (/tools/anki/guide).
  * The note type's fields are named exactly like the TSV columns, so Anki
  * 2.1.55+ maps them from the "#columns:" header line by itself.
  */

@@ -77,6 +77,6 @@ describe("locale from the URL", () => {
     expect(switchLocalePath("/en/tools/pinyin", "vi")).toBe("/tools/pinyin");
     expect(switchLocalePath("/", "en")).toBe("/en");
     expect(switchLocalePath("/en", "vi")).toBe("/");
-    expect(stripLocale("/tools/anki/huong-dan")).toBe("/tools/anki/huong-dan");
+    expect(stripLocale("/tools/anki/guide")).toBe("/tools/anki/guide");
   });
 });

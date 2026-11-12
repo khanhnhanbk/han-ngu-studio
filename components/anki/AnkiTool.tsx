@@ -623,7 +623,7 @@ export function AnkiTool({ initialWords, embedded = false }: EmbeddableToolProps
                         <li key={step}>{step}</li>
                       ))}
                     </ol>
-                    <Link href={href("/tools/anki/huong-dan")} className="mt-2 inline-block font-medium text-brand-ink underline">
+                    <Link href={href("/tools/anki/guide")} className="mt-2 inline-block font-medium text-brand-ink underline">
                       {dict.anki.guideLink}
                     </Link>
                   </div>
