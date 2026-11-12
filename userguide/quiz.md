@@ -41,7 +41,7 @@ Cách dễ nhất: soạn hai cột (cột A là từ, cột B là nghĩa) trong
 
 ### 2. Chọn **Loại câu hỏi**
 
-Mặc định tích cả 6 loại. Bỏ tích loại bạn không muốn luyện.
+Mặc định chỉ tích 2 loại đầu (**Chữ Hán → Nghĩa** và **Nghĩa → Chữ Hán**). Tích thêm loại bạn muốn luyện, bỏ tích loại không cần.
 
 Với **Điền từ vào câu** và **Sắp xếp câu**, từ chưa có câu ví dụ (hoặc câu ví dụ chưa có bản dịch) sẽ được bỏ qua. **Sắp xếp câu** cũng bỏ qua câu quá ngắn (dưới 3 từ) hoặc quá dài (trên 12 từ).
 

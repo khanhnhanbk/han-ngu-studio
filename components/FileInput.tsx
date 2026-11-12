@@ -16,6 +16,7 @@ export function FileInput({
   accept,
   onFile,
   showName = true,
+  fullWidth = false,
 }: {
   /** Field label above the button (form use). */
   label?: string;
@@ -25,6 +26,8 @@ export function FileInput({
   onFile: (file: File | undefined) => void;
   /** Hide the chosen file name when the caller already shows it. */
   showName?: boolean;
+  /** Stretch the button to the column width, like the buttons stacked with it. */
+  fullWidth?: boolean;
 }) {
   const dict = useDictionary();
   const [name, setName] = useState("");
@@ -46,7 +49,9 @@ export function FileInput({
             e.target.value = "";
           }}
         />
-        <span className="btn-secondary shrink-0 cursor-pointer px-3 py-2 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400">
+        <span
+          className={`btn-secondary cursor-pointer px-3 py-2 ${fullWidth ? "w-full justify-center" : "shrink-0"} peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400`}
+        >
           <UploadIcon ref={upload.ref} size={16} aria-hidden />
           {buttonLabel ?? dict.fileInput.choose}
         </span>

@@ -8,6 +8,9 @@ export const KINDS = [
   "ordering",
 ] as const;
 export type QuizKind = (typeof KINDS)[number];
+
+/** Ticked when the page opens; the others are listed, unticked (owner request 2026-11-12). */
+export const DEFAULT_KINDS: readonly QuizKind[] = ["hanToMeaning", "meaningToHan"];
 export type ChoiceKind = Exclude<QuizKind, "ordering">;
 
 /** Question order: all mixed, or grouped by type in KINDS order. */
