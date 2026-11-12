@@ -4,6 +4,83 @@ export const vi = {
     description:
       "Công cụ miễn phí cho người Việt học và dạy tiếng Trung: phiếu tập viết chữ Hán, tra thứ tự nét, chiết tự, ngắt từ, chuyển Pinyin, tra âm Hán Việt và tạo bộ thẻ Anki. Chạy ngay trên trình duyệt.",
   },
+  seo: {
+    practiceSheet: {
+      title: "Tạo phiếu tập viết chữ Hán in A4 miễn phí",
+      description:
+        "Tạo phiếu tập viết chữ Hán khổ A4 với ô 米字格 hoặc 田字格, có Pinyin, chữ mờ để đồ theo và thứ tự nét. In ra giấy hoặc lưu PDF, miễn phí.",
+    },
+    strokeOrder: {
+      title: "Thứ tự nét chữ Hán: xem từng nét, tập viết thử",
+      description:
+        "Xem cách viết chữ Hán theo đúng thứ tự nét, có hoạt hình từng nét. Viết thử bằng chuột hoặc ngón tay, rồi tạo phiếu tập viết cho các chữ đó.",
+    },
+    path: {
+      title: "Lộ trình học 1000 chữ Hán thông dụng (HSK 1–3)",
+      description:
+        "Học 1000 chữ Hán thông dụng, đủ mọi chữ HSK 1–3, chia 10 chặng: học thành phần trước, chữ ghép sau. Đánh dấu chữ đã học, tạo thẻ Anki, phiếu tập viết.",
+    },
+    lesson: {
+      title: "Soạn bài tiếng Trung: bảng từ, slide, Anki, đề",
+      description:
+        "Dán bài khóa hoặc file Word một lần, lấy ra bảng từ tiếng Trung (copy vào Word, Zalo, Quizlet), slide PowerPoint, thẻ Anki, đề trắc nghiệm và phiếu tập viết.",
+    },
+    lookup: {
+      title: "Tra từ điển Trung Việt: Pinyin, Hán Việt, ví dụ",
+      description:
+        "Tra từ tiếng Trung sang tiếng Việt: Pinyin, âm Hán Việt, cấp HSK, từ loại, nghĩa, lượng từ và câu ví dụ có bản dịch. Miễn phí, chạy ngay trên trình duyệt.",
+    },
+    reader: {
+      title: "Đọc hiểu tiếng Trung: tô màu từ theo cấp HSK",
+      description:
+        "Dán đoạn văn tiếng Trung, từ được tô màu theo cấp HSK. Bấm vào từ để xem Pinyin, Hán Việt và nghĩa tiếng Việt; ước tính độ khó, gửi từ mới sang Anki.",
+    },
+    stories: {
+      title: "Truyện đọc tiếng Trung theo cấp HSK có bản dịch",
+      description:
+        "Truyện ngắn tiếng Trung hiện đại theo cấp HSK: gọi đồ, hỏi đường, đi tàu điện ngầm… Có từ mới, bản dịch tiếng Việt từng câu và ghi chú văn hóa.",
+    },
+    segment: {
+      title: "Ngắt từ tiếng Trung: tách câu thành từng từ",
+      description:
+        "Tách câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ, để tra từ điển và học từ vựng dễ hơn. Miễn phí, không cần tài khoản.",
+    },
+    comprehensibleInput: {
+      title: "Sắp xếp câu tiếng Trung từ dễ đến khó (N+1)",
+      description:
+        "Sắp xếp câu tiếng Trung từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới (N+1). Dùng câu của bạn hoặc câu mẫu theo cấp HSK, tô sáng từ mới, tải TSV.",
+    },
+    pinyin: {
+      title: "Chuyển chữ Hán sang Pinyin có dấu",
+      description:
+        "Chuyển chữ Hán, câu hay cả đoạn văn sang Pinyin có dấu thanh, số hoặc không dấu; chữ đa âm đọc theo ngữ cảnh. Xem Pinyin trên đầu chữ, sao chép hoặc tải TSV.",
+    },
+    hanviet: {
+      title: "Tra âm Hán Việt của chữ Hán",
+      description:
+        "Tra âm Hán Việt và Pinyin cho từng từ trong câu tiếng Trung; bấm vào từ để xem mọi âm Hán Việt của từng chữ. Sao chép kết quả hoặc tải bảng TSV, miễn phí.",
+    },
+    anki: {
+      title: "Tạo thẻ Anki tiếng Trung có Pinyin, nghĩa, ví dụ",
+      description:
+        "Tạo bộ thẻ Anki tiếng Trung từ danh sách từ: Pinyin, nghĩa tiếng Việt, cấp HSK, câu ví dụ có bản dịch, âm Hán Việt, Ngũ bút. Tải file .apkg mở thẳng trong Anki.",
+    },
+    quiz: {
+      title: "Tạo đề trắc nghiệm từ vựng tiếng Trung",
+      description:
+        "Tạo đề trắc nghiệm từ vựng tiếng Trung từ danh sách từ: chọn nghĩa, Pinyin, âm Hán Việt, điền từ, sắp xếp câu. Làm bài ngay hoặc in đề kèm đáp án.",
+    },
+    radicals: {
+      title: "214 bộ thủ chữ Hán: tên Hán Việt, nghĩa, ví dụ",
+      description:
+        "Tra 214 bộ thủ Khang Hy theo số nét, tên Hán Việt hoặc nghĩa; xem dạng biến thể của bộ và các chữ Hán thường gặp có bộ đó. Miễn phí, không cần tài khoản.",
+    },
+    decompose: {
+      title: "Chiết tự chữ Hán: tách thành phần, mẹo ghi nhớ",
+      description:
+        "Chiết tự chữ Hán: tách chữ thành từng thành phần, xem phần gợi nghĩa và phần gợi âm, các chữ cùng thành phần, gợi ý mẹo nhớ và tự viết câu chuyện ghi nhớ.",
+    },
+  },
   fileInput: {
     choose: "Chọn file",
     none: "Chưa chọn file",
@@ -59,8 +136,12 @@ export const vi = {
     ctaPrimary: "Xem công cụ",
     ctaSecondary: "Hướng dẫn sử dụng",
     trustNote: "Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
-    mockupLabels: ["Pinyin", "Chữ mẫu", "Chữ mờ"],
-    mockupTitle: "Phiếu tập viết",
+    mockupTitle: "Thử ngay: phiếu tập viết",
+    tryLabel: "Gõ hoặc dán chữ Hán",
+    tryButton: "Tạo phiếu tập viết",
+    tryHint: "Xem trước 6 chữ đầu. Phiếu thật in khổ A4, có chữ mờ để tô theo.",
+    tryEmpty: "Gõ ít nhất một chữ Hán để tạo phiếu.",
+    tryPreview: "Ô xem trước phiếu tập viết",
   },
   problem: {
     title: "Soạn tài liệu học tiếng Trung rất tốn thời gian",

@@ -11,6 +11,83 @@ export const en: Dictionary = {
     description:
       "Free tools for learning and teaching Chinese: handwriting practice sheets, stroke order, character breakdown, word segmentation, Pinyin, Sino-Vietnamese (Hán Việt) readings and Anki decks. Runs right in your browser.",
   },
+  seo: {
+    practiceSheet: {
+      title: "Free printable Chinese character practice sheets",
+      description:
+        "Make A4 Chinese handwriting practice sheets with 米字格 or 田字格 grids, Pinyin, faint characters to trace and stroke order. Print them or save as PDF, free.",
+    },
+    strokeOrder: {
+      title: "Chinese stroke order: watch each stroke, try it",
+      description:
+        "See how to write Chinese characters in the right stroke order, animated stroke by stroke. Try writing with your mouse or finger, then make a practice sheet.",
+    },
+    path: {
+      title: "Learn the 1000 most common Chinese characters",
+      description:
+        "Learn the 1000 most common Chinese characters, every HSK 1–3 one included, in 10 stages: components first, then the characters built from them. Track progress.",
+    },
+    lesson: {
+      title: "Chinese lesson builder: word table, slides, Anki",
+      description:
+        "Paste a Chinese lesson text or Word file once and get a word table for Word or Quizlet, PowerPoint slides, an Anki deck, a quiz and a practice sheet.",
+    },
+    lookup: {
+      title: "Chinese–Vietnamese dictionary: Pinyin, examples",
+      description:
+        "Look up a Chinese word or character: Pinyin, Hán Việt, HSK level, part of speech, Vietnamese meaning, measure words and example sentences with translations.",
+    },
+    reader: {
+      title: "Chinese graded reader: words coloured by HSK level",
+      description:
+        "Paste any Chinese text and see words coloured by HSK level. Tap a word for its Pinyin, Hán Việt and meanings; estimate difficulty and send new words to Anki.",
+    },
+    stories: {
+      title: "Graded Chinese short stories by HSK level",
+      description:
+        "Short modern Chinese stories by HSK level: ordering a drink, asking the way, the metro… Each has new words, a line-by-line translation and a culture note.",
+    },
+    segment: {
+      title: "Chinese word segmentation: split text into words",
+      description:
+        "Split Chinese sentences into words with spaces between them, which makes dictionary lookups and vocabulary study easier. Free, no account needed.",
+    },
+    comprehensibleInput: {
+      title: "Order Chinese sentences from easy to hard (N+1)",
+      description:
+        "Order Chinese sentences from easy to hard so each one adds about one new word (N+1). Use your own sentences or samples by HSK level; new words are highlighted.",
+    },
+    pinyin: {
+      title: "Chinese characters to Pinyin with tone marks",
+      description:
+        "Convert Chinese characters, sentences or texts to Pinyin with tone marks or numbers; polyphonic characters follow context. See it above the text or as TSV.",
+    },
+    hanviet: {
+      title: "Sino-Vietnamese (Hán Việt) readings of characters",
+      description:
+        "Get the Sino-Vietnamese (Hán Việt) reading and Pinyin of each word in a Chinese sentence; click a word to see every reading of each character, or get a TSV.",
+    },
+    anki: {
+      title: "Chinese Anki deck maker with Pinyin and examples",
+      description:
+        "Make a Chinese Anki deck from a word list: Pinyin, Vietnamese and English meanings, HSK level, example sentences, Hán Việt and Wubi. Download an .apkg file.",
+    },
+    quiz: {
+      title: "Chinese vocabulary quiz maker, printable",
+      description:
+        "Make a Chinese vocabulary quiz from a word list: meaning, Pinyin or Hán Việt reading, fill the blank, sentence order. Take it now or print it with answers.",
+    },
+    radicals: {
+      title: "The 214 Kangxi radicals: meanings and examples",
+      description:
+        "Browse the 214 Kangxi radicals by stroke count, Sino-Vietnamese name or meaning; see their variant forms and the common Chinese characters that use each one.",
+    },
+    decompose: {
+      title: "Chinese character breakdown: parts and memory tips",
+      description:
+        "Break a Chinese character into its components, see which part hints at the meaning and which at the sound, find characters sharing a part, get memory tips.",
+    },
+  },
   fileInput: {
     choose: "Choose file",
     none: "No file chosen",
@@ -65,8 +142,12 @@ export const en: Dictionary = {
     ctaPrimary: "See the tools",
     ctaSecondary: "User guide (Vietnamese)",
     trustNote: "What you type is processed on your device and never sent anywhere.",
-    mockupLabels: ["Pinyin", "Model", "Trace"],
-    mockupTitle: "Practice sheet",
+    mockupTitle: "Try it: practice sheet",
+    tryLabel: "Type or paste Chinese characters",
+    tryButton: "Make a practice sheet",
+    tryHint: "Preview of the first 6 characters. The real sheet prints on A4 with faded characters to trace.",
+    tryEmpty: "Type at least one Chinese character to make a sheet.",
+    tryPreview: "Practice sheet preview",
   },
   problem: {
     title: "Preparing Chinese study materials takes too long",

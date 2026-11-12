@@ -26,22 +26,31 @@ export function toolOgImage(locale: Locale, path: string): string {
   return `/og/${locale === "en" ? "en/" : ""}${file}.png?v=${OG_VERSION}`;
 }
 
-/** Title, description and hreflang for a tool page in one language. */
+/** The search-result title of a tool page: its `seo.title` plus the site name. */
+export function toolTitle(locale: Locale, tool: ToolKey): string {
+  return `${getDictionary(locale).seo[tool].title} – Hán Ngữ Studio`;
+}
+
+/**
+ * Title, description and hreflang for a tool page in one language. The words
+ * come from `seo` in lib/i18n (phrased the way people search on Google), not
+ * from the landing-page cards, so the cards can stay short.
+ */
 export function toolMetadata(locale: Locale, tool: ToolKey, path: string): Metadata {
   const dict = getDictionary(locale);
-  const item = dict.features.items[tool];
-  const title = `${item.title} – Hán Ngữ Studio`;
-  const image = { url: toolOgImage(locale, path), width: 1200, height: 630, alt: item.title };
+  const seo = dict.seo[tool];
+  const title = toolTitle(locale, tool);
+  const image = { url: toolOgImage(locale, path), width: 1200, height: 630, alt: dict.features.items[tool].title };
   return {
     title,
-    description: item.description,
+    description: seo.description,
     alternates: alternates(locale, path),
     // Link previews (Zalo, Facebook) show the tool's own title and picture. Setting
     // openGraph here drops the inherited app/opengraph-image.png, so images must be listed.
     openGraph: {
       images: [image],
       title,
-      description: item.description,
+      description: seo.description,
       url: localizeHref(locale, path),
       siteName: "Hán Ngữ Studio",
       locale: locale === "vi" ? "vi_VN" : "en_US",
