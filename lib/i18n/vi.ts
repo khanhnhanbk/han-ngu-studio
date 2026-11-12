@@ -1480,6 +1480,7 @@ export const vi = {
       },
       own: { name: "Mẫu của tôi", description: "Dùng file PowerPoint của bạn, có ghi {{chu}}, {{pinyin}}… ở chỗ muốn hiện." },
       upload: "Chọn file PowerPoint (.pptx)",
+      ownHint: "Chưa có mẫu? Bấm \u201cTải mẫu về sửa\u201d để lấy mẫu Thẻ từ làm điểm bắt đầu.",
       pickFile: "Chọn file PowerPoint (.pptx) của bạn trước.",
       make: "Tải slide (.pptx)",
       making: "Đang làm slide…",

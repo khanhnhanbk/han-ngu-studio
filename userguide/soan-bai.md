@@ -35,7 +35,7 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 1. Mở file của bạn (Word, PDF, trang web), bấm **Ctrl+A** rồi **Ctrl+C**.
 2. Bấm vào ô **Dán cả bài vào đây** và bấm **Ctrl+V**. Hoặc bấm **Chọn file Word (.docx)** để đưa thẳng file vào; file được đọc ngay trong trình duyệt, không gửi đi đâu.
 3. Web tự xếp từng dòng:
-   - Dòng là một từ (tối đa 4 chữ Hán), có thể kèm pinyin và nghĩa như `1. 早 zǎo` hay `学习 xuéxí học tập`: vào ô **Từ mới (mỗi dòng một từ)**. Pinyin và nghĩa bạn ghi được giữ nguyên trong bảng từ.
+   - Dòng là một từ (tối đa 4 chữ Hán), có thể kèm pinyin và nghĩa như `1. 早 zǎo` hay `学习 xuéxí học tập`: vào ô **Từ mới (mỗi dòng một từ)**. Pinyin và nghĩa bạn ghi được giữ nguyên trong bảng từ. Không cần dấu gạch giữa pinyin và nghĩa: `家 jiā nhà, gia đình` vẫn tách đúng pinyin `jiā` và nghĩa `nhà, gia đình`.
    - Dòng khác có chữ Hán (câu, hội thoại): vào ô **Bài khóa / đoạn văn (không bắt buộc)**, đã bỏ số thứ tự.
    - Dòng không có chữ Hán (tiêu đề, ghi chú, dòng pinyin rời, số trang): bỏ qua. Bấm **Xem … dòng đã bỏ qua** để kiểm tra.
 4. Bài mới (chưa có gì) sẽ lấy dòng đầu tiên làm **Tên bài**. Dán thêm lần nữa thì nội dung được nối vào, từ trùng không thêm lại.
@@ -46,7 +46,7 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 2. Ở **Chọn mẫu**, chọn một trong ba:
    - **Thẻ từ**: mỗi từ một slide có chữ to, Pinyin, Hán Việt, nghĩa và một câu ví dụ.
    - **Hỏi – đáp**: slide đầu chỉ có chữ để hỏi cả lớp, slide sau mới hiện đáp án.
-   - **Mẫu của tôi**: bấm **Chọn file PowerPoint (.pptx)** và chọn mẫu của bạn.
+   - **Mẫu của tôi**: bấm **Chọn file PowerPoint (.pptx)** và chọn mẫu của bạn. Chưa có mẫu thì bấm **Tải mẫu về sửa** để lấy mẫu Thẻ từ làm điểm bắt đầu.
 3. Bấm **Tải slide (.pptx)**. File tải về máy, mở bằng PowerPoint, Google Slides (Tệp → Nhập trang trình bày) hoặc Canva.
 
 ### Tự làm mẫu riêng
@@ -84,5 +84,6 @@ File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 | "Không thấy chữ Hán nào trong phần vừa dán." | Phần vừa dán chỉ có chữ Latin (ví dụ chỉ có pinyin). Hãy copy cả phần có chữ Hán. |
 | "Không đọc được file. Hãy chọn file Word đuôi .docx." | File .doc đời cũ hoặc PDF không đọc được: mở file, Ctrl+A, Ctrl+C rồi dán vào ô **Dán cả bài vào đây**. |
 | "File này không phải PowerPoint (.pptx)…" | Mẫu đang là .ppt đời cũ, .key hay Google Slides. Mở bằng PowerPoint hoặc Google Slides rồi tải về / lưu thành .pptx. |
+| Nghĩa tiếng Việt bị đưa vào cột Pinyin | Thường do nghĩa viết không dấu và giống pinyin (ví dụ `ba me`). Thêm dấu gạch: `爸妈 bàmā – ba mẹ`, hoặc sửa lại trong bảng từ. |
 | "Mẫu chưa có slide nào ghi {{chu}}…" | Thêm `{{chu}}` (hoặc ô khác của từ) vào slide muốn lặp cho từng từ. |
 | "Mẫu có ô web không hiểu…" | Ô bị gõ sai chính tả, ví dụ `{{hanvet}}`. Sửa theo bảng ô ở trên. |

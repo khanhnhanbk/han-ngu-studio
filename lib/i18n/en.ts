@@ -1476,6 +1476,7 @@ export const en: Dictionary = {
       },
       own: { name: "My template", description: "Use your own PowerPoint file, with {{chu}}, {{pinyin}}… where they should appear." },
       upload: "Choose a PowerPoint file (.pptx)",
+      ownHint: "No template yet? Click \u201cDownload template to edit\u201d to start from the Word cards template.",
       pickFile: "Choose your PowerPoint file (.pptx) first.",
       make: "Download slides (.pptx)",
       making: "Making slides…",
