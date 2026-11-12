@@ -1361,7 +1361,8 @@ export const vi = {
     subtitle: "Những gì trang web lưu (rất ít), và dữ liệu của trang đến từ đâu.",
     privacyTitle: "Quyền riêng tư",
     privacy: [
-      "Không có tài khoản, quảng cáo, cookie theo dõi hay công cụ thống kê truy cập.",
+      "Không có tài khoản, quảng cáo hay cookie theo dõi.",
+      "Trang chỉ đếm lượt xem (Vercel Web Analytics, không dùng cookie): trang nào được mở, đến từ trang web nào, loại thiết bị và quốc gia. Phần sau dấu # và dấu ? của địa chỉ (nơi chứa từ bạn chuyển giữa các công cụ) bị cắt bỏ trước khi gửi.",
       "Văn bản bạn nhập được xử lý ngay trên máy của bạn và không gửi đi đâu cả.",
       "Trình duyệt của bạn (localStorage) chỉ lưu những gì bạn chọn: cài đặt (giao diện, Giản thể / Phồn thể, Giọng đọc, tuỳ chọn phiếu tập viết), câu chuyện ghi nhớ ở Chiết tự và từ đã biết ở Đọc hiểu. Xoá dữ liệu trang web trong trình duyệt là xoá hết; hai mục sau có nút xuất TSV.",
       "Trang được lưu trữ trên Vercel. Như mọi máy chủ web, Vercel ghi nhật ký kỹ thuật (địa chỉ IP, trình duyệt, trang được tải) để vận hành dịch vụ; chúng tôi không dùng nhật ký đó để theo dõi bạn.",

@@ -15,6 +15,7 @@
     "fetch:ancient": "node scripts/fetch-ancient.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "fflate": "0.8.2",
     "hanzi-writer": "3.7.3",
     "motion": "14.3.0",

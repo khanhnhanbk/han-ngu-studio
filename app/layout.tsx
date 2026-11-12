@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Be_Vietnam_Pro, LXGW_WenKai_TC, Noto_Sans_SC, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 import { DownloadPrompt } from "@/components/DownloadPrompt";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { SpeechSettingsHost } from "@/components/speech/SpeechSettingsHost";
 import { getDictionary } from "@/lib/i18n";
 import { LANG_INIT_SCRIPT } from "@/lib/i18n/locale";
@@ -85,6 +86,7 @@ export default function RootLayout({
         {children}
         <DownloadPrompt />
         <SpeechSettingsHost />
+        <SiteAnalytics />
       </body>
     </html>
   );
