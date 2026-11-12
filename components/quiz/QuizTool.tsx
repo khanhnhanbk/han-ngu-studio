@@ -24,7 +24,7 @@ import { orderedSentence, printText, toTsv } from "@/lib/quiz/export";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { createRng, randomSeed } from "@/lib/quiz/rng";
 import { showQuestion, showSkipped, simpEntries } from "@/lib/quiz/script";
-import { KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
+import { DEFAULT_KINDS, KINDS, ORDERS, type Question, type QuizKind, type QuizOrder, type Response, type Skipped } from "@/lib/quiz/types";
 import { parseWordsHash } from "@/lib/reader/handoff";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
@@ -54,7 +54,7 @@ export function QuizTool({ initialWords, embedded = false }: EmbeddableToolProps
     const words = parseWordsHash(window.location.hash);
     if (words.length) setText(words.join("\n"));
   }, [initialWords]);
-  const [kinds, setKinds] = useState<Set<QuizKind>>(() => new Set(KINDS));
+  const [kinds, setKinds] = useState<Set<QuizKind>>(() => new Set(DEFAULT_KINDS));
   const [order, setOrder] = useState<QuizOrder>("random");
   const [phase, setPhase] = useState<Phase>("setup");
   const [questions, setQuestions] = useState<Question[]>([]);
