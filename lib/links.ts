@@ -2,6 +2,9 @@ export const REPO_URL = "https://github.com/khanhnhanbk/han-ngu-studio";
 /** Vietnamese user guide (userguide/ in the repo, not deployed). */
 export const USER_GUIDE_URL = `${REPO_URL}/tree/main/userguide`;
 
+/** The owner's Zalo, for quick feedback without a GitHub account (same link as the portfolio). */
+export const ZALO_URL = "https://zalo.me/84349796850";
+
 export type ToolId =
   | "reader"
   | "practiceSheet"

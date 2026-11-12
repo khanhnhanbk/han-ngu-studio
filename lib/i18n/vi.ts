@@ -1409,6 +1409,7 @@ export const vi = {
       faq: "Câu hỏi thường gặp",
       roadmap: "Sắp ra mắt",
       legal: "Giấy phép và quyền riêng tư",
+      zalo: "Góp ý qua Zalo",
       feedback: "Góp ý / báo lỗi (GitHub)",
     },
     rights: "Mã nguồn theo giấy phép MIT; dữ liệu theo giấy phép của từng nguồn.",
