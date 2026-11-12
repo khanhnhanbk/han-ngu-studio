@@ -15,7 +15,7 @@ const GUIDE_IMAGES: Record<string, Record<string, readonly [number, number]>> = 
     paste: [1200, 1134],
     practice: [1200, 956],
     quiz: [1200, 463],
-    slides: [1200, 474],
+    slides: [1088, 450],
     table: [1200, 511],
   },
   vi: {
@@ -23,7 +23,7 @@ const GUIDE_IMAGES: Record<string, Record<string, readonly [number, number]>> = 
     paste: [1200, 1134],
     practice: [1200, 956],
     quiz: [1200, 463],
-    slides: [1200, 423],
+    slides: [1088, 403],
     table: [1200, 511],
   },
 };
