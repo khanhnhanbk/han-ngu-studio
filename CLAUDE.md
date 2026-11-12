@@ -78,6 +78,12 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - `docs/plans/`: implementation plans (see below)
 - `userguide/`: end-user guide in Vietnamese, one page per tool. Lives on GitHub only (not served, listed in `.vercelignore`).
 
+## Git and pull requests
+
+- One PR per change, branched from the latest `main`; never commit to `main` directly. Every PR has screenshots (or command output when nothing visual changes).
+- Merge with **Squash and merge**, then delete the branch: `main` stays one commit per PR, in a straight line.
+- Avoid stacked PRs (a PR based on another open PR): after a squash they conflict. Open the next PR only after the previous one is merged; when stacking cannot be avoided, merge `main` into the upper PR right after the lower one lands.
+
 ## Plans
 
 - Plan mode saves plans to `docs/plans/` (set via `plansDirectory` in `.claude/settings.json`).
