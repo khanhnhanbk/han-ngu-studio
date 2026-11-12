@@ -1584,6 +1584,22 @@ export const en: Dictionary = {
     scriptCredit: "Simplified / Traditional conversion: OpenCC (Apache-2.0) via opencc-js (MIT).",
     languageLabel: "Language",
   },
+  notFound: {
+    metaTitle: "Page not found – Hán Ngữ Studio",
+    eyebrow: "Error 404",
+    hanziMeaning: "lost",
+    title: "This page is not here",
+    subtitle:
+      "The link may have a typo, or the page has moved. Go back to the home page or read the guide.",
+    home: "Back to home",
+    guide: "Read the teacher guide",
+    popular: "Or open a tool directly:",
+    tools: {
+      lesson: "Lesson builder",
+      practiceSheet: "Practice sheet",
+      lookup: "Word lookup",
+    },
+  },
   language: {
     label: "Language",
     vi: "Tiếng Việt",
