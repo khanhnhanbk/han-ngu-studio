@@ -1,38 +1,15 @@
 "use client";
 
 import type { ToolId } from "@/lib/links";
+import { TOOL_GLYPHS } from "@/lib/tool-glyphs/glyphs";
 import { ArrowRightIcon } from "./icons/arrow-right";
-import { BookOpenIcon } from "./icons/book-open";
-import { BookOpenTextIcon } from "./icons/book-open-text";
-import { LanguagesIcon } from "./icons/languages";
-import { LayersIcon } from "./icons/layers";
-import { ListOrderedIcon } from "./icons/list-ordered";
-import { PaintbrushIcon } from "./icons/paintbrush";
-import { PencilIcon } from "./icons/pencil";
-import { PuzzleIcon } from "./icons/puzzle";
-import { ScissorsIcon } from "./icons/scissors";
-import { SparklesIcon } from "./icons/sparkles";
-import { SplitIcon } from "./icons/split";
-import { useIconTrigger, type AnimatedIcon } from "./icons/trigger";
+import { useIconTrigger } from "./icons/trigger";
 
-const TOOL_ICONS: Record<ToolId, AnimatedIcon> = {
-  reader: BookOpenTextIcon,
-  practiceSheet: PencilIcon,
-  strokeOrder: PaintbrushIcon,
-  segment: ScissorsIcon,
-  pinyin: LanguagesIcon,
-  hanviet: BookOpenIcon,
-  anki: LayersIcon,
-  quiz: SparklesIcon,
-  radicals: PuzzleIcon,
-  decompose: SplitIcon,
-  comprehensibleInput: ListOrderedIcon,
-  stories: BookOpenIcon,
-  lookup: BookOpenTextIcon,
-  path: ArrowRightIcon,
-};
-
-/** Landing-page tool card; hovering or focusing the card plays both icons. */
+/**
+ * Landing-page tool card. The badge is one Chinese character for the tool
+ * (Simplified or Traditional by CSS on <html data-script>, so no flash and no
+ * OpenCC download); hovering or focusing the card plays the arrow.
+ */
 export function ToolCard({
   id,
   href,
@@ -46,17 +23,10 @@ export function ToolCard({
   description: string;
   cta: string;
 }) {
-  const Icon = TOOL_ICONS[id];
-  const badge = useIconTrigger();
+  const glyph = TOOL_GLYPHS[id];
   const arrow = useIconTrigger();
-  const start = () => {
-    badge.triggerProps.onMouseEnter();
-    arrow.triggerProps.onMouseEnter();
-  };
-  const stop = () => {
-    badge.triggerProps.onMouseLeave();
-    arrow.triggerProps.onMouseLeave();
-  };
+  const start = arrow.triggerProps.onMouseEnter;
+  const stop = arrow.triggerProps.onMouseLeave;
 
   return (
     <a
@@ -67,8 +37,19 @@ export function ToolCard({
       onFocus={start}
       onBlur={stop}
     >
-      <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-700">
-        <Icon ref={badge.ref} size={22} aria-hidden />
+      <div
+        className="hanzi grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-2xl text-brand-700"
+        lang="zh"
+        aria-hidden
+      >
+        {glyph.trad ? (
+          <>
+            <span className="glyph-simp">{glyph.simp}</span>
+            <span className="glyph-trad">{glyph.trad}</span>
+          </>
+        ) : (
+          glyph.simp
+        )}
       </div>
       <h3 className="mt-4 text-lg font-semibold text-ink-900">{title}</h3>
       <p className="mt-2 flex-1 text-sm text-ink-700">{description}</p>
