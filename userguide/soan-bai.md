@@ -73,6 +73,7 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 
 3. Slide nào có ô của từ sẽ được lặp lại cho từng từ, theo đúng thứ tự (có thể là một nhóm nhiều slide, như mẫu Hỏi – đáp hay Ba trang mỗi từ). Slide khác (bìa, kết) giữ một lần. Mẫu một thẻ từ + hai slide ví dụ thì dùng `{{vidu}}` ở slide ví dụ đầu, `{{vidu2}}` ở slide sau, để hai slide không trùng câu.
 4. Lưu thành .pptx, chọn **Mẫu của tôi** rồi chọn file đó.
+5. Vẽ ô `{{chu}}` đủ rộng cho từ dài nhất (3–4 chữ). Nếu chữ dài hơn ô (hoặc chạm vào hình bên cạnh), web tự thu nhỏ cỡ chữ ở slide đó cho vừa, không để từ bị xuống hàng, và **chưa tải về ngay**: web hiện danh sách "Slide đã làm xong nhưng chưa tải về. Có chữ dài hơn ô trong mẫu, web sẽ tự thu nhỏ cho vừa ô:", ví dụ "大学生: ô {{chu}} còn 68% cỡ chữ". Đọc xong thì bấm **Vẫn tải về (.pptx)**, hoặc **Sửa mẫu trước** để sửa ô trong PowerPoint rồi chọn lại file. Không có chữ nào phải thu nhỏ thì file tải về luôn. Nghĩa và câu ví dụ dài vẫn được xuống hàng nếu ô trong mẫu cao đủ hai dòng.
 
 File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 
@@ -92,4 +93,6 @@ File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 | "File này không phải PowerPoint (.pptx)…" | Mẫu đang là .ppt đời cũ, .key hay Google Slides. Mở bằng PowerPoint hoặc Google Slides rồi tải về / lưu thành .pptx. |
 | Nghĩa tiếng Việt bị đưa vào cột Pinyin | Thường do nghĩa viết không dấu và giống pinyin (ví dụ `ba me`). Thêm dấu gạch: `爸妈 bàmā – ba mẹ`, hoặc sửa lại trong bảng từ. |
 | "Mẫu chưa có slide nào ghi {{chu}}…" | Thêm `{{chu}}` (hoặc ô khác của từ) vào slide muốn lặp cho từng từ. |
+| Chữ trên vài slide nhỏ hơn mẫu | Từ hay nghĩa đó dài hơn ô nên web thu nhỏ cho vừa (xem danh sách hiện ra trước khi tải). Muốn giữ chữ to thì kéo rộng ô trong mẫu hoặc dời hình bên cạnh ra xa. |
+| "…vẫn chật dù đã thu nhỏ còn 40%…" | Chữ quá dài so với ô, web đã thu tới mức nhỏ nhất. Mở slide đó sửa tay, hoặc làm ô rộng hơn trong mẫu. Web chỉ ước lượng bề rộng chữ (không có phông thật của PowerPoint), nên vẫn nên xem lại slide trong danh sách. |
 | "Mẫu có ô web không hiểu…" | Ô bị gõ sai chính tả, ví dụ `{{hanvet}}`. Sửa theo bảng ô ở trên. |
