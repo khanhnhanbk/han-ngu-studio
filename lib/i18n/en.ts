@@ -135,15 +135,19 @@ export const en: Dictionary = {
     },
   },
   hero: {
-    badge: "Free · Nothing to install",
+    badge: "Free · No account needed",
     title: "Learn and teach Chinese faster",
     subtitle:
       "Paste Chinese text, pick a tool and get study materials straight away: handwriting practice sheets, Pinyin, Sino-Vietnamese readings, Anki decks. Everything runs in your browser.",
     ctaPrimary: "See the tools",
     ctaSecondary: "User guide (Vietnamese)",
-    trustNote: "Made for Vietnamese learners, now with an English interface",
-    mockupLabels: ["Pinyin", "Model", "Trace"],
-    mockupTitle: "Practice sheet",
+    trustNote: "What you type is processed on your device and never sent anywhere.",
+    mockupTitle: "Try it: practice sheet",
+    tryLabel: "Type or paste Chinese characters",
+    tryButton: "Make a practice sheet",
+    tryHint: "Preview of the first 6 characters. The real sheet prints on A4 with faded characters to trace.",
+    tryEmpty: "Type at least one Chinese character to make a sheet.",
+    tryPreview: "Practice sheet preview",
   },
   problem: {
     title: "Preparing Chinese study materials takes too long",
@@ -433,8 +437,19 @@ export const en: Dictionary = {
         answer: "Yes. Every tool is free, with no usage limits and no account needed.",
       },
       {
-        question: "Do I need to install anything?",
-        answer: "No. Everything runs directly in your browser; you only need an internet connection.",
+        question: "Can I use a Word file I already have?",
+        answer:
+          "Yes. In the Lesson builder, click “Choose a Word file (.docx)”, or copy the whole handout and paste it into the “Paste the whole handout here” box. The site sorts out the new words (keeping your own Pinyin and meanings) and the text; lines without Chinese characters are skipped and listed so you can check them.",
+      },
+      {
+        question: "Do students need an account or to install anything?",
+        answer:
+          "No. Nobody needs an account, and every tool runs in the browser. Send students a PDF, a word list pasted into Zalo, or a link to a tool. Only Anki review needs the Anki app, to open the .apkg file.",
+      },
+      {
+        question: "Does it print well on paper?",
+        answer:
+          "Yes. Practice sheets are laid out for A4. The Lesson builder's word table prints on A4 with 15 mm margins, the lesson name at the top, borders, and no row split across two pages; click “Print / save as PDF” to print it or save a PDF for students. Quizzes also print on A4 with 15 mm margins, with an answer key.",
       },
       {
         question: "Does it work on a phone?",
@@ -444,12 +459,12 @@ export const en: Dictionary = {
       {
         question: "What can I do with the downloaded files?",
         answer:
-          "Practice sheets print on paper or save as PDF. Segmentation, Pinyin and Hán Việt download as TXT or TSV files (open them in Excel or Google Sheets). Anki decks download as a TSV file to import into Anki.",
+          "Practice sheets, word tables and quizzes print on paper or save as PDF. Word tables copy into Word, Google Docs, Sheets, Zalo and Quizlet. Segmentation, Pinyin and Hán Việt download as TXT or TSV files (open them in Excel or Google Sheets). Anki decks download as an .apkg file that opens straight in Anki (a TSV file is still there if you want to build your own).",
       },
       {
         question: "Is my data stored?",
         answer:
-          "No. Everything is processed on your own device; we do not store or send the text you enter anywhere.",
+          "The text you enter to process is not stored or sent anywhere; everything runs on your own device. Only the lessons you make in the Lesson builder (plus known words in the Reader and characters ticked as learned on the Learning path) are kept in your browser on this device, never sent to a server. Changing device or clearing browser data loses them, so click “Back up (.json)” now and then.",
       },
       {
         question: "Where do the meanings, example sentences and Wubi codes come from?",
@@ -469,7 +484,7 @@ export const en: Dictionary = {
       {
         question: "Where is the user guide?",
         answer:
-          "A step-by-step guide for every tool is on GitHub (in Vietnamese). Click “User guide” at the top or bottom of the page.",
+          "Teachers can click “Guide for teachers” at the bottom of the page for the lesson flow step by step, with screenshots. A detailed guide for every tool is on GitHub (in Vietnamese): click “User guide” at the top or bottom of the page.",
       },
     ],
   },
@@ -1591,7 +1606,7 @@ export const en: Dictionary = {
   },
   cta: {
     title: "Ready to make your first material?",
-    subtitle: "Free, no account, nothing to install. Open a tool and start right away.",
+    subtitle: "Free, no account, nothing to install. What you type is processed on your device and never sent anywhere.",
     primary: "Make a practice sheet",
     secondary: "Read the guide (Vietnamese)",
   },

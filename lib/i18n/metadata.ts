@@ -13,6 +13,19 @@ export function alternates(locale: Locale, path: string): NonNullable<Metadata["
 
 type ToolKey = keyof ReturnType<typeof getDictionary>["features"]["items"];
 
+/**
+ * Link-preview image for one tool page: `public/og/<last route part>.png`, English in
+ * `public/og/en/`. Drawn by `scripts/og/make-og.mjs` (every word inside the centre 630×630
+ * square, which Facebook comments, Messenger and Zalo crop to). Raise OG_VERSION whenever the
+ * images are redrawn so Zalo and Facebook fetch the new picture instead of their cached one.
+ */
+export const OG_VERSION = 1;
+
+export function toolOgImage(locale: Locale, path: string): string {
+  const file = path.split("/").filter(Boolean).pop();
+  return `/og/${locale === "en" ? "en/" : ""}${file}.png?v=${OG_VERSION}`;
+}
+
 /** The search-result title of a tool page: its `seo.title` plus the site name. */
 export function toolTitle(locale: Locale, tool: ToolKey): string {
   return `${getDictionary(locale).seo[tool].title} – Hán Ngữ Studio`;
@@ -24,16 +37,18 @@ export function toolTitle(locale: Locale, tool: ToolKey): string {
  * from the landing-page cards, so the cards can stay short.
  */
 export function toolMetadata(locale: Locale, tool: ToolKey, path: string): Metadata {
-  const seo = getDictionary(locale).seo[tool];
+  const dict = getDictionary(locale);
+  const seo = dict.seo[tool];
   const title = toolTitle(locale, tool);
+  const image = { url: toolOgImage(locale, path), width: 1200, height: 630, alt: dict.features.items[tool].title };
   return {
     title,
     description: seo.description,
     alternates: alternates(locale, path),
-    // Link previews (Zalo, Facebook) show the tool's own title. Setting openGraph
-    // here drops the inherited app/opengraph-image.png, so name it again.
+    // Link previews (Zalo, Facebook) show the tool's own title and picture. Setting
+    // openGraph here drops the inherited app/opengraph-image.png, so images must be listed.
     openGraph: {
-      images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Hán Ngữ Studio" }],
+      images: [image],
       title,
       description: seo.description,
       url: localizeHref(locale, path),
@@ -41,5 +56,6 @@ export function toolMetadata(locale: Locale, tool: ToolKey, path: string): Metad
       locale: locale === "vi" ? "vi_VN" : "en_US",
       type: "website",
     },
+    twitter: { card: "summary_large_image", images: [image] },
   };
 }

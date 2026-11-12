@@ -31,6 +31,11 @@ read as fragments. The image is now laid out around the centre 630Ã—630 (x 285â€
 decoration only. Keep any future text inside that square and large enough to read at ~175 px wide.
 Before/after crops: `docs/screenshots/link-preview/`.
 
+## Per-tool images (2026-11-12)
+
+Tool pages and `/en` now have their own pictures in `public/og/`, drawn by `scripts/og/make-og.mjs`;
+see `docs/plans/2026-11-12-tool-link-previews.md`.
+
 ## Checking after deploy
 
 Facebook caches previews: re-scrape with https://developers.facebook.com/tools/debug/ ("Scrape Again").

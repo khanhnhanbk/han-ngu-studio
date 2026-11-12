@@ -1,14 +1,22 @@
 "use client";
 
-import { useDictionary } from "@/lib/i18n/useLocale";
-import { USER_GUIDE_URL } from "@/lib/links";
+import { useRouter } from "next/navigation";
+import { useEffect, useId, useState, type FormEvent } from "react";
+
+import {
+  practiceSheetLink,
+  TRY_CELLS,
+  TRY_DEFAULT,
+  TRY_DEFAULT_PINYIN,
+  tryChars,
+} from "@/lib/hero/tryBox";
+import { useDictionary, useHref } from "@/lib/i18n/useLocale";
+import { PRACTICE_SHEET_HREF, USER_GUIDE_URL } from "@/lib/links";
 import { ArrowDownIcon } from "./icons/arrow-down";
 import { ExternalLinkIcon } from "./icons/external-link";
 import { SparklesIcon } from "./icons/sparkles";
-import { IconLink } from "./icons/trigger";
-
-// Sample mizige cells for the hero mockup
-const cells = ["永", "和", "九", "年", "岁", "在"];
+import { PencilIcon } from "./icons/pencil";
+import { IconButton, IconLink } from "./icons/trigger";
 
 function MizigeCell({ char }: { char: string }) {
   return (
@@ -19,10 +27,101 @@ function MizigeCell({ char }: { char: string }) {
         <span className="absolute h-px w-[141%] rotate-45 bg-brand-300/30" />
         <span className="absolute h-px w-[141%] -rotate-45 bg-brand-300/30" />
       </span>
-      <span className="hanzi absolute inset-0 flex items-center justify-center text-3xl text-ink-900">
+      <span className="hanzi absolute inset-0 flex items-center justify-center text-2xl text-ink-900 sm:text-3xl">
         {char}
       </span>
     </div>
+  );
+}
+
+/**
+ * "Thử ngay": type a few characters, see them in 米字格 cells with their
+ * Pinyin, then open the practice sheet with them in the URL hash (never sent
+ * to the server). pinyin-pro only downloads once the text is changed.
+ */
+function TryBox() {
+  const dict = useDictionary();
+  const href = useHref();
+  const router = useRouter();
+  const inputId = useId();
+  const hintId = useId();
+  const [text, setText] = useState(TRY_DEFAULT);
+  const chars = tryChars(text);
+  const shown = chars.slice(0, TRY_CELLS);
+  const shownText = shown.join("");
+  const [pinyin, setPinyin] = useState(TRY_DEFAULT_PINYIN);
+
+  useEffect(() => {
+    if (shownText === TRY_DEFAULT) {
+      setPinyin(TRY_DEFAULT_PINYIN);
+      return;
+    }
+    if (!shownText) {
+      setPinyin("");
+      return;
+    }
+    let alive = true;
+    import("@/lib/practiceSheet").then(
+      ({ getPinyin }) => alive && setPinyin(getPinyin(shownText)),
+      () => alive && setPinyin(""),
+    );
+    return () => {
+      alive = false;
+    };
+  }, [shownText]);
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    if (chars.length === 0) return;
+    router.push(practiceSheetLink(href(PRACTICE_SHEET_HREF), chars));
+  };
+
+  return (
+    <form
+      onSubmit={submit}
+      className="animate-fade-up rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-lg"
+    >
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-semibold text-ink-900">{dict.hero.mockupTitle}</h2>
+        <span className="rounded-md bg-brand-50 px-2 py-1 text-xs font-medium text-brand-700">
+          米字格
+        </span>
+      </div>
+      <label htmlFor={inputId} className="block text-sm font-medium text-ink-700">
+        {dict.hero.tryLabel}
+      </label>
+      <input
+        id={inputId}
+        type="text"
+        value={text}
+        maxLength={300}
+        autoComplete="off"
+        aria-describedby={hintId}
+        onChange={(e) => setText(e.target.value)}
+        className="hanzi mt-1 w-full rounded-lg border border-ink-900/10 bg-surface px-4 py-2 text-lg text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
+      />
+      <div aria-label={dict.hero.tryPreview} className="mt-4">
+        <div className="mb-2 min-h-4 truncate text-xs text-ink-700/60" lang="zh-Latn-pinyin">
+          {pinyin}
+        </div>
+        <div className="grid grid-cols-6 gap-2" aria-hidden>
+          {Array.from({ length: TRY_CELLS }, (_, i) => (
+            <MizigeCell key={i} char={shown[i] ?? ""} />
+          ))}
+        </div>
+      </div>
+      <p id={hintId} className={`mt-3 text-xs ${chars.length ? "text-ink-500" : "text-red-600 dark:text-red-400"}`}>
+        {chars.length ? dict.hero.tryHint : dict.hero.tryEmpty}
+      </p>
+      <IconButton
+        type="submit"
+        icon={PencilIcon}
+        disabled={chars.length === 0}
+        className="btn-primary mt-4 w-full"
+      >
+        {dict.hero.tryButton}
+      </IconButton>
+    </form>
   );
 }
 
@@ -64,30 +163,7 @@ export function Hero() {
           <p className="mt-4 text-sm text-ink-700/70">{dict.hero.trustNote}</p>
         </div>
 
-        {/* Mockup: practice sheet preview */}
-        <div className="animate-fade-up rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-lg">
-          <div className="mb-4 flex items-center justify-between">
-            <span className="text-sm font-semibold text-ink-900">
-              {dict.hero.mockupTitle}
-            </span>
-            <span className="rounded-md bg-brand-50 px-2 py-1 text-xs font-medium text-brand-700">
-              ㅁ 米字格
-            </span>
-          </div>
-          <div className="mb-2 text-xs text-ink-700/60">
-            Yǒng hé jiǔ nián suì zài
-          </div>
-          <div className="grid grid-cols-6 gap-2">
-            {cells.map((c) => (
-              <MizigeCell key={c} char={c} />
-            ))}
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs text-ink-700/70">
-            {dict.hero.mockupLabels.map((label) => (
-              <span key={label}>{label}</span>
-            ))}
-          </div>
-        </div>
+        <TryBox />
       </div>
     </section>
   );

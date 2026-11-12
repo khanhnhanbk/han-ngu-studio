@@ -237,6 +237,18 @@ h4 {
   line-height: 1.4;
 }
 
+/* Tool-card glyphs (components/ToolCard.tsx): show the form for the
+   Giản/Phồn switch, set on <html> before first paint. */
+.glyph-trad {
+  display: none;
+}
+:root[data-script="trad"] .glyph-simp {
+  display: none;
+}
+:root[data-script="trad"] .glyph-trad {
+  display: inline;
+}
+
 @layer components {
   .container-page {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
