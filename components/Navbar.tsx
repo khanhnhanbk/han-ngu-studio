@@ -24,7 +24,10 @@ export function Navbar() {
   const chevron = useIconTrigger();
   const menu = useIconTrigger();
 
-  const links = [{ href: href("/#for-teachers"), label: dict.nav.forTeachers }];
+  const links = [
+    { href: href("/soan-bai"), label: dict.nav.lesson },
+    { href: href("/#for-teachers"), label: dict.nav.forTeachers },
+  ];
 
   const groups = TOOL_GROUPS.map((g) => ({
     id: g.id,

@@ -22,6 +22,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 | Công cụ | Dùng để | Hướng dẫn |
 |---|---|---|
+| **Soạn bài** | Cho giáo viên: nhập từ mới của buổi học một lần, rồi copy bảng từ vào Word / Google Docs / Sheets / Zalo / Quizlet, in PDF, tạo thẻ Anki, đề trắc nghiệm, phiếu tập viết; bài lưu trong trình duyệt, có sao lưu | [soan-bai.md](soan-bai.md) |
 | **Lộ trình 1000 chữ** | Học 1000 chữ thông dụng (đủ chữ HSK 1–3) theo 10 chặng, thành phần trước chữ ghép; đánh dấu đã học, tạo thẻ Anki và phiếu tập viết cho từng chặng | [lo-trinh.md](lo-trinh.md) |
 | **Phiếu tập viết** | In phiếu luyện viết chữ Hán (ô 米字格 / 田字格, có Pinyin, chữ mờ để đồ, thứ tự nét) | [practice-sheet.md](practice-sheet.md) |
 | **Thứ tự nét** | Xem hoạt hình từng nét, sơ đồ từng bước và tự viết thử; tạo phiếu tập viết cho các chữ đó | [stroke-order.md](stroke-order.md) |
