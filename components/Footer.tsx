@@ -20,6 +20,7 @@ export function Footer() {
     {
       title: dict.footer.columns.resources,
       links: [
+        { label: dict.footer.links.teacherGuide, href: href("/guide"), external: false },
         { label: dict.footer.links.guide, href: USER_GUIDE_URL, external: true },
         { label: dict.footer.links.source, href: REPO_URL, external: true },
         { label: dict.footer.links.faq, href: href("/#faq"), external: false },
