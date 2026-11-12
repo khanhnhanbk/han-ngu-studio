@@ -1588,6 +1588,22 @@ export const vi = {
     scriptCredit: "Chuyển giản thể / phồn thể: OpenCC (Apache-2.0) qua opencc-js (MIT).",
     languageLabel: "Ngôn ngữ",
   },
+  notFound: {
+    metaTitle: "Không tìm thấy trang – Hán Ngữ Studio",
+    eyebrow: "Lỗi 404",
+    hanziMeaning: "bị lạc rồi",
+    title: "Trang này không có ở đây",
+    subtitle:
+      "Có thể đường link bị gõ sai, hoặc trang đã được đổi chỗ. Mời thầy cô và các bạn quay về trang chủ hoặc xem hướng dẫn.",
+    home: "Về trang chủ",
+    guide: "Xem hướng dẫn cho thầy cô",
+    popular: "Hoặc mở thẳng một công cụ:",
+    tools: {
+      lesson: "Soạn bài",
+      practiceSheet: "Phiếu tập viết",
+      lookup: "Tra từ",
+    },
+  },
   language: {
     label: "Ngôn ngữ",
     vi: "Tiếng Việt",
