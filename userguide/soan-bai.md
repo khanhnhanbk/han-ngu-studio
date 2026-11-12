@@ -18,6 +18,7 @@ Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn
      - **Copy cho Quizlet / Wordwall**: trong Quizlet chọn Tạo học phần → Nhập → dán, giữ mặc định "Tab" và "Dòng mới".
      - **Tải CSV**: mở bằng Excel hoặc Google Sheets.
      - **In / lưu PDF**: trong hộp thoại in, chọn "Lưu dưới dạng PDF" để có file PDF.
+   - **Slide**: xem mục [Làm slide](#làm-slide) bên dưới.
    - **Thẻ Anki**: bấm **Tạo bộ thẻ**, rồi tải file .apkg (xem [anki.md](anki.md)).
    - **Trắc nghiệm**: chọn dạng câu hỏi, làm thử hoặc in đề kèm đáp án (xem [quiz.md](quiz.md)).
    - **Phiếu tập viết**: chỉnh ô, cỡ chữ rồi in (xem [practice-sheet.md](practice-sheet.md)).
@@ -38,6 +39,38 @@ Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn
    - Dòng không có chữ Hán (tiêu đề, ghi chú, dòng pinyin rời, số trang): bỏ qua. Bấm **Xem … dòng đã bỏ qua** để kiểm tra.
 4. Bài mới (chưa có gì) sẽ lấy dòng đầu tiên làm **Tên bài**. Dán thêm lần nữa thì nội dung được nối vào, từ trùng không thêm lại.
 
+## Làm slide
+
+1. Mở thẻ **Slide**.
+2. Ở **Chọn mẫu**, chọn một trong ba:
+   - **Thẻ từ**: mỗi từ một slide có chữ to, Pinyin, Hán Việt, nghĩa và một câu ví dụ.
+   - **Hỏi – đáp**: slide đầu chỉ có chữ để hỏi cả lớp, slide sau mới hiện đáp án.
+   - **Mẫu của tôi**: bấm **Chọn file PowerPoint (.pptx)** và chọn mẫu của bạn.
+3. Bấm **Tải slide (.pptx)**. File tải về máy, mở bằng PowerPoint, Google Slides (Tệp → Nhập trang trình bày) hoặc Canva.
+
+### Tự làm mẫu riêng
+
+1. Bấm **Tải mẫu về sửa** để lấy một mẫu có sẵn, hoặc mở file PowerPoint của bạn.
+2. Gõ các ô dưới đây vào chỗ muốn hiện, giữ cả hai dấu ngoặc nhọn. Đổi phông, màu, ảnh nền tùy ý.
+
+   | Ô | Hiện ra |
+   |---|---|
+   | `{{chu}}` | Từ / chữ Hán |
+   | `{{pinyin}}` | Pinyin |
+   | `{{hanviet}}` | Âm Hán Việt |
+   | `{{nghia}}` | Nghĩa |
+   | `{{vidu}}` | Câu ví dụ |
+   | `{{vidu_pinyin}}` | Pinyin của câu ví dụ |
+   | `{{vidu_nghia}}` | Nghĩa của câu ví dụ |
+   | `{{hsk}}` | Cấp HSK |
+   | `{{so}}` | Số thứ tự của từ (1, 2, 3…) |
+   | `{{bai}}` | Tên bài |
+
+3. Slide nào có ô của từ sẽ được lặp lại cho từng từ, theo đúng thứ tự (có thể là một nhóm nhiều slide, như mẫu Hỏi – đáp). Slide khác (bìa, kết) giữ một lần.
+4. Lưu thành .pptx, chọn **Mẫu của tôi** rồi chọn file đó.
+
+File của bạn chỉ được đọc trên máy, không gửi đi đâu.
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -49,3 +82,6 @@ Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn
 | Lấy từ trong đoạn văn ra cả từ đã biết | Xóa bớt dòng trong ô **Từ mới**. |
 | "Không thấy chữ Hán nào trong phần vừa dán." | Phần vừa dán chỉ có chữ Latin (ví dụ chỉ có pinyin). Hãy copy cả phần có chữ Hán. |
 | "Không đọc được file. Hãy chọn file Word đuôi .docx." | File .doc đời cũ hoặc PDF không đọc được: mở file, Ctrl+A, Ctrl+C rồi dán vào ô **Dán cả bài vào đây**. |
+| "File này không phải PowerPoint (.pptx)…" | Mẫu đang là .ppt đời cũ, .key hay Google Slides. Mở bằng PowerPoint hoặc Google Slides rồi tải về / lưu thành .pptx. |
+| "Mẫu chưa có slide nào ghi {{chu}}…" | Thêm `{{chu}}` (hoặc ô khác của từ) vào slide muốn lặp cho từng từ. |
+| "Mẫu có ô web không hiểu…" | Ô bị gõ sai chính tả, ví dụ `{{hanvet}}`. Sửa theo bảng ô ở trên. |

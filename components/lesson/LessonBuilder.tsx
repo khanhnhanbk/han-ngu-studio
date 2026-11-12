@@ -27,9 +27,10 @@ import {
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 
+import { SlideMaker } from "./SlideMaker";
 import { WordTable } from "./WordTable";
 
-const TABS = ["table", "anki", "quiz", "practiceSheet"] as const;
+const TABS = ["table", "slides", "anki", "quiz", "practiceSheet"] as const;
 type Tab = (typeof TABS)[number];
 
 const SAMPLE_TEXT = "A：你好！你叫什么名字？\nB：我叫李明。我是大学生，我喜欢学习汉语。\nA：认识你很高兴！我们做朋友吧。";
@@ -366,6 +367,7 @@ export function LessonBuilder() {
               <div id="lesson-panel" role="tabpanel" aria-labelledby={`lesson-tab-${tab}`} className="mt-6 print:mt-0">
                 {/* A new key remounts the tool with the lesson's current words. */}
                 {tab === "table" && <WordTable key={current.id} words={words} entries={entries} lessonName={current.name} />}
+                {tab === "slides" && <SlideMaker key={current.id} words={words} entries={entries} lessonName={current.name} />}
                 {tab === "anki" && <AnkiTool key={toolKey} initialWords={settledWords} embedded />}
                 {tab === "quiz" && <QuizTool key={toolKey} initialWords={settledWords} embedded />}
                 {tab === "practiceSheet" && <PracticeSheetTool key={toolKey} initialWords={settledWords} embedded />}
