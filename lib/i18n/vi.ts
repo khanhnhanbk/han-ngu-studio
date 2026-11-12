@@ -52,13 +52,13 @@ export const vi = {
     },
   },
   hero: {
-    badge: "Miễn phí · Không cần cài đặt",
+    badge: "Miễn phí · Không cần tài khoản",
     title: "Học và dạy tiếng Trung nhanh hơn",
     subtitle:
       "Dán văn bản tiếng Trung, chọn công cụ và nhận ngay tài liệu học: phiếu tập viết chữ Hán, Pinyin, âm Hán Việt, bộ thẻ Anki. Tất cả chạy trên trình duyệt của bạn.",
     ctaPrimary: "Xem công cụ",
     ctaSecondary: "Hướng dẫn sử dụng",
-    trustNote: "Được tạo cho người Việt — không cần biết tiếng Anh",
+    trustNote: "Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
     mockupLabels: ["Pinyin", "Chữ mẫu", "Chữ mờ"],
     mockupTitle: "Phiếu tập viết",
   },
@@ -351,9 +351,19 @@ export const vi = {
           "Có. Tất cả công cụ đều miễn phí, không giới hạn số lần dùng và không cần tạo tài khoản.",
       },
       {
-        question: "Tôi có cần cài đặt phần mềm gì không?",
+        question: "Dùng file Word có sẵn được không?",
         answer:
-          "Không. Mọi thứ chạy trực tiếp trên trình duyệt, bạn chỉ cần một kết nối internet.",
+          "Được. Trong Soạn bài, bấm “Chọn file Word (.docx)” hoặc copy cả giáo án rồi dán vào ô “Dán cả bài vào đây”. Web tự tách từ mới (giữ Pinyin, nghĩa thầy cô đã ghi) và bài khóa; các dòng không có chữ Hán được bỏ qua và liệt kê lại để thầy cô kiểm tra.",
+      },
+      {
+        question: "Học viên có cần tạo tài khoản hay cài gì không?",
+        answer:
+          "Không. Không ai cần tài khoản, mọi công cụ chạy ngay trên trình duyệt. Thầy cô gửi học viên file PDF, danh sách từ dán Zalo hoặc link công cụ là đủ. Chỉ khi ôn bằng thẻ Anki thì học viên cài ứng dụng Anki để mở file .apkg.",
+      },
+      {
+        question: "In ra giấy có đẹp không?",
+        answer:
+          "Có. Phiếu tập viết dựng sẵn đúng khổ A4. Bảng từ trong Soạn bài in khổ A4, lề 15 mm, có tên bài ở đầu tờ, bảng có viền và không cắt đôi một hàng sang trang sau; bấm “In / lưu PDF” để in hoặc lưu PDF gửi học viên. Đề trắc nghiệm cũng in A4 lề 15 mm, kèm đáp án.",
       },
       {
         question: "Dùng trên điện thoại được không?",
@@ -363,12 +373,12 @@ export const vi = {
       {
         question: "File tải về dùng được ở đâu?",
         answer:
-          "Phiếu tập viết in ra giấy hoặc lưu PDF. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file TSV để import vào Anki.",
+          "Phiếu tập viết, bảng từ và đề trắc nghiệm in ra giấy hoặc lưu PDF. Bảng từ copy được vào Word, Google Docs, Sheets, Zalo, Quizlet. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file .apkg, mở bằng Anki là có ngay bộ thẻ (vẫn có file TSV nếu muốn tự làm).",
       },
       {
         question: "Dữ liệu của tôi có được lưu lại không?",
         answer:
-          "Không. Quá trình xử lý diễn ra ngay trên máy của bạn, chúng tôi không lưu và không gửi văn bản bạn nhập đi đâu.",
+          "Văn bản bạn nhập để xử lý không được lưu và không gửi đi đâu, mọi việc chạy ngay trên máy bạn. Riêng bài soạn trong Soạn bài (cùng từ đã biết trong Đọc hiểu, chữ đánh dấu đã học trong Lộ trình) được lưu trong trình duyệt của bạn trên máy này, không gửi lên máy chủ. Đổi máy hoặc xóa dữ liệu trình duyệt là mất, nên thỉnh thoảng bấm “Sao lưu (.json)”.",
       },
       {
         question: "Nghĩa, câu ví dụ và mã Ngũ bút lấy từ đâu?",
@@ -388,7 +398,7 @@ export const vi = {
       {
         question: "Hướng dẫn sử dụng ở đâu?",
         answer:
-          "Hướng dẫn từng bước cho mọi công cụ có trên GitHub — bấm “Hướng dẫn sử dụng” ở đầu trang hoặc cuối trang.",
+          "Thầy cô bấm “Hướng dẫn cho thầy cô” ở cuối trang để xem từng bước soạn bài có ảnh minh họa. Hướng dẫn chi tiết cho mọi công cụ có trên GitHub: bấm “Hướng dẫn sử dụng” ở đầu trang hoặc cuối trang.",
       },
     ],
   },
@@ -1523,7 +1533,7 @@ export const vi = {
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",
-    subtitle: "Miễn phí, không cần tài khoản, không cần cài đặt. Mở công cụ và bắt đầu ngay.",
+    subtitle: "Miễn phí, không cần tài khoản, không cần cài đặt. Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
     primary: "Tạo phiếu tập viết",
     secondary: "Đọc hướng dẫn",
   },
