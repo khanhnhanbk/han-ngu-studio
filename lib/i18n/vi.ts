@@ -52,13 +52,13 @@ export const vi = {
     },
   },
   hero: {
-    badge: "Miễn phí · Không cần cài đặt",
+    badge: "Miễn phí · Không cần tài khoản",
     title: "Học và dạy tiếng Trung nhanh hơn",
     subtitle:
       "Dán văn bản tiếng Trung, chọn công cụ và nhận ngay tài liệu học: phiếu tập viết chữ Hán, Pinyin, âm Hán Việt, bộ thẻ Anki. Tất cả chạy trên trình duyệt của bạn.",
     ctaPrimary: "Xem công cụ",
     ctaSecondary: "Hướng dẫn sử dụng",
-    trustNote: "Được tạo cho người Việt — không cần biết tiếng Anh",
+    trustNote: "Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
     mockupLabels: ["Pinyin", "Chữ mẫu", "Chữ mờ"],
     mockupTitle: "Phiếu tập viết",
   },
@@ -1518,7 +1518,7 @@ export const vi = {
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",
-    subtitle: "Miễn phí, không cần tài khoản, không cần cài đặt. Mở công cụ và bắt đầu ngay.",
+    subtitle: "Miễn phí, không cần tài khoản, không cần cài đặt. Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
     primary: "Tạo phiếu tập viết",
     secondary: "Đọc hướng dẫn",
   },

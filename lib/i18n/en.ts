@@ -58,13 +58,13 @@ export const en: Dictionary = {
     },
   },
   hero: {
-    badge: "Free · Nothing to install",
+    badge: "Free · No account needed",
     title: "Learn and teach Chinese faster",
     subtitle:
       "Paste Chinese text, pick a tool and get study materials straight away: handwriting practice sheets, Pinyin, Sino-Vietnamese readings, Anki decks. Everything runs in your browser.",
     ctaPrimary: "See the tools",
     ctaSecondary: "User guide (Vietnamese)",
-    trustNote: "Made for Vietnamese learners, now with an English interface",
+    trustNote: "What you type is processed on your device and never sent anywhere.",
     mockupLabels: ["Pinyin", "Model", "Trace"],
     mockupTitle: "Practice sheet",
   },
@@ -1514,7 +1514,7 @@ export const en: Dictionary = {
   },
   cta: {
     title: "Ready to make your first material?",
-    subtitle: "Free, no account, nothing to install. Open a tool and start right away.",
+    subtitle: "Free, no account, nothing to install. What you type is processed on your device and never sent anywhere.",
     primary: "Make a practice sheet",
     secondary: "Read the guide (Vietnamese)",
   },
