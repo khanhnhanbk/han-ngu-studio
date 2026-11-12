@@ -18,6 +18,7 @@ import { briefMeaning } from "@/lib/lesson/table";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { fillTemplate, LESSON_FIELDS, WORD_FIELDS, type SlideWord } from "@/lib/slides/fill";
+import { groupFitted, type FitNote } from "@/lib/slides/fit";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
 const BUILT_IN = ["the-tu", "hoi-dap", "ba-trang"] as const;
@@ -51,6 +52,7 @@ export function SlideMaker({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState("");
+  const [fitted, setFitted] = useState<FitNote[]>([]);
 
   async function readOwn(file: File | undefined) {
     setError("");
@@ -108,6 +110,7 @@ export function SlideMaker({
   async function make() {
     setError("");
     setDone("");
+    setFitted([]);
     if (words.length === 0) return setError(dict.lesson.noWords);
     if (choice === "own" && !own) return setError(t.pickFile);
     setBusy(true);
@@ -118,6 +121,7 @@ export function SlideMaker({
       const res = fillTemplate(template, list, lessonName);
       if (!res.ok) return setError(t.errors[res.error]);
       downloadBytes(res.bytes, fileName(lessonName), PPTX);
+      setFitted(groupFitted(res.fitted));
       setDone(
         t.done.replace("{n}", String(res.slides)) +
           (res.unknown.length ? " " + t.unknown.replace("{fields}", res.unknown.map((f) => `{{${f}}}`).join(", ")) : ""),
@@ -192,6 +196,22 @@ export function SlideMaker({
         </IconButton>
       </div>
       {done && <p className="mt-3 text-sm text-ink-900">{done}</p>}
+      {fitted.length > 0 && (
+        <div className="mt-3 max-w-3xl rounded-2xl border border-brand-600/30 bg-surface p-4 text-sm">
+          <p className="font-medium text-ink-900">{t.fitted}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-6 text-ink-700">
+            {fitted.map((n) => (
+              <li key={`${n.fields.join(",")}:${n.text}`} className={n.overflow ? "text-red-600" : undefined}>
+                {(n.overflow ? t.overflowItem : t.fittedItem)
+                  .replace("{text}", n.text)
+                  .replace("{field}", n.fields.map((f) => `{{${f}}}`).join(", "))
+                  .replace("{pct}", String(Math.round(n.scale * 100)))}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-ink-500">{t.fittedHint}</p>
+        </div>
+      )}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
       <details className="mt-8 max-w-3xl rounded-2xl border border-ink-900/10 bg-surface p-4">

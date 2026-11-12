@@ -1,5 +1,9 @@
 import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
 
+import { fitShape, paragraphSize, type FitNote } from "./fit";
+
+export type { FitNote } from "./fit";
+
 /**
  * Slides from a teacher's own PowerPoint (.pptx) template, filled in the
  * browser. Text like {{chu}} or {{pinyin}} in the template is replaced, Anki
@@ -31,7 +35,7 @@ export type WordField = (typeof WORD_FIELDS)[number];
 export type SlideWord = Record<Exclude<WordField, "so">, string>;
 
 export type FillResult =
-  | { ok: true; bytes: Uint8Array; slides: number; unknown: string[] }
+  | { ok: true; bytes: Uint8Array; slides: number; unknown: string[]; fitted: FitNote[] }
   | { ok: false; error: "notPptx" | "noWordSlide" | "noWords" };
 
 const PLACEHOLDER = /\{\{\s*([A-Za-z_][A-Za-z0-9_]*)\s*\}\}/g;
@@ -83,27 +87,81 @@ export function fieldsIn(xml: string): string[] {
   return [...found];
 }
 
-/**
- * Replace the placeholders of one slide. A paragraph that holds a placeholder
- * gets its whole text in its first run (keeping that run's formatting) and
- * the other runs emptied; other paragraphs are left untouched. Unknown fields
- * stay visible so the teacher sees the typo.
- */
-export function fillSlideXml(xml: string, values: Readonly<Record<string, string>>): string {
+const fillValue = (values: Readonly<Record<string, string>>) => (whole: string, name: string) => {
+  const key = fieldName(name);
+  return Object.hasOwn(values, key) ? values[key].replace(/[\r\n]+/g, " ") : whole;
+};
+
+/** Fill the placeholder paragraphs of a piece of slide XML. */
+function fillParagraphs(xml: string, values: Readonly<Record<string, string>>): string {
   return xml.replace(PARAGRAPH, (para) => {
     const runs = [...para.matchAll(RUN_TEXT)];
     const text = runs.map((m) => decodeXml(m[1])).join("");
     if (!PLACEHOLDER.test(text)) return para;
     PLACEHOLDER.lastIndex = 0;
-    const filled = text.replace(PLACEHOLDER, (whole, name: string) => {
-      const key = fieldName(name);
-      return Object.hasOwn(values, key) ? values[key].replace(/[\r\n]+/g, " ") : whole;
-    });
+    const filled = text.replace(PLACEHOLDER, fillValue(values));
     let i = 0;
     return para.replace(/(<a:t(?:\s[^>]*)?>)[\s\S]*?(<\/a:t>)/g, (_, open: string, close: string) =>
       `${open}${i++ === 0 ? encodeXml(filled) : ""}${close}`,
     );
   });
+}
+
+const SHAPE = /<p:sp(?:\s[^>]*)?>[\s\S]*?<\/p:sp>/g;
+const ITEM = /<p:(sp|pic|graphicFrame)(?:\s[^>]*)?>[\s\S]*?<\/p:\1>/g;
+
+type Rect = { at: number; x: number; y: number; cx: number; cy: number; text: boolean; pic: boolean };
+
+/** Position and size of every shape, picture and table on a slide, in drawing order. */
+function slideRects(xml: string): Rect[] {
+  const out: Rect[] = [];
+  for (const m of xml.matchAll(ITEM)) {
+    const pos = /<a:off\b[^>]*\bx="(-?\d+)"[^>]*\by="(-?\d+)"[^>]*\/>\s*<a:ext\b[^>]*\bcx="(\d+)"[^>]*\bcy="(\d+)"/.exec(m[0]);
+    if (!pos) continue;
+    const [x, y, cx, cy] = pos.slice(1).map(Number);
+    out.push({ at: m.index, x, y, cx, cy, text: /<a:t(?:\s[^>]*)?>[^<]/.test(m[0]), pic: m[1] !== "sp" });
+  }
+  return out;
+}
+
+/**
+ * How far right a text box's text can go before it runs into something: a
+ * picture or table drawn on top of it, or another text box, that starts
+ * inside the box and sits at the same height (the template's box is often
+ * drawn wider than the free space, under a picture).
+ */
+function rightLimit(box: Rect, all: readonly Rect[]): number {
+  let right = box.x + box.cx;
+  for (const o of all) {
+    if (o === box || !(o.text || (o.pic && o.at > box.at))) continue;
+    const sameHeight = o.y < box.y + box.cy && o.y + o.cy > box.y;
+    if (sameHeight && o.x > box.x && o.x < right) right = o.x;
+  }
+  return right;
+}
+
+/**
+ * Replace the placeholders of one slide. A paragraph that holds a placeholder
+ * gets its whole text in its first run (keeping that run's formatting) and
+ * the other runs emptied; other paragraphs are left untouched. Unknown fields
+ * stay visible so the teacher sees the typo. A text box whose filled text
+ * would not fit gets a smaller font (lib/slides/fit.ts), listed in `fitted`.
+ */
+export function fillSlideXml(xml: string, values: Readonly<Record<string, string>>, fitted?: FitNote[]): string {
+  const rects = slideRects(xml);
+  const shapes = xml.replace(SHAPE, (sp, at: number) => {
+    const fields = fieldsIn(sp).filter((f) => Object.hasOwn(values, f));
+    if (fields.length === 0) return sp;
+    const filled = fillParagraphs(sp, values);
+    const paras = (filled.match(PARAGRAPH) ?? []).map((p) => ({
+      text: [...p.matchAll(RUN_TEXT)].map((m) => decodeXml(m[1])).join(""),
+      sz: paragraphSize(p, filled),
+    }));
+    const box = rects.find((r) => r.at === at);
+    return fitShape(filled, fields, paras, fitted, box && rightLimit(box, rects) - box.x);
+  });
+  // Text outside a plain text box (tables, groups) is filled as it is.
+  return fillParagraphs(shapes, values);
 }
 
 type SlideRef = { rId: string; path: string };
@@ -173,6 +231,7 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
   };
 
   const lessonOnly = { bai: lessonName };
+  const fitted: FitNote[] = [];
   const finalRIds: string[] = [];
   order.forEach((slide, i) => {
     if (isWordSlide[i]) {
@@ -181,7 +240,7 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
       words.forEach((word, w) => {
         const values = wordValues(word, w, lessonName);
         for (const src of group) {
-          const xml = fillSlideXml(originals.get(src.path)!, values);
+          const xml = fillSlideXml(originals.get(src.path)!, values, fitted);
           if (w === 0) {
             files[src.path] = strToU8(xml);
             finalRIds.push(src.rId);
@@ -206,7 +265,7 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
       });
       return;
     }
-    files[slide.path] = strToU8(fillSlideXml(strFromU8(files[slide.path]), lessonOnly));
+    files[slide.path] = strToU8(fillSlideXml(strFromU8(files[slide.path]), lessonOnly, fitted));
     finalRIds.push(slide.rId);
   });
 
@@ -217,5 +276,5 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
   files["ppt/_rels/presentation.xml.rels"] = strToU8(presRels);
   files["[Content_Types].xml"] = strToU8(types);
 
-  return { ok: true, bytes: zipSync(files), slides: finalRIds.length, unknown: [...unknown].sort() };
+  return { ok: true, bytes: zipSync(files), slides: finalRIds.length, unknown: [...unknown].sort(), fitted };
 }
