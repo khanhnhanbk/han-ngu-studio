@@ -5,6 +5,8 @@ Tạo phiếu luyện viết khổ A4: mỗi chữ có một ô chữ mẫu màu
 **Mở công cụ:** trang chủ → **Công cụ ▾** → **Phiếu tập viết**
 (hoặc vào thẳng https://han-ngu-studio.vercel.app/tools/practice-sheet)
 
+**Thử nhanh từ trang chủ:** ở khung **Thử ngay: phiếu tập viết**, gõ chữ vào ô **Gõ hoặc dán chữ Hán**, xem trước 6 chữ đầu trong ô 米字格, rồi bấm **Tạo phiếu tập viết**. Trang phiếu tập viết mở ra với sẵn các chữ vừa gõ (chữ nằm sau dấu `#` của đường link, không gửi lên máy chủ). Nút bị mờ khi ô chưa có chữ Hán nào.
+
 ## Các bước
 
 ### 1. Nhập chữ Hán
