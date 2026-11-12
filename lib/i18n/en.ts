@@ -1356,7 +1356,8 @@ export const en: Dictionary = {
     subtitle: "What the site stores (very little), and where its data comes from.",
     privacyTitle: "Privacy",
     privacy: [
-      "No accounts, ads, tracking cookies or analytics.",
+      "No accounts, ads or tracking cookies.",
+      "The site only counts page views (Vercel Web Analytics, no cookies): which page was opened, the referring site, device type and country. Anything after # or ? in the address (where words passed between tools live) is cut off before it is sent.",
       "The text you enter is processed on your device and never sent anywhere.",
       "Your browser (localStorage) keeps only what you choose: settings (theme, Simplified / Traditional, voice, practice-sheet options), memory stories in Character breakdown and known words in the Reader. Clearing the site's data in your browser removes it all; the last two can be exported as TSV.",
       "The site is hosted on Vercel. Like any web server, Vercel keeps technical logs (IP address, browser, pages loaded) to run the service; we do not use them to track you.",
