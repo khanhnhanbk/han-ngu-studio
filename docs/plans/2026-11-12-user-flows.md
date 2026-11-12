@@ -55,7 +55,7 @@ Top menu: **Giáo viên** (Soạn bài) · **Tự học** (Hôm nay, Lộ trình
 | # | Step | Flow | Status |
 |---|---|---|---|
 | 1 | Soạn bài: lessons in the browser + JSON backup, word table exports (Word/Docs, Sheets, Zalo, Quizlet, CSV, print/PDF), Anki/Quiz/Practice sheet embedded | Teacher | PR #18 (route `/lesson`) |
-| 2 | Slides from a .pptx template with `{{chu}} {{pinyin}} {{hanviet}} {{nghia}} {{vidu}} {{vidu_nghia}}` (filled in the browser with fflate; 2–3 built-in templates) + PNG word cards | Teacher | Planned |
+| 2 | Slides from a .pptx template with `{{chu}} {{pinyin}} {{hanviet}} {{nghia}} {{vidu}} {{vidu_nghia}}` (filled in the browser with fflate; 2–3 built-in templates) + PNG word cards | Teacher | Slides done; PNG cards planned |
 | 3 | Tự học part 1: `lib/srs/` (due dates in localStorage, tests), "Hôm nay" page with Review + New words from an HSK level / path stage | Self-study | Planned |
 | 4 | Tự học part 2: goal + level check, Read and Write blocks, progress, "Add to my review" from a lesson | Self-study | Planned |
 | 5 | Tra chữ: one page with tabs (lookup, breakdown, stroke order, radicals); old routes stay | Look up | Planned |
