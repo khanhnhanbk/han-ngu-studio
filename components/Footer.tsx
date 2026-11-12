@@ -2,7 +2,7 @@
 
 import { feedbackUrl } from "@/lib/feedback";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
-import { REPO_URL, TOOL_GROUPS, USER_GUIDE_URL } from "@/lib/links";
+import { REPO_URL, TOOL_GROUPS, USER_GUIDE_URL, ZALO_URL } from "@/lib/links";
 
 import { LanguageSwitch } from "./LanguageSwitch";
 
@@ -25,6 +25,7 @@ export function Footer() {
         { label: dict.footer.links.faq, href: href("/#faq"), external: false },
         { label: dict.footer.links.roadmap, href: href("/#roadmap"), external: false },
         { label: dict.footer.links.legal, href: href("/licenses"), external: false },
+        { label: dict.footer.links.zalo, href: ZALO_URL, external: true },
         { label: dict.footer.links.feedback, href: feedbackUrl(), external: true },
       ],
     },

@@ -1404,6 +1404,7 @@ export const en: Dictionary = {
       faq: "FAQ",
       roadmap: "Coming soon",
       legal: "Licences & privacy",
+      zalo: "Feedback via Zalo",
       feedback: "Feedback / report a problem (GitHub)",
     },
     rights: "Code under the MIT License; data under each source's licence.",
