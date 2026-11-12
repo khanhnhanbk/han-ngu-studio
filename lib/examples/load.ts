@@ -43,6 +43,22 @@ export async function loadExamples(words: readonly string[]): Promise<ExampleBan
   return bankFrom(manifest, shards, words);
 }
 
+/**
+ * Every sentence in a word's own shard that contains it (more than its
+ * candidates), for finding common phrases (lib/slides/collocations.ts).
+ * Reads the same files as loadExamples, so nothing more is downloaded.
+ */
+export async function loadSentencesWith(words: readonly string[]): Promise<Record<string, string[]>> {
+  const manifest = await loadManifest();
+  const out: Record<string, string[]> = {};
+  for (const w of words) {
+    if (Object.hasOwn(out, w) || !Object.hasOwn(manifest.words, w)) continue;
+    const shard = await loadShard(manifest.words[w]);
+    out[w] = shard.rows.filter((r) => r[0].includes(w)).map((r) => r[0]);
+  }
+  return out;
+}
+
 /** Files loadExamples(words) downloads (for lib/data/budget.ts). */
 export async function exampleFiles(words: readonly string[]): Promise<string[]> {
   const manifest = await loadManifest();

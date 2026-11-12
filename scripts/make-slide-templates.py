@@ -83,7 +83,8 @@ def card_slide(prs):
     text(s, Inches(1), Inches(0.9), Inches(11.333), Inches(3.0), "{{chu}}", 150, INK)
     text(s, Inches(1), Inches(4.0), Inches(11.333), Inches(0.9), "{{pinyin}}  ·  {{hanviet}}", 40, ACCENT, True)
     text(s, Inches(1), Inches(4.9), Inches(11.333), Inches(0.9), "{{nghia}}", 34, INK)
-    text(s, Inches(1), Inches(5.9), Inches(11.333), Inches(0.6), "{{hsk}}", 18, SOFT)
+    text(s, Inches(1), Inches(5.8), Inches(11.333), Inches(0.6), "{{cumtu}}     {{cumtu2}}", 22, SOFT)
+    text(s, Inches(1), Inches(6.5), Inches(11.333), Inches(0.5), "{{hsk}}", 16, SOFT)
 
 
 # "Thẻ từ": a title slide, then one slide per word.

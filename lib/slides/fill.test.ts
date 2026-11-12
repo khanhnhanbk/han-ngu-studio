@@ -17,6 +17,11 @@ const word = (chu: string, extra: Partial<SlideWord> = {}): SlideWord => ({
   vidu2: "",
   vidu2_pinyin: "",
   vidu2_nghia: "",
+  vidu3: "",
+  vidu3_pinyin: "",
+  vidu3_nghia: "",
+  cumtu: "",
+  cumtu2: "",
   hsk: "",
   ...extra,
 });
@@ -75,11 +80,12 @@ describe("fillTemplate", () => {
   });
 
   it("puts a different example on each example slide of the three-slide template", () => {
-    const w = word("打扫", { vidu: "我们要打扫房间。", vidu2: "你把房间打扫干净了吗？", vidu2_nghia: "Bạn đã dọn sạch phòng chưa?" });
+    const w = word("打扫", { cumtu: "打扫干净 (dǎsǎo gānjìng)", vidu: "我们要打扫房间。", vidu2: "你把房间打扫干净了吗？", vidu2_nghia: "Bạn đã dọn sạch phòng chưa?" });
     const res = fillTemplate(template("ba-trang"), [w, word("干净")], "Bài 3");
     expect(res.ok && res.slides).toBe(7);
     if (!res.ok) return;
     const texts = slideTexts(res.bytes);
+    expect(texts[1]).toContain("打扫干净 (dǎsǎo gānjìng)");
     expect(texts[2]).toContain("我们要打扫房间。");
     expect(texts[2]).not.toContain("你把");
     expect(texts[3]).toContain("你把房间打扫干净了吗？");
@@ -90,6 +96,7 @@ describe("fillTemplate", () => {
 
   it("reads the English names of the second example", () => {
     expect(fieldsIn("<a:p><a:r><a:t>{{example2}} {{example2_meaning}}</a:t></a:r></a:p>")).toEqual(["vidu2", "vidu2_nghia"]);
+    expect(fieldsIn("<a:p><a:r><a:t>{{example3}} {{phrase}} {{phrase2}}</a:t></a:r></a:p>")).toEqual(["vidu3", "cumtu", "cumtu2"]);
   });
 
   it("reports what it cannot use", () => {

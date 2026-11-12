@@ -10,13 +10,15 @@ import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE } from "@/lib/anki/loa
 import { showRow, simpWords } from "@/lib/anki/script";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadBytes } from "@/lib/download";
-import { exampleFiles, loadExamples } from "@/lib/examples/load";
+import { exampleFiles, loadExamples, loadSentencesWith } from "@/lib/examples/load";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary } from "@/lib/i18n/useLocale";
+import { convertLine } from "@/lib/pinyin/convert";
 import type { WordEntry } from "@/lib/lesson/paste";
 import { briefMeaning } from "@/lib/lesson/table";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
+import { collocations } from "@/lib/slides/collocations";
 import { fillTemplate, LESSON_FIELDS, WORD_FIELDS, type SlideWord } from "@/lib/slides/fill";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
@@ -73,22 +75,27 @@ export function SlideMaker({
       setError(dict.download.declined);
       return null;
     }
-    const [tokenizer, hanviet, meanings, examples, wubi, vocab] = await Promise.all([
+    const [tokenizer, hanviet, meanings, examples, wubi, vocab, sentences] = await Promise.all([
       loadTokenizer(),
       loadHanviet(),
       loadMeanings(),
       loadExamples(simp),
       loadWubi(),
       loadVocab(),
+      loadSentencesWith(simp),
     ]);
+    // "打扫干净 (dǎsǎo gānjìng)": the phrase as shown (Giản/Phồn) with its Pinyin.
+    const phrase = (p: string | undefined) =>
+      p ? `${conv.toShown(p)} (${convertLine(tokenizer, p, { toneStyle: "mark", spacing: "word" }).text})` : "";
     const mine = new Map(entries.map((e) => [conv.toSimp(e.word), e]));
-    // Two examples: {{vidu}} is the easiest one (as before), {{vidu2}} the next.
-    return buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, simp, 2, dict.vocab.pos).map((d) => {
+    // Three examples: {{vidu}} is the easiest one (as before), {{vidu2}} and {{vidu3}} the next ones.
+    return buildDeck({ tokenizer, hanviet, meanings, examples, wubi, vocab }, simp, 3, dict.vocab.pos).map((d) => {
       const r = showRow(d, conv, wubi);
       const e = mine.get(d.word);
-      const [vidu = "", vidu2 = ""] = r.sentence.split(EXAMPLE_SEPARATOR);
-      const [viduPinyin = "", vidu2Pinyin = ""] = r.sentence_pinyin.split(EXAMPLE_SEPARATOR);
-      const [viduNghia = "", vidu2Nghia = ""] = r.sentence_meaning.split(EXAMPLE_SEPARATOR);
+      const [vidu = "", vidu2 = "", vidu3 = ""] = r.sentence.split(EXAMPLE_SEPARATOR);
+      const [viduPinyin = "", vidu2Pinyin = "", vidu3Pinyin = ""] = r.sentence_pinyin.split(EXAMPLE_SEPARATOR);
+      const [viduNghia = "", vidu2Nghia = "", vidu3Nghia = ""] = r.sentence_meaning.split(EXAMPLE_SEPARATOR);
+      const phrases = collocations(tokenizer, vocab, d.word, Object.hasOwn(sentences, d.word) ? sentences[d.word] : []);
       return {
         chu: r.word,
         pinyin: e?.pinyin || r.pinyin,
@@ -100,6 +107,11 @@ export function SlideMaker({
         vidu2,
         vidu2_pinyin: vidu2Pinyin,
         vidu2_nghia: vidu2Nghia,
+        vidu3,
+        vidu3_pinyin: vidu3Pinyin,
+        vidu3_nghia: vidu3Nghia,
+        cumtu: phrase(phrases[0]),
+        cumtu2: phrase(phrases[1]),
         hsk: r.hsk_level,
       };
     });
