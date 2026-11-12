@@ -28,6 +28,16 @@ Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn
 - Đổi máy, đổi trình duyệt, dùng chế độ ẩn danh hoặc xóa dữ liệu trình duyệt thì mất bài. Thỉnh thoảng bấm **Sao lưu (.json)** để giữ file.
 - Sang máy khác: bấm **Nhập file sao lưu** và chọn file .json đã lưu. Bài trùng thì bản trong file thay bản trên máy.
 
+## Dán cả bài (không cần dọn trước)
+
+1. Mở file của bạn (Word, PDF, trang web), bấm **Ctrl+A** rồi **Ctrl+C**.
+2. Bấm vào ô **Dán cả bài vào đây** và bấm **Ctrl+V**. Hoặc bấm **Chọn file Word (.docx)** để đưa thẳng file vào; file được đọc ngay trong trình duyệt, không gửi đi đâu.
+3. Web tự xếp từng dòng:
+   - Dòng là một từ (tối đa 4 chữ Hán), có thể kèm pinyin và nghĩa như `1. 早 zǎo` hay `学习 xuéxí học tập`: vào ô **Từ mới (mỗi dòng một từ)**. Pinyin và nghĩa bạn ghi được giữ nguyên trong bảng từ.
+   - Dòng khác có chữ Hán (câu, hội thoại): vào ô **Bài khóa / đoạn văn (không bắt buộc)**, đã bỏ số thứ tự.
+   - Dòng không có chữ Hán (tiêu đề, ghi chú, dòng pinyin rời, số trang): bỏ qua. Bấm **Xem … dòng đã bỏ qua** để kiểm tra.
+4. Bài mới (chưa có gì) sẽ lấy dòng đầu tiên làm **Tên bài**. Dán thêm lần nữa thì nội dung được nối vào, từ trùng không thêm lại.
+
 ## Lỗi thường gặp
 
 | Hiện tượng | Cách xử lý |
@@ -37,3 +47,5 @@ Trang: https://han-ngu-studio.vercel.app/lesson (trên thanh menu bấm **Soạn
 | Bấm Copy không được | Một số trình duyệt chặn copy. Dùng **Tải CSV** thay thế. |
 | Dán vào Word ra chữ thường, không phải bảng | Dùng **Copy cho Word / Google Docs** (không phải nút Zalo), và dán bằng Ctrl+V (không chọn "chỉ dán chữ"). |
 | Lấy từ trong đoạn văn ra cả từ đã biết | Xóa bớt dòng trong ô **Từ mới**. |
+| "Không thấy chữ Hán nào trong phần vừa dán." | Phần vừa dán chỉ có chữ Latin (ví dụ chỉ có pinyin). Hãy copy cả phần có chữ Hán. |
+| "Không đọc được file. Hãy chọn file Word đuôi .docx." | File .doc đời cũ hoặc PDF không đọc được: mở file, Ctrl+A, Ctrl+C rồi dán vào ô **Dán cả bài vào đây**. |

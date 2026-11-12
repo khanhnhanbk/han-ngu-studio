@@ -39,7 +39,13 @@ export function cleanLessons(value: unknown): Lesson[] {
   for (const v of value) {
     if (!isLesson(v) || seen.has(v.id)) continue;
     seen.add(v.id);
-    out.push({ id: v.id, name: v.name, words: v.words, text: v.text, updatedAt: v.updatedAt });
+    out.push({
+      id: v.id,
+      name: v.name,
+      words: v.words,
+      text: v.text,
+      updatedAt: v.updatedAt,
+    });
   }
   return out.sort((a, b) => b.updatedAt - a.updatedAt).slice(0, MAX_LESSONS);
 }
