@@ -1329,6 +1329,7 @@ export const en: Dictionary = {
       copyFailed: "Your browser blocked copying. Download the CSV instead.",
       stale: "The word list changed. Click \u201cRebuild the table\u201d to update it (your edits in the table will be lost).",
       quizletHint: "Quizlet: Create a set → Import → paste, keep the default \u201cTab\u201d and \u201cNew line\u201d.",
+      printSubtitle: "{n} new words · Hán Ngữ Studio",
     },
   },
   cta: {

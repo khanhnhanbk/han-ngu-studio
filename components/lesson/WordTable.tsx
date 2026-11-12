@@ -8,13 +8,26 @@ import { DownloadIcon } from "@/components/icons/download";
 import { PrinterIcon } from "@/components/icons/printer";
 import { IconButton } from "@/components/icons/trigger";
 import { buildDeck } from "@/lib/anki/buildDeck";
-import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE } from "@/lib/anki/load";
+import {
+  loadMeanings,
+  loadWubi,
+  MEANINGS_FILE,
+  WUBI_FILE,
+} from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary } from "@/lib/i18n/useLocale";
-import { tableCsv, tableHtml, tableQuizlet, tableText, tableTsv, type TableRow } from "@/lib/lesson/table";
+import {
+  briefMeaning,
+  tableCsv,
+  tableHtml,
+  tableQuizlet,
+  tableText,
+  tableTsv,
+  type TableRow,
+} from "@/lib/lesson/table";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
@@ -25,7 +38,8 @@ type CopyKind = "docs" | "sheets" | "zalo" | "quizlet";
 const COLS = ["word", "pinyin", "hanviet", "meaning", "hsk"] as const;
 
 /** A file name from the lesson name ("Bài 5: 你好" → "Bài 5 你好.csv"). */
-const fileName = (name: string, ext: string) => `${name.replace(/[\\/:*?"<>|\t\r\n]+/g, " ").trim() || "bang-tu"}.${ext}`;
+const fileName = (name: string, ext: string) =>
+  `${name.replace(/[\\/:*?"<>|\t\r\n]+/g, " ").trim() || "bang-tu"}.${ext}`;
 
 /**
  * The lesson's word table: looked up once (same data as the Anki deck, no
@@ -33,7 +47,13 @@ const fileName = (name: string, ext: string) => `${name.replace(/[\\/:*?"<>|\t\r
  * Sheets / Excel, Zalo, Quizlet, saved as CSV or printed. Nothing is sent
  * anywhere; copying goes through the device's clipboard.
  */
-export function WordTable({ words, lessonName }: { words: readonly string[]; lessonName: string }) {
+export function WordTable({
+  words,
+  lessonName,
+}: {
+  words: readonly string[];
+  lessonName: string;
+}) {
   const dict = useDictionary();
   const t = dict.lesson.table;
   const { conv } = useConverter();
@@ -53,8 +73,15 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
     setLoading(true);
     try {
       const simp = simpWords(conv, [...words]);
-      const files = [...TOKENIZER_FILES, HANVIET_FILE, MEANINGS_FILE, WUBI_FILE, VOCAB_FILE];
-      if (!(await confirmDownload(files))) return setError(dict.download.declined);
+      const files = [
+        ...TOKENIZER_FILES,
+        HANVIET_FILE,
+        MEANINGS_FILE,
+        WUBI_FILE,
+        VOCAB_FILE,
+      ];
+      if (!(await confirmDownload(files)))
+        return setError(dict.download.declined);
       const [tokenizer, hanviet, meanings, wubi, vocab] = await Promise.all([
         loadTokenizer(),
         loadHanviet(),
@@ -63,11 +90,22 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
         loadVocab(),
       ]);
       // No example sentences in the table, so no example shards are fetched.
-      const deck = buildDeck({ tokenizer, hanviet, meanings, examples: {}, wubi, vocab }, simp, 1, dict.vocab.pos);
+      const deck = buildDeck(
+        { tokenizer, hanviet, meanings, examples: {}, wubi, vocab },
+        simp,
+        1,
+        dict.vocab.pos,
+      );
       setRows(
         deck.map((d) => {
           const r = showRow(d, conv, wubi);
-          return { word: r.word, pinyin: r.pinyin, hanviet: r.hanviet, meaning: r.meaning_vi || r.meaning, hsk: r.hsk_level };
+          return {
+            word: r.word,
+            pinyin: r.pinyin,
+            hanviet: r.hanviet,
+            meaning: briefMeaning(r.meaning_vi || r.meaning),
+            hsk: r.hsk_level,
+          };
         }),
       );
       setBuiltFrom(words.join("\n"));
@@ -105,7 +143,12 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
           await navigator.clipboard.writeText(plain);
         }
       } else {
-        const text = kind === "sheets" ? tableTsv(rows, headers) : kind === "zalo" ? tableText(rows, lessonName) : tableQuizlet(rows);
+        const text =
+          kind === "sheets"
+            ? tableTsv(rows, headers)
+            : kind === "zalo"
+              ? tableText(rows, lessonName)
+              : tableQuizlet(rows);
         await navigator.clipboard.writeText(text);
       }
       setCopied(kind);
@@ -115,13 +158,17 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
   }
 
   async function print() {
-    await ensurePrintFonts(lessonName + rows.map((r) => COLS.map((c) => r[c]).join("")).join(""));
+    await ensurePrintFonts(
+      lessonName + rows.map((r) => COLS.map((c) => r[c]).join("")).join(""),
+    );
     await document.fonts.ready;
     window.print();
   }
 
   function edit(i: number, col: (typeof COLS)[number], value: string) {
-    setRows((prev) => prev.map((r, j) => (j === i ? { ...r, [col]: value } : r)));
+    setRows((prev) =>
+      prev.map((r, j) => (j === i ? { ...r, [col]: value } : r)),
+    );
     setCopied(null);
   }
 
@@ -152,7 +199,13 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
             icon={DownloadIcon}
             className="btn-secondary px-3 py-2 text-sm"
             disabled={rows.length === 0 || loading}
-            onClick={() => downloadText(tableCsv(rows, headers), fileName(lessonName, "csv"), "text/csv")}
+            onClick={() =>
+              downloadText(
+                tableCsv(rows, headers),
+                fileName(lessonName, "csv"),
+                "text/csv",
+              )
+            }
           >
             {t.csv}
           </IconButton>
@@ -165,11 +218,18 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
             {t.print}
           </IconButton>
         </div>
-        {copied === "quizlet" && <p className="mt-2 text-sm text-ink-700">{t.quizletHint}</p>}
+        {copied === "quizlet" && (
+          <p className="mt-2 text-sm text-ink-700">{t.quizletHint}</p>
+        )}
         {stale && (
           <p className="mt-3 flex flex-wrap items-center gap-3 rounded-lg bg-brand-50 p-3 text-sm text-ink-900">
             {t.stale}
-            <button type="button" className="btn-secondary px-3 py-1 text-sm" onClick={() => void build()} disabled={loading}>
+            <button
+              type="button"
+              className="btn-secondary px-3 py-1 text-sm"
+              onClick={() => void build()}
+              disabled={loading}
+            >
               {t.build}
             </button>
           </p>
@@ -179,9 +239,8 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
       </div>
 
       {rows.length > 0 && (
-        <div className="mt-4 overflow-x-auto print:mt-0 print:overflow-visible">
-          <h2 className="mb-3 hidden text-xl font-bold text-ink-900 print:block">{lessonName}</h2>
-          <table className="w-full min-w-[44rem] table-fixed border-collapse text-left text-sm print:min-w-0">
+        <div className="mt-4 overflow-x-auto print:hidden">
+          <table className="w-full min-w-[44rem] table-fixed border-collapse text-left text-sm">
             <colgroup>
               <col className="w-12" />
               <col className="w-28" />
@@ -192,7 +251,9 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
             </colgroup>
             <thead>
               <tr className="border-b border-ink-900/20">
-                <th className="px-2 py-2 font-semibold text-ink-700">{headers.no}</th>
+                <th className="px-2 py-2 font-semibold text-ink-700">
+                  {headers.no}
+                </th>
                 {COLS.map((c) => (
                   <th key={c} className="px-2 py-2 font-semibold text-ink-700">
                     {headers[c]}
@@ -208,15 +269,73 @@ export function WordTable({ words, lessonName }: { words: readonly string[]; les
                     <td key={c} className="px-1 py-1">
                       <input
                         aria-label={`${headers[c]} ${i + 1}`}
-                        className={`w-full rounded border border-transparent bg-transparent px-1 py-1 hover:border-ink-900/10 focus:border-brand-500 focus:outline-none print:hidden ${
+                        className={`w-full rounded border border-transparent bg-transparent px-1 py-1 hover:border-ink-900/10 focus:border-brand-500 focus:outline-none ${
                           c === "word" ? "hanzi text-xl" : ""
                         }`}
                         value={r[c]}
                         onChange={(e) => edit(i, c, e.target.value)}
                       />
-                      <span className={`hidden px-1 print:inline ${c === "word" ? "hanzi text-xl" : ""}`}>{r[c]}</span>
                     </td>
                   ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* The printed word sheet: its own layout, A4 with margins (globals.css "wordlist"). */}
+      {rows.length > 0 && (
+        <div className="wordlist-print hidden text-ink-900 print:block">
+          <h1 className="text-2xl font-bold">{lessonName}</h1>
+          <p className="mb-4 mt-1 text-sm text-ink-500">
+            {t.printSubtitle.replace("{n}", String(rows.length))}
+          </p>
+          <table className="w-[calc(100%-1px)] table-fixed border-collapse text-left text-[11pt]">
+            <colgroup>
+              <col style={{ width: "12mm" }} />
+              <col style={{ width: "30mm" }} />
+              <col style={{ width: "30mm" }} />
+              <col style={{ width: "30mm" }} />
+              <col />
+              <col style={{ width: "15mm" }} />
+            </colgroup>
+            <thead>
+              <tr className="bg-ink-50">
+                <th className="border border-ink-500/40 px-2 py-1.5 text-center font-semibold">
+                  {headers.no}
+                </th>
+                {COLS.map((c) => (
+                  <th
+                    key={c}
+                    className="border border-ink-500/40 px-2 py-1.5 font-semibold"
+                  >
+                    {headers[c]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={i} className="break-inside-avoid">
+                  <td className="border border-ink-500/40 px-2 py-1.5 text-center align-middle text-ink-500">
+                    {i + 1}
+                  </td>
+                  <td className="hanzi border border-ink-500/40 px-2 py-1.5 align-middle text-[18pt] leading-tight">
+                    {r.word}
+                  </td>
+                  <td className="border border-ink-500/40 px-2 py-1.5 align-middle">
+                    {r.pinyin}
+                  </td>
+                  <td className="border border-ink-500/40 px-2 py-1.5 align-middle">
+                    {r.hanviet}
+                  </td>
+                  <td className="border border-ink-500/40 px-2 py-1.5 align-middle">
+                    {r.meaning}
+                  </td>
+                  <td className="border border-ink-500/40 px-2 py-1.5 text-center align-middle text-[9pt]">
+                    {r.hsk.replace(/^HSK\s*/i, "")}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -321,4 +321,11 @@ h4 {
   .quiz-print {
     page: quiz;
   }
+
+  /* Soạn bài word sheet: same margins, header shading kept. */
+  .wordlist-print {
+    page: quiz;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }

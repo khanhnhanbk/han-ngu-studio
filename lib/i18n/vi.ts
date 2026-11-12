@@ -1334,6 +1334,7 @@ export const vi = {
       copyFailed: "Trình duyệt chặn copy. Hãy tải CSV.",
       stale: "Danh sách từ đã đổi. Bấm \u201cTạo lại bảng từ\u201d để cập nhật (chỗ đã sửa trong bảng sẽ mất).",
       quizletHint: "Quizlet: Tạo học phần → Nhập → dán vào ô, giữ mặc định \u201cTab\u201d và \u201cDòng mới\u201d.",
+      printSubtitle: "{n} từ mới · Hán Ngữ Studio",
     },
   },
   cta: {

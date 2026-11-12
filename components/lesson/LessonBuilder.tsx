@@ -185,7 +185,7 @@ export function LessonBuilder() {
                     >
                       {d.backup}
                     </IconButton>
-                    <FileInput buttonLabel={d.restore} accept=".json,application/json" onFile={restore} showName={false} />
+                    <FileInput buttonLabel={d.restore} accept=".json,application/json" onFile={restore} showName={false} fullWidth />
                     <p className="text-xs text-ink-700/80">{d.storageNote}</p>
                     {saveFailed && <p className="text-xs text-red-600">{d.saveFailed}</p>}
                   </div>
