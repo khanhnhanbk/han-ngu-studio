@@ -56,10 +56,7 @@ export function FileInput({
           {buttonLabel ?? dict.fileInput.choose}
         </span>
         {showName && (
-          <span
-            className="truncate text-sm text-ink-700/70"
-            title={name || undefined}
-          >
+          <span className="truncate text-sm text-ink-700/70" title={name || undefined}>
             {name || dict.fileInput.none}
           </span>
         )}

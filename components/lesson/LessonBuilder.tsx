@@ -10,11 +10,11 @@ import { IconButton } from "@/components/icons/trigger";
 import { Navbar } from "@/components/Navbar";
 import { PracticeSheetTool } from "@/components/practice-sheet/PracticeSheetTool";
 import { QuizTool } from "@/components/quiz/QuizTool";
-import { parseWords } from "@/lib/anki/buildDeck";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
 import { useDictionary } from "@/lib/i18n/useLocale";
 import { appendWords, extractWords } from "@/lib/lesson/extract";
+import { docxText, entryLine, parseEntries, splitPaste } from "@/lib/lesson/paste";
 import {
   lessonsFile,
   mergeLessons,
@@ -51,6 +51,7 @@ export function LessonBuilder() {
   const [saveFailed, setSaveFailed] = useState(false);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
+  const [skipped, setSkipped] = useState<string[]>([]);
 
   // Load the saved lessons once (SSR-safe); the first visit gets a sample lesson.
   useEffect(() => {
@@ -60,14 +61,20 @@ export function LessonBuilder() {
       setCurrentId(saved[0].id);
       return;
     }
-    const sample = { ...newLesson(d.sampleName), text: SAMPLE_TEXT, words: SAMPLE_WORDS };
+    const sample = {
+      ...newLesson(d.sampleName),
+      text: SAMPLE_TEXT,
+      words: SAMPLE_WORDS,
+    };
     setLessons([sample]);
     setCurrentId(sample.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on mount
   }, []);
 
   const current = lessons.find((l) => l.id === currentId) ?? lessons[0];
-  const words = useMemo(() => parseWords(current?.words ?? "").words, [current?.words]);
+  // A word line may carry the teacher's own Pinyin and meaning ("早 zǎo – sớm").
+  const entries = useMemo(() => parseEntries(current?.words ?? "").entries, [current?.words]);
+  const words = useMemo(() => entries.map((e) => e.word), [entries]);
   // The tools restart with the new words once typing pauses, not on every key.
   const [settledWords, setSettledWords] = useState<string[]>([]);
   const wordsKey = words.join("\n");
@@ -115,6 +122,45 @@ export function LessonBuilder() {
     setNote(d.restoreDone.replace("{n}", String(imported.length)));
   }
 
+  /**
+   * "Dán cả bài": sort a whole pasted handout into the lesson text and the
+   * word list. Added to what the lesson already has; a new lesson also takes
+   * its name from the first line.
+   */
+  function takePaste(raw: string) {
+    if (!current) return;
+    const got = splitPaste(raw);
+    if (!got.text && got.words.length === 0) {
+      setSkipped([]);
+      return setNote(d.paste.none);
+    }
+    const have = new Set(words);
+    const added = got.words.filter((e) => !have.has(e.word));
+    const fresh = !current.text.trim() && words.length === 0;
+    update({
+      name: fresh && got.title ? got.title : current.name,
+      text: [current.text.trim(), got.text].filter(Boolean).join("\n"),
+      words: [current.words.trim(), ...added.map(entryLine)].filter(Boolean).join("\n"),
+    });
+    setSkipped(got.skipped);
+    setNote(
+      d.paste.done
+        .replace("{w}", String(added.length))
+        .replace("{s}", String(got.text ? got.text.split("\n").length : 0))
+        .replace("{k}", String(got.skipped.length)),
+    );
+  }
+
+  async function takeDocx(file: File | undefined) {
+    if (!file) return;
+    const text = docxText(new Uint8Array(await file.arrayBuffer()));
+    if (text === null) {
+      setSkipped([]);
+      return setNote(d.paste.badFile);
+    }
+    takePaste(text);
+  }
+
   async function extract() {
     if (!current?.text.trim()) return;
     setNote("");
@@ -135,8 +181,7 @@ export function LessonBuilder() {
     }
   }
 
-  const field =
-    "w-full rounded-lg border border-ink-900/10 bg-surface p-3 focus:outline-none focus:ring-2 focus:ring-brand-500";
+  const field = "w-full rounded-lg border border-ink-900/10 bg-surface p-3 focus:outline-none focus:ring-2 focus:ring-brand-500";
 
   return (
     <>
@@ -170,6 +215,7 @@ export function LessonBuilder() {
                           onClick={() => {
                             setCurrentId(l.id);
                             setNote("");
+                            setSkipped([]);
                           }}
                         >
                           {l.name || "—"}
@@ -185,7 +231,13 @@ export function LessonBuilder() {
                     >
                       {d.backup}
                     </IconButton>
-                    <FileInput buttonLabel={d.restore} accept=".json,application/json" onFile={restore} showName={false} fullWidth />
+                    <FileInput
+                      buttonLabel={d.restore}
+                      accept=".json,application/json"
+                      onFile={restore}
+                      showName={false}
+                      fullWidth
+                    />
                     <p className="text-xs text-ink-700/80">{d.storageNote}</p>
                     {saveFailed && <p className="text-xs text-red-600">{d.saveFailed}</p>}
                   </div>
@@ -201,6 +253,32 @@ export function LessonBuilder() {
                       <button type="button" className="btn-secondary px-3 py-3 text-sm text-red-600" onClick={deleteLesson}>
                         {d.delete}
                       </button>
+                    </div>
+
+                    <div className="mt-4 rounded-xl border border-dashed border-brand-400 bg-brand-50 p-4">
+                      <label className="flex flex-col gap-1">
+                        <span className="font-medium text-ink-900">{d.paste.label}</span>
+                        <textarea
+                          className={`${field} resize-none`}
+                          rows={2}
+                          value=""
+                          placeholder={d.paste.placeholder}
+                          onChange={() => undefined}
+                          onPaste={(e) => {
+                            e.preventDefault();
+                            takePaste(e.clipboardData.getData("text/plain"));
+                          }}
+                        />
+                      </label>
+                      <div className="mt-3 flex flex-wrap items-center gap-3">
+                        <FileInput
+                          buttonLabel={d.paste.docx}
+                          accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                          onFile={(f) => void takeDocx(f)}
+                          showName={false}
+                        />
+                        <p className="text-sm text-ink-700">{d.paste.hint}</p>
+                      </div>
                     </div>
 
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -225,18 +303,36 @@ export function LessonBuilder() {
                       <label className="flex flex-col gap-1">
                         <span className="flex items-baseline justify-between gap-2 font-medium text-ink-900">
                           {d.wordsLabel}
-                          <span className="text-sm font-normal text-ink-500">{d.wordCount.replace("{n}", String(words.length))}</span>
+                          <span className="text-sm font-normal text-ink-500">
+                            {d.wordCount.replace("{n}", String(words.length))}
+                          </span>
                         </span>
                         <textarea
                           className={`${field} hanzi resize-y text-lg`}
                           rows={8}
                           value={current.words}
-                          placeholder={"学习\n朋友"}
+                          placeholder={"学习\n朋友 péngyou – bạn bè"}
                           onChange={(e) => update({ words: e.target.value })}
                         />
                       </label>
                     </div>
-                    {note && <p className="mt-3 text-sm text-ink-700">{note}</p>}
+                    {note && (
+                      <p className="mt-3 text-sm text-ink-700" aria-live="polite">
+                        {note}
+                      </p>
+                    )}
+                    {skipped.length > 0 && (
+                      <details className="mt-2 text-sm text-ink-700">
+                        <summary className="cursor-pointer font-medium text-brand-ink">
+                          {d.paste.showSkipped.replace("{k}", String(skipped.length))}
+                        </summary>
+                        <ul className="mt-2 max-h-48 list-disc space-y-1 overflow-y-auto pl-5">
+                          {skipped.map((line, i) => (
+                            <li key={i}>{line}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
                   </div>
                 )}
               </div>
@@ -269,7 +365,7 @@ export function LessonBuilder() {
             {current && (
               <div id="lesson-panel" role="tabpanel" aria-labelledby={`lesson-tab-${tab}`} className="mt-6 print:mt-0">
                 {/* A new key remounts the tool with the lesson's current words. */}
-                {tab === "table" && <WordTable key={current.id} words={words} lessonName={current.name} />}
+                {tab === "table" && <WordTable key={current.id} words={words} entries={entries} lessonName={current.name} />}
                 {tab === "anki" && <AnkiTool key={toolKey} initialWords={settledWords} embedded />}
                 {tab === "quiz" && <QuizTool key={toolKey} initialWords={settledWords} embedded />}
                 {tab === "practiceSheet" && <PracticeSheetTool key={toolKey} initialWords={settledWords} embedded />}
