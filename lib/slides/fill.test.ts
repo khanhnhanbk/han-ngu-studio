@@ -14,6 +14,9 @@ const word = (chu: string, extra: Partial<SlideWord> = {}): SlideWord => ({
   vidu: "",
   vidu_pinyin: "",
   vidu_nghia: "",
+  vidu2: "",
+  vidu2_pinyin: "",
+  vidu2_nghia: "",
   hsk: "",
   ...extra,
 });
@@ -69,6 +72,24 @@ describe("fillTemplate", () => {
     // Every slide part is listed once in [Content_Types].xml.
     const types = strFromU8(unzipSync(res.bytes)["[Content_Types].xml"]);
     for (let n = 1; n <= 5; n++) expect(types.match(new RegExp(`/ppt/slides/slide${n}\\.xml"`, "g"))?.length).toBe(1);
+  });
+
+  it("puts a different example on each example slide of the three-slide template", () => {
+    const w = word("打扫", { vidu: "我们要打扫房间。", vidu2: "你把房间打扫干净了吗？", vidu2_nghia: "Bạn đã dọn sạch phòng chưa?" });
+    const res = fillTemplate(template("ba-trang"), [w, word("干净")], "Bài 3");
+    expect(res.ok && res.slides).toBe(7);
+    if (!res.ok) return;
+    const texts = slideTexts(res.bytes);
+    expect(texts[2]).toContain("我们要打扫房间。");
+    expect(texts[2]).not.toContain("你把");
+    expect(texts[3]).toContain("你把房间打扫干净了吗？");
+    expect(texts[3]).toContain("Bạn đã dọn sạch phòng chưa?");
+    expect(texts[4]).toContain("干净");
+    expect(texts.join(" ")).not.toMatch(/\{\{/);
+  });
+
+  it("reads the English names of the second example", () => {
+    expect(fieldsIn("<a:p><a:r><a:t>{{example2}} {{example2_meaning}}</a:t></a:r></a:p>")).toEqual(["vidu2", "vidu2_nghia"]);
   });
 
   it("reports what it cannot use", () => {

@@ -43,9 +43,10 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 ## Làm slide
 
 1. Mở thẻ **Slide**.
-2. Ở **Chọn mẫu**, chọn một trong ba:
+2. Ở **Chọn mẫu**, chọn một trong bốn:
    - **Thẻ từ**: mỗi từ một slide có chữ to, Pinyin, Hán Việt, nghĩa và một câu ví dụ.
    - **Hỏi – đáp**: slide đầu chỉ có chữ để hỏi cả lớp, slide sau mới hiện đáp án.
+   - **Ba trang mỗi từ**: mỗi từ ba slide: thẻ từ, rồi hai slide, mỗi slide một câu ví dụ khác nhau.
    - **Mẫu của tôi**: bấm **Chọn file PowerPoint (.pptx)** và chọn mẫu của bạn. Chưa có mẫu thì bấm **Tải mẫu về sửa** để lấy mẫu Thẻ từ làm điểm bắt đầu.
 3. Bấm **Tải slide (.pptx)**. File tải về máy, mở bằng PowerPoint, Google Slides (Tệp → Nhập trang trình bày) hoặc Canva.
 
@@ -63,11 +64,14 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
    | `{{vidu}}` | Câu ví dụ |
    | `{{vidu_pinyin}}` | Pinyin của câu ví dụ |
    | `{{vidu_nghia}}` | Nghĩa của câu ví dụ |
+   | `{{vidu2}}` | Câu ví dụ thứ hai (khác câu đầu) |
+   | `{{vidu2_pinyin}}` | Pinyin của câu ví dụ thứ hai |
+   | `{{vidu2_nghia}}` | Nghĩa của câu ví dụ thứ hai |
    | `{{hsk}}` | Cấp HSK |
    | `{{so}}` | Số thứ tự của từ (1, 2, 3…) |
    | `{{bai}}` | Tên bài |
 
-3. Slide nào có ô của từ sẽ được lặp lại cho từng từ, theo đúng thứ tự (có thể là một nhóm nhiều slide, như mẫu Hỏi – đáp). Slide khác (bìa, kết) giữ một lần.
+3. Slide nào có ô của từ sẽ được lặp lại cho từng từ, theo đúng thứ tự (có thể là một nhóm nhiều slide, như mẫu Hỏi – đáp hay Ba trang mỗi từ). Slide khác (bìa, kết) giữ một lần. Mẫu một thẻ từ + hai slide ví dụ thì dùng `{{vidu}}` ở slide ví dụ đầu, `{{vidu2}}` ở slide sau, để hai slide không trùng câu.
 4. Lưu thành .pptx, chọn **Mẫu của tôi** rồi chọn file đó.
 
 File của bạn chỉ được đọc trên máy, không gửi đi đâu.
@@ -77,6 +81,8 @@ File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 | Hiện tượng | Cách xử lý |
 |---|---|
 | Hiện "Trình duyệt không cho lưu…" | Đang ở chế độ ẩn danh hoặc hết chỗ. Bấm **Sao lưu (.json)** để giữ bài ra file. |
+| Hình minh họa giống nhau ở mọi từ | Hình nằm trên slide của từ nên bị lặp theo. Xóa hình khỏi mẫu, tải slide xong mới chèn hình cho từng từ. |
+| Slide ví dụ thứ hai bị trống | Từ đó chỉ có một câu ví dụ trong dữ liệu. Gõ thêm câu vào slide sau khi tải. |
 | Hiện "Danh sách từ đã đổi…" ở thẻ Bảng từ | Bấm **Tạo lại bảng từ**. Những chỗ đã sửa trong bảng sẽ mất, nên sửa sau cùng. |
 | Bấm Copy không được | Một số trình duyệt chặn copy. Dùng **Tải CSV** thay thế. |
 | Dán vào Word ra chữ thường, không phải bảng | Dùng **Copy cho Word / Google Docs** (không phải nút Zalo), và dán bằng Ctrl+V (không chọn "chỉ dán chữ"). |

@@ -66,6 +66,26 @@ def word_slide(prs, with_answer=True):
     text(s, Inches(1), Inches(6.15), Inches(11.333), Inches(0.6), "{{vidu_nghia}}", 20, SOFT)
 
 
+def example_slide(prs, n):
+    """One example per slide; n = "" for {{vidu}}, "2" for {{vidu2}}."""
+    s = blank(prs)
+    text(s, Inches(0.5), Inches(0.3), Inches(2), Inches(0.6), "{{so}}", 18, SOFT)
+    text(s, Inches(1), Inches(0.6), Inches(11.333), Inches(1.6), "{{chu}}", 72, ACCENT)
+    text(s, Inches(1), Inches(2.2), Inches(11.333), Inches(0.6), "{{pinyin}}  ·  {{nghia}}", 22, SOFT)
+    text(s, Inches(1), Inches(3.3), Inches(11.333), Inches(1.2), "{{vidu%s}}" % n, 44, INK)
+    text(s, Inches(1), Inches(4.5), Inches(11.333), Inches(0.7), "{{vidu%s_pinyin}}" % n, 24, SOFT)
+    text(s, Inches(1), Inches(5.3), Inches(11.333), Inches(1.0), "{{vidu%s_nghia}}" % n, 28, INK)
+
+
+def card_slide(prs):
+    s = blank(prs)
+    text(s, Inches(0.5), Inches(0.3), Inches(2), Inches(0.6), "{{so}}", 18, SOFT)
+    text(s, Inches(1), Inches(0.9), Inches(11.333), Inches(3.0), "{{chu}}", 150, INK)
+    text(s, Inches(1), Inches(4.0), Inches(11.333), Inches(0.9), "{{pinyin}}  ·  {{hanviet}}", 40, ACCENT, True)
+    text(s, Inches(1), Inches(4.9), Inches(11.333), Inches(0.9), "{{nghia}}", 34, INK)
+    text(s, Inches(1), Inches(5.9), Inches(11.333), Inches(0.6), "{{hsk}}", 18, SOFT)
+
+
 # "Thẻ từ": a title slide, then one slide per word.
 prs = new_deck()
 title_slide(prs)
@@ -78,3 +98,11 @@ title_slide(prs)
 word_slide(prs, with_answer=False)
 word_slide(prs)
 prs.save("public/templates/hoi-dap.pptx")
+
+# "Ba trang mỗi từ": per word, the word card, then two slides with one example each.
+prs = new_deck()
+title_slide(prs)
+card_slide(prs)
+example_slide(prs, "")
+example_slide(prs, "2")
+prs.save("public/templates/ba-trang.pptx")

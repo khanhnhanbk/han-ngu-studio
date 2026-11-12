@@ -9,7 +9,21 @@ import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
  */
 
 /** Fields filled once per word. */
-export const WORD_FIELDS = ["chu", "pinyin", "hanviet", "nghia", "vidu", "vidu_pinyin", "vidu_nghia", "hsk", "so"] as const;
+export const WORD_FIELDS = [
+  "chu",
+  "pinyin",
+  "hanviet",
+  "nghia",
+  "vidu",
+  "vidu_pinyin",
+  "vidu_nghia",
+  // A second, different example, for templates with one example per slide.
+  "vidu2",
+  "vidu2_pinyin",
+  "vidu2_nghia",
+  "hsk",
+  "so",
+] as const;
 /** Fields filled on every slide. */
 export const LESSON_FIELDS = ["bai"] as const;
 
@@ -20,7 +34,7 @@ export type FillResult =
   | { ok: true; bytes: Uint8Array; slides: number; unknown: string[] }
   | { ok: false; error: "notPptx" | "noWordSlide" | "noWords" };
 
-const PLACEHOLDER = /\{\{\s*([A-Za-z_]+)\s*\}\}/g;
+const PLACEHOLDER = /\{\{\s*([A-Za-z_][A-Za-z0-9_]*)\s*\}\}/g;
 const PARAGRAPH = /<a:p(?:\s[^>]*)?>[\s\S]*?<\/a:p>/g;
 const RUN_TEXT = /<a:t(?:\s[^>]*)?>([\s\S]*?)<\/a:t>/g;
 
@@ -31,6 +45,9 @@ export const FIELD_ALIASES: Readonly<Record<string, WordField | "bai">> = {
   example: "vidu",
   example_pinyin: "vidu_pinyin",
   example_meaning: "vidu_nghia",
+  example2: "vidu2",
+  example2_pinyin: "vidu2_pinyin",
+  example2_meaning: "vidu2_nghia",
   no: "so",
   lesson: "bai",
 };
