@@ -46,7 +46,7 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 2. Ở **Chọn mẫu**, chọn một trong bốn:
    - **Thẻ từ**: mỗi từ một slide có chữ to, Pinyin, Hán Việt, nghĩa và một câu ví dụ.
    - **Hỏi – đáp**: slide đầu chỉ có chữ để hỏi cả lớp, slide sau mới hiện đáp án.
-   - **Ba trang mỗi từ**: mỗi từ ba slide: thẻ từ, rồi hai slide, mỗi slide một câu ví dụ khác nhau.
+   - **Ba trang mỗi từ**: mỗi từ ba slide: thẻ từ có cụm từ hay gặp, rồi hai slide, mỗi slide một câu ví dụ khác nhau.
    - **Mẫu của tôi**: bấm **Chọn file PowerPoint (.pptx)** và chọn mẫu của bạn. Chưa có mẫu thì bấm **Tải mẫu về sửa** để lấy mẫu Thẻ từ làm điểm bắt đầu.
 3. Bấm **Tải slide (.pptx)**. File tải về máy, mở bằng PowerPoint, Google Slides (Tệp → Nhập trang trình bày) hoặc Canva.
 
@@ -67,6 +67,9 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
    | `{{vidu2}}` | Câu ví dụ thứ hai (khác câu đầu) |
    | `{{vidu2_pinyin}}` | Pinyin của câu ví dụ thứ hai |
    | `{{vidu2_nghia}}` | Nghĩa của câu ví dụ thứ hai |
+   | `{{vidu3}}`, `{{vidu3_pinyin}}`, `{{vidu3_nghia}}` | Câu ví dụ thứ ba, Pinyin và nghĩa của nó |
+   | `{{cumtu}}` | Cụm từ hay gặp, kèm Pinyin, ví dụ 打扫干净 (dǎsǎo gānjìng) |
+   | `{{cumtu2}}` | Cụm từ hay gặp thứ hai |
    | `{{hsk}}` | Cấp HSK |
    | `{{so}}` | Số thứ tự của từ (1, 2, 3…) |
    | `{{bai}}` | Tên bài |
@@ -83,6 +86,7 @@ File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 |---|---|
 | Hiện "Trình duyệt không cho lưu…" | Đang ở chế độ ẩn danh hoặc hết chỗ. Bấm **Sao lưu (.json)** để giữ bài ra file. |
 | Hình minh họa giống nhau ở mọi từ | Hình nằm trên slide của từ nên bị lặp theo. Xóa hình khỏi mẫu, tải slide xong mới chèn hình cho từng từ. |
+| Ô cụm từ bị trống | Cụm từ được lấy từ các câu ví dụ có sẵn, chỉ khi một cụm xuất hiện ít nhất 2 lần. Nhiều từ không có, thầy cô gõ thêm vào slide. Cụm từ không kèm nghĩa tiếng Việt. |
 | Slide ví dụ thứ hai bị trống | Từ đó chỉ có một câu ví dụ trong dữ liệu. Gõ thêm câu vào slide sau khi tải. |
 | Hiện "Danh sách từ đã đổi…" ở thẻ Bảng từ | Bấm **Tạo lại bảng từ**. Những chỗ đã sửa trong bảng sẽ mất, nên sửa sau cùng. |
 | Bấm Copy không được | Một số trình duyệt chặn copy. Dùng **Tải CSV** thay thế. |

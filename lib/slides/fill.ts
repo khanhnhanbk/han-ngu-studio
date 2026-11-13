@@ -25,6 +25,12 @@ export const WORD_FIELDS = [
   "vidu2",
   "vidu2_pinyin",
   "vidu2_nghia",
+  "vidu3",
+  "vidu3_pinyin",
+  "vidu3_nghia",
+  // Common phrases from the example sentences (lib/slides/collocations.ts), "" when none.
+  "cumtu",
+  "cumtu2",
   "hsk",
   "so",
 ] as const;
@@ -52,6 +58,11 @@ export const FIELD_ALIASES: Readonly<Record<string, WordField | "bai">> = {
   example2: "vidu2",
   example2_pinyin: "vidu2_pinyin",
   example2_meaning: "vidu2_nghia",
+  example3: "vidu3",
+  example3_pinyin: "vidu3_pinyin",
+  example3_meaning: "vidu3_nghia",
+  phrase: "cumtu",
+  phrase2: "cumtu2",
   no: "so",
   lesson: "bai",
 };
