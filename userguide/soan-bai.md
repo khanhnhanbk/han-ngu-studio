@@ -86,6 +86,7 @@ File của bạn chỉ được đọc trên máy, không gửi đi đâu.
 |---|---|
 | Hiện "Trình duyệt không cho lưu…" | Đang ở chế độ ẩn danh hoặc hết chỗ. Bấm **Sao lưu (.json)** để giữ bài ra file. |
 | Hình minh họa giống nhau ở mọi từ | Hình nằm trên slide của từ nên bị lặp theo. Xóa hình khỏi mẫu, tải slide xong mới chèn hình cho từng từ. |
+| Hiện "Web không đọc được danh sách slide…" | File lưu từ phần mềm khác ghi danh sách slide theo kiểu web chưa đọc được. Mở bằng PowerPoint hoặc Google Slides, lưu lại thành .pptx rồi chọn lại. File lưu từ PowerPoint, LibreOffice, OnlyOffice, Google Slides hay Canva (Tải xuống → PowerPoint) đều đọc được. |
 | Ô cụm từ bị trống | Cụm từ được lấy từ các câu ví dụ có sẵn, chỉ khi một cụm xuất hiện ít nhất 2 lần. Nhiều từ không có, thầy cô gõ thêm vào slide. Cụm từ không kèm nghĩa tiếng Việt. |
 | Slide ví dụ thứ hai bị trống | Từ đó chỉ có một câu ví dụ trong dữ liệu. Gõ thêm câu vào slide sau khi tải. |
 | Hiện "Danh sách từ đã đổi…" ở thẻ Bảng từ | Bấm **Tạo lại bảng từ**. Những chỗ đã sửa trong bảng sẽ mất, nên sửa sau cùng. |

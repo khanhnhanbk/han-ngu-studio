@@ -1585,6 +1585,7 @@ export const en: Dictionary = {
       fittedHint: "To keep the text at full size, widen that box in the template, or move the picture beside it further away.",
       errors: {
         notPptx: "This is not a PowerPoint file (.pptx). Open it in PowerPoint and save it as .pptx.",
+        noSlides: "The site cannot read the list of slides in this file. Open it in PowerPoint or Google Slides, save it again as .pptx and try once more.",
         noWordSlide: "No slide in the template has {{chu}} (or another word field). Add it to the slide to repeat for each word.",
         noWords: "Add at least one word to the New words box.",
       },

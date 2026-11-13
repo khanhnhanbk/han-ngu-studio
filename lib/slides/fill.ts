@@ -42,7 +42,7 @@ export type SlideWord = Record<Exclude<WordField, "so">, string>;
 
 export type FillResult =
   | { ok: true; bytes: Uint8Array; slides: number; unknown: string[]; fitted: FitNote[] }
-  | { ok: false; error: "notPptx" | "noWordSlide" | "noWords" };
+  | { ok: false; error: "notPptx" | "noSlides" | "noWordSlide" | "noWords" };
 
 const PLACEHOLDER = /\{\{\s*([A-Za-z_][A-Za-z0-9_]*)\s*\}\}/g;
 const PARAGRAPH = /<a:p(?:\s[^>]*)?>[\s\S]*?<\/a:p>/g;
@@ -175,6 +175,58 @@ export function fillSlideXml(xml: string, values: Readonly<Record<string, string
   return fillParagraphs(shapes, values);
 }
 
+const NS_PREFIX: Readonly<Record<string, string>> = {
+  "http://schemas.openxmlformats.org/drawingml/2006/main": "a",
+  "http://schemas.openxmlformats.org/presentationml/2006/main": "p",
+  "http://schemas.openxmlformats.org/officeDocument/2006/relationships": "r",
+};
+
+/**
+ * Bring XML written by other apps (OnlyOffice, Google Slides, Canva, Keynote…)
+ * to the shape the regexes here read, changing only the markup inside tags,
+ * never the text between them: attribute values in single quotes get double
+ * quotes, and the DrawingML / PresentationML / relationships namespaces get
+ * their usual prefixes a:, p:, r: when the file bound them to other ones.
+ * A file already in that shape comes back unchanged.
+ */
+export function normalizeXml(xml: string): string {
+  const rename = new Map<string, string>();
+  for (const m of xml.matchAll(/\sxmlns:([\w.-]+)\s*=\s*["']([^"']+)["']/g)) {
+    const want = Object.hasOwn(NS_PREFIX, m[2]) ? NS_PREFIX[m[2]] : undefined;
+    if (want && m[1] !== want) rename.set(m[1], want);
+  }
+  if (rename.size === 0 && !/<[^>]*=\s*'/.test(xml)) return xml;
+  const prefix = (name: string) => {
+    const i = name.indexOf(":");
+    if (i < 0) return name;
+    const p = name.slice(0, i);
+    if (p === "xmlns") {
+      const bound = name.slice(i + 1);
+      return rename.has(bound) ? `xmlns:${rename.get(bound)}` : name;
+    }
+    return rename.has(p) ? `${rename.get(p)}${name.slice(i)}` : name;
+  };
+  return xml.replace(/<(\/?)([\w.:-]+)([^>]*)>/g, (_, slash: string, name: string, rest: string) => {
+    const attrs = rest.replace(
+      /([\w.:-]+)(\s*=\s*)(?:"([^"]*)"|'([^']*)')/g,
+      (_a, attr: string, eq: string, dq: string | undefined, sq: string | undefined) =>
+        `${prefix(attr)}${eq}"${dq ?? (sq ?? "").replace(/"/g, "&quot;")}"`,
+    );
+    return `<${slash}${prefix(name)}${attrs}>`;
+  });
+}
+
+/** Resolve a relationship Target against the folder of the part that owns it ("ppt/"). */
+function resolveTarget(base: string, target: string): string {
+  if (target.startsWith("/")) return target.slice(1);
+  const parts = base.split("/").filter(Boolean);
+  for (const seg of target.split("/")) {
+    if (seg === "..") parts.pop();
+    else if (seg && seg !== ".") parts.push(seg);
+  }
+  return parts.join("/");
+}
+
 type SlideRef = { rId: string; path: string };
 
 /** Slides in presentation order, with their part paths ("ppt/slides/slide1.xml"). */
@@ -187,11 +239,12 @@ function slideOrder(files: Record<string, Uint8Array>): SlideRef[] | null {
     const id = /\bId="([^"]+)"/.exec(m[0])?.[1];
     const target = /\bTarget="([^"]+)"/.exec(m[0])?.[1];
     if (id && target && m[0].includes(`Type="${SLIDE_TYPE}"`)) {
-      targets.set(id, target.startsWith("/") ? target.slice(1) : `ppt/${target}`);
+      targets.set(id, resolveTarget("ppt", decodeXml(target)));
     }
   }
   const out: SlideRef[] = [];
-  for (const m of strFromU8(pres).matchAll(/<p:sldId\b[^>]*\br:id="([^"]+)"[^>]*\/>/g)) {
+  // `<p:sldId id="256" r:id="rId2"/>`, or with a closing tag `…></p:sldId>` as OnlyOffice writes it.
+  for (const m of strFromU8(pres).matchAll(/<p:sldId\s[^>]*?\br:id="([^"]+)"[^>]*>/g)) {
     const path = targets.get(m[1]);
     if (path && files[path]) out.push({ rId: m[1], path });
   }
@@ -212,8 +265,17 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
   } catch {
     return { ok: false, error: "notPptx" };
   }
+  // Parts the fill reads and writes, in the shape the regexes expect (see normalizeXml).
+  for (const path of Object.keys(files)) {
+    if (path === "[Content_Types].xml" || /^ppt\/(?:presentation\.xml|_rels\/presentation\.xml\.rels|slides\/(?:_rels\/)?[^/]+\.(?:xml|rels))$/.test(path)) {
+      const xml = strFromU8(files[path]);
+      const norm = normalizeXml(xml);
+      if (norm !== xml) files[path] = strToU8(norm);
+    }
+  }
   const order = slideOrder(files);
-  if (!order || order.length === 0) return { ok: false, error: "notPptx" };
+  // A zip that opens but whose slide list cannot be read: not "not a PowerPoint", say what failed.
+  if (!order || order.length === 0) return { ok: false, error: "noSlides" };
   if (words.length === 0) return { ok: false, error: "noWords" };
 
   const known = new Set<string>([...WORD_FIELDS, ...LESSON_FIELDS]);
@@ -262,7 +324,7 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
           const rels = files[relsPath(src.path)];
           if (rels) {
             // A notes page belongs to one slide only, so copies leave it out.
-            const kept = strFromU8(rels).replace(new RegExp(`<Relationship\\b[^>]*Type="${NOTES_TYPE}"[^>]*/>`, "g"), "");
+            const kept = strFromU8(rels).replace(new RegExp(`<Relationship\\b[^>]*Type="${NOTES_TYPE}"[^>]*?(?:/>|>\\s*</Relationship>)`, "g"), "");
             files[relsPath(path)] = strToU8(kept);
           }
           const rId = newRelId();

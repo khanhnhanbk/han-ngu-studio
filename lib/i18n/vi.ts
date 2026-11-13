@@ -1588,6 +1588,7 @@ export const vi = {
       fittedHint: "Muốn giữ chữ to như cũ thì kéo rộng ô đó trong mẫu, hoặc dời hình bên cạnh ra xa hơn.",
       errors: {
         notPptx: "File này không phải PowerPoint (.pptx). Mở bằng PowerPoint rồi Lưu thành .pptx.",
+        noSlides: "Web không đọc được danh sách slide trong file này. Mở bằng PowerPoint hoặc Google Slides, lưu lại thành .pptx rồi thử lần nữa.",
         noWordSlide: "Mẫu chưa có slide nào ghi {{chu}} (hoặc ô khác của từ). Thêm vào slide muốn lặp cho từng từ.",
         noWords: "Thêm ít nhất một từ ở ô Từ mới.",
       },
