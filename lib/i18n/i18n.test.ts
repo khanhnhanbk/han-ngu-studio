@@ -18,6 +18,7 @@ function leaves(value: unknown, path = ""): Array<[string, unknown]> {
 // Sino-Vietnamese terms the English UI keeps on purpose.
 const ALLOWED = [
   "Hán Ngữ Studio",
+  "Nguyễn Văn Khánh Nhân", // the owner's name on the "who made this" card
   "đương/đang",
   "Hán Việt",
   "Tiếng Việt",

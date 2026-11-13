@@ -115,6 +115,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 ## Notes
 
+- **A big feature updates the home page in the same PR** (owner rule 2026-11-13): the tool cards (`TOOL_GROUPS`), the Hero/ForTeachers lines it touches, the FAQ answers, and `Roadmap` (drop the item once it ships), in both `vi.ts` and `en.ts`. The tool count in `features.subtitle` is `{count}`, filled from `TOOLS.length`, so never write a number there.
 - The landing page shows only what exists: live tools in `Features`, grouped by `TOOL_GROUPS` in `lib/links.ts` (Chữ Hán / Đọc văn bản / Từ vựng & ôn tập; names and one-line menu hints in `nav.groups` / `nav.hints` of `lib/i18n/vi.ts`), upcoming work in `Roadmap` (follows `docs/plans/2026-10-15-roadmap.md`). When a phase ships, move it from Roadmap to Features by adding the tool to a group (the Navbar menu and Footer read the same groups).
 - Teacher guide at `/guide` (+ `/en/guide`, `components/guide/TeacherGuide.tsx`, text in `guide` of `lib/i18n`): the Soạn bài flow step by step with screenshots in `public/guide/<locale>/*.webp` (retake them when the lesson UI changes). Promotion drafts (Facebook posts, comment templates, posting log) live in `docs/promotion/`.
 - The old "Get notified" email form, invented testimonials and the "Pro" pricing plan were removed. Do not add sign-up forms that need a backend.

@@ -160,7 +160,7 @@ export const en: Dictionary = {
   },
   features: {
     title: "Everything you need, in one place",
-    subtitle: "Thirteen free tools that run right in your browser.",
+    subtitle: "{count} free tools that run right in your browser.",
     items: {
       practiceSheet: {
         title: "Handwriting practice sheet",
@@ -264,12 +264,6 @@ export const en: Dictionary = {
       idea: "Idea",
     },
     items: [
-      {
-        status: "next",
-        title: "Slides from your own template",
-        description:
-          "Upload your PowerPoint file, put {{chu}} {{pinyin}} {{nghia}} where they should appear, and the whole lesson becomes a deck in seconds. Ready-made templates included.",
-      },
       {
         status: "next",
         title: "Self-study: the \"Today\" page",
@@ -469,7 +463,7 @@ export const en: Dictionary = {
       {
         question: "Where do the meanings, example sentences and Wubi codes come from?",
         answer:
-          "English meanings come from CC-CEDICT, Wubi codes from pywubi, and example sentences and translations are compiled by Hán Ngữ Studio. Pinyin and Hán Việt are generated automatically, so double-check polyphonic characters.",
+          "Vietnamese meanings come from Phong Phan’s CVDICT (machine-translated from CC-CEDICT, then reviewed), English meanings from CC-CEDICT, HSK levels from the HSK 3.0 list and Wubi codes from pywubi. Example sentences are partly written by Hán Ngữ Studio and partly taken from Tatoeba; the Tatoeba translations were made with Google Translate and are marked “machine-translated” next to the sentence. Pinyin and Hán Việt are generated automatically, so double-check polyphonic characters. The full list of sources is on the “Licences & privacy” page (footer).",
       },
       {
         question: "Can I use Traditional characters?",
@@ -1622,6 +1616,17 @@ export const en: Dictionary = {
       },
       privacy: "Your file is read on this device only and never sent anywhere.",
     },
+  },
+  maker: {
+    eyebrow: "Who made this",
+    name: "Nguyễn Văn Khánh Nhân",
+    nickname: "(Novian)",
+    role: "Python developer at Akselos · Computer Science engineer, HCMC University of Technology",
+    story:
+      "I am learning Chinese myself and built Hán Ngữ Studio so Vietnamese learners and teachers can prepare materials faster. If something is wrong or missing, message me on Zalo.",
+    portfolio: "See my portfolio",
+    zalo: "Message on Zalo",
+    photoAlt: "Photo of Nguyễn Văn Khánh Nhân",
   },
   cta: {
     title: "Ready to make your first material?",

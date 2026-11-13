@@ -154,7 +154,7 @@ export const vi = {
   },
   features: {
     title: "Mọi thứ bạn cần, chỉ trong một nơi",
-    subtitle: "Mười ba công cụ miễn phí, chạy ngay trên trình duyệt.",
+    subtitle: "{count} công cụ miễn phí, chạy ngay trên trình duyệt.",
     items: {
       practiceSheet: {
         title: "Phiếu tập viết chữ Hán",
@@ -258,12 +258,6 @@ export const vi = {
       idea: "Ý tưởng",
     },
     items: [
-      {
-        status: "next",
-        title: "Slide theo mẫu của chính bạn",
-        description:
-          "Tải file PowerPoint của bạn lên, đặt {{chu}} {{pinyin}} {{nghia}} vào chỗ muốn hiện, cả bài thành bộ slide trong vài giây. Có sẵn mẫu để dùng ngay.",
-      },
       {
         status: "next",
         title: "Tự học: trang \"Hôm nay\"",
@@ -464,7 +458,7 @@ export const vi = {
       {
         question: "Nghĩa, câu ví dụ và mã Ngũ bút lấy từ đâu?",
         answer:
-          "Nghĩa tiếng Anh từ CC-CEDICT, mã Ngũ bút từ pywubi, câu ví dụ và bản dịch do Hán Ngữ Studio biên soạn. Pinyin và Hán Việt được tạo tự động, nên hãy kiểm tra lại các chữ đa âm.",
+          "Nghĩa tiếng Việt từ từ điển CVDICT của Phong Phan (dịch máy từ CC-CEDICT rồi rà soát lại), nghĩa tiếng Anh từ CC-CEDICT, cấp HSK theo danh sách HSK 3.0, mã Ngũ bút từ pywubi. Câu ví dụ gồm câu do Hán Ngữ Studio biên soạn và câu từ Tatoeba; bản dịch câu Tatoeba làm bằng Google Dịch và có ghi “dịch máy” ngay cạnh câu. Pinyin và âm Hán Việt được tạo tự động, nên hãy kiểm tra lại các chữ đa âm. Danh sách nguồn đầy đủ ở trang “Giấy phép và quyền riêng tư” (cuối trang).",
       },
       {
         question: "Có dùng được chữ phồn thể không?",
@@ -1625,6 +1619,17 @@ export const vi = {
       },
       privacy: "File của bạn chỉ được đọc trên máy này, không gửi đi đâu.",
     },
+  },
+  maker: {
+    eyebrow: "Ai làm trang này",
+    name: "Nguyễn Văn Khánh Nhân",
+    nickname: "(Novian)",
+    role: "Python developer tại Akselos · Kỹ sư Khoa học Máy tính, ĐH Bách Khoa TP.HCM",
+    story:
+      "Mình đang tự học tiếng Trung và làm Hán Ngữ Studio để người Việt học, thầy cô soạn bài nhanh hơn. Thấy chỗ nào sai hay muốn thêm gì, cứ nhắn Zalo cho mình.",
+    portfolio: "Xem trang cá nhân",
+    zalo: "Nhắn Zalo",
+    photoAlt: "Ảnh của Nguyễn Văn Khánh Nhân",
   },
   cta: {
     title: "Sẵn sàng tạo tài liệu đầu tiên?",
