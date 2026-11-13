@@ -8,6 +8,7 @@ import { Roadmap } from "@/components/Roadmap";
 import { HowItWorks } from "@/components/HowItWorks";
 import { ForTeachers } from "@/components/ForTeachers";
 import { FAQ } from "@/components/FAQ";
+import { AboutMaker } from "@/components/AboutMaker";
 import { CTASection } from "@/components/CTASection";
 import { Footer } from "@/components/Footer";
 import { alternates } from "@/lib/i18n/metadata";
@@ -26,6 +27,7 @@ export default function HomePage() {
         <HowItWorks />
         <ForTeachers />
         <FAQ />
+        <AboutMaker />
         <CTASection />
       </main>
       <Footer />

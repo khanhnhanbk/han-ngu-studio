@@ -5,6 +5,9 @@ export const USER_GUIDE_URL = `${REPO_URL}/tree/main/userguide`;
 /** The owner's Zalo, for quick feedback without a GitHub account (same link as the portfolio). */
 export const ZALO_URL = "https://zalo.me/84349796850";
 
+/** The owner's portfolio, linked from the "who made this" card on the home page. */
+export const PORTFOLIO_URL = "https://khanhnhanbk.github.io";
+
 export type ToolId =
   | "reader"
   | "practiceSheet"

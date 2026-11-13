@@ -1,7 +1,7 @@
 "use client";
 
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
-import { TOOL_GROUPS } from "@/lib/links";
+import { TOOL_GROUPS, TOOLS } from "@/lib/links";
 import { ToolCard } from "./ToolCard";
 
 export function Features() {
@@ -15,7 +15,7 @@ export function Features() {
           <h2 className="mt-3 text-3xl font-bold text-ink-900 sm:text-4xl">
             {dict.features.title}
           </h2>
-          <p className="mt-4 text-lg text-ink-700">{dict.features.subtitle}</p>
+          <p className="mt-4 text-lg text-ink-700">{dict.features.subtitle.replace("{count}", String(TOOLS.length))}</p>
         </div>
 
         {TOOL_GROUPS.map((group) => (

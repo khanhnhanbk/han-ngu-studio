@@ -23,11 +23,13 @@ export function Roadmap() {
           <p className="mt-4 text-lg text-ink-700">{dict.roadmap.subtitle}</p>
         </div>
 
-        <ol className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Flex instead of grid: a last row that is not full sits centred instead of leaving a hole
+            (items leave the list as they ship, so the count changes). */}
+        <ol className="mx-auto mt-12 flex max-w-6xl flex-wrap justify-center gap-4">
           {dict.roadmap.items.map((item) => {
             const status = item.status as Status;
             return (
-              <li key={item.title} className="rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-sm">
+              <li key={item.title} className="w-full rounded-2xl border border-ink-900/10 bg-surface p-5 shadow-sm sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]">
                 <span
                   className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[status]}`}
                 >
