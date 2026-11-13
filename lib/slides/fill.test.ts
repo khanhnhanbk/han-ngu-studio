@@ -109,6 +109,63 @@ describe("fillTemplate", () => {
     expect(res.ok && res.slides).toBe(7);
   });
 
+  /** The "Ba trang mỗi từ" template with every XML part passed through `change`. */
+  const variant = (change: (path: string, xml: string) => string) => {
+    const files = unzipSync(template("ba-trang"));
+    for (const p of Object.keys(files)) if (/\.(xml|rels)$/.test(p)) files[p] = strToU8(change(p, strFromU8(files[p])));
+    return zipSync(files);
+  };
+  const filled = (bytes: Uint8Array) => {
+    const res = fillTemplate(bytes, [word("早", { vidu: "早上好。" }), word("晚")], "Bài 1");
+    expect(res.ok && res.slides).toBe(7);
+    if (!res.ok) return [];
+    const texts = slideTexts(res.bytes);
+    expect(texts.join(" ")).not.toMatch(/\{\{/);
+    return texts;
+  };
+
+  it("reads files with other namespace prefixes (other apps)", () => {
+    const texts = filled(
+      variant((p, xml) =>
+        p.startsWith("ppt/slides/") || p === "ppt/presentation.xml"
+          ? xml
+              .replace(/xmlns:a=/g, "xmlns:dml=")
+              .replace(/<(\/?)a:/g, "<$1dml:")
+              .replace(/xmlns:p=/g, "xmlns:pml=")
+              .replace(/<(\/?)p:/g, "<$1pml:")
+              .replace(/xmlns:r=/g, "xmlns:rel=")
+              .replace(/\br:(id|embed)=/g, "rel:$1=")
+          : xml,
+      ),
+    );
+    expect(texts[1]).toContain("早");
+    expect(texts[2]).toContain("早上好。");
+  });
+
+  it("reads single-quoted attributes and absolute or ./ targets", () => {
+    let n = 0;
+    filled(
+      variant((p, xml) => {
+        let out = xml.replace(/(\s[\w:]+)="([^"]*)"/g, "$1='$2'");
+        if (p === "ppt/_rels/presentation.xml.rels") out = out.replace(/Target='slides\//g, () => (n++ % 2 ? "Target='/ppt/slides/" : "Target='./slides/"));
+        return out;
+      }),
+    );
+    expect(n).toBeGreaterThan(0);
+  });
+
+  it("keeps the text between tags as it is", () => {
+    // Single quotes in an attribute make normalizeXml rewrite the tags; the text must not change.
+    const res = fillTemplate(
+      variant((p, xml) =>
+        p === "ppt/slides/slide1.xml" ? xml.replace("Từ mới", "it's a='b'").replace(/(\sname)="([^"]*)"/g, "$1='$2'") : xml,
+      ),
+      [word("早")],
+      "Bài 1",
+    );
+    expect(res.ok && slideTexts(res.bytes)[0]).toContain("it's a='b'");
+  });
+
   it("reports what it cannot use", () => {
     expect(fillTemplate(strToU8("not a zip"), [word("早")], "")).toEqual({ ok: false, error: "notPptx" });
     expect(fillTemplate(zipSync({ "ppt/presentation.xml": strToU8("<p:presentation/>") }), [word("早")], "")).toEqual({
