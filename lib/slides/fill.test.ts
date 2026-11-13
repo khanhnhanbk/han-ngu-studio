@@ -99,8 +99,22 @@ describe("fillTemplate", () => {
     expect(fieldsIn("<a:p><a:r><a:t>{{example3}} {{phrase}} {{phrase2}}</a:t></a:r></a:p>")).toEqual(["vidu3", "cumtu", "cumtu2"]);
   });
 
+  it("reads slide lists written with closing tags (OnlyOffice)", () => {
+    const files = unzipSync(template("ba-trang"));
+    files["ppt/presentation.xml"] = strToU8(
+      strFromU8(files["ppt/presentation.xml"]).replace(/<p:sldId ([^>]*?)\s*\/>/g, "<p:sldId $1></p:sldId>"),
+    );
+    expect(strFromU8(files["ppt/presentation.xml"])).toContain("></p:sldId>");
+    const res = fillTemplate(zipSync(files), [word("早"), word("晚")], "Bài 1");
+    expect(res.ok && res.slides).toBe(7);
+  });
+
   it("reports what it cannot use", () => {
     expect(fillTemplate(strToU8("not a zip"), [word("早")], "")).toEqual({ ok: false, error: "notPptx" });
+    expect(fillTemplate(zipSync({ "ppt/presentation.xml": strToU8("<p:presentation/>") }), [word("早")], "")).toEqual({
+      ok: false,
+      error: "noSlides",
+    });
     expect(fillTemplate(template("the-tu"), [], "")).toEqual({ ok: false, error: "noWords" });
     const files = unzipSync(template("the-tu"));
     for (const p of Object.keys(files)) if (/^ppt\/slides\/slide\d+\.xml$/.test(p)) files[p] = strToU8(strFromU8(files[p]).replace(/\{\{(?!bai)[a-z_]+\}\}/g, ""));

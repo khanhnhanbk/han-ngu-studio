@@ -42,7 +42,7 @@ export type SlideWord = Record<Exclude<WordField, "so">, string>;
 
 export type FillResult =
   | { ok: true; bytes: Uint8Array; slides: number; unknown: string[]; fitted: FitNote[] }
-  | { ok: false; error: "notPptx" | "noWordSlide" | "noWords" };
+  | { ok: false; error: "notPptx" | "noSlides" | "noWordSlide" | "noWords" };
 
 const PLACEHOLDER = /\{\{\s*([A-Za-z_][A-Za-z0-9_]*)\s*\}\}/g;
 const PARAGRAPH = /<a:p(?:\s[^>]*)?>[\s\S]*?<\/a:p>/g;
@@ -191,7 +191,8 @@ function slideOrder(files: Record<string, Uint8Array>): SlideRef[] | null {
     }
   }
   const out: SlideRef[] = [];
-  for (const m of strFromU8(pres).matchAll(/<p:sldId\b[^>]*\br:id="([^"]+)"[^>]*\/>/g)) {
+  // `<p:sldId id="256" r:id="rId2"/>`, or with a closing tag `…></p:sldId>` as OnlyOffice writes it.
+  for (const m of strFromU8(pres).matchAll(/<p:sldId\s[^>]*?\br:id="([^"]+)"[^>]*>/g)) {
     const path = targets.get(m[1]);
     if (path && files[path]) out.push({ rId: m[1], path });
   }
@@ -213,7 +214,8 @@ export function fillTemplate(template: Uint8Array, words: readonly SlideWord[], 
     return { ok: false, error: "notPptx" };
   }
   const order = slideOrder(files);
-  if (!order || order.length === 0) return { ok: false, error: "notPptx" };
+  // A zip that opens but whose slide list cannot be read: not "not a PowerPoint", say what failed.
+  if (!order || order.length === 0) return { ok: false, error: "noSlides" };
   if (words.length === 0) return { ok: false, error: "noWords" };
 
   const known = new Set<string>([...WORD_FIELDS, ...LESSON_FIELDS]);
