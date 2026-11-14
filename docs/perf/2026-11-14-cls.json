@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "label": "cls",
+    "date": "2026-11-14",
+    "startedAt": "2026-11-14T07:33:31.350Z",
+    "baseUrl": "http://localhost:3100/",
+    "runs": 3,
+    "where": "máy của chủ dự án; nhánh perf/cls build và chạy tại máy bằng pnpm start",
+    "browser": "Google Chrome 157.0.8103.78",
+    "lighthouseVersion": "13.6.0",
+    "playwrightVersion": "1.64.1",
+    "device": "Pixel 7",
+    "cpuSlowdown": 4,
+    "network": "9 Mbps xuống, 1.5 Mbps lên, 60 ms RTT",
+    "command": "pnpm perf --url http://localhost:3100 --label cls --runs 3 --only lighthouse --pages /lesson,/tools/lookup,/tools/stroke-order --where \"máy của chủ dự án; nhánh perf/cls build và chạy tại máy bằng pnpm start\"",
+    "finishedAt": "2026-11-14T07:34:53.685Z"
+  },
+  "lighthouse": {
+    "mobile": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 94,
+          "ttfb": 4,
+          "fcp": 1358.9002,
+          "lcp": 1358.9002,
+          "tbt": 292,
+          "cls": 0,
+          "bytes": 911126
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 91,
+            "ttfb": 5,
+            "fcp": 1361.4546,
+            "lcp": 1361.4546,
+            "tbt": 370,
+            "cls": 0,
+            "bytes": 911126
+          },
+          {
+            "score": 94,
+            "ttfb": 4,
+            "fcp": 1357.729,
+            "lcp": 1357.729,
+            "tbt": 270.8645000000006,
+            "cls": 0,
+            "bytes": 911126
+          },
+          {
+            "score": 94,
+            "ttfb": 3,
+            "fcp": 1358.9002,
+            "lcp": 1358.9002,
+            "tbt": 292,
+            "cls": 0,
+            "bytes": 911126
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 96,
+          "ttfb": 3,
+          "fcp": 1356.8334,
+          "lcp": 1356.8334,
+          "tbt": 228,
+          "cls": 0.0001403571398316749,
+          "bytes": 978025
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/0802b9f0c00a9c03-s.woff2",
+            "type": "Font",
+            "transferSize": 61892
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57736
+          }
+        ],
+        "runs": [
+          {
+            "score": 96,
+            "ttfb": 3,
+            "fcp": 1356.8334,
+            "lcp": 1356.8334,
+            "tbt": 228,
+            "cls": 0.0001403571398316749,
+            "bytes": 978025
+          },
+          {
+            "score": 93,
+            "ttfb": 3,
+            "fcp": 1359.5259,
+            "lcp": 1359.5259,
+            "tbt": 310.0000000000002,
+            "cls": 0.0001403571398316749,
+            "bytes": 978025
+          },
+          {
+            "score": 97,
+            "ttfb": 3,
+            "fcp": 1356.8029,
+            "lcp": 1356.8029,
+            "tbt": 192.00000000000023,
+            "cls": 0.0001403571398316749,
+            "bytes": 978025
+          }
+        ]
+      },
+      {
+        "path": "/tools/stroke-order",
+        "median": {
+          "score": 88,
+          "ttfb": 3,
+          "fcp": 1357.9746,
+          "lcp": 1357.9746,
+          "tbt": 455.9999999999991,
+          "cls": 0.0001403571398316749,
+          "bytes": 946839
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/chunks/05417924-e6bcbb6ebf0b127c.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/data/hanviet.json",
+            "type": "Fetch",
+            "transferSize": 76877
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 88,
+            "ttfb": 3,
+            "fcp": 1357.9746,
+            "lcp": 1357.9746,
+            "tbt": 455.9999999999991,
+            "cls": 0.0001403571398316749,
+            "bytes": 946839
+          },
+          {
+            "score": 86,
+            "ttfb": 3,
+            "fcp": 1359.5584,
+            "lcp": 1359.5584,
+            "tbt": 534,
+            "cls": 0.0001403571398316749,
+            "bytes": 946839
+          },
+          {
+            "score": 89,
+            "ttfb": 3,
+            "fcp": 1356.8618,
+            "lcp": 1356.8618,
+            "tbt": 451.00000000000045,
+            "cls": 0.0001403571398316749,
+            "bytes": 946839
+          }
+        ]
+      }
+    ],
+    "desktop": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 100,
+          "ttfb": 4,
+          "fcp": 370.49019999999996,
+          "lcp": 370.49019999999996,
+          "tbt": 18.999999999999886,
+          "cls": 0,
+          "bytes": 911126
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 4,
+            "fcp": 370.49019999999996,
+            "lcp": 370.49019999999996,
+            "tbt": 18.999999999999886,
+            "cls": 0,
+            "bytes": 911126
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 100,
+          "ttfb": 5,
+          "fcp": 373.8426,
+          "lcp": 373.8426,
+          "tbt": 24,
+          "cls": 0.00007533494917153223,
+          "bytes": 1003261
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/0802b9f0c00a9c03-s.woff2",
+            "type": "Font",
+            "transferSize": 61892
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57736
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 5,
+            "fcp": 373.8426,
+            "lcp": 373.8426,
+            "tbt": 24,
+            "cls": 0.00007533494917153223,
+            "bytes": 1003261
+          }
+        ]
+      },
+      {
+        "path": "/tools/stroke-order",
+        "median": {
+          "score": 100,
+          "ttfb": 4,
+          "fcp": 368.5459,
+          "lcp": 368.5459,
+          "tbt": 15,
+          "cls": 0.0005229943938114651,
+          "bytes": 972075
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/chunks/05417924-e6bcbb6ebf0b127c.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/data/hanviet.json",
+            "type": "Fetch",
+            "transferSize": 76877
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 4,
+            "fcp": 368.5459,
+            "lcp": 368.5459,
+            "tbt": 15,
+            "cls": 0.0005229943938114651,
+            "bytes": 972075
+          }
+        ]
+      }
+    ]
+  }
+}
