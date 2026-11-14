@@ -27,14 +27,14 @@ function largest(lhr, n = 5) {
 }
 
 /** Lighthouse on every page, `runs` times each; the median of each metric is reported. */
-export async function runLighthouse({ baseUrl, runs, preset, chromePath, log }) {
+export async function runLighthouse({ baseUrl, runs, preset, chromePath, log, pages = PAGES }) {
   const chrome = await chromeLauncher.launch({
     chromePath,
     chromeFlags: ["--headless=new", "--no-sandbox", "--disable-gpu"],
   });
   const results = [];
   try {
-    for (const path of PAGES) {
+    for (const path of pages) {
       const url = new URL(path, baseUrl).href;
       const perRun = [];
       for (let i = 0; i < runs; i++) {

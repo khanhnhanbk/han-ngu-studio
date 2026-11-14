@@ -22,10 +22,11 @@ Tùy chọn:
 | `--label` | `run` | Tên file: `docs/perf/<YYYY-MM-DD>-<label>.md` và `.json` |
 | `--only` | (cả hai) | `lighthouse` hoặc `flows` để chỉ đo một phần |
 | `--flows` | (tất cả) | Chỉ chạy vài luồng, ví dụ `--flows B3,B4` |
+| `--pages` | (cả 6 trang) | Chỉ đo Lighthouse vài trang, ví dụ `--pages /lesson,/tools/lookup` |
 | `--out` | `docs/perf` | Thư mục ghi kết quả |
 | `--where` | `máy của người chạy lệnh` | Ghi chú nơi đo (mạng, thành phố) vào báo cáo |
 
-Cả bộ (3 lần) mất khoảng 25–40 phút.
+Cả bộ (3 lần) mất khoảng 25–40 phút. Khi một PR chỉ chạm vài trang, dùng `--pages` và `--flows` để chỉ đo những phần đó.
 
 ## Đo những gì
 
