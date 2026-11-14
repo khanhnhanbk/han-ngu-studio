@@ -26,7 +26,6 @@ export function Navbar() {
 
   const links = [
     { href: href("/lesson"), label: dict.nav.lesson },
-    { href: href("/#for-teachers"), label: dict.nav.forTeachers },
   ];
 
   const groups = TOOL_GROUPS.map((g) => ({

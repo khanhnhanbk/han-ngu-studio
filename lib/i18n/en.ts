@@ -94,7 +94,6 @@ export const en: Dictionary = {
   },
   nav: {
     features: "Features",
-    forTeachers: "For teachers",
     settings: "Settings",
     tools: "Tools",
     reader: "Reader",
