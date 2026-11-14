@@ -1,0 +1,636 @@
+{
+  "meta": {
+    "label": "lazy-data",
+    "date": "2026-11-14",
+    "startedAt": "2026-11-14T05:14:21.188Z",
+    "baseUrl": "http://localhost:3100/",
+    "runs": 3,
+    "where": "máy của chủ dự án; nhánh perf/lazy-data build và chạy tại máy bằng pnpm start",
+    "browser": "Google Chrome 157.0.8103.78",
+    "lighthouseVersion": "13.6.0",
+    "playwrightVersion": "1.64.1",
+    "device": "Pixel 7",
+    "cpuSlowdown": 4,
+    "network": "9 Mbps xuống, 1.5 Mbps lên, 60 ms RTT",
+    "command": "pnpm perf --url http://localhost:3100 --label lazy-data --runs 3 --pages /lesson,/tools/lookup,/tools/reader --flows A,B1,B2,C,D --where \"máy của chủ dự án; nhánh perf/lazy-data build và chạy tại máy bằng pnpm start\"",
+    "finishedAt": "2026-11-14T05:17:40.199Z"
+  },
+  "lighthouse": {
+    "mobile": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 75,
+          "ttfb": 4,
+          "fcp": 1358.1716,
+          "lcp": 1358.1716,
+          "tbt": 258.99999999999955,
+          "cls": 0.420218476093855,
+          "bytes": 907494
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 74,
+            "ttfb": 7,
+            "fcp": 1360.5665,
+            "lcp": 1360.5665,
+            "tbt": 293.141625,
+            "cls": 0.420218476093855,
+            "bytes": 907494
+          },
+          {
+            "score": 77,
+            "ttfb": 4,
+            "fcp": 1357.3581,
+            "lcp": 1357.3581,
+            "tbt": 212.00000000000045,
+            "cls": 0.420218476093855,
+            "bytes": 907494
+          },
+          {
+            "score": 75,
+            "ttfb": 3,
+            "fcp": 1358.1716,
+            "lcp": 1358.1716,
+            "tbt": 258.99999999999955,
+            "cls": 0.420218476093855,
+            "bytes": 907494
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 91,
+          "ttfb": 3,
+          "fcp": 1359.1159,
+          "lcp": 1359.1159,
+          "tbt": 290.99999999999955,
+          "cls": 0.14785945256386637,
+          "bytes": 976873
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/0802b9f0c00a9c03-s.woff2",
+            "type": "Font",
+            "transferSize": 61892
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57736
+          }
+        ],
+        "runs": [
+          {
+            "score": 91,
+            "ttfb": 3,
+            "fcp": 1357.181,
+            "lcp": 1357.181,
+            "tbt": 190,
+            "cls": 0.14785945256386637,
+            "bytes": 976873
+          },
+          {
+            "score": 88,
+            "ttfb": 3,
+            "fcp": 1359.1159,
+            "lcp": 1359.1159,
+            "tbt": 290.99999999999955,
+            "cls": 0.14785945256386637,
+            "bytes": 976873
+          },
+          {
+            "score": 93,
+            "ttfb": 9,
+            "fcp": 1362.4185,
+            "lcp": 1362.4185,
+            "tbt": 297.4999999999998,
+            "cls": 0.0001403571398316749,
+            "bytes": 976873
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 89,
+          "ttfb": 3,
+          "fcp": 1357.3617,
+          "lcp": 1357.3617,
+          "tbt": 432,
+          "cls": 0,
+          "bytes": 1086414
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/chunks/05417924-e6bcbb6ebf0b127c.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          }
+        ],
+        "runs": [
+          {
+            "score": 89,
+            "ttfb": 7,
+            "fcp": 1357.2247,
+            "lcp": 1357.2247,
+            "tbt": 432,
+            "cls": 0,
+            "bytes": 1086414
+          },
+          {
+            "score": 88,
+            "ttfb": 3,
+            "fcp": 1358.8687,
+            "lcp": 1358.8687,
+            "tbt": 487,
+            "cls": 0,
+            "bytes": 1086414
+          },
+          {
+            "score": 90,
+            "ttfb": 3,
+            "fcp": 1357.3617,
+            "lcp": 1357.3617,
+            "tbt": 399.9999999999991,
+            "cls": 0,
+            "bytes": 1086414
+          }
+        ]
+      }
+    ],
+    "desktop": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 93,
+          "ttfb": 3,
+          "fcp": 367.6043,
+          "lcp": 367.6043,
+          "tbt": 0,
+          "cls": 0.1580334120957457,
+          "bytes": 907494
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56512
+          }
+        ],
+        "runs": [
+          {
+            "score": 93,
+            "ttfb": 3,
+            "fcp": 367.6043,
+            "lcp": 367.6043,
+            "tbt": 0,
+            "cls": 0.1580334120957457,
+            "bytes": 907494
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 93,
+          "ttfb": 3,
+          "fcp": 366.8976,
+          "lcp": 366.8976,
+          "tbt": 0,
+          "cls": 0.17116197173745584,
+          "bytes": 1002109
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/0802b9f0c00a9c03-s.woff2",
+            "type": "Font",
+            "transferSize": 61892
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57736
+          }
+        ],
+        "runs": [
+          {
+            "score": 93,
+            "ttfb": 3,
+            "fcp": 366.8976,
+            "lcp": 366.8976,
+            "tbt": 0,
+            "cls": 0.17116197173745584,
+            "bytes": 1002109
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 100,
+          "ttfb": 3,
+          "fcp": 367.6614,
+          "lcp": 367.6614,
+          "tbt": 15.499999999999886,
+          "cls": 0,
+          "bytes": 1086414
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3100/_next/static/chunks/05417924-e6bcbb6ebf0b127c.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3100/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3100/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 3,
+            "fcp": 367.6614,
+            "lcp": 367.6614,
+            "tbt": 15.499999999999886,
+            "cls": 0,
+            "bytes": 1086414
+          }
+        ]
+      }
+    ]
+  },
+  "flows": [
+    {
+      "id": "A",
+      "name": "Trang chủ → bấm Soạn bài → ô dán sẵn sàng",
+      "target": 2500,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1209,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1229,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1209,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1186,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1267,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1267,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1338,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1189,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B1",
+      "name": "Soạn bài: dán cả bài ~30 từ → bảng từ đầy đủ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 2105.399999999907,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2105.399999999907,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 2102.600000000093,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 2118.0999999996275,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 239.39999999990687,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 231.8000000002794,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 266.89999999990687,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 239.39999999990687,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B2",
+      "name": "Soạn bài: Lấy từ trong đoạn văn → danh sách từ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1153.8999999999069,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1153.8999999999069,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1430.3999999999069,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1109.1000000000931,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 322.29999999981374,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 241.6999999997206,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 322.29999999981374,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 365.60000000009313,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "name": "Đọc hiểu: 300 chữ → tô màu HSK xong",
+      "target": 1500,
+      "tapTarget": 200,
+      "cold": {
+        "ms": 2584.2999999998137,
+        "tapMs": 220.5,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2374.100000000093,
+            "tapMs": 196.39999999990687,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2753.600000000093,
+            "tapMs": 220.5,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2584.2999999998137,
+            "tapMs": 287.79999999981374,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1702.3000000002794,
+        "tapMs": 162,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1908.6999999997206,
+            "tapMs": 162,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1347.1999999997206,
+            "tapMs": 141.1999999997206,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1702.3000000002794,
+            "tapMs": 287.10000000009313,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "D",
+      "name": "Tra từ: tra một từ → kết quả",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 2496.7000000001863,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2284.2000000001863,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 2496.7000000001863,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 3116.5,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 667.6000000000931,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 507.5,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 667.6000000000931,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 814.6000000000931,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      }
+    }
+  ]
+}

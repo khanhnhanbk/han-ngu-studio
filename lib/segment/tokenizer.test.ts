@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import golden from "./__golden__/segment.json";
-import { createTokenizer, joinTokens, segment } from "./tokenizer";
+import { createTokenizer, createTokenizerInChunks, joinTokens, segment } from "./tokenizer";
 
 const wordList = readFileSync(
   join(__dirname, "../../public/data/word_list.txt"),
@@ -21,6 +21,16 @@ describe("segment (golden, generated from the Python tokenizer)", () => {
       expect(lines.map(joinTokens).join("\n")).toBe(c.segmented);
     },
   );
+});
+
+describe("createTokenizerInChunks (the browser's loader)", () => {
+  it("passes the same golden cases, with chunk edges anywhere", async () => {
+    // A small odd chunk puts slice edges all over the list, and on duplicates.
+    for (const chunk of [8000, 997]) {
+      const chunked = await createTokenizerInChunks(wordList.split("\n"), chunk);
+      for (const c of golden.cases) expect(segment(chunked, c.input)).toEqual(c.lines);
+    }
+  });
 });
 
 /** Line-by-line transcription of Python's tokenize(), with no length cutoff. */

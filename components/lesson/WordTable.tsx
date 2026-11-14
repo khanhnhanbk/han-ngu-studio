@@ -7,21 +7,42 @@ import { CopyIcon } from "@/components/icons/copy";
 import { DownloadIcon } from "@/components/icons/download";
 import { PrinterIcon } from "@/components/icons/printer";
 import { IconButton } from "@/components/icons/trigger";
-import { buildDeck } from "@/lib/anki/buildDeck";
 import { loadMeanings, loadWubi, MEANINGS_FILE, WUBI_FILE } from "@/lib/anki/load";
 import { showRow, simpWords } from "@/lib/anki/script";
 import { confirmDownload } from "@/lib/data/budget";
+import { prefetcher } from "@/lib/data/prefetch";
 import { downloadText } from "@/lib/download";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary } from "@/lib/i18n/useLocale";
-import type { WordEntry } from "@/lib/lesson/paste";
-import { briefMeaning, tableCsv, tableHtml, tableQuizlet, tableText, tableTsv, type TableRow } from "@/lib/lesson/table";
+import { parseEntries, type WordEntry } from "@/lib/lesson/paste";
+import { SAMPLE_ROWS, SAMPLE_WORDS } from "@/lib/lesson/sample";
+import { tableCsv, tableHtml, tableQuizlet, tableRow, tableText, tableTsv, type TableRow } from "@/lib/lesson/table";
 import { ensurePrintFonts } from "@/lib/quiz/printFonts";
+import { readScript } from "@/lib/script/preference";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
 type CopyKind = "docs" | "sheets" | "zalo" | "quizlet";
+
+/** What building the table downloads. */
+const TABLE_FILES = [...TOKENIZER_FILES, HANVIET_FILE, MEANINGS_FILE, WUBI_FILE, VOCAB_FILE];
+const loadTable = () =>
+  Promise.all([
+    // Loaded with the data: the deck code pulls in pinyin-pro, not needed for the sample.
+    import("@/lib/anki/buildDeck"),
+    loadTokenizer(),
+    loadHanviet(),
+    loadMeanings(),
+    loadWubi(),
+    loadVocab(),
+  ]);
+/** For the lesson's inputs: the teacher is about to paste or type words (lib/data/prefetch.ts). */
+export const prefetchTable = prefetcher(TABLE_FILES, loadTable);
+
+/** Same form as `key` below, for the sample lesson's words. */
+const entriesKey = (entries: readonly WordEntry[]) => entries.map((e) => `${e.word}\t${e.pinyin}\t${e.meaning}`).join("\n");
+const SAMPLE_KEY = entriesKey(parseEntries(SAMPLE_WORDS).entries);
 
 const COLS = ["word", "pinyin", "hanviet", "meaning", "hsk"] as const;
 
@@ -53,7 +74,7 @@ export function WordTable({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<CopyKind | null>(null);
-  const key = entries.map((e) => `${e.word}\t${e.pinyin}\t${e.meaning}`).join("\n");
+  const key = entriesKey(entries);
   const stale = builtFrom !== null && builtFrom !== key;
 
   // Keyed by the Simplified form, like the deck rows.
@@ -66,30 +87,11 @@ export function WordTable({
     setLoading(true);
     try {
       const simp = simpWords(conv, [...words]);
-      const files = [...TOKENIZER_FILES, HANVIET_FILE, MEANINGS_FILE, WUBI_FILE, VOCAB_FILE];
-      if (!(await confirmDownload(files))) return setError(dict.download.declined);
-      const [tokenizer, hanviet, meanings, wubi, vocab] = await Promise.all([
-        loadTokenizer(),
-        loadHanviet(),
-        loadMeanings(),
-        loadWubi(),
-        loadVocab(),
-      ]);
+      if (!(await confirmDownload(TABLE_FILES))) return setError(dict.download.declined);
+      const [{ buildDeck }, tokenizer, hanviet, meanings, wubi, vocab] = await loadTable();
       // No example sentences in the table, so no example shards are fetched.
       const deck = buildDeck({ tokenizer, hanviet, meanings, examples: {}, wubi, vocab }, simp, 1, dict.vocab.pos);
-      setRows(
-        deck.map((d) => {
-          const r = showRow(d, conv, wubi);
-          const mine = own.get(d.word);
-          return {
-            word: r.word,
-            pinyin: mine?.pinyin || r.pinyin,
-            hanviet: r.hanviet,
-            meaning: mine?.meaning || briefMeaning(r.meaning_vi || r.meaning),
-            hsk: r.hsk_level,
-          };
-        }),
-      );
+      setRows(deck.map((d) => tableRow(showRow(d, conv, wubi), own.get(d.word))));
       setBuiltFrom(key);
     } catch {
       setError(dict.lesson.loadFailed);
@@ -103,7 +105,15 @@ export function WordTable({
   useEffect(() => {
     if (started.current || words.length === 0) return;
     started.current = true;
+    // The untouched sample lesson's table ships with the page (lib/lesson/sample.ts).
+    // readScript(): on the first render the hook still reports the default script.
+    if (key === SAMPLE_KEY && readScript() === "simp") {
+      setRows([...SAMPLE_ROWS]);
+      setBuiltFrom(key);
+      return;
+    }
     void build();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the tab opens
   }, [build, words.length]);
 
   const headers = useMemo(() => t.headers, [t]);

@@ -1,0 +1,636 @@
+{
+  "meta": {
+    "label": "lazy-data-truoc",
+    "date": "2026-11-14",
+    "startedAt": "2026-11-14T05:09:42.670Z",
+    "baseUrl": "http://localhost:3200/",
+    "runs": 3,
+    "where": "máy của chủ dự án; main 8353d01 build và chạy tại máy bằng pnpm start",
+    "browser": "Google Chrome 157.0.8103.78",
+    "lighthouseVersion": "13.6.0",
+    "playwrightVersion": "1.64.1",
+    "device": "Pixel 7",
+    "cpuSlowdown": 4,
+    "network": "9 Mbps xuống, 1.5 Mbps lên, 60 ms RTT",
+    "command": "pnpm perf --url http://localhost:3200 --label lazy-data-truoc --runs 3 --pages /lesson,/tools/lookup,/tools/reader --flows A,B1,B2,C,D --where \"máy của chủ dự án; main 8353d01 build và chạy tại máy bằng pnpm start\"",
+    "finishedAt": "2026-11-14T05:14:20.149Z"
+  },
+  "lighthouse": {
+    "mobile": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 44,
+          "ttfb": 14,
+          "fcp": 2435.7694,
+          "lcp": 2453.386,
+          "tbt": 5160.000000000002,
+          "cls": 0.420218476093855,
+          "bytes": 2671488
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 547033
+          },
+          {
+            "url": "http://localhost:3200/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 391089
+          },
+          {
+            "url": "http://localhost:3200/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 311545
+          },
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3200/data/wubi.json",
+            "type": "Fetch",
+            "transferSize": 106009
+          }
+        ],
+        "runs": [
+          {
+            "score": 45,
+            "ttfb": 14,
+            "fcp": 2435.7694,
+            "lcp": 2435.7694,
+            "tbt": 4967.115299999999,
+            "cls": 0.420218476093855,
+            "bytes": 2671488
+          },
+          {
+            "score": 44,
+            "ttfb": 6,
+            "fcp": 2453.386,
+            "lcp": 2453.386,
+            "tbt": 5945.272,
+            "cls": 0.420218476093855,
+            "bytes": 2671488
+          },
+          {
+            "score": 29,
+            "ttfb": 28,
+            "fcp": 2434.1798,
+            "lcp": 5056.4495,
+            "tbt": 5160.000000000002,
+            "cls": 0.420218476093855,
+            "bytes": 2671488
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 64,
+          "ttfb": 11,
+          "fcp": 1523.2213,
+          "lcp": 1523.2213,
+          "tbt": 3295.584999999999,
+          "cls": 0.1477190954240347,
+          "bytes": 2920723
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 547033
+          },
+          {
+            "url": "http://localhost:3200/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 391089
+          },
+          {
+            "url": "http://localhost:3200/data/examples/7-9.json",
+            "type": "Fetch",
+            "transferSize": 362136
+          },
+          {
+            "url": "http://localhost:3200/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 311545
+          },
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          }
+        ],
+        "runs": [
+          {
+            "score": 63,
+            "ttfb": 15,
+            "fcp": 1524.951,
+            "lcp": 1524.951,
+            "tbt": 5770.475499999999,
+            "cls": 0.1477190954240347,
+            "bytes": 2920723
+          },
+          {
+            "score": 65,
+            "ttfb": 6,
+            "fcp": 1523.2213,
+            "lcp": 1523.2213,
+            "tbt": 2233.3893499999986,
+            "cls": 0.1477190954240347,
+            "bytes": 2920723
+          },
+          {
+            "score": 64,
+            "ttfb": 11,
+            "fcp": 1522.83,
+            "lcp": 1522.83,
+            "tbt": 3295.584999999999,
+            "cls": 0.1477190954240347,
+            "bytes": 2920723
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 77,
+          "ttfb": 6,
+          "fcp": 1518.4921,
+          "lcp": 1518.4921,
+          "tbt": 1047.9999999999995,
+          "cls": 0,
+          "bytes": 1087671
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3200/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          }
+        ],
+        "runs": [
+          {
+            "score": 77,
+            "ttfb": 7,
+            "fcp": 1518.4921,
+            "lcp": 1518.4921,
+            "tbt": 1047.9999999999995,
+            "cls": 0,
+            "bytes": 1087671
+          },
+          {
+            "score": 76,
+            "ttfb": 6,
+            "fcp": 1522.7931,
+            "lcp": 1522.7931,
+            "tbt": 1108.0000000000018,
+            "cls": 0,
+            "bytes": 1087671
+          },
+          {
+            "score": 85,
+            "ttfb": 4,
+            "fcp": 1510.6545,
+            "lcp": 1510.6545,
+            "tbt": 571.0000000000014,
+            "cls": 0,
+            "bytes": 1087671
+          }
+        ]
+      }
+    ],
+    "desktop": [
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 84,
+          "ttfb": 4,
+          "fcp": 540.1728,
+          "lcp": 540.1728,
+          "tbt": 249.99999999999977,
+          "cls": 0.1580334120957457,
+          "bytes": 2671488
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 547033
+          },
+          {
+            "url": "http://localhost:3200/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 391089
+          },
+          {
+            "url": "http://localhost:3200/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 311545
+          },
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3200/data/wubi.json",
+            "type": "Fetch",
+            "transferSize": 106009
+          }
+        ],
+        "runs": [
+          {
+            "score": 84,
+            "ttfb": 4,
+            "fcp": 540.1728,
+            "lcp": 540.1728,
+            "tbt": 249.99999999999977,
+            "cls": 0.1580334120957457,
+            "bytes": 2671488
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 87,
+          "ttfb": 8,
+          "fcp": 370.4521,
+          "lcp": 370.4521,
+          "tbt": 186.9999999999999,
+          "cls": 0.1748747922003424,
+          "bytes": 2945959
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 547033
+          },
+          {
+            "url": "http://localhost:3200/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 391089
+          },
+          {
+            "url": "http://localhost:3200/data/examples/7-9.json",
+            "type": "Fetch",
+            "transferSize": 362136
+          },
+          {
+            "url": "http://localhost:3200/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 311545
+          },
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          }
+        ],
+        "runs": [
+          {
+            "score": 87,
+            "ttfb": 8,
+            "fcp": 370.4521,
+            "lcp": 370.4521,
+            "tbt": 186.9999999999999,
+            "cls": 0.1748747922003424,
+            "bytes": 2945959
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 100,
+          "ttfb": 4,
+          "fcp": 375.2988,
+          "lcp": 375.2988,
+          "tbt": 49.000000000000114,
+          "cls": 0,
+          "bytes": 1087671
+        },
+        "largest": [
+          {
+            "url": "http://localhost:3200/_next/static/chunks/b57066aa-5e6b3ac6c1f46285.js",
+            "type": "Script",
+            "transferSize": 142183
+          },
+          {
+            "url": "http://localhost:3200/_next/static/css/16c761503d6532c9.css",
+            "type": "Stylesheet",
+            "transferSize": 97211
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76537
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58740
+          },
+          {
+            "url": "http://localhost:3200/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57996
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 4,
+            "fcp": 375.2988,
+            "lcp": 375.2988,
+            "tbt": 49.000000000000114,
+            "cls": 0,
+            "bytes": 1087671
+          }
+        ]
+      }
+    ]
+  },
+  "flows": [
+    {
+      "id": "A",
+      "name": "Trang chủ → bấm Soạn bài → ô dán sẵn sàng",
+      "target": 2500,
+      "tapTarget": null,
+      "cold": {
+        "ms": 3681,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1891,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 3681,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 4231,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 3626,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 3183,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 3626,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 5451,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B1",
+      "name": "Soạn bài: dán cả bài ~30 từ → bảng từ đầy đủ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1748.6000000000931,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 691.3999999999069,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 1840.2000000001863,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 1748.6000000000931,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 95.70000000018626,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 210.20000000018626,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 95.70000000018626,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 92.39999999990687,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B2",
+      "name": "Soạn bài: Lấy từ trong đoạn văn → danh sách từ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1074.5,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1041.1999999997206,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1136,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1074.5,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 207.90000000037253,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 324.10000000009313,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 182.3000000002794,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 207.90000000037253,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "name": "Đọc hiểu: 300 chữ → tô màu HSK xong",
+      "target": 1500,
+      "tapTarget": 200,
+      "cold": {
+        "ms": 2169.5,
+        "tapMs": 165.70000000018626,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2169.5,
+            "tapMs": 159.70000000018626,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2152.7000000001863,
+            "tapMs": 167.70000000018626,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2334.5,
+            "tapMs": 165.70000000018626,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1241,
+        "tapMs": 142.20000000018626,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1241,
+            "tapMs": 142.20000000018626,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1249.3999999999069,
+            "tapMs": 139.5,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1197.6999999997206,
+            "tapMs": 169.89999999990687,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "D",
+      "name": "Tra từ: tra một từ → kết quả",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 321.39999999990687,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 321.8000000002794,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 321.39999999990687,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 318.59999999962747,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 191.10000000009313,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 191.10000000009313,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 182.60000000009313,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 208.20000000018626,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      }
+    }
+  ]
+}

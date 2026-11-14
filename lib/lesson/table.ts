@@ -12,6 +12,20 @@ export type TableRow = {
   hsk: string;
 };
 
+/** What a table row is made from: a deck row (lib/anki/buildDeck.ts) already shown in the page's script. */
+export type TableSource = { word: string; pinyin: string; hanviet: string; meaning: string; meaning_vi: string; hsk_level: string };
+
+/** One table row; the teacher's own Pinyin / meaning (lib/lesson/paste.ts) win over the dictionary. */
+export function tableRow(r: TableSource, mine?: { pinyin: string; meaning: string }): TableRow {
+  return {
+    word: r.word,
+    pinyin: mine?.pinyin || r.pinyin,
+    hanviet: r.hanviet,
+    meaning: mine?.meaning || briefMeaning(r.meaning_vi || r.meaning),
+    hsk: r.hsk_level,
+  };
+}
+
 export type TableHeaders = Record<keyof TableRow, string> & { no: string };
 
 /** Room for a meaning in a printed / pasted table cell. */

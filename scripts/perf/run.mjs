@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// pnpm perf [--url https://…] [--runs 3] [--label baseline] [--only lighthouse|flows] [--flows A,B1] [--out docs/perf]
+// pnpm perf [--url https://…] [--runs 3] [--label baseline] [--only lighthouse|flows] [--flows A,B1] [--pages /lesson,/tools/lookup] [--out docs/perf]
 // Measures page load (Lighthouse) and time-to-result flows (Playwright) of the
 // site and writes docs/perf/<date>-<label>.{json,md}. Uses an installed Chrome
 // (CHROME_PATH, or the one chrome-launcher finds). Lab numbers from this machine
@@ -18,6 +18,7 @@ const { values } = parseArgs({
     label: { type: "string", default: "run" },
     only: { type: "string" },
     flows: { type: "string" },
+    pages: { type: "string" },
     out: { type: "string", default: "docs/perf" },
     where: { type: "string", default: "máy của người chạy lệnh" },
   },
@@ -55,10 +56,11 @@ const result = {
   },
 };
 
+const pages = values.pages ? values.pages.split(",").map((p) => p.trim()) : undefined;
 if (values.only !== "flows") {
   result.lighthouse = {
-    mobile: await runLighthouse({ baseUrl, runs, preset: "mobile", chromePath, log }),
-    desktop: await runLighthouse({ baseUrl, runs: 1, preset: "desktop", chromePath, log }),
+    mobile: await runLighthouse({ baseUrl, runs, preset: "mobile", chromePath, log, pages }),
+    desktop: await runLighthouse({ baseUrl, runs: 1, preset: "desktop", chromePath, log, pages }),
   };
 }
 if (values.only !== "lighthouse") {

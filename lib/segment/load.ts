@@ -1,6 +1,6 @@
 import { markLoaded } from "@/lib/data/loaded";
 
-import { createTokenizer, type Tokenizer } from "./tokenizer";
+import { createTokenizerInChunks, type Tokenizer } from "./tokenizer";
 
 const WORD_LIST_URL = "/data/word_list.txt";
 
@@ -36,7 +36,8 @@ export function loadWordListLines(): Promise<string[]> {
 export function loadTokenizer(): Promise<Tokenizer> {
   if (!pending) {
     pending = loadWordListLines()
-      .then((lines) => createTokenizer(lines))
+      // In slices, so the page stays responsive while the word list is read.
+      .then((lines) => createTokenizerInChunks(lines))
       .catch((err: unknown) => {
         pending = null;
         throw err;

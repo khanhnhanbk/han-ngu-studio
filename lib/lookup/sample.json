@@ -1,0 +1,62 @@
+{
+ "word": "亲戚",
+ "readings": [
+  {
+   "pinyin": "qīnqi",
+   "tone3": [
+    "qin1",
+    "qi5"
+   ],
+   "hanviet": "thân thích",
+   "level": "HSK 7-9",
+   "pos": [
+    "N"
+   ],
+   "senses": [
+    "một người thân (tức quan hệ gia đình)"
+   ],
+   "classifiers": [
+    {
+     "hanzi": "门",
+     "pinyin": "mén"
+    },
+    {
+     "hanzi": "个",
+     "pinyin": "gè"
+    },
+    {
+     "hanzi": "位",
+     "pinyin": "wèi"
+    }
+   ],
+   "trad": [
+    "親戚"
+   ]
+  }
+ ],
+ "english": "a relative (i.e. family relation)",
+ "examples": [
+  {
+   "hanzi": "亲戚之间可能保持长期联系。",
+   "vi": "",
+   "en": "Relatives may maintain long-term contact.",
+   "machine": false,
+   "order": 0
+  },
+  {
+   "hanzi": "今天所有亲戚都来了，奶奶真高兴啊。",
+   "vi": "",
+   "en": "",
+   "machine": false,
+   "order": 4
+  },
+  {
+   "hanzi": "父亲这边的亲戚里，你最喜欢谁？",
+   "vi": "",
+   "en": "",
+   "machine": false,
+   "order": 6
+  }
+ ],
+ "startsWith": []
+}
