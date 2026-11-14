@@ -39,6 +39,9 @@ export default function LookupPage() {
   const href = useHref();
   const [input, setInput] = useState(SAMPLE);
   const [card, setCard] = useState<LookupCard | null>(null);
+  // Until the first lookup ends, the sample card holds its place unseen, so the
+  // page does not jump when the result (most often that same card) appears.
+  const [placeholder, setPlaceholder] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [tooLong, setTooLong] = useState(false);
@@ -100,7 +103,7 @@ export default function LookupPage() {
 
   // Waits for the Phồn thể converter so the first lookup is in the right script.
   useEffect(() => {
-    if (query && ready) void lookup(query.text, conv);
+    if (query && ready) void lookup(query.text, conv).finally(() => setPlaceholder(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- lookup() only reads its arguments
   }, [query, conv, ready]);
 
@@ -154,7 +157,13 @@ export default function LookupPage() {
               {!ready && !failed && <p className="mt-3 text-sm text-ink-500">{dict.script.loading}</p>}
             </form>
 
-            {card && !tooLong && <LookupResult card={card} conv={conv} onLookup={lookupWord} />}
+            {placeholder && !failed ? (
+              <div className="invisible" aria-hidden>
+                <LookupResult card={SAMPLE_CARD} conv={conv} onLookup={lookupWord} />
+              </div>
+            ) : (
+              card && !tooLong && <LookupResult card={card} conv={conv} onLookup={lookupWord} />
+            )}
 
             <p className="mt-8 text-xs text-ink-500">{t.credits}</p>
           </div>

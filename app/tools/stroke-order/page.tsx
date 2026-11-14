@@ -217,6 +217,16 @@ export default function StrokeOrderPage() {
               </div>
             )}
 
+            {/* The first characters are still loading: hold the result card's place
+                (same Writer frame, unseen) so the page does not jump. */}
+            {!loaded && !error && !failed && (
+              <div className="card invisible mt-6" aria-hidden>
+                <div className="grid gap-8 md:grid-cols-[minmax(0,320px)_1fr]">
+                  <Writer char="" data={null} />
+                </div>
+              </div>
+            )}
+
             <p className="mt-6 text-xs text-ink-500">
               {t.credit} {dict.speech.credit} <SpeechToggle />
             </p>

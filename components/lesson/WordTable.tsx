@@ -68,13 +68,16 @@ export function WordTable({
   const dict = useDictionary();
   const t = dict.lesson.table;
   const { conv } = useConverter();
-  const [rows, setRows] = useState<TableRow[]>([]);
+  const key = entriesKey(entries);
+  // The untouched sample lesson's table ships with the page (lib/lesson/sample.ts),
+  // so it is in the first render too and the page does not jump when it appears.
+  const isSample = key === SAMPLE_KEY;
+  const [rows, setRows] = useState<TableRow[]>(() => (isSample ? [...SAMPLE_ROWS] : []));
   // The words the shown table was built from (to tell when it is stale).
-  const [builtFrom, setBuiltFrom] = useState<string | null>(null);
+  const [builtFrom, setBuiltFrom] = useState<string | null>(isSample ? key : null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<CopyKind | null>(null);
-  const key = entriesKey(entries);
   const stale = builtFrom !== null && builtFrom !== key;
 
   // Keyed by the Simplified form, like the deck rows.
@@ -105,12 +108,12 @@ export function WordTable({
   useEffect(() => {
     if (started.current || words.length === 0) return;
     started.current = true;
-    // The untouched sample lesson's table ships with the page (lib/lesson/sample.ts).
-    // readScript(): on the first render the hook still reports the default script.
-    if (key === SAMPLE_KEY && readScript() === "simp") {
-      setRows([...SAMPLE_ROWS]);
-      setBuiltFrom(key);
-      return;
+    if (isSample) {
+      // Already shown, in Giản thể. readScript(): on the first render the hook
+      // still reports the default script.
+      if (readScript() === "simp") return;
+      setRows([]);
+      setBuiltFrom(null);
     }
     void build();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the tab opens

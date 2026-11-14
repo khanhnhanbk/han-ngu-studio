@@ -50,7 +50,13 @@ export function LessonBuilder() {
   const dict = useDictionary();
   const d = dict.lesson;
   const { conv } = useConverter();
-  const [lessons, setLessons] = useState<Lesson[]>([]);
+  // The server's HTML (and the first render) already holds the sample lesson, so
+  // the page keeps its height when the saved lessons are read; it stays
+  // invisible until then, so a teacher with saved lessons never sees it flash.
+  const [lessons, setLessons] = useState<Lesson[]>(() => [
+    { id: "sample", name: d.sampleName, text: SAMPLE_TEXT, words: SAMPLE_WORDS, updatedAt: 0 },
+  ]);
+  const [mounted, setMounted] = useState(false);
   const [currentId, setCurrentId] = useState<string>("");
   const [tab, setTab] = useState<Tab>("table");
   const [saveFailed, setSaveFailed] = useState(false);
@@ -60,6 +66,7 @@ export function LessonBuilder() {
 
   // Load the saved lessons once (SSR-safe); the first visit gets a sample lesson.
   useEffect(() => {
+    setMounted(true);
     const saved = readLessons();
     if (saved.length) {
       setLessons(saved);
@@ -186,6 +193,8 @@ export function LessonBuilder() {
     }
   }
 
+  // Until the saved lessons are read: same size, not shown (see `lessons` above).
+  const hidden = mounted ? "" : "invisible";
   const field = "w-full rounded-lg border border-ink-900/10 bg-surface p-3 focus:outline-none focus:ring-2 focus:ring-brand-500";
 
   return (
@@ -200,7 +209,7 @@ export function LessonBuilder() {
               <h1 className="text-3xl font-bold text-ink-900 sm:text-4xl">{d.title}</h1>
               <p className="mt-4 max-w-3xl text-lg text-ink-700">{d.subtitle}</p>
 
-              <div className="mt-8 grid gap-6 lg:grid-cols-[16rem_1fr]">
+              <div className={`mt-8 grid gap-6 lg:grid-cols-[16rem_1fr] ${hidden}`}>
                 <aside className="card h-fit">
                   <div className="flex items-center justify-between gap-2">
                     <h2 className="font-semibold text-ink-900">{d.lessons}</h2>
@@ -345,7 +354,7 @@ export function LessonBuilder() {
               </div>
 
               {current && (
-                <div className="mt-8">
+                <div className={`mt-8 ${hidden}`}>
                   <h2 className="text-xl font-bold text-ink-900">{d.outputs}</h2>
                   <div role="tablist" aria-label={d.outputs} className="mt-3 flex flex-wrap gap-2 border-b border-ink-900/10">
                     {TABS.map((id) => (
@@ -370,7 +379,12 @@ export function LessonBuilder() {
             </div>
 
             {current && (
-              <div id="lesson-panel" role="tabpanel" aria-labelledby={`lesson-tab-${tab}`} className="mt-6 print:mt-0">
+              <div
+                id="lesson-panel"
+                role="tabpanel"
+                aria-labelledby={`lesson-tab-${tab}`}
+                className={`mt-6 print:mt-0 ${hidden}`}
+              >
                 {/* A new key remounts the tool with the lesson's current words. */}
                 {tab === "table" && <WordTable key={current.id} words={words} entries={entries} lessonName={current.name} />}
                 {tab === "slides" && <SlideMaker key={current.id} words={words} entries={entries} lessonName={current.name} />}
