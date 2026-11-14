@@ -33,7 +33,7 @@ type QuizState = { correct: number; mistakes: number; done: boolean };
 const QUIZ_START: QuizState = { correct: 0, mistakes: 0, done: false };
 
 /** Animated stroke order and a "write it yourself" quiz (Hanzi Writer). */
-export function Writer({ char, data }: { char: string; data: StrokeData }) {
+export function Writer({ char, data }: { char: string; data: StrokeData | null }) {
   const dict = useDictionary();
   const box = useRef<HTMLDivElement>(null);
   const target = useRef<HTMLDivElement>(null);
@@ -62,7 +62,8 @@ export function Writer({ char, data }: { char: string; data: StrokeData }) {
   // stroke data we already fetched, so it never calls its CDN.
   useEffect(() => {
     const el = target.current;
-    if (!el || size === 0) return;
+    // No data: a placeholder of the same size while the page loads it.
+    if (!el || size === 0 || !data) return;
     let cancelled = false;
     let writer: HanziWriter | null = null;
     setPaused(false);
@@ -175,8 +176,9 @@ export function Writer({ char, data }: { char: string; data: StrokeData }) {
       </div>
 
       <div ref={box} className="w-full max-w-[320px]">
+        {/* Square from the first render: the size is known only after mount. */}
         <div
-          className="relative mx-auto touch-none rounded-lg border-2 border-brand-600/70 bg-surface"
+          className={`relative mx-auto touch-none rounded-lg border-2 border-brand-600/70 bg-surface ${size ? "" : "aspect-square w-full"}`}
           style={{ width: size || undefined, height: size || undefined }}
         >
           <svg
@@ -240,7 +242,7 @@ export function Writer({ char, data }: { char: string; data: StrokeData }) {
               ? t.quizDone.replace("{mistakes}", String(quiz.mistakes))
               : t.quizProgress
                   .replace("{done}", String(quiz.correct))
-                  .replace("{total}", String(data.strokes.length))
+                  .replace("{total}", String(data?.strokes.length ?? 0))
                   .replace("{mistakes}", String(quiz.mistakes))}
           </p>
           <p className="text-xs text-ink-500">{t.quizHint}</p>
