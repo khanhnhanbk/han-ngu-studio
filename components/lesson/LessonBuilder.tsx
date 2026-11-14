@@ -1,20 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 
-import { AnkiTool } from "@/components/anki/AnkiTool";
 import { FileInput } from "@/components/FileInput";
 import { Footer } from "@/components/Footer";
 import { DownloadIcon } from "@/components/icons/download";
 import { IconButton } from "@/components/icons/trigger";
 import { Navbar } from "@/components/Navbar";
-import { PracticeSheetTool } from "@/components/practice-sheet/PracticeSheetTool";
-import { QuizTool } from "@/components/quiz/QuizTool";
 import { confirmDownload } from "@/lib/data/budget";
 import { downloadText } from "@/lib/download";
 import { useDictionary } from "@/lib/i18n/useLocale";
 import { appendWords, extractWords } from "@/lib/lesson/extract";
 import { docxText, entryLine, parseEntries, splitPaste } from "@/lib/lesson/paste";
+import { SAMPLE_TEXT, SAMPLE_WORDS } from "@/lib/lesson/sample";
 import {
   lessonsFile,
   mergeLessons,
@@ -27,14 +26,19 @@ import {
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 
-import { SlideMaker } from "./SlideMaker";
-import { WordTable } from "./WordTable";
+import { prefetchTable, WordTable } from "./WordTable";
+
+// The other tabs load their code when opened: the page starts on "Bảng từ".
+const SlideMaker = dynamic(() => import("./SlideMaker").then((m) => m.SlideMaker));
+const AnkiTool = dynamic(() => import("@/components/anki/AnkiTool").then((m) => m.AnkiTool));
+const QuizTool = dynamic(() => import("@/components/quiz/QuizTool").then((m) => m.QuizTool));
+const PracticeSheetTool = dynamic(() =>
+  import("@/components/practice-sheet/PracticeSheetTool").then((m) => m.PracticeSheetTool),
+);
 
 const TABS = ["table", "slides", "anki", "quiz", "practiceSheet"] as const;
 type Tab = (typeof TABS)[number];
 
-const SAMPLE_TEXT = "A：你好！你叫什么名字？\nB：我叫李明。我是大学生，我喜欢学习汉语。\nA：认识你很高兴！我们做朋友吧。";
-const SAMPLE_WORDS = "名字\n大学生\n喜欢\n学习\n汉语\n认识\n高兴\n朋友";
 
 /**
  * Soạn bài: one lesson (name, text, word list) feeds every output, so the
@@ -264,6 +268,7 @@ export function LessonBuilder() {
                           rows={2}
                           value=""
                           placeholder={d.paste.placeholder}
+                          onFocus={prefetchTable}
                           onChange={() => undefined}
                           onPaste={(e) => {
                             e.preventDefault();
@@ -313,6 +318,7 @@ export function LessonBuilder() {
                           rows={8}
                           value={current.words}
                           placeholder={"学习\n朋友 péngyou – bạn bè"}
+                          onFocus={prefetchTable}
                           onChange={(e) => update({ words: e.target.value })}
                         />
                       </label>

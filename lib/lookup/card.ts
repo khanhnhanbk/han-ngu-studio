@@ -53,8 +53,7 @@ export type LookupCard = {
 
 export const MAX_EXAMPLES = 3;
 export const MAX_STARTS = 20;
-/** Longest input looked up as one word; longer text belongs in Đọc hiểu. */
-export const MAX_LOOKUP_CHARS = 12;
+export { MAX_LOOKUP_CHARS } from "./limits";
 
 /**
  * Group readings by Pinyin without spaces or apostrophes. Case counts: 书 shū

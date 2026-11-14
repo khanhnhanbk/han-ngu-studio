@@ -43,6 +43,7 @@ Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`li
 - `pnpm test`: Vitest (`lib/**/*.test.ts`), including golden tests
 - `pnpm build:audio`: one-off, re-pack the audio-cmn recordings into `public/data/audio/` (`scripts/build-audio.mjs`, pinned commit; then run `pnpm build:data` so `sizes.json` lists them)
 - `pnpm build:data`: rebuild `public/data/*.json` from `assets/dictionary/` (`scripts/build-data.mjs`). Run after changing source data and commit the output.
+- `UPDATE_SAMPLES=1 pnpm test`: rewrite the first-visit samples that ship with the page instead of downloading data on open (`lib/lookup/sample.json` = the "亲戚" card on `/tools/lookup`, `lib/lesson/sample.json` = the sample lesson's word table on `/lesson`). `lib/*/sample.test.ts` rebuild them with the real pipeline and fail when they differ, so run this after `pnpm build:data` changes the data, and commit the output.
 
 ## Porting algorithms from Python to TypeScript
 

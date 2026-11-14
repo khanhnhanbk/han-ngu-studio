@@ -111,27 +111,44 @@ function ask(bytes: number): Promise<boolean> {
 }
 
 /**
- * Resolve to true when the data for `keys` may be downloaded: it is small
- * (≤ THRESHOLD after leaving out files already fetched or cached), prompts
- * are turned off, the sizes are unknown, or the user agrees. Never blocks a
- * tool because of its own failure.
+ * Bytes the user must agree to before `keys` are downloaded, or 0 when no
+ * prompt is needed: the data is small (≤ THRESHOLD after leaving out files
+ * already fetched or cached), prompts are turned off, or the sizes are unknown.
  */
-export async function confirmDownload(keys: Iterable<string>): Promise<boolean> {
+async function promptBytes(keys: Iterable<string>): Promise<number> {
   const list = Array.from(new Set(keys)).filter((k) => !isLoaded(k));
-  if (list.length === 0 || promptsOff() || listeners.size === 0) return true;
+  if (list.length === 0 || promptsOff() || listeners.size === 0) return 0;
   let sizes: Sizes;
   try {
     sizes = await loadSizes();
   } catch {
-    return true;
+    return 0;
   }
   // Only probe the cache when the total could be over the limit.
-  if (pendingBytes(sizes, list, () => false) <= THRESHOLD) return true;
+  if (pendingBytes(sizes, list, () => false) <= THRESHOLD) return 0;
   const cached = await Promise.all(list.map(inHttpCache));
   const have = new Set(list.filter((_, i) => cached[i]));
   const bytes = pendingBytes(sizes, list, (k) => have.has(k));
-  if (bytes <= THRESHOLD) return true;
-  return ask(bytes);
+  return bytes <= THRESHOLD ? 0 : bytes;
+}
+
+/**
+ * Resolve to true when the data for `keys` may be downloaded: no prompt is
+ * needed (see promptBytes) or the user agrees. Never blocks a tool because
+ * of its own failure.
+ */
+export async function confirmDownload(keys: Iterable<string>): Promise<boolean> {
+  const bytes = await promptBytes(keys);
+  return bytes === 0 || ask(bytes);
+}
+
+/**
+ * Whether `keys` may be fetched ahead of a click (the user focused the input):
+ * only when confirmDownload would say yes without asking, so a prefetch never
+ * downloads what the "Tải dữ liệu?" prompt should have asked about.
+ */
+export async function mayPrefetch(keys: Iterable<string>): Promise<boolean> {
+  return (await promptBytes(keys)) === 0;
 }
 
 /** Bytes `keys` would download this visit, for messages (no cache probe). */

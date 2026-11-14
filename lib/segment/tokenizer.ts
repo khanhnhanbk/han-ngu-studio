@@ -38,26 +38,60 @@ function cpLength(s: string): number {
   return Array.from(s).length;
 }
 
+/** Collects word costs line by line; shared by the sync and chunked builders. */
+function costBuilder() {
+  const wordCost = new Map<string, number>();
+  let maxWordLength = 1;
+  return {
+    add(line: string, idx: number) {
+      const word = pyStrip(line);
+      if (!word) return;
+      const rank = idx + 1;
+      const length = cpLength(word);
+      const lengthBonus = 2.5 * (length - 1);
+      // Map.set overwrites like a Python dict: a duplicate takes the later rank.
+      wordCost.set(word, Math.log(rank) - lengthBonus);
+      if (length > maxWordLength) maxWordLength = length;
+    },
+    done: () => fromCosts(wordCost, maxWordLength),
+  };
+}
+
 /**
  * Build a tokenizer from the word list's lines (one word per line, most
  * frequent first). A word's rank is its line number, counting empty lines,
  * like Python's `enumerate` over the file.
  */
 export function createTokenizer(lines: readonly string[]): Tokenizer {
-  const wordCost = new Map<string, number>();
-  let maxWordLength = 1;
+  const b = costBuilder();
+  lines.forEach((line, idx) => b.add(line, idx));
+  return b.done();
+}
 
-  lines.forEach((line, idx) => {
-    const word = pyStrip(line);
-    if (!word) return;
-    const rank = idx + 1;
-    const length = cpLength(word);
-    const lengthBonus = 2.5 * (length - 1);
-    // Map.set overwrites like a Python dict: a duplicate takes the later rank.
-    wordCost.set(word, Math.log(rank) - lengthBonus);
-    if (length > maxWordLength) maxWordLength = length;
-  });
+/** Lines handled between two pauses (~20 ms on a slow phone). */
+const CHUNK_LINES = 8000;
 
+/** Let the browser paint and handle input before the next slice. */
+function pause(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+/**
+ * Same tokenizer as createTokenizer, built in slices with a pause between
+ * them, so the page does not freeze while the ~120 000 lines are read. The
+ * lines go in the same order, so the result is identical.
+ */
+export async function createTokenizerInChunks(lines: readonly string[], chunk = CHUNK_LINES): Promise<Tokenizer> {
+  const b = costBuilder();
+  for (let start = 0; start < lines.length; start += chunk) {
+    if (start > 0) await pause();
+    const end = Math.min(lines.length, start + chunk);
+    for (let idx = start; idx < end; idx++) b.add(lines[idx], idx);
+  }
+  return b.done();
+}
+
+function fromCosts(wordCost: Map<string, number>, maxWordLength: number): Tokenizer {
   // Heavy penalty for single characters that are not words on their own.
   const oovCost = Math.log(wordCost.size + 1);
 

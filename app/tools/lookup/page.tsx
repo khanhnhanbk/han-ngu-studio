@@ -9,16 +9,25 @@ import { SpeechToggle } from "@/components/speech/SpeechToggle";
 import { loadMeanings, MEANINGS_FILE } from "@/lib/anki/load";
 import { cvdictFile, loadCvdictShard } from "@/lib/cvdict/load";
 import { confirmDownload } from "@/lib/data/budget";
+import { prefetcher } from "@/lib/data/prefetch";
 import { exampleFiles, loadExamples } from "@/lib/examples/load";
 import { HANVIET_FILE, loadHanviet } from "@/lib/hanviet/load";
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
-import { buildLookupCard, MAX_LOOKUP_CHARS, type LookupCard } from "@/lib/lookup/card";
+import type { LookupCard } from "@/lib/lookup/card";
+import { MAX_LOOKUP_CHARS } from "@/lib/lookup/limits";
+import { SAMPLE_CARD, SAMPLE_WORD } from "@/lib/lookup/sample";
 import type { ScriptConverter } from "@/lib/script/convert";
 import { useConverter } from "@/lib/script/useScript";
 import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
-const SAMPLE = "亲戚";
+const SAMPLE = SAMPLE_WORD;
+/** The dictionaries every lookup needs (the word's own CVDICT and example shards come on top). */
+const BASE_FILES = [...TOKENIZER_FILES, HANVIET_FILE, VOCAB_FILE, MEANINGS_FILE];
+/** Focusing the input fetches those ahead of the click (lib/data/prefetch.ts). */
+const prefetch = prefetcher(BASE_FILES, () =>
+  Promise.all([loadTokenizer(), loadHanviet(), loadVocab(), loadMeanings(), import("@/lib/lookup/card")]),
+);
 /** Unknown input longer than this is treated as a sentence (pointed to Đọc hiểu). */
 const SENTENCE_CHARS = 4;
 /** Chinese characters only: spaces and punctuation around a pasted word are dropped. */
@@ -43,11 +52,15 @@ export default function LookupPage() {
     const word = Array.from(conv.toSimp(text.trim())).filter((c) => HAN.test(c)).join("");
     if (!word) return setError(t.error);
     if (Array.from(word).length > MAX_LOOKUP_CHARS) return setTooLong(true);
+    // The sample's card ships with the page (lib/lookup/sample.ts): nothing to download.
+    if (word === SAMPLE_WORD) return show(SAMPLE_CARD, word, conv);
     setLoading(true);
     try {
-      const files = [...TOKENIZER_FILES, HANVIET_FILE, VOCAB_FILE, MEANINGS_FILE, cvdictFile(word), ...(await exampleFiles([word]))];
+      const files = [...BASE_FILES, cvdictFile(word), ...(await exampleFiles([word]))];
       if (!(await confirmDownload(files))) return setError(dict.download.declined);
-      const [tokenizer, hanviet, vocab, meanings, cvdict, examples] = await Promise.all([
+      const [{ buildLookupCard }, tokenizer, hanviet, vocab, meanings, cvdict, examples] = await Promise.all([
+        // Loaded with the data: the card code pulls in pinyin-pro, not needed for the sample.
+        import("@/lib/lookup/card"),
         loadTokenizer(),
         loadHanviet(),
         loadVocab(),
@@ -55,17 +68,20 @@ export default function LookupPage() {
         loadCvdictShard(word),
         loadExamples([word]),
       ]);
-      const result = buildLookupCard({ tokenizer, hanviet, vocab, meanings, cvdict, examples }, word);
-      setCard(result);
-      // Not a word and longer than a short phrase: most likely a sentence.
-      if (!result.readings.length && Array.from(word).length > SENTENCE_CHARS) setTooLong(true);
-      // The hash is never sent to the server, so the word stays on the device.
-      window.history.replaceState(null, "", `#${new URLSearchParams({ w: conv.toShown(word) })}`);
+      show(buildLookupCard({ tokenizer, hanviet, vocab, meanings, cvdict, examples }, word), word, conv);
     } catch {
       setError(t.loadFailed);
     } finally {
       setLoading(false);
     }
+  }
+
+  function show(result: LookupCard, word: string, conv: ScriptConverter) {
+    setCard(result);
+    // Not a word and longer than a short phrase: most likely a sentence.
+    if (!result.readings.length && Array.from(word).length > SENTENCE_CHARS) setTooLong(true);
+    // The hash is never sent to the server, so the word stays on the device.
+    window.history.replaceState(null, "", `#${new URLSearchParams({ w: conv.toShown(word) })}`);
   }
 
   // Open the word from a link (#w=…, e.g. from Đọc hiểu), or the sample.
@@ -118,6 +134,7 @@ export default function LookupPage() {
                     className="hanzi w-full rounded-lg border border-ink-900/10 bg-surface px-4 py-3 text-2xl text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
                     value={input}
                     placeholder={t.placeholder}
+                    onFocus={prefetch}
                     onChange={(e) => setInput(e.target.value)}
                   />
                   <button type="submit" className="btn-primary shrink-0" disabled={loading || !ready}>
