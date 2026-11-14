@@ -1,8 +1,10 @@
 import { Ma_Shan_Zheng, Noto_Serif_SC, Noto_Serif_TC } from "next/font/google";
 
+import { kai } from "@/app/fonts/kai";
+
 // Extra sheet fonts, declared here so only the practice-sheet page carries
-// them. LXGW WenKai (--font-kai) and Noto Sans SC (--font-hanzi) come from
-// app/layout.tsx. Google serves CJK glyphs in unicode-range slices that are
+// them. LXGW WenKai (--font-kai) comes from app/fonts/kai.ts, Noto Sans SC
+// (--font-hanzi) from app/layout.tsx. Google serves CJK glyphs in unicode-range slices that are
 // self-hosted at build time and fetched only when used, so nothing is
 // preloaded.
 const maShanZheng = Ma_Shan_Zheng({
@@ -31,4 +33,4 @@ const notoSerifTC = Noto_Serif_TC({
 });
 
 /** Class names that define the extra font variables. */
-export const sheetFontVariables = `${maShanZheng.variable} ${notoSerifSC.variable} ${notoSerifTC.variable}`;
+export const sheetFontVariables = `${kai.variable} ${maShanZheng.variable} ${notoSerifSC.variable} ${notoSerifTC.variable}`;
