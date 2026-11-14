@@ -11,13 +11,17 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 ## Mở một công cụ
 
-1. Vào trang chủ https://han-ngu-studio.vercel.app.
-2. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm, mỗi công cụ có một dòng mô tả ngắn:
-   - **Chữ Hán** (học từng chữ): **Lộ trình 1000 chữ**, **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Phiếu tập viết**.
-   - **Đọc văn bản** (dán câu hoặc đoạn văn): **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**, **Hán Việt**, **Ngắt từ**.
-   - **Từ vựng & ôn tập** (từ danh sách từ của bạn): **Tra từ**, **Tạo thẻ Anki**, **Trắc nghiệm**, **Sắp xếp câu N+1**.
-   - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Chữ Hán**, **Công cụ · Đọc văn bản**, **Công cụ · Từ vựng & ôn tập**.
-3. Chọn công cụ bạn cần. Trang chủ và chân trang cũng chia công cụ theo 3 nhóm này.
+1. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm theo việc cần làm, mỗi công cụ có một dòng mô tả ngắn:
+   - **Soạn bài & ôn tập**: **Tạo thẻ Anki**, **Trắc nghiệm**, **Phiếu tập viết** (còn **Soạn bài** nằm ngay trên thanh menu).
+   - **Dạy chữ Hán**: **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Lộ trình 1000 chữ**.
+   - **Tra & đọc**: **Tra từ**, **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**.
+   - Trên điện thoại: bấm nút **☰** (góc phải) để mở menu; các công cụ nằm dưới **Công cụ · Soạn bài & ôn tập**, **Công cụ · Dạy chữ Hán**, **Công cụ · Tra & đọc**.
+2. Chọn công cụ bạn cần. Trang chủ và chân trang cũng chia công cụ theo 3 nhóm này.
+3. **Ngắt từ**, **Hán Việt** và **Sắp xếp câu N+1** không còn trong menu (từ 14/11/2026) vì công cụ khác đã làm tốt hơn: **Đọc hiểu** tách từ và cho xem âm Hán Việt khi bấm vào từ; **Tra từ** và bảng từ của **Soạn bài** có sẵn Hán Việt. Link cũ của ba công cụ này vẫn mở được.
+
+### Lỗi thường gặp
+
+- **Không thấy Ngắt từ / Hán Việt / Sắp xếp câu N+1 trong menu:** xem mục 3 ở trên; dùng **Đọc hiểu** hoặc **Tra từ** thay thế.
 
 ## Các công cụ hiện có
 
@@ -29,15 +33,15 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 | **Thứ tự nét** | Xem hoạt hình từng nét, sơ đồ từng bước và tự viết thử; tạo phiếu tập viết cho các chữ đó | [stroke-order.md](stroke-order.md) |
 | **Đọc hiểu** | Đọc văn bản có trợ giúp: từ tô màu theo cấp HSK, bấm vào từ để xem Pinyin, Hán Việt, nghĩa; ước tính độ khó, ghi nhớ từ đã biết, gửi từ mới sang Anki, Trắc nghiệm | [reader.md](reader.md) |
 | **Truyện đọc** | Truyện ngắn hiện đại theo cấp HSK (gọi đồ, hỏi đường, đi tàu, trả tiền, khám bệnh, Tết), mở trong Đọc hiểu, có từ mới, bản dịch từng câu và Góc văn hóa | [stories.md](stories.md) |
-| **Ngắt từ** | Ngắt câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
+| **Ngắt từ** (ẩn khỏi menu, link cũ vẫn mở được) | Ngắt câu tiếng Trung thành từng từ, có khoảng trắng giữa các từ | [segment.md](segment.md) |
 | **Chuyển Pinyin** | Chuyển chữ, câu hoặc đoạn văn sang Pinyin; xem Pinyin trên đầu chữ | [pinyin.md](pinyin.md) |
-| **Hán Việt** | Ngắt từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
+| **Hán Việt** (ẩn khỏi menu, link cũ vẫn mở được) | Ngắt từ, ghi Pinyin và âm Hán Việt cho từng từ; xem mọi âm của từng chữ | [hanviet.md](hanviet.md) |
 | **Tra từ** | Tra một từ hoặc chữ: Pinyin, Hán Việt, cấp HSK, từ loại, nghĩa tiếng Việt, lượng từ, câu ví dụ, từ bắt đầu bằng nó; mở sang Chiết tự, Anki, Trắc nghiệm | [tra-tu.md](tra-tu.md) |
 | **Tạo thẻ Anki** | Từ danh sách từ vựng, tạo bộ thẻ Anki (file .apkg mở thẳng bằng Anki, hoặc .tsv): Pinyin, nghĩa tiếng Anh và tiếng Việt, cấp HSK, 1–3 câu ví dụ dễ hiểu, Ngũ bút, Hán Việt | [anki.md](anki.md) (xem thêm: [hướng dẫn Anki và mẫu thẻ](https://han-ngu-studio.vercel.app/tools/anki/guide) trên trang web) |
 | **Trắc nghiệm** | Tạo câu hỏi trắc nghiệm từ danh sách từ vựng (nghĩa, Pinyin, Hán Việt, chữ Hán, điền từ, sắp xếp câu); xếp câu hỏi ngẫu nhiên hoặc theo loại; làm bài, ôn câu sai, in đề kèm đáp án | [quiz.md](quiz.md) |
 | **214 bộ thủ** | Tra 214 bộ thủ theo số nét, tên Hán Việt, nghĩa hoặc chữ; xem dạng khác và chữ thường gặp | [radicals.md](radicals.md) |
 | **Chiết tự** | Tách chữ Hán thành các thành phần, tô màu từng phần, xem phần gợi nghĩa / gợi âm và các chữ cùng thành phần; tự viết câu chuyện ghi nhớ (chỉ lưu trên máy); tải ảnh thẻ chữ để chia sẻ | [decompose.md](decompose.md) |
-| **Sắp xếp câu N+1** | Sắp xếp câu từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; dùng câu của bạn hoặc lấy câu mẫu theo cấp HSK; xem thống kê và tải TSV | [comprehensible-input.md](comprehensible-input.md) |
+| **Sắp xếp câu N+1** (ẩn khỏi menu, link cũ vẫn mở được) | Sắp xếp câu từ dễ đến khó, mỗi câu chỉ thêm khoảng một từ mới; dùng câu của bạn hoặc lấy câu mẫu theo cấp HSK; xem thống kê và tải TSV | [comprehensible-input.md](comprehensible-input.md) |
 
 Các công cụ sắp có: ảnh cho thẻ Anki, đọc to (TTS).
 

@@ -106,9 +106,9 @@ export const vi = {
     path: "Lộ trình 1000 chữ",
     lesson: "Soạn bài",
     groups: {
-      chars: { title: "Chữ Hán", hint: "Học từng chữ" },
-      text: { title: "Đọc văn bản", hint: "Dán câu hoặc đoạn văn" },
-      vocab: { title: "Từ vựng & ôn tập", hint: "Từ danh sách từ của bạn" },
+      prepare: { title: "Soạn bài & ôn tập", hint: "Cho buổi học tới" },
+      chars: { title: "Dạy chữ Hán", hint: "Từng chữ một" },
+      read: { title: "Tra & đọc", hint: "Một từ hoặc cả đoạn văn" },
     },
     // One line under each tool in the menu, so people know what it does.
     hints: {
@@ -132,7 +132,7 @@ export const vi = {
     badge: "Miễn phí · Không cần tài khoản",
     title: "Học và dạy tiếng Trung nhanh hơn",
     subtitle:
-      "Dán văn bản tiếng Trung, chọn công cụ và nhận ngay tài liệu học: phiếu tập viết chữ Hán, Pinyin, âm Hán Việt, bộ thẻ Anki. Tất cả chạy trên trình duyệt của bạn.",
+      "Dán bài một lần, lấy ra ngay bảng từ, slide, thẻ Anki, đề trắc nghiệm và phiếu tập viết. Tất cả chạy trên trình duyệt của bạn.",
     ctaPrimary: "Xem công cụ",
     ctaSecondary: "Hướng dẫn sử dụng",
     trustNote: "Chữ bạn gõ chỉ xử lý trên máy bạn, không gửi đi đâu.",
@@ -327,25 +327,6 @@ export const vi = {
     ],
     note: "Lộ trình có thể thay đổi.",
   },
-  howItWorks: {
-    eyebrow: "Cách hoạt động",
-    title: "Chỉ với ba bước",
-    subtitle: "Không cần tài khoản, không cần cài đặt gì.",
-    steps: [
-      {
-        title: "Dán văn bản",
-        description: "Nhập hoặc dán chữ Hán, câu, đoạn văn hay danh sách từ vựng.",
-      },
-      {
-        title: "Chọn công cụ",
-        description: "Phiếu tập viết, chiết tự, ngắt từ, Pinyin, Hán Việt hoặc thẻ Anki.",
-      },
-      {
-        title: "Tải xuống",
-        description: "Xem trước, chỉnh sửa nếu cần, rồi in PDF hoặc tải file TXT / TSV.",
-      },
-    ],
-  },
   guide: {
     metaTitle: "Hướng dẫn Soạn bài cho thầy cô – Hán Ngữ Studio",
     metaDescription: "Dán giáo án tiếng Trung một lần, lấy ra bảng từ, slide PowerPoint, thẻ Anki, đề trắc nghiệm và phiếu tập viết. Hướng dẫn từng bước có ảnh.",
@@ -448,7 +429,7 @@ export const vi = {
       {
         question: "File tải về dùng được ở đâu?",
         answer:
-          "Phiếu tập viết, bảng từ và đề trắc nghiệm in ra giấy hoặc lưu PDF. Bảng từ copy được vào Word, Google Docs, Sheets, Zalo, Quizlet. Ngắt từ, Pinyin và Hán Việt tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file .apkg, mở bằng Anki là có ngay bộ thẻ (vẫn có file TSV nếu muốn tự làm).",
+          "Phiếu tập viết, bảng từ và đề trắc nghiệm in ra giấy hoặc lưu PDF. Bảng từ copy được vào Word, Google Docs, Sheets, Zalo, Quizlet. Pinyin tải về file TXT hoặc TSV (mở bằng Excel, Google Sheets). Bộ thẻ Anki tải về file .apkg, mở bằng Anki là có ngay bộ thẻ (vẫn có file TSV nếu muốn tự làm).",
       },
       {
         question: "Dữ liệu của tôi có được lưu lại không?",

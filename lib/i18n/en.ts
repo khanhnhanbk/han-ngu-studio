@@ -113,9 +113,9 @@ export const en: Dictionary = {
     path: "The 1000-character path",
     lesson: "Lesson builder",
     groups: {
-      chars: { title: "Characters", hint: "Study one character" },
-      text: { title: "Reading", hint: "Paste a sentence or text" },
-      vocab: { title: "Vocabulary & review", hint: "From your word list" },
+      prepare: { title: "Lessons & review", hint: "For the next class" },
+      chars: { title: "Teach characters", hint: "One character at a time" },
+      read: { title: "Look up & read", hint: "One word or a whole text" },
     },
     hints: {
       strokeOrder: "Watch and practise each stroke",
@@ -138,7 +138,7 @@ export const en: Dictionary = {
     badge: "Free · No account needed",
     title: "Learn and teach Chinese faster",
     subtitle:
-      "Paste Chinese text, pick a tool and get study materials straight away: handwriting practice sheets, Pinyin, Sino-Vietnamese readings, Anki decks. Everything runs in your browser.",
+      "Paste a lesson once and get a word table, slides, an Anki deck, a quiz and practice sheets straight away. Everything runs in your browser.",
     ctaPrimary: "See the tools",
     ctaSecondary: "User guide (Vietnamese)",
     trustNote: "What you type is processed on your device and never sent anywhere.",
@@ -333,25 +333,6 @@ export const en: Dictionary = {
     ],
     note: "The roadmap may change.",
   },
-  howItWorks: {
-    eyebrow: "How it works",
-    title: "Just three steps",
-    subtitle: "No account and nothing to install.",
-    steps: [
-      {
-        title: "Paste text",
-        description: "Type or paste characters, sentences, a text or a word list.",
-      },
-      {
-        title: "Pick a tool",
-        description: "Practice sheet, character breakdown, segmentation, Pinyin, Hán Việt or Anki cards.",
-      },
-      {
-        title: "Download",
-        description: "Preview, edit if needed, then print a PDF or download a TXT / TSV file.",
-      },
-    ],
-  },
   guide: {
     metaTitle: "Lesson builder guide for teachers – Hán Ngữ Studio",
     metaDescription: "Paste a Chinese lesson handout once and get a word table, PowerPoint slides, an Anki deck, a quiz and practice sheets. Step-by-step guide with pictures.",
@@ -453,7 +434,7 @@ export const en: Dictionary = {
       {
         question: "What can I do with the downloaded files?",
         answer:
-          "Practice sheets, word tables and quizzes print on paper or save as PDF. Word tables copy into Word, Google Docs, Sheets, Zalo and Quizlet. Segmentation, Pinyin and Hán Việt download as TXT or TSV files (open them in Excel or Google Sheets). Anki decks download as an .apkg file that opens straight in Anki (a TSV file is still there if you want to build your own).",
+          "Practice sheets, word tables and quizzes print on paper or save as PDF. Word tables copy into Word, Google Docs, Sheets, Zalo and Quizlet. Pinyin downloads as a TXT or TSV file (open them in Excel or Google Sheets). Anki decks download as an .apkg file that opens straight in Anki (a TSV file is still there if you want to build your own).",
       },
       {
         question: "Is my data stored?",
