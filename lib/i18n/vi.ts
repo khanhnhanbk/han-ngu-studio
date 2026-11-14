@@ -87,7 +87,6 @@ export const vi = {
   },
   nav: {
     features: "Tính năng",
-    forTeachers: "Cho giáo viên",
     settings: "Cài đặt",
     tools: "Công cụ",
     reader: "Đọc hiểu",
