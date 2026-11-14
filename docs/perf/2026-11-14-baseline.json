@@ -1,0 +1,1190 @@
+{
+  "meta": {
+    "label": "baseline",
+    "date": "2026-11-14",
+    "startedAt": "2026-11-14T02:27:19.909Z",
+    "baseUrl": "https://han-ngu-studio.vercel.app/",
+    "runs": 3,
+    "where": "máy của chủ dự án ở Việt Nam, mạng gia đình",
+    "browser": "Google Chrome 157.0.8103.78",
+    "lighthouseVersion": "13.6.0",
+    "playwrightVersion": "1.64.1",
+    "device": "Pixel 7",
+    "cpuSlowdown": 4,
+    "network": "9 Mbps xuống, 1.5 Mbps lên, 60 ms RTT",
+    "command": "pnpm perf --label baseline --runs 3 --where \"máy của chủ dự án ở Việt Nam, mạng gia đình\"",
+    "finishedAt": "2026-11-14T02:34:47.680Z"
+  },
+  "lighthouse": {
+    "mobile": [
+      {
+        "path": "/",
+        "median": {
+          "score": 77,
+          "ttfb": 57,
+          "fcp": 1419.4953,
+          "lcp": 4719.4953000000005,
+          "tbt": 291,
+          "cls": 0,
+          "bytes": 940631
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/813bad2a6b150288-s.woff2",
+            "type": "Font",
+            "transferSize": 60411
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58657
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57949
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57695
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56423
+          }
+        ],
+        "runs": [
+          {
+            "score": 86,
+            "ttfb": 58,
+            "fcp": 1416.1295,
+            "lcp": 3666.1295,
+            "tbt": 225,
+            "cls": 0,
+            "bytes": 940631
+          },
+          {
+            "score": 77,
+            "ttfb": 57,
+            "fcp": 1419.4953,
+            "lcp": 4719.4953000000005,
+            "tbt": 291,
+            "cls": 0,
+            "bytes": 940499
+          },
+          {
+            "score": 66,
+            "ttfb": 55,
+            "fcp": 1454.5551,
+            "lcp": 5561.5551,
+            "tbt": 530,
+            "cls": 0,
+            "bytes": 940670
+          }
+        ]
+      },
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 50,
+          "ttfb": 56,
+          "fcp": 1903.1643,
+          "lcp": 1903.1643,
+          "tbt": 2503.5,
+          "cls": 0.420218476093855,
+          "bytes": 2643513
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 567138
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 361331
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 317966
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147542
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/wubi.json",
+            "type": "Fetch",
+            "transferSize": 103395
+          }
+        ],
+        "runs": [
+          {
+            "score": 50,
+            "ttfb": 78,
+            "fcp": 1903.2202,
+            "lcp": 1903.2202,
+            "tbt": 2503.5,
+            "cls": 0.420218476093855,
+            "bytes": 2643513
+          },
+          {
+            "score": 49,
+            "ttfb": 55,
+            "fcp": 1903.1643,
+            "lcp": 1903.1643,
+            "tbt": 4497.5,
+            "cls": 0.420218476093855,
+            "bytes": 2643487
+          },
+          {
+            "score": 73,
+            "ttfb": 56,
+            "fcp": 1890.8836999999999,
+            "lcp": 1890.8836999999999,
+            "tbt": 1453,
+            "cls": 0,
+            "bytes": 2643531
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 94,
+          "ttfb": 56,
+          "fcp": 1453.2006999999999,
+          "lcp": 1453.2006999999999,
+          "tbt": 285,
+          "cls": 0,
+          "bytes": 1127929
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147544
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76478
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58711
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57940
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57670
+          }
+        ],
+        "runs": [
+          {
+            "score": 92,
+            "ttfb": 61,
+            "fcp": 1439.158,
+            "lcp": 1439.158,
+            "tbt": 346,
+            "cls": 0,
+            "bytes": 1127971
+          },
+          {
+            "score": 94,
+            "ttfb": 56,
+            "fcp": 1506.1803,
+            "lcp": 1506.1803,
+            "tbt": 285,
+            "cls": 0,
+            "bytes": 1127925
+          },
+          {
+            "score": 95,
+            "ttfb": 55,
+            "fcp": 1453.2006999999999,
+            "lcp": 1453.2006999999999,
+            "tbt": 245,
+            "cls": 0,
+            "bytes": 1127929
+          }
+        ]
+      },
+      {
+        "path": "/tools/anki",
+        "median": {
+          "score": 94,
+          "ttfb": 56,
+          "fcp": 1443.8822,
+          "lcp": 1443.8822,
+          "tbt": 274,
+          "cls": 0,
+          "bytes": 920723
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147521
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57940
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56463
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/9fd4f196-6f6622bd9d0277cc.js",
+            "type": "Script",
+            "transferSize": 55808
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/5885ce32612f050e-s.woff2",
+            "type": "Font",
+            "transferSize": 53007
+          }
+        ],
+        "runs": [
+          {
+            "score": 95,
+            "ttfb": 56,
+            "fcp": 1447.7550999999999,
+            "lcp": 1447.7550999999999,
+            "tbt": 264.50000000000045,
+            "cls": 0,
+            "bytes": 920729
+          },
+          {
+            "score": 93,
+            "ttfb": 56,
+            "fcp": 1427.2254,
+            "lcp": 1427.2254,
+            "tbt": 323,
+            "cls": 0,
+            "bytes": 920723
+          },
+          {
+            "score": 94,
+            "ttfb": 56,
+            "fcp": 1443.8822,
+            "lcp": 1443.8822,
+            "tbt": 274,
+            "cls": 0,
+            "bytes": 920717
+          }
+        ]
+      },
+      {
+        "path": "/tools/stroke-order",
+        "median": {
+          "score": 87,
+          "ttfb": 58,
+          "fcp": 1425.5207,
+          "lcp": 1425.5207,
+          "tbt": 293.5,
+          "cls": 0.1708076585861882,
+          "bytes": 987819
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147509
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/hanviet.json",
+            "type": "Fetch",
+            "transferSize": 79092
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57935
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56452
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/9fd4f196-6f6622bd9d0277cc.js",
+            "type": "Script",
+            "transferSize": 55776
+          }
+        ],
+        "runs": [
+          {
+            "score": 86,
+            "ttfb": 60,
+            "fcp": 1425.5207,
+            "lcp": 1425.5207,
+            "tbt": 293.5,
+            "cls": 0.1708076585861882,
+            "bytes": 987711
+          },
+          {
+            "score": 93,
+            "ttfb": 58,
+            "fcp": 1429.3277,
+            "lcp": 1429.3277,
+            "tbt": 297,
+            "cls": 0.01286038060951779,
+            "bytes": 987819
+          },
+          {
+            "score": 87,
+            "ttfb": 57,
+            "fcp": 1417.6358,
+            "lcp": 1417.6358,
+            "tbt": 262,
+            "cls": 0.1708076585861882,
+            "bytes": 987872
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 81,
+          "ttfb": 56,
+          "fcp": 1441.968,
+          "lcp": 1441.968,
+          "tbt": 525,
+          "cls": 0.1477190954240347,
+          "bytes": 2962376
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 567156
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/examples/7-9.json",
+            "type": "Fetch",
+            "transferSize": 363312
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 361409
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 317961
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147521
+          }
+        ],
+        "runs": [
+          {
+            "score": 77,
+            "ttfb": 56,
+            "fcp": 1441.968,
+            "lcp": 1441.968,
+            "tbt": 693.5,
+            "cls": 0.1477190954240347,
+            "bytes": 2962365
+          },
+          {
+            "score": 81,
+            "ttfb": 65,
+            "fcp": 1463.5637000000002,
+            "lcp": 1463.5637000000002,
+            "tbt": 487.00000000000045,
+            "cls": 0.1477190954240347,
+            "bytes": 2962465
+          },
+          {
+            "score": 81,
+            "ttfb": 55,
+            "fcp": 1439.4153000000001,
+            "lcp": 1439.4153000000001,
+            "tbt": 525,
+            "cls": 0.1477190954240347,
+            "bytes": 2962376
+          }
+        ]
+      }
+    ],
+    "desktop": [
+      {
+        "path": "/",
+        "median": {
+          "score": 99,
+          "ttfb": 61,
+          "fcp": 399.6305,
+          "lcp": 1039.6305,
+          "tbt": 0,
+          "cls": 0,
+          "bytes": 940664
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/813bad2a6b150288-s.woff2",
+            "type": "Font",
+            "transferSize": 60407
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58688
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57944
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57679
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56469
+          }
+        ],
+        "runs": [
+          {
+            "score": 99,
+            "ttfb": 61,
+            "fcp": 399.6305,
+            "lcp": 1039.6305,
+            "tbt": 0,
+            "cls": 0,
+            "bytes": 940664
+          }
+        ]
+      },
+      {
+        "path": "/lesson",
+        "median": {
+          "score": 93,
+          "ttfb": 58,
+          "fcp": 487.7596,
+          "lcp": 487.7596,
+          "tbt": 62.999999999999886,
+          "cls": 0.1580334120957457,
+          "bytes": 2643539
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 567197
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 361332
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 317963
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147521
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/wubi.json",
+            "type": "Fetch",
+            "transferSize": 103368
+          }
+        ],
+        "runs": [
+          {
+            "score": 93,
+            "ttfb": 58,
+            "fcp": 487.7596,
+            "lcp": 487.7596,
+            "tbt": 62.999999999999886,
+            "cls": 0.1580334120957457,
+            "bytes": 2643539
+          }
+        ]
+      },
+      {
+        "path": "/tools/reader",
+        "median": {
+          "score": 100,
+          "ttfb": 57,
+          "fcp": 412.88599999999997,
+          "lcp": 412.88599999999997,
+          "tbt": 0,
+          "cls": 0,
+          "bytes": 1128061
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147521
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/a8f0efcf6bdce55a-s.woff2",
+            "type": "Font",
+            "transferSize": 76483
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/85875d38a77d6c5a-s.woff2",
+            "type": "Font",
+            "transferSize": 58698
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57989
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/c31a3550bcc5caf4-s.woff2",
+            "type": "Font",
+            "transferSize": 57679
+          }
+        ],
+        "runs": [
+          {
+            "score": 100,
+            "ttfb": 57,
+            "fcp": 412.88599999999997,
+            "lcp": 412.88599999999997,
+            "tbt": 0,
+            "cls": 0,
+            "bytes": 1128061
+          }
+        ]
+      },
+      {
+        "path": "/tools/anki",
+        "median": {
+          "score": 99,
+          "ttfb": 104,
+          "fcp": 683.8267000000001,
+          "lcp": 683.8267000000001,
+          "tbt": 0,
+          "cls": 0,
+          "bytes": 920858
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147573
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57951
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56478
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/9fd4f196-6f6622bd9d0277cc.js",
+            "type": "Script",
+            "transferSize": 55768
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/5885ce32612f050e-s.woff2",
+            "type": "Font",
+            "transferSize": 53059
+          }
+        ],
+        "runs": [
+          {
+            "score": 99,
+            "ttfb": 104,
+            "fcp": 683.8267000000001,
+            "lcp": 683.8267000000001,
+            "tbt": 0,
+            "cls": 0,
+            "bytes": 920858
+          }
+        ]
+      },
+      {
+        "path": "/tools/stroke-order",
+        "median": {
+          "score": 96,
+          "ttfb": 57,
+          "fcp": 398.4141,
+          "lcp": 398.4141,
+          "tbt": 21,
+          "cls": 0.12630007080111133,
+          "bytes": 987741
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147523
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/hanviet.json",
+            "type": "Fetch",
+            "transferSize": 79131
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/48cb14b31e36bddf-s.woff2",
+            "type": "Font",
+            "transferSize": 57939
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/media/ce56f69dbe28e9d5-s.woff2",
+            "type": "Font",
+            "transferSize": 56486
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/9fd4f196-6f6622bd9d0277cc.js",
+            "type": "Script",
+            "transferSize": 55773
+          }
+        ],
+        "runs": [
+          {
+            "score": 96,
+            "ttfb": 57,
+            "fcp": 398.4141,
+            "lcp": 398.4141,
+            "tbt": 21,
+            "cls": 0.12630007080111133,
+            "bytes": 987741
+          }
+        ]
+      },
+      {
+        "path": "/tools/lookup",
+        "median": {
+          "score": 92,
+          "ttfb": 57,
+          "fcp": 427.196,
+          "lcp": 427.196,
+          "tbt": 81,
+          "cls": 0.17479945725117088,
+          "bytes": 2962436
+        },
+        "largest": [
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/word_list.txt",
+            "type": "Fetch",
+            "transferSize": 567156
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/examples/7-9.json",
+            "type": "Fetch",
+            "transferSize": 363307
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/meanings.json",
+            "type": "Fetch",
+            "transferSize": 361331
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/data/vocab.json",
+            "type": "Fetch",
+            "transferSize": 318010
+          },
+          {
+            "url": "https://han-ngu-studio.vercel.app/_next/static/chunks/05417924-5aec013c2bd2db9a.js",
+            "type": "Script",
+            "transferSize": 147521
+          }
+        ],
+        "runs": [
+          {
+            "score": 92,
+            "ttfb": 57,
+            "fcp": 427.196,
+            "lcp": 427.196,
+            "tbt": 81,
+            "cls": 0.17479945725117088,
+            "bytes": 2962436
+          }
+        ]
+      }
+    ]
+  },
+  "flows": [
+    {
+      "id": "A",
+      "name": "Trang chủ → bấm Soạn bài → ô dán sẵn sàng",
+      "target": 2500,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1609,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1638,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1599,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1609,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1465,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1465,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1450,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          },
+          {
+            "ms": 1589,
+            "note": "link “Mở Soạn bài”",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B1",
+      "name": "Soạn bài: dán cả bài ~30 từ → bảng từ đầy đủ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1680.5,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1680.5,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 1785.3999999999069,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 1578.1000000000931,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 128.60000000009313,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 128.60000000009313,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 167.09999999962747,
+            "note": "30 rows",
+            "prompts": 0
+          },
+          {
+            "ms": 89.39999999990687,
+            "note": "30 rows",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B2",
+      "name": "Soạn bài: Lấy từ trong đoạn văn → danh sách từ",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1244.5,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1244.5,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1209.8999999999069,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1307,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 232.5,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 232.5,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 237.5,
+            "note": "44 words",
+            "prompts": 0
+          },
+          {
+            "ms": 208,
+            "note": "44 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B3",
+      "name": "Soạn bài: tải .pptx mẫu “Ba trang mỗi từ”, 20 từ",
+      "target": 3000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 1613.1000000000931,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1613.1000000000931,
+            "note": "Bài 2.pptx 103 KB",
+            "prompts": 0
+          },
+          {
+            "ms": 1611.7000000001863,
+            "note": "Bài 2.pptx 103 KB",
+            "prompts": 0
+          },
+          {
+            "ms": 1618.2000000001863,
+            "note": "Bài 2.pptx 103 KB",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1103.3000000002794,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1085.8999999999069,
+            "note": "Bài 3.pptx 103 KB",
+            "prompts": 0
+          },
+          {
+            "ms": 1219.8999999999069,
+            "note": "Bài 3.pptx 103 KB",
+            "prompts": 0
+          },
+          {
+            "ms": 1103.3000000002794,
+            "note": "Bài 3.pptx 103 KB",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B4",
+      "name": "Soạn bài: tải .apkg 20 từ, có giọng đọc, không ảnh",
+      "target": 5000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 2361.899999999907,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2976.5,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 1106 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 2361.899999999907,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 1086 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 2230.399999999907,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 1109 ms",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 2067.3000000002794,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1644.8999999999069,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 597 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 2203.3000000002794,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 589 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 2067.3000000002794,
+            "note": "Tiếng Trung.apkg 96 KB; “Tạo bộ thẻ” before it took 598 ms",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B5",
+      "name": "Soạn bài: Phiếu tập viết 20 chữ → hộp thoại in",
+      "target": 3000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 890.7999999998137,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 863.5,
+            "note": "from opening the tab; print button ready after 417 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 890.7999999998137,
+            "note": "from opening the tab; print button ready after 407 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 908.6000000000931,
+            "note": "from opening the tab; print button ready after 439 ms",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 630.5,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 624.2000000001863,
+            "note": "from opening the tab; print button ready after 514 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 648.3999999999069,
+            "note": "from opening the tab; print button ready after 434 ms",
+            "prompts": 0
+          },
+          {
+            "ms": 630.5,
+            "note": "from opening the tab; print button ready after 458 ms",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "name": "Đọc hiểu: 300 chữ → tô màu HSK xong",
+      "target": 1500,
+      "tapTarget": 200,
+      "cold": {
+        "ms": 2179,
+        "tapMs": 178.5,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 2190.7999999998137,
+            "tapMs": 147.5,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2179,
+            "tapMs": 181.3000000002794,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 2164.1999999997206,
+            "tapMs": 178.5,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 1238.1999999997206,
+        "tapMs": 141.5,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 1234.1000000000931,
+            "tapMs": 141.5,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1238.1999999997206,
+            "tapMs": 140.8000000002794,
+            "note": "199 words",
+            "prompts": 0
+          },
+          {
+            "ms": 1539.3999999999069,
+            "tapMs": 159.39999999990687,
+            "note": "199 words",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "D",
+      "name": "Tra từ: tra một từ → kết quả",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 337.60000000009313,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 336.79999999981374,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 382.40000000037253,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 337.60000000009313,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 205.29999999981374,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 322.70000000018626,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 190,
+            "note": "商店",
+            "prompts": 0
+          },
+          {
+            "ms": 205.29999999981374,
+            "note": "商店",
+            "prompts": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "E",
+      "name": "Thứ tự nét: tra một chữ → hoạt hình bắt đầu",
+      "target": 1000,
+      "tapTarget": null,
+      "cold": {
+        "ms": 194.39999999990687,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 193.39999999990687,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          },
+          {
+            "ms": 206.60000000009313,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          },
+          {
+            "ms": 194.39999999990687,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          }
+        ]
+      },
+      "warm": {
+        "ms": 184,
+        "tapMs": null,
+        "errors": 0,
+        "runs": [
+          {
+            "ms": 201.3000000002794,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          },
+          {
+            "ms": 184,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          },
+          {
+            "ms": 181.39999999990687,
+            "note": "爱 (Hanzi Writer drawing created, animateCharacter called)",
+            "prompts": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -12,7 +12,8 @@
     "build:data": "node scripts/build-data.mjs",
     "build:audio": "node scripts/build-audio.mjs",
     "build:vocab-source": "node scripts/build-vocab-source.mjs",
-    "fetch:ancient": "node scripts/fetch-ancient.mjs"
+    "fetch:ancient": "node scripts/fetch-ancient.mjs",
+    "perf": "node scripts/perf/run.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -33,9 +34,12 @@
     "@types/react-dom": "19.0.3",
     "@types/sql.js": "1.4.9",
     "autoprefixer": "10.4.20",
+    "chrome-launcher": "1.2.3",
     "eslint": "^9.39.5",
     "eslint-config-next": "15.5.27",
     "hanzi-writer-data": "2.0.1",
+    "lighthouse": "13.6.0",
+    "playwright-core": "1.64.1",
     "postcss": "8.5.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
