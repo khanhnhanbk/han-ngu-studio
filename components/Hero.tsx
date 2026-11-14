@@ -134,7 +134,9 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 -top-24 h-96 bg-gradient-to-b from-brand-50 to-transparent"
       />
       <div className="container-page relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
-        <div className="animate-fade-up">
+        {/* No fade-in here: this text is the page's largest paint (LCP), and
+            Chrome only counts it once it is visible (owner decision 2026-11-14). */}
+        <div>
           <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
             <SparklesIcon size={14} aria-hidden />
             {dict.hero.badge}
