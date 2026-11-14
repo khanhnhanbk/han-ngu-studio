@@ -24,7 +24,7 @@ export type ToolId =
   | "lookup"
   | "path";
 
-export type ToolGroupId = "chars" | "text" | "vocab";
+export type ToolGroupId = "prepare" | "chars" | "read";
 
 const HREF: Record<ToolId, string> = {
   reader: "/tools/reader",
@@ -44,19 +44,31 @@ const HREF: Record<ToolId, string> = {
 };
 
 /**
- * Live tools grouped by what the learner wants to do: study one character,
- * read a text, or learn a word list. The Navbar menu, footer and landing
- * page all show these groups in this order.
+ * Live tools grouped by what a teacher wants to do: prepare a lesson and its
+ * review material, teach characters, or look up and read (owner decision
+ * 2026-11-14). The Navbar menu, footer and landing page all show these groups
+ * in this order; the home page map "Bạn muốn làm gì?" (lib/needs.ts) points
+ * into them.
  */
 export const TOOL_GROUPS: ReadonlyArray<{ id: ToolGroupId; tools: ReadonlyArray<{ id: ToolId; href: string }> }> = (
   [
-    { id: "chars", tools: ["path", "strokeOrder", "decompose", "radicals", "practiceSheet"] },
-    { id: "text", tools: ["reader", "stories", "pinyin", "hanviet", "segment"] },
-    { id: "vocab", tools: ["lookup", "anki", "quiz", "comprehensibleInput"] },
+    { id: "prepare", tools: ["anki", "quiz", "practiceSheet"] },
+    { id: "chars", tools: ["strokeOrder", "decompose", "radicals", "path"] },
+    { id: "read", tools: ["lookup", "reader", "stories", "pinyin"] },
   ] as const
 ).map((g) => ({ id: g.id, tools: g.tools.map((id) => ({ id, href: HREF[id] })) }));
 
-/** Every live tool, in group order. */
+/**
+ * Tools left out of the menu, footer and home page because other tools already
+ * do their job better (owner decision 2026-11-14): Đọc hiểu shows word breaks
+ * and Hán Việt, Tra từ and the Soạn bài word table give Hán Việt, and N+1 has no
+ * teacher flow. Their pages and links keep working.
+ */
+export const HIDDEN_TOOLS: ReadonlyArray<{ id: ToolId; href: string }> = (
+  ["segment", "hanviet", "comprehensibleInput"] as const
+).map((id) => ({ id, href: HREF[id] }));
+
+/** Every tool shown in the menu, in group order (hidden ones left out). */
 export const TOOLS: ReadonlyArray<{ id: ToolId; href: string }> = TOOL_GROUPS.flatMap((g) => g.tools);
 
 /** Where the landing page's "try it" buttons go. */

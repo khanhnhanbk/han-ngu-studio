@@ -113,9 +113,9 @@ export const en: Dictionary = {
     path: "The 1000-character path",
     lesson: "Lesson builder",
     groups: {
-      chars: { title: "Characters", hint: "Study one character" },
-      text: { title: "Reading", hint: "Paste a sentence or text" },
-      vocab: { title: "Vocabulary & review", hint: "From your word list" },
+      prepare: { title: "Lessons & review", hint: "For the next class" },
+      chars: { title: "Teach characters", hint: "One character at a time" },
+      read: { title: "Look up & read", hint: "One word or a whole text" },
     },
     hints: {
       strokeOrder: "Watch and practise each stroke",
@@ -138,8 +138,8 @@ export const en: Dictionary = {
     badge: "Free · No account needed",
     title: "Learn and teach Chinese faster",
     subtitle:
-      "Paste Chinese text, pick a tool and get study materials straight away: handwriting practice sheets, Pinyin, Sino-Vietnamese readings, Anki decks. Everything runs in your browser.",
-    ctaPrimary: "See the tools",
+      "Paste a lesson once and get a word table, slides, an Anki deck, a quiz and practice sheets straight away. Everything runs in your browser.",
+    ctaPrimary: "Find the tool for your job",
     ctaSecondary: "User guide (Vietnamese)",
     trustNote: "What you type is processed on your device and never sent anywhere.",
     mockupTitle: "Try it: practice sheet",
@@ -333,24 +333,29 @@ export const en: Dictionary = {
     ],
     note: "The roadmap may change.",
   },
-  howItWorks: {
-    eyebrow: "How it works",
-    title: "Just three steps",
-    subtitle: "No account and nothing to install.",
-    steps: [
-      {
-        title: "Paste text",
-        description: "Type or paste characters, sentences, a text or a word list.",
-      },
-      {
-        title: "Pick a tool",
-        description: "Practice sheet, character breakdown, segmentation, Pinyin, Hán Việt or Anki cards.",
-      },
-      {
-        title: "Download",
-        description: "Preview, edit if needed, then print a PDF or download a TXT / TSV file.",
-      },
-    ],
+  // The home page map right under the hero: what do you want to do → which tool.
+  needMap: {
+    eyebrow: "Start here",
+    title: "What do you want to do?",
+    subtitle: "Pick the job, and the map points to the right tool. One click opens it.",
+    root: "I want to…",
+    menuLink: "What do you want to do? See the map",
+    all: "See all tools",
+    needs: {
+      lesson: { title: "Prepare a whole class", where: "Lesson builder" },
+      slides: { title: "Make PowerPoint slides", where: "Lesson builder › Slides" },
+      anki: { title: "Review with Anki cards", where: "Lesson builder › Anki deck" },
+      quiz: { title: "Make a quiz", where: "Lesson builder › Quiz" },
+      practiceSheet: { title: "Print a practice sheet", where: "Practice sheet" },
+      strokeOrder: { title: "Show the stroke order", where: "Stroke order" },
+      decompose: { title: "Break down a character", where: "Character breakdown" },
+      radicals: { title: "Look up a radical", where: "214 radicals" },
+      path: { title: "Learn 1000 characters", where: "The 1000-character path" },
+      lookup: { title: "Look up a word", where: "Word lookup" },
+      reader: { title: "Read a text with help", where: "Reader" },
+      stories: { title: "Find a story by HSK level", where: "Stories" },
+      pinyin: { title: "Put Pinyin over a text", where: "Pinyin converter" },
+    },
   },
   guide: {
     metaTitle: "Lesson builder guide for teachers – Hán Ngữ Studio",
@@ -453,7 +458,7 @@ export const en: Dictionary = {
       {
         question: "What can I do with the downloaded files?",
         answer:
-          "Practice sheets, word tables and quizzes print on paper or save as PDF. Word tables copy into Word, Google Docs, Sheets, Zalo and Quizlet. Segmentation, Pinyin and Hán Việt download as TXT or TSV files (open them in Excel or Google Sheets). Anki decks download as an .apkg file that opens straight in Anki (a TSV file is still there if you want to build your own).",
+          "Practice sheets, word tables and quizzes print on paper or save as PDF. Word tables copy into Word, Google Docs, Sheets, Zalo and Quizlet. Pinyin downloads as a TXT or TSV file (open them in Excel or Google Sheets). Anki decks download as an .apkg file that opens straight in Anki (a TSV file is still there if you want to build your own).",
       },
       {
         question: "Is my data stored?",

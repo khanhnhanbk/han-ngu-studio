@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { NeedMap } from "@/components/NeedMap";
 import { Problem } from "@/components/Problem";
 import { Features } from "@/components/Features";
 import { Roadmap } from "@/components/Roadmap";
-import { HowItWorks } from "@/components/HowItWorks";
 import { ForTeachers } from "@/components/ForTeachers";
 import { FAQ } from "@/components/FAQ";
 import { AboutMaker } from "@/components/AboutMaker";
@@ -21,10 +21,10 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
+        <NeedMap />
         <Problem />
         <Features />
         <Roadmap />
-        <HowItWorks />
         <ForTeachers />
         <FAQ />
         <AboutMaker />

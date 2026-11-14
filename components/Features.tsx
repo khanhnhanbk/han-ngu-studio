@@ -2,6 +2,7 @@
 
 import { useDictionary, useHref } from "@/lib/i18n/useLocale";
 import { TOOL_GROUPS, TOOLS } from "@/lib/links";
+import { TOOL_GLYPHS } from "@/lib/tool-glyphs/glyphs";
 import { ToolCard } from "./ToolCard";
 
 export function Features() {
@@ -24,14 +25,24 @@ export function Features() {
               {dict.nav.groups[group.id].title}
               <span className="ml-2 text-base font-normal text-ink-500">· {dict.nav.groups[group.id].hint}</span>
             </h3>
-            {/* Four cards fill one row on wide screens instead of leaving one alone. */}
-            <div className={`mt-4 grid gap-6 sm:grid-cols-2 ${group.tools.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+            {/* Four cards fill one row on wide screens instead of leaving one alone.
+                Soạn bài leads its group: Anki, Quiz and Practice sheet also live inside it. */}
+            <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {group.id === "prepare" && (
+                <ToolCard
+                  glyph={{ simp: "课", trad: "課" }}
+                  href={href("/lesson")}
+                  title={dict.features.items.lesson.title}
+                  description={dict.features.items.lesson.description}
+                  cta={dict.features.items.lesson.cta}
+                />
+              )}
               {group.tools.map((tool) => {
                 const item = dict.features.items[tool.id];
                 return (
                   <ToolCard
                     key={tool.id}
-                    id={tool.id}
+                    glyph={TOOL_GLYPHS[tool.id]}
                     href={href(tool.href)}
                     title={item.title}
                     description={item.description}

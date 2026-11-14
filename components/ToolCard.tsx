@@ -1,7 +1,5 @@
 "use client";
 
-import type { ToolId } from "@/lib/links";
-import { TOOL_GLYPHS } from "@/lib/tool-glyphs/glyphs";
 import { ArrowRightIcon } from "./icons/arrow-right";
 import { useIconTrigger } from "./icons/trigger";
 
@@ -11,19 +9,18 @@ import { useIconTrigger } from "./icons/trigger";
  * OpenCC download); hovering or focusing the card plays the arrow.
  */
 export function ToolCard({
-  id,
+  glyph,
   href,
   title,
   description,
   cta,
 }: {
-  id: ToolId;
+  glyph: { simp: string; trad?: string };
   href: string;
   title: string;
   description: string;
   cta: string;
 }) {
-  const glyph = TOOL_GLYPHS[id];
   const arrow = useIconTrigger();
   const start = arrow.triggerProps.onMouseEnter;
   const stop = arrow.triggerProps.onMouseLeave;
