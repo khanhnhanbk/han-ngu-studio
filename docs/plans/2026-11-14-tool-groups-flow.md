@@ -1,6 +1,6 @@
 # Regroup the tools + "Tôi muốn…" flow — 2026-11-14
 
-Owner request (2026-11-14): reorganise the tools so a teacher sees at a glance which tool fits their need ("Tôi muốn soạn bài → …", "làm slide", "ôn từ Anki", "in phiếu tập viết"); tools that are not strong yet may be hidden. Status: **approved by the owner 2026-11-14** (with one addition: the map is a visual tree right under the hero, the first thing on the home page). The Navbar menu got one "Bạn muốn làm gì? Xem sơ đồ" link instead of four quick lines.
+Owner request (2026-11-14): reorganise the tools so a teacher sees at a glance which tool fits their need ("Tôi muốn soạn bài → …", "làm slide", "ôn từ Anki", "in phiếu tập viết"); tools that are not strong yet may be hidden. Status: **approved by the owner 2026-11-14**. Sections 1 and 2 shipped. Section 3 (the "Bạn muốn làm gì?" map and `/lesson#tab=`) was built as a tree under the hero, then **dropped by the owner the same day**; "Cách hoạt động" stays removed because it listed the hidden tools.
 
 ## Problem today
 

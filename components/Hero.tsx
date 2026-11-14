@@ -148,7 +148,7 @@ export function Hero() {
             {dict.hero.subtitle}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <IconLink href="#need" icon={ArrowDownIcon} iconAfter className="btn-primary">
+            <IconLink href="#features" icon={ArrowDownIcon} iconAfter className="btn-primary">
               {dict.hero.ctaPrimary}
             </IconLink>
             <IconLink

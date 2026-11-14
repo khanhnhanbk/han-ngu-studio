@@ -14,7 +14,6 @@ import { useDictionary } from "@/lib/i18n/useLocale";
 import { appendWords, extractWords } from "@/lib/lesson/extract";
 import { docxText, entryLine, parseEntries, splitPaste } from "@/lib/lesson/paste";
 import { SAMPLE_TEXT, SAMPLE_WORDS } from "@/lib/lesson/sample";
-import { LESSON_TABS, tabFromHash, type LessonTab } from "@/lib/lesson/tab";
 import {
   lessonsFile,
   mergeLessons,
@@ -37,8 +36,8 @@ const PracticeSheetTool = dynamic(() =>
   import("@/components/practice-sheet/PracticeSheetTool").then((m) => m.PracticeSheetTool),
 );
 
-const TABS = LESSON_TABS;
-type Tab = LessonTab;
+const TABS = ["table", "slides", "anki", "quiz", "practiceSheet"] as const;
+type Tab = (typeof TABS)[number];
 
 
 /**
@@ -82,21 +81,6 @@ export function LessonBuilder() {
     setLessons([sample]);
     setCurrentId(sample.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on mount
-  }, []);
-
-  // "/lesson#tab=slides" (from the home page map) opens that output and scrolls to it.
-  useEffect(() => {
-    function openFromHash() {
-      const fromHash = tabFromHash(window.location.hash);
-      if (!fromHash) return;
-      setTab(fromHash);
-      window.requestAnimationFrame(() =>
-        document.getElementById("lesson-outputs")?.scrollIntoView({ behavior: "smooth", block: "start" }),
-      );
-    }
-    openFromHash();
-    window.addEventListener("hashchange", openFromHash);
-    return () => window.removeEventListener("hashchange", openFromHash);
   }, []);
 
   const current = lessons.find((l) => l.id === currentId) ?? lessons[0];
@@ -370,7 +354,7 @@ export function LessonBuilder() {
               </div>
 
               {current && (
-                <div id="lesson-outputs" className={`mt-8 scroll-mt-20 ${hidden}`}>
+                <div className={`mt-8 ${hidden}`}>
                   <h2 className="text-xl font-bold text-ink-900">{d.outputs}</h2>
                   <div role="tablist" aria-label={d.outputs} className="mt-3 flex flex-wrap gap-2 border-b border-ink-900/10">
                     {TABS.map((id) => (

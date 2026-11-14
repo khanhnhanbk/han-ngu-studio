@@ -11,18 +11,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 ## Mở một công cụ
 
-### Cách nhanh nhất: sơ đồ "Bạn muốn làm gì?"
-
-1. Vào trang chủ https://han-ngu-studio.vercel.app, bấm **Tìm công cụ cho việc của bạn** (hoặc kéo xuống ngay dưới phần đầu trang).
-2. Sơ đồ bắt đầu từ **Tôi muốn…** và chia 3 nhánh. Bấm vào việc bạn cần làm, trang công cụ phù hợp sẽ mở ra:
-   - **Soạn bài & ôn tập** (cho buổi học tới): **Soạn cả một buổi học**, **Làm slide PowerPoint**, **Ôn từ bằng thẻ Anki**, **Ra đề trắc nghiệm**, **In phiếu tập viết**. Slide, thẻ Anki và trắc nghiệm mở thẳng thẻ tương ứng trong **Soạn bài**, nên chỉ cần dán danh sách từ một lần.
-   - **Dạy chữ Hán** (từng chữ một): **Chỉ thứ tự nét một chữ**, **Tách chữ ra từng phần**, **Tra một bộ thủ**, **Học 1000 chữ thông dụng**.
-   - **Tra & đọc** (một từ hoặc cả đoạn văn): **Tra nghĩa một từ**, **Đọc hiểu một đoạn văn**, **Tìm truyện theo cấp HSK**, **Ghi Pinyin lên đoạn văn**.
-3. Ở trang khác, bấm **Công cụ ▾** trên thanh menu rồi bấm dòng đầu **Bạn muốn làm gì? Xem sơ đồ** để quay lại sơ đồ.
-
-### Từ menu Công cụ
-
-1. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm giống sơ đồ, mỗi công cụ có một dòng mô tả ngắn:
+1. Trên thanh menu ở đầu trang, bấm **Công cụ ▾**. Các công cụ chia thành 3 nhóm theo việc cần làm, mỗi công cụ có một dòng mô tả ngắn:
    - **Soạn bài & ôn tập**: **Tạo thẻ Anki**, **Trắc nghiệm**, **Phiếu tập viết** (còn **Soạn bài** nằm ngay trên thanh menu).
    - **Dạy chữ Hán**: **Thứ tự nét**, **Chiết tự**, **214 bộ thủ**, **Lộ trình 1000 chữ**.
    - **Tra & đọc**: **Tra từ**, **Đọc hiểu**, **Truyện đọc**, **Chuyển Pinyin**.
@@ -32,8 +21,7 @@ Hán Ngữ Studio là bộ công cụ **miễn phí** giúp người Việt họ
 
 ### Lỗi thường gặp
 
-- **Bấm "Làm slide PowerPoint" mà thấy bài mẫu:** đó là bài mẫu có sẵn lần đầu. Dán bài của bạn vào ô **Dán cả bài vào đây** (hoặc bấm **+ Bài mới**), thẻ **Slide** vẫn được chọn sẵn.
-- **Không thấy Ngắt từ / Hán Việt trong menu:** xem mục 3 ở trên; dùng **Đọc hiểu** hoặc **Tra từ** thay thế.
+- **Không thấy Ngắt từ / Hán Việt / Sắp xếp câu N+1 trong menu:** xem mục 3 ở trên; dùng **Đọc hiểu** hoặc **Tra từ** thay thế.
 
 ## Các công cụ hiện có
 

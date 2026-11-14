@@ -47,8 +47,7 @@ const HREF: Record<ToolId, string> = {
  * Live tools grouped by what a teacher wants to do: prepare a lesson and its
  * review material, teach characters, or look up and read (owner decision
  * 2026-11-14). The Navbar menu, footer and landing page all show these groups
- * in this order; the home page map "Bạn muốn làm gì?" (lib/needs.ts) points
- * into them.
+ * in this order.
  */
 export const TOOL_GROUPS: ReadonlyArray<{ id: ToolGroupId; tools: ReadonlyArray<{ id: ToolId; href: string }> }> = (
   [

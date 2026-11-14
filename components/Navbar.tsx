@@ -74,13 +74,6 @@ export function Navbar() {
             >
               {/* One column per group: what the learner wants to do. */}
               <div className="grid w-[44rem] grid-cols-3 gap-2 rounded-xl border border-ink-900/10 bg-surface p-3 shadow-lg">
-                <a
-                  href={href("/#need")}
-                  role="menuitem"
-                  className="col-span-3 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-ink hover:bg-brand-100"
-                >
-                  {dict.needMap.menuLink} →
-                </a>
                 {groups.map((group) => (
                   <div key={group.id} role="group" aria-label={group.title}>
                     <p className="px-3 pt-1 text-xs font-semibold uppercase tracking-wide text-brand-ink">
@@ -143,13 +136,6 @@ export function Navbar() {
       {open && (
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-ink-900/5 bg-surface lg:hidden">
           <div className="container-page flex flex-col gap-1 py-4">
-            <a
-              href={href("/#need")}
-              onClick={() => setOpen(false)}
-              className="mb-2 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-ink hover:bg-brand-100"
-            >
-              {dict.needMap.menuLink} →
-            </a>
             {groups.map((group) => (
               <div key={group.id} className="mt-2 first:mt-0">
                 <p className="px-3 text-xs font-semibold uppercase tracking-wide text-ink-500">
