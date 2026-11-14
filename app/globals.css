@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* These stacks win over the next/font classes on <html> that set the same
+   variables. That used to depend on the order of the CSS files; the doubled
+   :root makes it explicit, so moving fonts between files changes nothing. */
+:root:root {
   --font-be-vietnam: "Be Vietnam Pro", system-ui, sans-serif;
   --font-hanzi: "Noto Sans SC", "KaiTi", sans-serif;
 }
 
-/* Phồn thể mode (lib/script): Taiwan glyph shapes. Beats the next/font
-   class that sets --font-hanzi on <html> (higher specificity). */
-:root[data-script="trad"] {
+/* Phồn thể mode (lib/script): Taiwan glyph shapes. Beats the rule above
+   (higher specificity). */
+:root:root[data-script="trad"] {
+  /* Until components/fonts/TradFont.tsx sets it to Noto Sans TC (right after
+     the switch), Noto Sans SC stands in, as it did while the font downloaded. */
+  --font-hanzi-tc: var(--font-hanzi-sc);
   --font-hanzi: var(--font-hanzi-tc), var(--font-hanzi-sc), "PMingLiU", sans-serif;
 }
 

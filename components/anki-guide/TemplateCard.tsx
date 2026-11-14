@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { kai } from "@/app/fonts/kai";
 import { useDictionary } from "@/lib/i18n/useLocale";
 import { CARD_CSS, renderCard, SAMPLE_ROW, type CardTemplate } from "@/lib/anki/templates";
 
@@ -72,7 +73,8 @@ export function TemplateCard({ template }: { template: CardTemplate }) {
             ref={host}
             role="region"
             aria-label={`${t.preview}: ${info.name}, ${side === "front" ? t.front : t.back}`}
-            className="mt-2 h-96 overflow-auto rounded-lg border border-ink-900/10"
+            // kai.variable defines --font-kai, which the shadow root inherits.
+            className={`${kai.variable} mt-2 h-96 overflow-auto rounded-lg border border-ink-900/10`}
           />
         </div>
         <div className="flex min-w-0 flex-col gap-4">
