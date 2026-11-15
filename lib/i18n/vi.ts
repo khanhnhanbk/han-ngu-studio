@@ -1538,6 +1538,7 @@ export const vi = {
     slides: {
       intro:
         "Cả bài thành một bộ slide PowerPoint: mỗi từ một slide với chữ to, Pinyin, Hán Việt, nghĩa và câu ví dụ. Mở bằng PowerPoint, Google Slides hoặc Canva để chiếu hay sửa tiếp.",
+      video: "Xem video hướng dẫn tự làm mẫu riêng (2 phút)",
       choose: "Chọn mẫu",
       templates: {
         "the-tu": { name: "Thẻ từ", description: "Mỗi từ một slide: chữ to, Pinyin, Hán Việt, nghĩa và một câu ví dụ." },

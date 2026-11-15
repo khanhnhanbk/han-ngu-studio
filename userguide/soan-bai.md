@@ -52,6 +52,8 @@ Bản có ảnh từng bước: https://han-ngu-studio.vercel.app/guide (cuối 
 
 ### Tự làm mẫu riêng
 
+Có video hướng dẫn 2 phút: bấm **▶ Xem video hướng dẫn tự làm mẫu riêng (2 phút)** ngay dưới dòng giới thiệu của thẻ **Slide** (mở YouTube ở thẻ mới), hoặc xem tại https://youtu.be/9smRxKye2fY.
+
 1. Bấm **Tải mẫu về sửa** để lấy một mẫu có sẵn, hoặc mở file PowerPoint của bạn.
 2. Gõ các ô dưới đây vào chỗ muốn hiện, giữ cả hai dấu ngoặc nhọn. Đổi phông, màu, ảnh nền tùy ý.
 

@@ -1535,6 +1535,7 @@ export const en: Dictionary = {
     slides: {
       intro:
         "The whole lesson as a PowerPoint deck: one slide per word with the big character, Pinyin, Sino-Vietnamese reading, meaning and an example sentence. Open it in PowerPoint, Google Slides or Canva to present or edit.",
+      video: "Watch the video: making your own template (2 min, in Vietnamese)",
       choose: "Pick a template",
       templates: {
         "the-tu": { name: "Word cards", description: "One slide per word: big character, Pinyin, Sino-Vietnamese reading, meaning and an example." },
