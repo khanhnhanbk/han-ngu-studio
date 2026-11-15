@@ -21,6 +21,7 @@ import { loadTokenizer, TOKENIZER_FILES } from "@/lib/segment/load";
 import { collocations } from "@/lib/slides/collocations";
 import { fillTemplate, LESSON_FIELDS, WORD_FIELDS, type SlideWord } from "@/lib/slides/fill";
 import { groupFitted, type FitNote } from "@/lib/slides/fit";
+import { VIDEOS } from "@/lib/videos";
 import { loadVocab, VOCAB_FILE } from "@/lib/vocab/load";
 
 const BUILT_IN = ["the-tu", "hoi-dap", "ba-trang"] as const;
@@ -179,6 +180,16 @@ export function SlideMaker({
   return (
     <div>
       <p className="max-w-3xl text-ink-700">{t.intro}</p>
+      {VIDEOS.slideTemplate && (
+        <a
+          href={VIDEOS.slideTemplate}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-block font-medium text-brand-700 underline-offset-4 hover:underline"
+        >
+          ▶ {t.video}
+        </a>
+      )}
 
       <fieldset className="mt-6">
         <legend className="font-medium text-ink-900">{t.choose}</legend>
