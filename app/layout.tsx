@@ -9,6 +9,7 @@ import { getDictionary } from "@/lib/i18n";
 import { LANG_INIT_SCRIPT } from "@/lib/i18n/locale";
 import { SCRIPT_INIT_SCRIPT } from "@/lib/script/preference";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
+import { SITE_URL } from "@/lib/seo/sitemap";
 
 const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
@@ -36,7 +37,7 @@ const dict = getDictionary("vi");
 export const metadata: Metadata = {
   title: dict.meta.title,
   description: dict.meta.description,
-  metadataBase: new URL("https://han-ngu-studio.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: dict.meta.title,
     description: dict.meta.description,
