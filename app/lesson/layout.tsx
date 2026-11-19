@@ -1,8 +1,14 @@
+import { ToolJsonLd } from "@/components/seo/JsonLd";
 import { toolMetadata } from "@/lib/i18n/metadata";
 
 // Title, description and hreflang for Soạn bài (the page itself is a client component).
 export const metadata = toolMetadata("vi", "lesson", "/lesson");
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <ToolJsonLd locale="vi" tool="lesson" path="/lesson" />
+      {children}
+    </>
+  );
 }
