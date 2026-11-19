@@ -11,7 +11,7 @@ export function alternates(locale: Locale, path: string): NonNullable<Metadata["
   };
 }
 
-type ToolKey = keyof ReturnType<typeof getDictionary>["features"]["items"];
+export type ToolKey = keyof ReturnType<typeof getDictionary>["features"]["items"];
 
 /**
  * Link-preview image for one tool page: `public/og/<last route part>.png`, English in
