@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { useDictionary } from "@/lib/i18n/useLocale";
 import { useScript } from "@/lib/script/useScript";
@@ -57,6 +57,7 @@ export function FontPicker({
   onUploadName,
 }: Props) {
   const t = useDictionary().practiceSheet.font;
+  const labelId = useId();
   const [installed, setInstalled] = useState<string[]>([]);
   const [listError, setListError] = useState("");
   const [uploadError, setUploadError] = useState("");
@@ -119,9 +120,12 @@ export function FontPicker({
 
   return (
     <div className="flex flex-col gap-2 sm:col-span-2">
-      <span className="font-medium">{t.label}</span>
+      <span id={labelId} className="font-medium">
+        {t.label}
+      </span>
       <div className="grid gap-3 sm:grid-cols-2">
         <select
+          aria-labelledby={labelId}
           value={fontId}
           onChange={(e) => onFontId(e.target.value as SheetFontId)}
           className="rounded-lg border border-ink-900/10 px-3 py-2"

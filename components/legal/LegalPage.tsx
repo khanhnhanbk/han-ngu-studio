@@ -58,10 +58,10 @@ export function LegalPage() {
                       <External href={s.url}>{s.name}</External>
                     </p>
                     <p className="mt-1 text-sm text-ink-700">
-                      <span className="text-ink-700/70">{t.usedFor}:</span> {t.uses[s.id]}
+                      <span className="text-ink-muted">{t.usedFor}:</span> {t.uses[s.id]}
                     </p>
                     <p className="mt-0.5 text-sm text-ink-700">
-                      <span className="text-ink-700/70">{t.licenseLabel}:</span>{" "}
+                      <span className="text-ink-muted">{t.licenseLabel}:</span>{" "}
                       {s.licenseUrl ? <External href={s.licenseUrl}>{s.license}</External> : s.license}
                     </p>
                   </li>

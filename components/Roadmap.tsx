@@ -7,7 +7,7 @@ type Status = keyof Dictionary["roadmap"]["statuses"];
 
 const STATUS_STYLE: Record<Status, string> = {
   next: "bg-brand-600 text-on-brand",
-  planned: "bg-brand-100 text-brand-700",
+  planned: "bg-brand-100 text-brand-800",
   idea: "bg-ink-900/5 text-ink-700",
 };
 
@@ -41,7 +41,7 @@ export function Roadmap() {
             );
           })}
         </ol>
-        <p className="mt-6 text-center text-sm text-ink-700/70">{dict.roadmap.note}</p>
+        <p className="mt-6 text-center text-sm text-ink-muted">{dict.roadmap.note}</p>
       </div>
     </section>
   );

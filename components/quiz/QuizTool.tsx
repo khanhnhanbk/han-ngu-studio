@@ -240,7 +240,7 @@ export function QuizTool({ initialWords, embedded = false }: EmbeddableToolProps
                         placeholder={dict.quiz.placeholder}
                         onChange={(e) => setText(e.target.value)}
                       />
-                      <div className="mt-2 flex items-center justify-between text-sm text-ink-700/70">
+                      <div className="mt-2 flex items-center justify-between text-sm text-ink-muted">
                         <span>
                           {dict.quiz.wordCount}: {entries.length} / {MAX_ENTRIES}
                         </span>
@@ -264,7 +264,7 @@ export function QuizTool({ initialWords, embedded = false }: EmbeddableToolProps
                         </label>
                       ))}
                     </div>
-                    <p className="mt-2 text-xs text-ink-700/70">{dict.quiz.kindsNote}</p>
+                    <p className="mt-2 text-xs text-ink-muted">{dict.quiz.kindsNote}</p>
                   </fieldset>
 
                   <fieldset className="mt-6 text-sm text-ink-700">
@@ -289,7 +289,7 @@ export function QuizTool({ initialWords, embedded = false }: EmbeddableToolProps
                   {failed && <p className="mt-4 text-sm text-red-600">{dict.script.loadFailed}</p>}
 
                   {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
-                  <p className="mt-6 text-xs text-ink-700/70">{dict.quiz.credits}</p>
+                  <p className="mt-6 text-xs text-ink-muted">{dict.quiz.credits}</p>
                 </div>
               )}
 
@@ -371,7 +371,7 @@ export function QuizTool({ initialWords, embedded = false }: EmbeddableToolProps
                                 <span className="text-red-600">
                                   ✗ {dict.quiz.yourAnswer}: <span className="hanzi">{responseText(q, r)}</span>
                                 </span>
-                                <span className="mx-2 text-ink-700/50">·</span>
+                                <span className="mx-2 text-ink-muted">·</span>
                                 <span className="text-emerald-600">
                                   ✓ {dict.quiz.rightAnswer}: <span className="hanzi">{answerText(q)}</span>
                                 </span>

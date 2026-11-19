@@ -40,7 +40,7 @@ export function OrderCard({
           answered ? (correct ? "border-emerald-500 bg-emerald-500/10" : "border-red-500 bg-red-500/10") : "border-ink-900/15"
         }`}
       >
-        {placed.length === 0 && <span className="text-sm text-ink-700/70">{dict.quiz.orderPlaceholder}</span>}
+        {placed.length === 0 && <span className="text-sm text-ink-muted">{dict.quiz.orderPlaceholder}</span>}
         {placed.map((t, i) => (
           <button
             key={`${t}-${i}`}
@@ -54,7 +54,7 @@ export function OrderCard({
         ))}
         {placed.length > 0 && <span className="hanzi text-2xl text-ink-900">{question.end}</span>}
       </div>
-      {!answered && placed.length > 0 && <p className="mt-1 text-xs text-ink-700/70">{dict.quiz.orderUndo}</p>}
+      {!answered && placed.length > 0 && <p className="mt-1 text-xs text-ink-muted">{dict.quiz.orderUndo}</p>}
 
       {!answered && (
         <div className="mt-4 flex flex-wrap gap-2">

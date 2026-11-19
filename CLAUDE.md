@@ -4,6 +4,8 @@ A **free** tool that helps Vietnamese speakers learn and teach Chinese. Live sit
 
 Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pro`. Package manager: **pnpm** (`pnpm-lock.yaml` is the tracked lockfile).
 
+Personal project, 100% AI-coded (Novian does not read the code). Version: `0.1.0` in `package.json`, no release tags yet. Product notes for humans (Vietnamese): `/home/novian/learning-myself/cong-viec/san-pham/han-ngu-studio/README.md` (section "Tra nhanh"), outside the repo.
+
 ## Tools
 
 Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`lib/script/`, see Code conventions).
@@ -43,6 +45,9 @@ Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`li
 - `pnpm test`: Vitest (`lib/**/*.test.ts`), including golden tests
 - `pnpm build:audio`: one-off, re-pack the audio-cmn recordings into `public/data/audio/` (`scripts/build-audio.mjs`, pinned commit; then run `pnpm build:data` so `sizes.json` lists them)
 - `pnpm build:data`: rebuild `public/data/*.json` from `assets/dictionary/` (`scripts/build-data.mjs`). Run after changing source data and commit the output.
+- `pnpm perf --label <name>`: speed lab (Lighthouse + time-to-result flows on an emulated mid-range phone, `scripts/perf/`), results in `docs/perf/` (how-to in `docs/perf/README.md`). Default target is the live site; `--url http://localhost:3000` after `pnpm build && pnpm start`.
+- **Check before calling anything done:** `pnpm test && pnpm run lint && pnpm run build` (all three, no single `check` script yet). `pnpm audit` should stay at 0 high/critical (2026-11-19: 1 moderate left, minimatch inside typescript-eslint, lint-time only).
+- **Deploy:** Vercel Git integration, no CLI step. A PR gets a Preview deployment (the `Vercel` check on the PR); merging into `main` deploys Production to https://han-ngu-studio.vercel.app. Verify after a merge: `gh api repos/khanhnhanbk/han-ngu-studio/deployments --jq '.[0] | [.environment, .sha[0:7]]'` shows Production on the new `main` sha, and `/`, `/en`, `/lesson`, `/sitemap.xml` return 200 (`curl -s -o /dev/null -w '%{http_code}' <url>`). Locally `/_vercel/insights/script.js` 404s (analytics only exists on Vercel); that console error is expected.
 - `UPDATE_SAMPLES=1 pnpm test`: rewrite the first-visit samples that ship with the page instead of downloading data on open (`lib/lookup/sample.json` = the "亲戚" card on `/tools/lookup`, `lib/lesson/sample.json` = the sample lesson's word table on `/lesson`). `lib/*/sample.test.ts` rebuild them with the real pipeline and fail when they differ, so run this after `pnpm build:data` changes the data, and commit the output.
 
 ## Porting algorithms from Python to TypeScript
@@ -72,9 +77,10 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 ## Folder structure
 
-- `app/`: pages (`page.tsx` landing, `tools/practice-sheet/`, `tools/segment/`)
-- `components/`: landing-page sections (Hero, Features, FAQ, …) and `practice-sheet/` tool UI
-- `lib/`: client logic (`practiceSheet.ts`, `segment/`, `i18n/`)
+- `app/`: pages. `page.tsx` landing, `lesson/`, `guide/`, `licenses/`, `tools/<tool>/` (one folder per tool, routes in the Tools table), `en/…` English twins, `robots.ts`, `sitemap.ts`
+- `components/`: landing-page sections at the top level (Hero, Features, ForTeachers, FAQ, Roadmap, AboutMaker, Navbar, Footer, …) and one folder per tool UI (`lesson/`, `anki/`, `quiz/`, `reader/`, `decompose/`, …)
+- `lib/`: client logic, one folder per tool (`lesson/`, `anki/`, `slides/`, `reader/`, …) plus shared `i18n/`, `script/` (Giản/Phồn), `data/` (download budget), `speech/`, `seo/`, `links.ts` (`TOOL_GROUPS`, `HIDDEN_TOOLS`), `videos.ts`
+- `scripts/`: data builds (`build-data.mjs`, `build-vocab-source.mjs`, `build-audio.mjs`, `fetch-ancient.mjs`, `translate-sentences.mjs`), `og/` (link-preview images), `perf/` (`pnpm perf`), `make-slide-templates.py`
 - `public/data/`: static data files fetched at runtime
 - `assets/dictionary/`: raw source data (CSV/TSV) for future data builds
 - `docs/plans/`: implementation plans (see below)
@@ -83,7 +89,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 ## Git and pull requests
 
 - One PR per change, branched from the latest `main`; never commit to `main` directly. Every PR has screenshots (or command output when nothing visual changes).
-- Merge with **Squash and merge**, then delete the branch: `main` stays one commit per PR, in a straight line.
+- Merge with **Squash and merge**, then delete the branch: `main` stays one commit per PR, in a straight line. Claude merges its own PR once the checks are green (Novian, 2026-11-19); no need to wait for him.
 - Avoid stacked PRs (a PR based on another open PR): after a squash they conflict. Open the next PR only after the previous one is merged; when stacking cannot be avoided, merge `main` into the upper PR right after the lower one lands.
 
 ## Plans
@@ -117,9 +123,25 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 ## Notes
 
 - **A big feature updates the home page in the same PR** (owner rule 2026-11-13): the tool cards (`TOOL_GROUPS`), the Hero/ForTeachers lines it touches, the FAQ answers, and `Roadmap` (drop the item once it ships), in both `vi.ts` and `en.ts`. The tool count in `features.subtitle` is `{count}`, filled from `TOOLS.length`, so never write a number there.
-- The landing page shows only what exists: live tools in `Features`, grouped by `TOOL_GROUPS` in `lib/links.ts` (Chữ Hán / Đọc văn bản / Từ vựng & ôn tập; names and one-line menu hints in `nav.groups` / `nav.hints` of `lib/i18n/vi.ts`), upcoming work in `Roadmap` (follows `docs/plans/2026-10-15-roadmap.md`). When a phase ships, move it from Roadmap to Features by adding the tool to a group (the Navbar menu and Footer read the same groups).
+- The landing page shows only what exists: live tools in `Features`, grouped by `TOOL_GROUPS` in `lib/links.ts` (Soạn bài & ôn tập / Dạy chữ Hán / Tra & đọc, ids `prepare` / `chars` / `read`; Ngắt từ, Hán Việt, N+1 are in `HIDDEN_TOOLS`: pages live, left out of menu/home/footer; names and one-line menu hints in `nav.groups` / `nav.hints` of `lib/i18n/vi.ts`), upcoming work in `Roadmap` (follows `docs/plans/2026-10-15-roadmap.md`). When a phase ships, move it from Roadmap to Features by adding the tool to a group (the Navbar menu and Footer read the same groups).
 - Teacher guide at `/guide` (+ `/en/guide`, `components/guide/TeacherGuide.tsx`, text in `guide` of `lib/i18n`): the Soạn bài flow step by step with screenshots in `public/guide/<locale>/*.webp` (retake them when the lesson UI changes). Promotion drafts (Facebook posts, comment templates, posting log) live in `docs/promotion/`.
 - The old "Get notified" email form, invented testimonials and the "Pro" pricing plan were removed. Do not add sign-up forms that need a backend.
 - Link preview and icons: `app/opengraph-image.png`, `twitter-image.png`, `favicon.ico`, `icon.png`, `apple-icon.png` (file-convention metadata). A page that sets its own `openGraph` must list `images` again (see `toolMetadata`); notes in `docs/plans/2026-11-10-link-preview.md`. Each tool page and `/en` has its own static picture in `public/og/` (`toolOgImage`), drawn by `node scripts/og/make-og.mjs`, which fails when any word leaves the centre 630×630 square (Facebook comments, Messenger and Zalo crop to it); a new tool needs a row in `scripts/og/tools.mjs`, and redrawn images need `OG_VERSION` raised.
+- Search engines: `app/robots.ts` → `/robots.txt` (allow all, points to the sitemap) and `app/sitemap.ts` → `/sitemap.xml`, both static. The page list is `SITEMAP_PATHS` in `lib/seo/sitemap.ts` (every page in vi + `/en` with hreflang, hidden tools left out); `lib/seo/sitemap.test.ts` fails when a new `app/**/page.tsx` is missing from it.
 - Structured data (JSON-LD): home = `WebSite` + `Organization` (`SiteJsonLd` in `app/page.tsx`, `app/en/page.tsx`; page body in `components/HomePage.tsx`), each tool = free `WebApplication` + `BreadcrumbList` (`ToolJsonLd` in the Vietnamese tool `layout.tsx` and the `/en` page; Anki puts it in `page.tsx` because its layout also wraps `/tools/anki/guide`). Builders in `lib/seo/jsonld.ts`, text from `seo`/`features` in lib/i18n. Never add ratings, reviews or counts; `lib/seo/jsonld.test.ts` checks every tool route has it.
 - Do not invent statistics, reviews or features that do not exist in the UI.
+
+## Settled decisions (don't relitigate)
+
+Each was decided by Novian; details live in the section named. Apply them, don't ask again.
+
+- **Keep branch + PR, not commits straight to `main`** (Novian, 2026-11-19, when moving the repo to the 100% AI way of working: "okay làm cái bạn đề xuất"). Why: every merge goes live to real teachers at once, and the PR's Vercel Preview + screenshots let him look first. Claude squash-merges its own PR on green checks (Git and pull requests).
+- **No backend, Vercel Hobby only** (HARD RULES 1–2); stays so even for the teacher → student flow (2026-11-12).
+- **Lessons, known words, "đã học" ticks, memory notes live in the user's own localStorage** (2026-11-12, HARD RULE 4).
+- **Vercel Web Analytics page views, URL cut at `?`/`#`** (2026-11-12, HARD RULE 4).
+- **Anki pictures from Openverse, consent per visit** (2026-11-09, HARD RULE 4).
+- **Old glyph forms from Wikimedia Commons, public domain only** (2026-11-09, Data sources).
+- **English routes, old paths redirected** (2026-11-12, Code conventions).
+- **A big feature updates the home page in the same PR** (2026-11-13, Notes).
+- **Tool groups by teacher job; Ngắt từ, Hán Việt, N+1 hidden** (2026-11-14, PR #44, Novian: "công cụ chưa mạnh thì ẩn đi"). The "Bạn muốn làm gì?" tree map under the hero was built and dropped the same day ("bỏ cái sơ đồ đi"); don't re-propose it.
+- **Tutorial videos are plain YouTube links in `lib/videos.ts`, never an embedded player** (HARD RULE 4).

@@ -29,7 +29,7 @@ Nguồn tham khảo: lưới 8 điểm ([Breakdance](https://breakdance.com/the-
 - Tiêu đề không ngắt dòng lủng củng: tiêu đề ngắn, hoặc `text-balance`.
 - Một trang tối đa 3 cỡ chữ cho nội dung (tiêu đề, thân, chú thích) + cỡ riêng cho chữ Hán (`hanzi`).
 - Dòng văn bản không dài quá ~75 ký tự (`max-w-3xl` cho đoạn mô tả).
-- Chữ phụ dùng `text-ink-500`/`text-ink-700`, không dùng màu xám tự chọn.
+- Chữ phụ (gợi ý, chú thích, link chân trang) dùng `text-ink-muted` (đủ tương phản 4.5:1 cả sáng lẫn tối). Không hạ độ mờ chữ kiểu `text-ink-700/70`: trên nền trắng chỉ còn 4.3:1, Lighthouse báo lỗi. Không dùng màu xám tự chọn.
 
 ## 5. Màu và giao diện tối
 

@@ -30,7 +30,7 @@ const config: Config = {
         // Text on a brand-600 fill (white, or dark ink on the gold default).
         "on-brand": "rgb(var(--on-brand) / <alpha-value>)",
         ink: Object.fromEntries(
-          [50, 500, 700, 800, 900].map((n) => [n, `rgb(var(--ink-${n}) / <alpha-value>)`]),
+          [50, 500, 700, "muted", 800, 900].map((n) => [n, `rgb(var(--ink-${n}) / <alpha-value>)`]),
         ),
         surface: "rgb(var(--surface) / <alpha-value>)",
         page: "rgb(var(--page) / <alpha-value>)",
