@@ -355,7 +355,7 @@ export function AnkiTool({ initialWords, embedded = false }: EmbeddableToolProps
                     placeholder={dict.anki.placeholder}
                     onChange={(e) => setText(e.target.value)}
                   />
-                  <div className="mt-2 flex items-center justify-between text-sm text-ink-700/70">
+                  <div className="mt-2 flex items-center justify-between text-sm text-ink-muted">
                     <span>
                       {dict.anki.wordCount}: {words.length} / {MAX_WORDS}
                     </span>
@@ -458,7 +458,7 @@ export function AnkiTool({ initialWords, embedded = false }: EmbeddableToolProps
                   </fieldset>
 
                   <h2 className="mt-6 font-semibold text-ink-900">{dict.anki.preview}</h2>
-                  <p className="mt-1 text-xs text-ink-700/70">{dict.anki.editHint}</p>
+                  <p className="mt-1 text-xs text-ink-muted">{dict.anki.editHint}</p>
                   <div className="mt-3 overflow-x-auto rounded-lg border border-ink-900/10">
                     <table className="min-w-full text-left text-sm">
                       <thead className="bg-ink-50 text-ink-700">
@@ -630,7 +630,7 @@ export function AnkiTool({ initialWords, embedded = false }: EmbeddableToolProps
                 </div>
               )}
 
-              <p className="mt-6 text-xs text-ink-700/70">{dict.anki.credits}</p>
+              <p className="mt-6 text-xs text-ink-muted">{dict.anki.credits}</p>
             </div>
           </div>
         </section>

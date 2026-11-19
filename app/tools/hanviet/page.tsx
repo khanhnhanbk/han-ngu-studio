@@ -76,7 +76,7 @@ function WordDetails({
         </button>
       </div>
       <table className="mt-3 w-full text-left text-sm">
-        <thead className="text-ink-700/70">
+        <thead className="text-ink-muted">
           <tr>
             <th className="py-1 pr-4 font-medium" />
             <th className="py-1 pr-4 font-medium">{dict.hanviet.used}</th>
@@ -88,19 +88,19 @@ function WordDetails({
             <tr key={i} className="border-t border-ink-900/5 align-top">
               <td className="hanzi py-2 pr-4 text-2xl">{Array.from(word.hanzi)[i] ?? row.char}</td>
               <td className="py-2 pr-4">
-                <span className="text-ink-700/70">{word.pinyin[i]}</span>{" "}
+                <span className="text-ink-muted">{word.pinyin[i]}</span>{" "}
                 <span className="font-semibold text-brand-ink">
                   {row.used.join(" / ") || "—"}
                 </span>
               </td>
               <td className="py-2">
                 {row.entries.length === 0 ? (
-                  <span className="text-ink-700/70">{dict.hanviet.noReading}</span>
+                  <span className="text-ink-muted">{dict.hanviet.noReading}</span>
                 ) : (
                   <ul className="space-y-0.5">
                     {row.entries.map(([tone3, readings]) => (
                       <li key={tone3}>
-                        <span className="text-ink-700/70">
+                        <span className="text-ink-muted">
                           {tone3 === "*" ? dict.hanviet.anyPinyin : tone3}:
                         </span>{" "}
                         {readings.join(" / ")}
@@ -208,7 +208,7 @@ export default function HanvietPage() {
                 placeholder={dict.hanviet.placeholder}
                 onChange={(e) => setText(e.target.value)}
               />
-              <div className="mt-2 flex items-center justify-between text-sm text-ink-700/70">
+              <div className="mt-2 flex items-center justify-between text-sm text-ink-muted">
                 <span>
                   {length} / {MAX_LENGTH}
                 </span>
@@ -262,7 +262,7 @@ export default function HanvietPage() {
                   <div className="mt-4 rounded-lg border border-ink-900/10 bg-ink-50 p-4">
                     {view === "words" && (
                       <>
-                        <p className="mb-3 text-xs text-ink-700/70">{dict.hanviet.wordsHint}</p>
+                        <p className="mb-3 text-xs text-ink-muted">{dict.hanviet.wordsHint}</p>
                         {lines.map((line, i) =>
                           line.source.trim() ? (
                             <div key={i} className="mb-4 flex flex-wrap items-end gap-2">
@@ -278,7 +278,7 @@ export default function HanvietPage() {
                                         : "border-ink-900/10 bg-surface/60"
                                     }`}
                                   >
-                                    <span className="block text-xs text-ink-700/70">
+                                    <span className="block text-xs text-ink-muted">
                                       {w.pinyin.join(" ")}
                                     </span>
                                     <span className="hanzi block text-2xl text-ink-900">{w.hanzi}</span>
@@ -309,11 +309,11 @@ export default function HanvietPage() {
                       lines.map((line, i) =>
                         line.source.trim() ? (
                           <dl key={i} className="mb-4 grid grid-cols-[6rem_1fr] gap-x-3 gap-y-1">
-                            <dt className="text-sm text-ink-700/70">{dict.hanviet.rowSegmented}</dt>
+                            <dt className="text-sm text-ink-muted">{dict.hanviet.rowSegmented}</dt>
                             <dd className="hanzi text-lg">{line.segmented}</dd>
-                            <dt className="text-sm text-ink-700/70">{dict.hanviet.rowPinyin}</dt>
+                            <dt className="text-sm text-ink-muted">{dict.hanviet.rowPinyin}</dt>
                             <dd>{line.pinyin}</dd>
-                            <dt className="text-sm text-ink-700/70">{dict.hanviet.rowHanviet}</dt>
+                            <dt className="text-sm text-ink-muted">{dict.hanviet.rowHanviet}</dt>
                             <dd className="font-medium text-brand-ink">{line.hanviet}</dd>
                           </dl>
                         ) : null,
@@ -322,12 +322,12 @@ export default function HanvietPage() {
                     {view === "tsv" && (
                       <>
                         <pre className="hanzi overflow-x-auto whitespace-pre text-sm">{tsv}</pre>
-                        <p className="mt-3 text-xs text-ink-700/70">{dict.hanviet.tsvHint}</p>
+                        <p className="mt-3 text-xs text-ink-muted">{dict.hanviet.tsvHint}</p>
                       </>
                     )}
                   </div>
 
-                  <p className="mt-3 text-sm text-ink-700/70">{dict.hanviet.note}</p>
+                  <p className="mt-3 text-sm text-ink-muted">{dict.hanviet.note}</p>
 
                   {view !== "words" && (
                     <div className="mt-4 flex flex-wrap gap-3">

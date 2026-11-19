@@ -80,7 +80,7 @@ function Details({ radical, onClose }: { radical: Radical; onClose: () => void }
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-xs text-ink-700/70">
+          <p className="mt-2 text-xs text-ink-muted">
             {t.exampleCount
               .replace("{shown}", String(radical.chars.length))
               .replace("{count}", String(radical.count))}
@@ -183,7 +183,7 @@ export default function RadicalsPage() {
                 </div>
 
                 <div className="lg:order-1">
-                  <p className="text-sm text-ink-700/70">{t.resultCount.replace("{n}", String(results.length))}</p>
+                  <p className="text-sm text-ink-muted">{t.resultCount.replace("{n}", String(results.length))}</p>
                   {results.length === 0 && <p className="mt-4 text-ink-700">{t.noResults}</p>}
                   {groups.map(([strokes, list]) => (
                     <section key={strokes} className="mt-6">
@@ -203,7 +203,7 @@ export default function RadicalsPage() {
                                   : "border-ink-900/10 bg-surface hover:border-brand-500"
                               }`}
                             >
-                              <span className="text-[10px] text-ink-700/70">{r.no}</span>
+                              <span className="text-[10px] text-ink-muted">{r.no}</span>
                               <span className="hanzi text-2xl leading-tight text-ink-900">{r.radical}</span>
                               <span className="text-xs text-ink-700">{r.name}</span>
                             </button>
@@ -216,7 +216,7 @@ export default function RadicalsPage() {
               </div>
             )}
 
-            <p className="mt-10 text-xs text-ink-700/70">
+            <p className="mt-10 text-xs text-ink-muted">
               {t.credits} {dict.speech.credit} <SpeechToggle />
             </p>
           </div>

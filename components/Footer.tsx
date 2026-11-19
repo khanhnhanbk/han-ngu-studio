@@ -43,7 +43,7 @@ export function Footer() {
               </span>
               <span>Hán Ngữ Studio</span>
             </div>
-            <p className="mt-3 max-w-xs text-sm text-ink-700/70">
+            <p className="mt-3 max-w-xs text-sm text-ink-muted">
               {dict.footer.tagline}
             </p>
           </div>
@@ -59,7 +59,7 @@ export function Footer() {
                     <a
                       href={link.href}
                       {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-sm text-ink-700/70 transition hover:text-brand-ink"
+                      className="text-sm text-ink-muted transition hover:text-brand-ink"
                     >
                       {link.label}
                     </a>
@@ -71,7 +71,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink-900/5 pt-6 sm:flex-row">
-          <p className="text-xs text-ink-700/60">
+          <p className="text-xs text-ink-muted">
             © {year} Hán Ngữ Studio. {dict.footer.rights}{" "}
             <a
               href="https://github.com/Avijit07x/animateicons"
@@ -90,7 +90,7 @@ export function Footer() {
               {dict.footer.scriptCredit}
             </a>
           </p>
-          <div className="flex items-center gap-2 text-xs text-ink-700/60">
+          <div className="flex items-center gap-2 text-xs text-ink-muted">
             <span>{dict.footer.languageLabel}:</span>
             <LanguageSwitch />
           </div>

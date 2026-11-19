@@ -101,7 +101,7 @@ function TryBox() {
         className="hanzi mt-1 w-full rounded-lg border border-ink-900/10 bg-surface px-4 py-2 text-lg text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
       />
       <div aria-label={dict.hero.tryPreview} className="mt-4">
-        <div className="mb-2 min-h-4 truncate text-xs text-ink-700/60" lang="zh-Latn-pinyin">
+        <div className="mb-2 min-h-4 truncate text-xs text-ink-muted" lang="zh-Latn-pinyin">
           {pinyin}
         </div>
         <div className="grid grid-cols-6 gap-2" aria-hidden>
@@ -162,7 +162,7 @@ export function Hero() {
               {dict.hero.ctaSecondary}
             </IconLink>
           </div>
-          <p className="mt-4 text-sm text-ink-700/70">{dict.hero.trustNote}</p>
+          <p className="mt-4 text-sm text-ink-muted">{dict.hero.trustNote}</p>
         </div>
 
         <TryBox />
