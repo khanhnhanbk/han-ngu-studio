@@ -46,6 +46,9 @@
   --ink-50: 246 247 249;
   --ink-500: 100 116 139;
   --ink-700: 51 65 85;
+  /* Secondary text (hints, captions, footer links). Was ink-700 at 70 %, which is
+     4.3:1 on white; this is 5.4:1 on white and 5.0:1 on ink-50 (WCAG AA 4.5:1). */
+  --ink-muted: 96 107 123;
   --ink-800: 30 41 59;
   --ink-900: 15 23 42;
   --brand-50: var(--b-50);
@@ -167,6 +170,8 @@
   --ink-50: 30 41 59;
   --ink-500: 148 163 184;
   --ink-700: 203 213 225;
+  /* Same look as the old ink-700/70 on the dark page (6.6:1). */
+  --ink-muted: 145 154 167;
   --ink-800: 226 232 240;
   --ink-900: 241 245 249;
   --brand-50: var(--b-950);
@@ -302,6 +307,7 @@ h4 {
     --ink-50: 246 247 249;
     --ink-500: 100 116 139;
     --ink-700: 51 65 85;
+    --ink-muted: 96 107 123;
     --ink-800: 30 41 59;
     --ink-900: 15 23 42;
     color-scheme: light;

@@ -166,7 +166,7 @@ export default function PinyinPage() {
                 placeholder={dict.pinyin.placeholder}
                 onChange={(e) => setText(e.target.value)}
               />
-              <div className="mt-2 flex items-center justify-between text-sm text-ink-700/70">
+              <div className="mt-2 flex items-center justify-between text-sm text-ink-muted">
                 <span>
                   {length} / {MAX_LENGTH}
                 </span>
@@ -256,12 +256,12 @@ export default function PinyinPage() {
                     {view === "tsv" && (
                       <>
                         <pre className="hanzi overflow-x-auto whitespace-pre text-sm">{tsv}</pre>
-                        <p className="mt-3 text-xs text-ink-700/70">{dict.pinyin.tsvHint}</p>
+                        <p className="mt-3 text-xs text-ink-muted">{dict.pinyin.tsvHint}</p>
                       </>
                     )}
                   </div>
 
-                  <p className="mt-3 text-sm text-ink-700/70">{dict.pinyin.note}</p>
+                  <p className="mt-3 text-sm text-ink-muted">{dict.pinyin.note}</p>
 
                   {view !== "ruby" && (
                     <div className="mt-4 flex flex-wrap gap-3">

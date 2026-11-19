@@ -176,7 +176,7 @@ export default function ComprehensibleInputPage() {
                 </label>
                 {bankError && <p className="mt-2 text-red-600">{dict.bank.loadFailed}</p>}
                 {bankDeclined && <p className="mt-2 text-ink-500">{vi.download.declined}</p>}
-                <p className="mt-2 text-xs text-ink-700/70">{dict.bank.credit}</p>
+                <p className="mt-2 text-xs text-ink-muted">{dict.bank.credit}</p>
               </fieldset>
 
               <label className="mt-6 block text-sm font-medium text-ink-700" htmlFor="ci-sentences">
