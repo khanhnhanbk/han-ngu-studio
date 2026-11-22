@@ -13,7 +13,9 @@
     "build:audio": "node scripts/build-audio.mjs",
     "build:vocab-source": "node scripts/build-vocab-source.mjs",
     "fetch:ancient": "node scripts/fetch-ancient.mjs",
-    "perf": "node scripts/perf/run.mjs"
+    "perf": "node scripts/perf/run.mjs",
+    "check:smoke": "node scripts/check/smoke.mjs",
+    "check": "pnpm test && pnpm run lint && pnpm run build && pnpm run check:smoke"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
