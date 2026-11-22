@@ -6,6 +6,12 @@ Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pr
 
 Personal project, 100% AI-coded (Novian does not read the code). Version: `0.1.0` in `package.json`, no release tags yet. Product notes for humans (Vietnamese): `/home/novian/learning-myself/cong-viec/san-pham/han-ngu-studio/README.md` (section "Tra nhanh"), outside the repo.
 
+## Working rule (Novian, 2026-11-22)
+
+- **Backlog: `BACKLOG.md`** (repo root). Read it at the start of each round.
+- Every message from Novian about the app is a NOTE by default: answer any question, investigate if cheap, then record it in `BACKLOG.md` under `## Open` (newest first, `- **Title (who, date):** cause + fix idea`) in a PR. Change app code only when Novian explicitly says do/fix. When an item ships, move it to `## Done (<date>)`.
+- Editing `BACKLOG.md`: move/remove ONE entry at a time: cut from its `- **` line to the next `- **` or `## ` line, never slice up to `## Done`. Then `git diff BACKLOG.md | grep '^-'` must show only that entry's lines.
+
 ## Tools
 
 Every tool follows the **Giản thể / Phồn thể** switch in the Navbar (`lib/script/`, see Code conventions).
@@ -83,6 +89,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - `scripts/`: data builds (`build-data.mjs`, `build-vocab-source.mjs`, `build-audio.mjs`, `fetch-ancient.mjs`, `translate-sentences.mjs`), `og/` (link-preview images), `perf/` (`pnpm perf`), `check/smoke.mjs` (browser smoke test, last step of `pnpm check`), `make-slide-templates.py`
 - `public/data/`: static data files fetched at runtime
 - `assets/dictionary/`: raw source data (CSV/TSV) for future data builds
+- `BACKLOG.md`: open notes and work (see Working rule)
 - `docs/plans/`: implementation plans (see below)
 - `userguide/`: end-user guide in Vietnamese, one page per tool. Lives on GitHub only (not served, listed in `.vercelignore`).
 
