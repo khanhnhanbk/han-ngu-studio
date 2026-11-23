@@ -16,6 +16,7 @@
     "perf": "node scripts/perf/run.mjs",
     "check:smoke": "node scripts/check/smoke.mjs",
     "shots": "node scripts/check/shots.mjs",
+    "ship": "node scripts/ship.mjs",
     "check": "pnpm test && pnpm run lint && pnpm run build && pnpm run check:smoke"
   },
   "dependencies": {
