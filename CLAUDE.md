@@ -30,7 +30,7 @@ Version `0.1.0`, no tag yet (see Release). Human product notes (vi): `/home/novi
 - `pnpm build:data` after changing `assets/`; commit the output. Then `UPDATE_SAMPLES=1 pnpm test` if it changed the first-visit samples (`lib/{lookup,lesson}/sample.json`).
 - `pnpm perf --label <name>`: speed lab, results in `docs/perf/`.
 - `pnpm audit`: keep 0 high/critical.
-- Deploy = Vercel Git: PR → Preview, merge to `main` → Production. After a merge verify: `gh api repos/khanhnhanbk/han-ngu-studio/deployments --jq '.[0] | [.environment, .sha[0:7]]'` shows Production on the new sha; `/`, `/en`, `/lesson`, `/sitemap.xml` return 200.
+- Deploy = Vercel Git: PR → Preview, merge to `main` → Production (`pnpm ship` does merge + verify). Manual verify: `gh api repos/khanhnhanbk/han-ngu-studio/deployments --jq '.[0] | [.environment, .sha[0:7]]'` shows Production on the new sha; `/`, `/en`, `/lesson`, `/sitemap.xml` return 200.
 
 ## Code conventions
 - Pure logic (no React/DOM) in `lib/<tool>/` with tests; UI in `components/<tool>/`; pages in `app/` with an `app/en/…` twin for every page. Split a mixed component only when touching it anyway, never a refactor-only PR.
@@ -46,7 +46,7 @@ Version `0.1.0`, no tag yet (see Release). Human product notes (vi): `/home/novi
 
 ## Git, PR, release
 - One PR per change from latest `main`, never commit to `main`. PR has screenshots (or command output when nothing visual changed). No stacked PRs.
-- Claude squash-merges its own PR on green checks (`gh pr merge --squash --delete-branch`), then verifies the deploy.
+- Claude squash-merges its own PR on green checks with **`pnpm ship [pr]`** (`scripts/ship.mjs`): waits for checks → squash-merge + delete branch → local `main` pulled → waits for Production on the new sha → live `/`, `/en`, `/lesson`, `/sitemap.xml` = 200. One line per step, timeouts, exit 1 on failure.
 - Release, only when Novian says a version is accepted: PR `Release vX.Y.Z` bumps `package.json` (new feature → minor, fixes → patch) and adds a `CHANGELOG.md` entry (1–5 Vietnamese lines, then English, from `git log <last-tag>..main --oneline`); after merge `git tag -a vX.Y.Z -m vX.Y.Z && git push origin vX.Y.Z` on the merge commit; update "Version" above. Rollback = promote that commit in Vercel. First tag `v0.1.0` waits for Novian's OK.
 
 ## Settled decisions (Novian's; apply, don't ask again)
