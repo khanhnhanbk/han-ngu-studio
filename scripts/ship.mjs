@@ -58,7 +58,9 @@ async function main() {
 
   // 4. Production deployment on that sha.
   for (const until = Date.now() + DEPLOY_TIMEOUT; ; ) {
-    const dep = JSON.parse(gh("api", `repos/${REPO}/deployments?sha=${sha}&environment=Production`, "--jq", ".[0] // null"));
+    // gh --jq prints nothing (not "null") before Vercel has created the deployment.
+    const depOut = gh("api", `repos/${REPO}/deployments?sha=${sha}&environment=Production`, "--jq", ".[0].id // empty");
+    const dep = depOut ? { id: depOut } : null;
     const state = dep ? gh("api", `repos/${REPO}/deployments/${dep.id}/statuses`, "--jq", ".[0].state // \"pending\"") : "not created";
     if (state === "success") {
       console.log(`ok   Production deployed ${sha.slice(0, 7)} (${secs()})`);
