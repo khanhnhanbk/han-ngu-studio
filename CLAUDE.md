@@ -4,7 +4,7 @@ A **free** tool that helps Vietnamese speakers learn and teach Chinese. Live sit
 
 Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, `pinyin-pro`. Package manager: **pnpm** (`pnpm-lock.yaml` is the tracked lockfile).
 
-Personal project, 100% AI-coded (Novian does not read the code). Version: `0.1.0` in `package.json`, no release tags yet. Product notes for humans (Vietnamese): `/home/novian/learning-myself/cong-viec/san-pham/han-ngu-studio/README.md` (section "Tra nhanh"), outside the repo.
+Personal project, 100% AI-coded (Novian does not read the code). Version: `0.1.0` in `package.json`, no release tags yet (routine: Release section, `CHANGELOG.md`). Product notes for humans (Vietnamese): `/home/novian/learning-myself/cong-viec/san-pham/han-ngu-studio/README.md` (section "Tra nhanh"), outside the repo.
 
 ## Working rule (Novian, 2026-11-22)
 
@@ -70,6 +70,7 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 
 ## Code conventions
 
+- **Core/UI split, only on files touched anyway**: pure logic (no React, no DOM) in `lib/<tool>/` with tests, UI in `components/<tool>/`. When a change touches a component that mixes the two, move the logic part out in that same PR. Never open a refactor-only PR for this.
 - Strict TypeScript; avoid `any`.
 - Components using browser APIs or client logic need `"use client"`.
 - UI text goes through `lib/i18n`, in **both** `vi.ts` and `en.ts` (`en` is typed as `Dictionary`, so a missing key fails the build; `lib/i18n/i18n.test.ts` checks the keys match and that `en` has no stray Vietnamese). Components read it with `useDictionary()` and build internal links with `useHref()` (`lib/i18n/useLocale.ts`); never call `getDictionary("vi")` in a component.
@@ -99,6 +100,16 @@ Python originals are the owner's old scripts. The legacy segmentation API (`api/
 - One PR per change, branched from the latest `main`; never commit to `main` directly. Every PR has screenshots (or command output when nothing visual changes).
 - Merge with **Squash and merge**, then delete the branch: `main` stays one commit per PR, in a straight line. Claude merges its own PR once the checks are green (Novian, 2026-11-19); no need to wait for him.
 - Avoid stacked PRs (a PR based on another open PR): after a squash they conflict. Open the next PR only after the previous one is merged; when stacking cannot be avoided, merge `main` into the upper PR right after the lower one lands.
+
+## Release
+
+Only when Novian says a version is accepted (never on Claude's own call). One PR named `Release vX.Y.Z`:
+1. Bump `version` in `package.json` (semver: new tool or visible feature → minor, fixes only → patch; stays `0.x` until Novian says otherwise).
+2. Add an entry at the top of `CHANGELOG.md`: `## vX.Y.Z (YYYY-MM-DD)`, then 1–5 short Vietnamese lines for teachers, then the same in English. Summarise the PRs merged since the last tag (`git log <last-tag>..main --oneline`).
+3. Squash-merge on green checks, then tag the merge commit and push the tag: `git checkout main && git pull && git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
+4. Update the "Version:" line at the top of this file. Rollback = redeploy that tag's commit in Vercel (Deployments → the tag's commit → Promote to Production).
+
+First tag: `v0.1.0` on `main`, only after Novian accepts it.
 
 ## Plans
 
