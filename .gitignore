@@ -39,3 +39,5 @@ next-env.d.ts
 
 # myADE
 .agent/
+# pnpm shots output (scripts/check/shots.mjs)
+/shots/

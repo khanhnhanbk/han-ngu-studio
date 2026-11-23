@@ -65,3 +65,4 @@ Nguồn tham khảo: lưới 8 điểm ([Breakdance](https://breakdance.com/the-
 - [ ] Sáng + tối + điện thoại 390 px, không cuộn ngang
 - [ ] Bản in: A4, lề 15 mm, xem PDF thật đến trang cuối
 - [ ] Chữ trên giao diện có đủ bản Việt và Anh (`lib/i18n`)
+- [ ] Chạy `pnpm shots` (sau `pnpm run build`), tự xem ảnh trong `shots/`, đính kèm ảnh vào PR
